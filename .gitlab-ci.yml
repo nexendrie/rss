@@ -1,0 +1,62 @@
+image: shipito/php:5.6
+
+stages:
+  - build
+  - analyze
+  - test
+
+build:
+  stage: build
+
+  script:
+  - composer install --prefer-dist
+
+  cache:
+    paths:
+    - vendor
+
+  artifacts:
+    paths:
+    - vendor
+    expire_in: 10 mins
+
+analyze:lint:
+  stage: analyze
+  script:
+  - ./vendor/bin/parallel-lint src tests -e php,phpt
+
+analyze:cs:
+  stage: analyze
+
+  before_script:
+  - curl https://gitlab.com/nexendrie/resources/raw/master/cs-ruleset.xml > cs-ruleset.xml
+
+  script:
+  - ./vendor/bin/phpcs --extensions=php,phpt . --standard=cs-ruleset.xml --colors
+
+.job_template: &test_job
+  stage: test
+
+  script:
+  - ./vendor/bin/run-tests -p php tests
+
+test:default:
+  <<: *test_job
+
+test:php70:
+  image: shipito/php:7.0
+  <<: *test_job
+
+test:php71:
+  image: shipito/php:7.1
+  <<: *test_job
+
+test:cc:
+  image: shipito/php:7.0-xdebug
+  <<: *test_job
+  script:
+  - ./vendor/bin/run-tests -p php tests --coverage ./coverage.html --coverage-src ./src
+  artifacts:
+    name: "Code coverage"
+    paths:
+    - coverage.html

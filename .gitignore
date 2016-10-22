@@ -1,0 +1,7 @@
+/vendor/
+/tests/_temp/
+output/
+*.actual
+composer.lock
+coverage.*
+/cs-ruleset.xml
