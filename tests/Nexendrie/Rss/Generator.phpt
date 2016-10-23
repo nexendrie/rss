@@ -54,6 +54,24 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same("https://gitlab.com/nexendrie/rss/", (string) $result->channel->link);
     Assert::same(1, $this->countItems($result));
   }
+  
+  function testShortenDescription() {
+    $description = str_repeat("ABDEFGH", 20);
+    $this->generator->dataSource = function() use($description) {
+      return [
+        new RssChannelItem("Item 1", $description, "", date($this->generator->dateTimeFormat))
+      ];
+    };
+    $this->generator->shortenDescription = 0;
+    $result = $this->generator->generate();
+    Assert::same($description, (string) $result->channel->item->description);
+    $this->generator->shortenDescription = 10;
+    $result = $this->generator->generate();
+    Assert::same(10, (strlen((string) $result->channel->item->description)));
+    $this->generator->shortenDescription = 250;
+    $result = $this->generator->generate();
+    Assert::same(strlen($description), (strlen((string) $result->channel->item->description)));
+  }
 }
 
 $test = new GeneratorTest;

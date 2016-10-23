@@ -6,6 +6,7 @@ namespace Nexendrie\Rss;
  *
  * @author Jakub Konečný
  * @property callable $dataSource
+ * @property int $shortenDescription
  */
 class Generator {
   use \Nette\SmartObject;
@@ -20,14 +21,28 @@ class Generator {
   public $dateTimeFormat = "Y-m-d H:i:s";
   /** @var callable */
   protected $dataSource = NULL;
-  /** @var bool */
-  public $shortenDescription = true;
+  /** @var int */
+  protected $shortenDescription = 150;
   
   /**
    * @param callable $dataSource
    */
   function setDataSource(callable $dataSource) {
     $this->dataSource = $dataSource;
+  }
+  
+  /**
+   * @return int
+   */
+  function getShortenDescription() {
+    return $this->shortenDescription;
+  }
+  
+  /**
+   * @param int $value
+   */
+  function setShortenDescription($value) {
+    $this->shortenDescription = (int) $value;
   }
   
   /**
@@ -57,7 +72,7 @@ class Generator {
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
       $i->addChild("pubDate", (string) $item->pubDate);
-      $i->addChild("description", ($this->shortenDescription)? substr($item->description, 0, 150): $item->description);
+      $i->addChild("description", ($this->shortenDescription)? substr($item->description, 0, $this->shortenDescription): $item->description);
     }
     return $channel;
   }
