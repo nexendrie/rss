@@ -68,6 +68,7 @@ class Generator {
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       if(!$item instanceof RssChannelItem) throw new \Exception();
+      /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
