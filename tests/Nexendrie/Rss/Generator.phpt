@@ -14,6 +14,12 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator = new Generator;
   }
   
+  function testGetShortenDescription() {
+    $result = $this->generator->shortenDescription;
+    Assert::type("int", $result);
+    Assert::same(150, $result);
+  }
+  
   /**
    * @param \SimpleXMLElement $channel
    * @return int

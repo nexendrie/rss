@@ -1,2 +1,4 @@
 application:
     scanDirs: false
+services:
+    generator: Nexendrie\Rss\Generator
