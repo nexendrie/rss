@@ -73,7 +73,9 @@ class Generator {
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
       $i->addChild("pubDate", (string) $item->pubDate);
-      $i->addChild("description", ($this->shortenDescription)? substr($item->description, 0, $this->shortenDescription): $item->description);
+      $description = ($this->shortenDescription)? substr($item->description, 0, $this->shortenDescription): $item->description;
+      if($description !== $item->description) $description .= "...";
+      $i->addChild("description", $description);
     }
     return $channel;
   }

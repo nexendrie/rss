@@ -73,7 +73,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same($description, (string) $result->channel->item->description);
     $this->generator->shortenDescription = 10;
     $result = $this->generator->generate();
-    Assert::same(10, (strlen((string) $result->channel->item->description)));
+    Assert::same(13, (strlen((string) $result->channel->item->description)));
     $this->generator->shortenDescription = 250;
     $result = $this->generator->generate();
     Assert::same(strlen($description), (strlen((string) $result->channel->item->description)));
