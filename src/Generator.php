@@ -67,7 +67,7 @@ class Generator {
     }
     /** @var RssChannelItem $item */
     foreach($items as $item) {
-      if(!$item instanceof RssChannelItem) throw new \Exception();
+      if(!$item instanceof RssChannelItem) throw new \Exception("The item is not of type " . RssChannelItem::class);
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
       $i->addChild("title", $item->title);
