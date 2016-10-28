@@ -5,6 +5,7 @@
         "rss", "generator"
     ],
     "license": "BSD-3-Clause",
+    "homepage": "https://nexendrie.gitlab.io/rss",
     "authors": [
         {
             "name": "Jakub Konečný",
@@ -14,7 +15,8 @@
     ],
     "support": {
         "source": "https://gitlab.com/nexendrie/rss/",
-        "issues": "https://gitlab.com/nexendrie/rss/issues"
+        "issues": "https://gitlab.com/nexendrie/rss/issues",
+        "docs": "https://nexendrie.gitlab.io/rss"
     },
     "require": {
         "php": ">=5.6.0",
