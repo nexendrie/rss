@@ -8,3 +8,7 @@ Generate Rss channels.
 Installation
 ------------
 The best way to install it is via Composer. Just add **nexendrie/rss** to your dependencies.
+
+Documentation
+-------------
+See: https://nexendrie.gitlab.io/rss .
