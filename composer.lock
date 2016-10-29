@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d07acc46fb9a8eb3f37d3c8f426a88f0",
-    "content-hash": "079b0b6d82daa3f2109365d871f6dc18",
+    "hash": "b3b69c8933228bbb2bf3ab62d1e3126e",
+    "content-hash": "b83832d7d93817b502ff2d869fdfd7ee",
     "packages": [
         {
             "name": "nette/utils",

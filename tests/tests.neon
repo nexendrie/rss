@@ -1,4 +1,4 @@
 application:
     scanDirs: false
-services:
-    generator: Nexendrie\Rss\Generator
+extensions:
+    rss: Nexendrie\Rss\Bridges\NetteDI\RssExtension
