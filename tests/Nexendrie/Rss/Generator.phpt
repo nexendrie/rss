@@ -61,6 +61,17 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same(1, $this->countItems($result));
   }
   
+  function testInvalidDataSource() {
+    $this->generator->dataSource = function() {
+      return [
+        new \stdClass
+      ];
+    };
+    Assert::exception(function() {
+      $this->generator->generate();
+    }, \Exception::class, "The item is not of type " . RssChannelItem::class);
+  }
+  
   function testShortenDescription() {
     $description = str_repeat("ABDEFGH", 20);
     $this->generator->dataSource = function() use($description) {
