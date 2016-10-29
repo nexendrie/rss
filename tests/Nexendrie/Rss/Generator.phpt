@@ -78,6 +78,23 @@ class GeneratorTest extends \Tester\TestCase {
     $result = $this->generator->generate();
     Assert::same(strlen($description), (strlen((string) $result->channel->item->description)));
   }
+  
+  function testResponse() {
+    Assert::exception(function() {
+      $this->generator->response();
+    }, \Exception::class);
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      return [
+        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+      ];
+    };
+    $result = $this->generator->response();
+    Assert::type(RssResponse::class, $result);
+    Assert::type(\SimpleXMLElement::class, $result->source);
+  }
 }
 
 $test = new GeneratorTest;

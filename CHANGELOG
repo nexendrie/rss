@@ -1,2 +1,5 @@
+Version 0.1.0+dev
+- added method Generator::response()
+
 Version 0.1.0
 - initial version

@@ -79,5 +79,17 @@ class Generator {
     }
     return $channel;
   }
+  
+  /**
+   * @return RssResponse
+   * @throws \Exception
+   */
+  function response() {
+    try {
+      return new RssResponse($this->generate());
+    } catch(\Exception $e) {
+      throw $e;
+    }
+  }
 }
 ?>
