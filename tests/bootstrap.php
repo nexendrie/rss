@@ -9,7 +9,7 @@ class RssPresenter extends \Nette\Application\UI\Presenter {
     $this->generator->dataSource = function() {
       return [];
     };
-    $this->sendResponse(new \Nexendrie\Rss\RssResponse($this->generator->generate()));
+    $this->sendResponse($this->generator->response());
   }
 }
 

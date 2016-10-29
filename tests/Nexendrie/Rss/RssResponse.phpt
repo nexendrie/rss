@@ -21,7 +21,7 @@ class RssResponseTest extends \Tester\TestCase {
   }
   
   function testGetSource() {
-    $response = new RssResponse($this->generator->generate());
+    $response = $this->generator->response();
     Assert::type(\SimpleXMLElement::class, $response->source);
   }
   
