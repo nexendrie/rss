@@ -1,4 +1,4 @@
-Version 0.1.0+dev
+Version 0.2.0
 - added method Generator::response()
 - added extension for Nette DI
 
