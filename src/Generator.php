@@ -1,6 +1,8 @@
 <?php
 namespace Nexendrie\Rss;
 
+use Exception;
+
 /**
  * RSS Channel Generator
  *
@@ -62,11 +64,11 @@ class Generator {
   
   /**
    * @return \SimpleXMLElement
-   * @throws \Exception
+   * @throws Exception
    */
   function generate() {
     if(is_null($this->dataSource)) {
-      throw new \Exception("Data source for RSS generator is not set.");
+      throw new Exception("Data source for RSS generator is not set.");
     }
     $items = call_user_func($this->dataSource);
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
@@ -85,7 +87,7 @@ class Generator {
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       if(!$item instanceof RssChannelItem) {
-        throw new \Exception("The item is not of type " . RssChannelItem::class);
+        throw new Exception("The item is not of type " . RssChannelItem::class);
       }
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");

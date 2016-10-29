@@ -1,6 +1,9 @@
 <?php
 namespace Nexendrie\Rss;
 
+use Nette\Http\IRequest,
+    Nette\Http\IResponse;
+
 /**
  * RSS channel response
  *
@@ -31,11 +34,11 @@ class RssResponse implements \Nette\Application\IResponse {
   /**
    * Sends response to output
    *
-   * @param \Nette\Http\IRequest $httpRequest
-   * @param \Nette\Http\IResponse $httpResponse
+   * @param IRequest $httpRequest
+   * @param IResponse $httpResponse
    * @return void
    */
-  function send(\Nette\Http\IRequest $httpRequest, \Nette\Http\IResponse $httpResponse) {
+  function send(IRequest $httpRequest, IResponse $httpResponse) {
     $httpResponse->setContentType("application/xhtml+xml");
     echo $this->source->asXML();
   }
