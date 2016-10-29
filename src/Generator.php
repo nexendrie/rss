@@ -7,6 +7,7 @@ namespace Nexendrie\Rss;
  * @author Jakub Konečný
  * @property callable $dataSource
  * @property int $shortenDescription
+ * @property string $dateTimeFormat
  */
 class Generator {
   use \Nette\SmartObject;
@@ -18,7 +19,7 @@ class Generator {
   /** @var string */
   public $link = "";
   /** @var string */
-  public $dateTimeFormat = "Y-m-d H:i:s";
+  protected $dateTimeFormat = "Y-m-d H:i:s";
   /** @var callable */
   protected $dataSource = NULL;
   /** @var int */
@@ -43,6 +44,20 @@ class Generator {
    */
   function setShortenDescription($value) {
     $this->shortenDescription = (int) $value;
+  }
+  
+  /**
+   * @return string
+   */
+  function getDateTimeFormat() {
+    return $this->dateTimeFormat;
+  }
+  
+  /**
+   * @param string $format
+   */
+  function setDateTimeFormat($format) {
+    $this->dateTimeFormat = $format;
   }
   
   /**
