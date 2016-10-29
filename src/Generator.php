@@ -65,7 +65,9 @@ class Generator {
    * @throws \Exception
    */
   function generate() {
-    if(is_null($this->dataSource)) throw new \Exception("Data source for RSS generator is not set.");
+    if(is_null($this->dataSource)) {
+      throw new \Exception("Data source for RSS generator is not set.");
+    }
     $items = call_user_func($this->dataSource);
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
     unset($channel->channel->link);
@@ -82,14 +84,18 @@ class Generator {
     }
     /** @var RssChannelItem $item */
     foreach($items as $item) {
-      if(!$item instanceof RssChannelItem) throw new \Exception("The item is not of type " . RssChannelItem::class);
+      if(!$item instanceof RssChannelItem) {
+        throw new \Exception("The item is not of type " . RssChannelItem::class);
+      }
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
       $i->addChild("pubDate", (string) $item->pubDate);
       $description = ($this->shortenDescription)? substr($item->description, 0, $this->shortenDescription): $item->description;
-      if($description !== $item->description) $description .= "...";
+      if($description !== $item->description) {
+        $description .= "...";
+      }
       $i->addChild("description", $description);
     }
     return $channel;
