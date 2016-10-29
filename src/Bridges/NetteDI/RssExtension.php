@@ -1,5 +1,6 @@
 <?php
 namespace Nexendrie\Rss\Bridges\NetteDI;
+
 use Nette\DI\CompilerExtension,
     Nette\Utils\Validators;
 
