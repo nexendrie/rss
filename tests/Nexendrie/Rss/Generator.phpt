@@ -5,7 +5,6 @@ use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
 
-
 class GeneratorTest extends \Tester\TestCase {
   /** @var Generator */
   protected $generator;
@@ -69,7 +68,7 @@ class GeneratorTest extends \Tester\TestCase {
     };
     Assert::exception(function() {
       $this->generator->generate();
-    }, \Exception::class, "The item is not of type " . RssChannelItem::class);
+    }, \InvalidArgumentException::class, "The item is not of type " . RssChannelItem::class);
   }
   
   function testShortenDescription() {
@@ -93,7 +92,7 @@ class GeneratorTest extends \Tester\TestCase {
   function testResponse() {
     Assert::exception(function() {
       $this->generator->response();
-    }, \Exception::class);
+    }, InvalidStateException::class);
     $this->generator->title = "Nexendrie RSS";
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";

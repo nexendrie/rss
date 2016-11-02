@@ -1,5 +1,6 @@
 Version 0.2.0+dev
 - allowed setting dateTimeFormat via Nette DI extension
+- changed thrown exceptions in Generator
 
 Version 0.2.0
 - added method Generator::response()
