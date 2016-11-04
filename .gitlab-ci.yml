@@ -4,6 +4,7 @@ stages:
   - build
   - analyze
   - test
+  - deploy
 
 build:
   stage: build
@@ -60,3 +61,22 @@ test:cc:
     name: "Code coverage"
     paths:
     - coverage.html
+
+pages:
+  image: shipito/php:7.0
+  stage: deploy
+  environment: pages
+  dependencies:
+  - build
+  before_script:
+  - mkdir public
+  script:
+  - ./vendor/bin/generate-site --source=docs --output=public
+  cache:
+      paths:
+      - vendor
+  artifacts:
+      paths:
+      - public
+  only:
+  - master@nexendrie/rss
