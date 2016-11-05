@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7e971cc2b910de22c01c05cd8fd9b3d7",
+    "hash": "8c43a7931d2657060fad04753d3f67f8",
     "content-hash": "b36ea9494eac8a07dfc6eb9d02391606",
     "packages": [
         {
@@ -1216,12 +1216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/site-generator.git",
-                "reference": "13b0b1cfd3371b682f07e75c931303abe03ebb18"
+                "reference": "edf730eae2c32fa23bb73ccbdaefd1ea61f4308b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/13b0b1cfd3371b682f07e75c931303abe03ebb18",
-                "reference": "13b0b1cfd3371b682f07e75c931303abe03ebb18",
+                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/edf730eae2c32fa23bb73ccbdaefd1ea61f4308b",
+                "reference": "edf730eae2c32fa23bb73ccbdaefd1ea61f4308b",
                 "shasum": ""
             },
             "require": {
@@ -1263,7 +1263,7 @@
                 }
             ],
             "description": "Static site generator which turns Markdown into HTML",
-            "homepage": "https://nexendrie.gitlab.io/site-generator",
+            "homepage": "https://nexendrie.gitlab.io",
             "keywords": [
                 "generator",
                 "html",
@@ -1272,7 +1272,7 @@
                 "static",
                 "website"
             ],
-            "time": "2016-11-03 18:42:40"
+            "time": "2016-11-05 10:03:39"
         },
         {
             "name": "squizlabs/php_codesniffer",
