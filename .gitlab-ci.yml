@@ -29,11 +29,8 @@ analyze:lint:
 analyze:cs:
   stage: analyze
 
-  before_script:
-  - curl https://gitlab.com/nexendrie/resources/raw/master/cs-ruleset.xml > cs-ruleset.xml
-
   script:
-  - ./vendor/bin/phpcs --extensions=php,phpt . --standard=cs-ruleset.xml --colors
+  - ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors
 
 .job_template: &test_job
   stage: test

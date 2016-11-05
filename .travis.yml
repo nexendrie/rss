@@ -25,11 +25,10 @@ before_install:
 
 install:
     - composer install --no-interaction --prefer-source
-    - wget https://gitlab.com/nexendrie/resources/raw/master/cs-ruleset.xml
   
 script:
     - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
-    - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=cs-ruleset.xml --colors; fi
+    - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors; fi
     - ./vendor/bin/run-tests -p $TESTER_PHP_BIN tests -s $coverage
 
 after_script:

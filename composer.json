@@ -24,12 +24,9 @@
         "nette/utils": "^2.4"
     },
     "require-dev": {
-        "nette/tester": "2.0.x-dev as v1.7",
-        "mrtnzlml/testbench": "^2.3",
+        "nexendrie/code-quality": "dev-master",
+        "nette/tester": "dev-master",
         "tracy/tracy": "^2.4",
-        "jakub-onderka/php-parallel-lint": "^0.9.2",
-        "jakub-onderka/php-console-highlighter": "^0.3.2",
-        "squizlabs/php_codesniffer": "^2.7",
         "nette/di": "^2.4",
         "nexendrie/site-generator": "1.0.x-dev"
     },

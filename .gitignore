@@ -3,4 +3,3 @@
 output/
 *.actual
 coverage.*
-/cs-ruleset.xml
