@@ -76,6 +76,7 @@ rss:
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
 
 ```php
+$response = $this->generator->response();
 $this->sendResponse($reponse);
 ```
 
