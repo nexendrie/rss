@@ -73,7 +73,9 @@ class Generator {
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
     unset($channel->channel->link);
     unset($channel->channel->lastBuildDate);
-    if($this->link) $channel->channel->addChild("link", $this->link);
+    if($this->link) {
+      $channel->channel->addChild("link", $this->link);
+    }
     $channel->channel->addChild("lastBuildDate", date($this->dateTimeFormat));
     if($this->title) {
       unset($channel->channel->title);
