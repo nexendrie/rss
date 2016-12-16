@@ -315,16 +315,16 @@
         },
         {
             "name": "mrtnzlml/testbench",
-            "version": "v2.4",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrtnzlml/testbench.git",
-                "reference": "f62bcca0130a612421ba82486eeca0da761a0aaf"
+                "reference": "7362fe750b2cc8f7fe4ced6222f21d55511edf2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrtnzlml/testbench/zipball/f62bcca0130a612421ba82486eeca0da761a0aaf",
-                "reference": "f62bcca0130a612421ba82486eeca0da761a0aaf",
+                "url": "https://api.github.com/repos/mrtnzlml/testbench/zipball/7362fe750b2cc8f7fe4ced6222f21d55511edf2f",
+                "reference": "7362fe750b2cc8f7fe4ced6222f21d55511edf2f",
                 "shasum": ""
             },
             "require": {
@@ -384,7 +384,7 @@
                 }
             ],
             "description": "Simple integration testing tool for Nette Framework applications",
-            "time": "2016-10-12 15:56:17"
+            "time": "2016-11-07 08:58:13"
         },
         {
             "name": "nette/application",
@@ -699,16 +699,16 @@
         },
         {
             "name": "nette/di",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/di.git",
-                "reference": "aa40af0766b990fbe052d6efe89382d6df2ae641"
+                "reference": "54dbce99e3355e201607874bdbcde8a0b8a1e98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/aa40af0766b990fbe052d6efe89382d6df2ae641",
-                "reference": "aa40af0766b990fbe052d6efe89382d6df2ae641",
+                "url": "https://api.github.com/repos/nette/di/zipball/54dbce99e3355e201607874bdbcde8a0b8a1e98e",
+                "reference": "54dbce99e3355e201607874bdbcde8a0b8a1e98e",
                 "shasum": ""
             },
             "require": {
@@ -755,7 +755,7 @@
             ],
             "description": "Nette Dependency Injection Component",
             "homepage": "https://nette.org",
-            "time": "2016-09-21 16:51:11"
+            "time": "2016-10-26 16:05:47"
         },
         {
             "name": "nette/finder",
@@ -1160,12 +1160,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "7c21d99b7699f85bcd8e3073b7a475129b660b0f"
+                "reference": "7700c4de0ea523e6a687661705fccc3741d8636b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/7c21d99b7699f85bcd8e3073b7a475129b660b0f",
-                "reference": "7c21d99b7699f85bcd8e3073b7a475129b660b0f",
+                "url": "https://api.github.com/repos/nette/tester/zipball/7700c4de0ea523e6a687661705fccc3741d8636b",
+                "reference": "7700c4de0ea523e6a687661705fccc3741d8636b",
                 "shasum": ""
             },
             "require": {
@@ -1208,7 +1208,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2016-08-05 13:39:28"
+            "time": "2016-11-21 18:07:16"
         },
         {
             "name": "nexendrie/code-quality",
@@ -1216,12 +1216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "494f1c74b3e778e7752c32c0bb85d132c88bb942"
+                "reference": "0fabbc55002f8ae2ea7ae5dd571a12ed46dbf66e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/494f1c74b3e778e7752c32c0bb85d132c88bb942",
-                "reference": "494f1c74b3e778e7752c32c0bb85d132c88bb942",
+                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/0fabbc55002f8ae2ea7ae5dd571a12ed46dbf66e",
+                "reference": "0fabbc55002f8ae2ea7ae5dd571a12ed46dbf66e",
                 "shasum": ""
             },
             "require": {
@@ -1245,7 +1245,12 @@
             ],
             "description": "Code quality tools for Nexendrie project",
             "homepage": "https://nexendrie.gitlab.io",
-            "time": "2016-11-05 11:54:30"
+            "keywords": [
+                "code",
+                "quality",
+                "testing"
+            ],
+            "time": "2016-11-19 12:30:55"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1253,26 +1258,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/site-generator.git",
-                "reference": "edf730eae2c32fa23bb73ccbdaefd1ea61f4308b"
+                "reference": "4da9936b67b8b6b1091ce704f235a1b74ea2d782"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/edf730eae2c32fa23bb73ccbdaefd1ea61f4308b",
-                "reference": "edf730eae2c32fa23bb73ccbdaefd1ea61f4308b",
+                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/4da9936b67b8b6b1091ce704f235a1b74ea2d782",
+                "reference": "4da9936b67b8b6b1091ce704f235a1b74ea2d782",
                 "shasum": ""
             },
             "require": {
                 "cebe/markdown": "^1.1",
                 "nette/command-line": "^1.1",
                 "nette/finder": "^2.4",
-                "nette/neon": "^2.4"
+                "nette/neon": "^2.4",
+                "nette/utils": "^2.4",
+                "php": ">=5.6.0"
             },
             "require-dev": {
-                "jakub-onderka/php-console-highlighter": "^0.3.2",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "mrtnzlml/testbench": "^2.4",
-                "nette/tester": "2.0.x-dev as v1.7",
-                "squizlabs/php_codesniffer": "^2.7"
+                "nette/tester": "dev-master",
+                "nexendrie/code-quality": "dev-master"
             },
             "bin": [
                 "src/generate-site"
@@ -1309,20 +1313,20 @@
                 "static",
                 "website"
             ],
-            "time": "2016-11-05 10:03:39"
+            "time": "2016-12-16 08:26:45"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "571e27b6348e5b3a637b2abc82ac0d01e6d7bbed"
+                "reference": "9b324f3a1132459a7274a0ace2e1b766ba80930f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/571e27b6348e5b3a637b2abc82ac0d01e6d7bbed",
-                "reference": "571e27b6348e5b3a637b2abc82ac0d01e6d7bbed",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9b324f3a1132459a7274a0ace2e1b766ba80930f",
+                "reference": "9b324f3a1132459a7274a0ace2e1b766ba80930f",
                 "shasum": ""
             },
             "require": {
@@ -1387,20 +1391,20 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-09-01 23:53:02"
+            "time": "2016-11-30 04:02:31"
         },
         {
             "name": "tracy/tracy",
-            "version": "v2.4.3",
+            "version": "v2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tracy.git",
-                "reference": "9c352f10f41c374c5bb19191e385076430e39a20"
+                "reference": "c1ec73ea7661b79aa9fade863b75f8cad9f47bb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/9c352f10f41c374c5bb19191e385076430e39a20",
-                "reference": "9c352f10f41c374c5bb19191e385076430e39a20",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/c1ec73ea7661b79aa9fade863b75f8cad9f47bb5",
+                "reference": "c1ec73ea7661b79aa9fade863b75f8cad9f47bb5",
                 "shasum": ""
             },
             "require": {
@@ -1449,7 +1453,7 @@
                 "debugger",
                 "nette"
             ],
-            "time": "2016-09-30 14:17:54"
+            "time": "2016-12-10 15:04:11"
         }
     ],
     "aliases": [],
