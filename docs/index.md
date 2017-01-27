@@ -17,7 +17,7 @@ The best way to install it is via Composer. Just add **nexendrie/rss** to your d
 Usage
 -----
 
-Create new instance of new \Nexendrie\Rss\Generator, set its properties title and description. Then add data source for channel's items. It should return array of RssChannelItem.
+Create new instance of \Nexendrie\Rss\Generator, set its properties title and description. Then add data source for channel's items. It should return array of \Nexendrie\Rss\RssChannelItem.
 
 Example:
 
@@ -54,11 +54,7 @@ By default, only first 150 characters of items' description is printed. You can 
 $generator->shortenDescription = 150;
 ```
 
-or completely disable it with this line:
-
-```php
-$generator->shortenDescription = 0;
-```
+or completely disable it by setting the property to 0.
 
 Nette applications
 ------------------
