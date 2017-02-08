@@ -1,4 +1,4 @@
-image: shipito/php:5.6
+image: shipito/php:7.0
 
 stages:
   - build
@@ -39,10 +39,6 @@ analyze:cs:
   - ./vendor/bin/run-tests -p php tests
 
 test:default:
-  <<: *test_job
-
-test:php70:
-  image: shipito/php:7.0
   <<: *test_job
 
 test:php71:

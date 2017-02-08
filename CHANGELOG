@@ -1,3 +1,6 @@
+Version 0.3.0+dev
+- raised minimal version of PHP to 7.0
+
 Version 0.3.0
 - allowed setting dateTimeFormat via Nette DI extension
 - changed thrown exceptions in Generator
