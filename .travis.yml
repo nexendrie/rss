@@ -28,6 +28,7 @@ install:
 script:
     - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/parallel-lint src tests -e php,phpt; fi
     - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors; fi
+    - if [ "$TESTER_PHP_BIN" = "php" ]; then ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests; fi
     - ./vendor/bin/run-tests -p $TESTER_PHP_BIN tests -s $coverage
 
 after_script:
