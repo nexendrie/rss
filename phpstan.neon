@@ -6,4 +6,3 @@ parameters:
         - phpt
     autoload_directories:
         - %rootDir%/../../../tests
-    autoload_files:
