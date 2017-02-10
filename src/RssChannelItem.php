@@ -26,7 +26,7 @@ class RssChannelItem {
    * @param string $link
    * @param string $pubDate
    */
-  function __construct($title, $description, $link, $pubDate) {
+  function __construct(string $title, string $description, string $link, string $pubDate) {
     $this->title = $title;
     $this->description = $description;
     $this->link = $link;

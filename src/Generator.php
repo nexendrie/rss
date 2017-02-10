@@ -22,7 +22,7 @@ class Generator {
   public $link = "";
   /** @var string */
   protected $dateTimeFormat = "Y-m-d H:i:s";
-  /** @var callable */
+  /** @var callable|null */
   protected $dataSource = NULL;
   /** @var int */
   protected $shortenDescription = 150;
@@ -37,28 +37,28 @@ class Generator {
   /**
    * @return int
    */
-  function getShortenDescription() {
+  function getShortenDescription(): int {
     return $this->shortenDescription;
   }
   
   /**
    * @param int $value
    */
-  function setShortenDescription($value) {
-    $this->shortenDescription = (int) $value;
+  function setShortenDescription(int $value) {
+    $this->shortenDescription = $value;
   }
   
   /**
    * @return string
    */
-  function getDateTimeFormat() {
+  function getDateTimeFormat(): string {
     return $this->dateTimeFormat;
   }
   
   /**
    * @param string $format
    */
-  function setDateTimeFormat($format) {
+  function setDateTimeFormat(string $format) {
     $this->dateTimeFormat = $format;
   }
   
@@ -67,7 +67,7 @@ class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  function generate() {
+  function generate(): \SimpleXMLElement {
     if(is_null($this->dataSource)) {
       throw new InvalidStateException("Data source for RSS generator is not set.");
     }
@@ -96,7 +96,7 @@ class Generator {
       $i = $channel->channel->addChild("item");
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
-      $i->addChild("pubDate", (string) $item->pubDate);
+      $i->addChild("pubDate", $item->pubDate);
       $description = ($this->shortenDescription) ? substr($item->description, 0, $this->shortenDescription) : $item->description;
       if($description !== $item->description) {
         $description .= "...";
@@ -110,7 +110,7 @@ class Generator {
    * @return RssResponse
    * @throws \Exception
    */
-  function response() {
+  function response(): RssResponse {
     try {
       return new RssResponse($this->generate());
     } catch(\Exception $e) {
