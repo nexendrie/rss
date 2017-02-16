@@ -36,7 +36,7 @@ analyze:phpstan:
   stage: analyze
 
   script:
-  - ./vendor/bin/phpstan analyze -l 5 -c phpstan.neon src tests
+  - ./vendor/bin/phpstan analyze -l 5 -c vendor/nexendrie/code-quality/phpstan.neon src tests
 
 .job_template: &test_job
   stage: test
