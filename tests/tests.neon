@@ -1,4 +1,6 @@
 application:
     scanDirs: false
+    mapping:
+        *: Nexendrie\Rss\*Presenter
 extensions:
     rss: Nexendrie\Rss\Bridges\NetteDI\RssExtension

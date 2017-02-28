@@ -36,6 +36,11 @@
         },
         "classmap": ["src/exceptions.php"]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Nexendrie\\Rss\\": "tests/"
+        }
+    },
     "suggest": {
       "nette/application": "To use RssResponse"
     },
