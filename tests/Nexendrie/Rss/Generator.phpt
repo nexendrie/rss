@@ -21,6 +21,11 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same(150, $result);
   }
   
+  function testGetLastBuildDate() {
+    $lastBuildDate = $this->generator->lastBuildDate;
+    Assert::type("callable", $lastBuildDate);
+  }
+  
   /**
    * @param \SimpleXMLElement $channel
    * @return int
@@ -60,6 +65,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same("News for package nexendrie/rss", (string) $result->channel->description);
     Assert::same("https://gitlab.com/nexendrie/rss/", (string) $result->channel->link);
     Assert::same(1, $this->countItems($result));
+    Assert::type("string", (string) $result->channel->lastBuidDate);
   }
   
   function testInvalidDataSource() {
@@ -89,6 +95,46 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->shortenDescription = 250;
     $result = $this->generator->generate();
     Assert::same(strlen($description), (strlen((string) $result->channel->item->description)));
+  }
+  
+  function testCustomLastBuildDate() {
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      return [
+        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+      ];
+    };
+    $this->generator->lastBuildDate = function() {
+      return time();
+    };
+    $result = $this->generator->generate();
+    Assert::type("string", (string) $result->channel->lastBuidDate);
+    $this->generator->lastBuildDate = time();
+    $result = $this->generator->generate();
+    Assert::type("string", (string) $result->channel->lastBuidDate);
+  }
+  
+  function testInvalidLastBuildDate() {
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      return [
+        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+      ];
+    };
+    $this->generator->lastBuildDate = "abc";
+    Assert::exception(function() {
+      $this->generator->generate();
+    }, \InvalidArgumentException::class, "Last build date for RSS generator has to be callback or integer.");
+    $this->generator->lastBuildDate = function() {
+      return "abc";
+    };
+    Assert::exception(function() {
+      $this->generator->generate();
+    }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return integer.");
   }
   
   function testResponse() {

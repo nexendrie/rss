@@ -1,5 +1,6 @@
 Version 0.3.0+dev
 - raised minimal version of PHP to 7.0
+- allowed setting lastBuildDate for channel
 
 Version 0.3.0
 - allowed setting dateTimeFormat via Nette DI extension
