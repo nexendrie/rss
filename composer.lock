@@ -462,20 +462,20 @@
         },
         {
             "name": "nette/bootstrap",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/bootstrap.git",
-                "reference": "4db37e6d42ddf41b50417950741113b5dfc86e27"
+                "reference": "2c27747f5aff2e436ebf542e0ea566bea1db2d53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/bootstrap/zipball/4db37e6d42ddf41b50417950741113b5dfc86e27",
-                "reference": "4db37e6d42ddf41b50417950741113b5dfc86e27",
+                "url": "https://api.github.com/repos/nette/bootstrap/zipball/2c27747f5aff2e436ebf542e0ea566bea1db2d53",
+                "reference": "2c27747f5aff2e436ebf542e0ea566bea1db2d53",
                 "shasum": ""
             },
             "require": {
-                "nette/di": "~2.4.0",
+                "nette/di": "~2.4.7",
                 "nette/utils": "~2.4",
                 "php": ">=5.6.0"
             },
@@ -490,7 +490,7 @@
                 "nette/forms": "~2.3",
                 "nette/http": "~2.4.0",
                 "nette/mail": "~2.3",
-                "nette/robot-loader": "~2.2",
+                "nette/robot-loader": "^2.4.2 || ^3.0",
                 "nette/safe-stream": "~2.2",
                 "nette/security": "~2.3",
                 "nette/tester": "~2.0",
@@ -529,7 +529,7 @@
             ],
             "description": "Nette Bootstrap",
             "homepage": "https://nette.org",
-            "time": "2016-12-19T12:12:10+00:00"
+            "time": "2017-02-19T22:15:02+00:00"
         },
         {
             "name": "nette/caching",
@@ -699,23 +699,23 @@
         },
         {
             "name": "nette/di",
-            "version": "v2.4.6",
+            "version": "v2.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/di.git",
-                "reference": "28767a0abef69faa08bfa700e2e3f80ac58ab58e"
+                "reference": "f2e8ced089549eda2288c780893bf4b4065449ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/28767a0abef69faa08bfa700e2e3f80ac58ab58e",
-                "reference": "28767a0abef69faa08bfa700e2e3f80ac58ab58e",
+                "url": "https://api.github.com/repos/nette/di/zipball/f2e8ced089549eda2288c780893bf4b4065449ee",
+                "reference": "f2e8ced089549eda2288c780893bf4b4065449ee",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "nette/neon": "^2.3.3",
-                "nette/php-generator": "^2.5",
-                "nette/utils": "^2.4.3",
+                "nette/neon": "^2.3.3 || ~3.0.0",
+                "nette/php-generator": "^2.5 || ~3.0.0",
+                "nette/utils": "^2.4.3 || ~3.0.0",
                 "php": ">=5.6.0"
             },
             "conflict": {
@@ -723,7 +723,7 @@
                 "nette/nette": "<2.2"
             },
             "require-dev": {
-                "nette/tester": "~2.0",
+                "nette/tester": "^2.0",
                 "tracy/tracy": "^2.3"
             },
             "type": "library",
@@ -755,7 +755,7 @@
             ],
             "description": "Nette Dependency Injection Component",
             "homepage": "https://nette.org",
-            "time": "2017-01-15T14:08:41+00:00"
+            "time": "2017-02-04T14:40:36+00:00"
         },
         {
             "name": "nette/finder",
@@ -929,33 +929,33 @@
         },
         {
             "name": "nette/php-generator",
-            "version": "v2.5.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "3f317dc211953cc93e9efa61598dc074adc3b0de"
+                "reference": "eff05975fee1645471d4371b7a0a7acb62a25b15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/3f317dc211953cc93e9efa61598dc074adc3b0de",
-                "reference": "3f317dc211953cc93e9efa61598dc074adc3b0de",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/eff05975fee1645471d4371b7a0a7acb62a25b15",
+                "reference": "eff05975fee1645471d4371b7a0a7acb62a25b15",
                 "shasum": ""
             },
             "require": {
-                "nette/utils": "~2.4",
+                "nette/utils": "^2.4.2 || ~3.0.0",
                 "php": ">=5.6.0"
             },
             "conflict": {
                 "nette/nette": "<2.2"
             },
             "require-dev": {
-                "nette/tester": "~2.0",
+                "nette/tester": "^2.0",
                 "tracy/tracy": "^2.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -981,7 +981,7 @@
             ],
             "description": "Nette PHP Generator",
             "homepage": "https://nette.org",
-            "time": "2017-01-13T08:02:14+00:00"
+            "time": "2017-02-24T19:24:08+00:00"
         },
         {
             "name": "nette/reflection",
@@ -1317,7 +1317,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-02-16T11:37:21+00:00"
+            "time": "2017-02-16 11:37:21"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1325,12 +1325,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/site-generator.git",
-                "reference": "086efc3598c00fd676b78b9e1caa7b7e5ae4fcaf"
+                "reference": "36289260f8f6b8b08d021354870deea3bc404858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/086efc3598c00fd676b78b9e1caa7b7e5ae4fcaf",
-                "reference": "086efc3598c00fd676b78b9e1caa7b7e5ae4fcaf",
+                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/36289260f8f6b8b08d021354870deea3bc404858",
+                "reference": "36289260f8f6b8b08d021354870deea3bc404858",
                 "shasum": ""
             },
             "require": {
@@ -1380,7 +1380,7 @@
                 "static",
                 "website"
             ],
-            "time": "2017-02-16T11:43:34+00:00"
+            "time": "2017-02-28T13:39:55+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1435,35 +1435,36 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.6.3",
+            "version": "0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ab2697853ff6b53901d30f630fdbd266fe59b41b"
+                "reference": "55ee8b0c451546ac069c2c4130ce505c4a4cf409"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ab2697853ff6b53901d30f630fdbd266fe59b41b",
-                "reference": "ab2697853ff6b53901d30f630fdbd266fe59b41b",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/55ee8b0c451546ac069c2c4130ce505c4a4cf409",
+                "reference": "55ee8b0c451546ac069c2c4130ce505c4a4cf409",
                 "shasum": ""
             },
             "require": {
-                "nette/bootstrap": "~2.4",
-                "nette/caching": "~2.4",
-                "nette/di": "~2.4",
-                "nette/robot-loader": "~2.4",
-                "nette/utils": "~2.4",
+                "nette/bootstrap": "^2.4 || ^3.0",
+                "nette/caching": "^2.4 || ^3.0",
+                "nette/di": "^2.4 || ^3.0",
+                "nette/robot-loader": "^2.4.2 || ^3.0",
+                "nette/utils": "^2.4 || ^3.0",
                 "nikic/php-parser": "^2.1 || ^3.0.2",
                 "php": "~7.0",
-                "symfony/console": "~2.8 || ~3.0",
-                "symfony/finder": "~2.8 || ~3.0"
+                "symfony/console": "~2.7 || ~3.0",
+                "symfony/finder": "~2.7 || ~3.0"
             },
             "require-dev": {
-                "consistence/coding-standard": "~0.12.0",
+                "consistence/coding-standard": "~0.13.0",
+                "jakub-onderka/php-parallel-lint": "^0.9",
                 "phing/phing": "^2.13.0",
                 "phpunit/phpunit": "^5.6",
                 "satooshi/php-coveralls": "^1.0",
-                "slevomat/coding-standard": "dev-php7#d4a1a9cd4e"
+                "slevomat/coding-standard": "dev-2.0-dev#2b8e2b0992f31205e4c1d2fb5c39af05274c7c4d"
             },
             "bin": [
                 "bin/phpstan"
@@ -1484,7 +1485,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2017-01-30T23:13:17+00:00"
+            "time": "2017-02-20T20:45:32+00:00"
         },
         {
             "name": "psr/log",
@@ -1613,16 +1614,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936"
+                "reference": "0e5e6899f82230fcb1153bcaf0e106ffaa44b870"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7a8405a9fc175f87fed8a3c40856b0d866d61936",
-                "reference": "7a8405a9fc175f87fed8a3c40856b0d866d61936",
+                "url": "https://api.github.com/repos/symfony/console/zipball/0e5e6899f82230fcb1153bcaf0e106ffaa44b870",
+                "reference": "0e5e6899f82230fcb1153bcaf0e106ffaa44b870",
                 "shasum": ""
             },
             "require": {
@@ -1672,20 +1673,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-06T12:04:21+00:00"
+            "time": "2017-02-16T14:07:22+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477"
+                "reference": "9b98854cb45bc59d100b7d4cc4cf9e05f21026b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/b4d9818f127c60ce21ed62c395da7df868dc8477",
-                "reference": "b4d9818f127c60ce21ed62c395da7df868dc8477",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/9b98854cb45bc59d100b7d4cc4cf9e05f21026b9",
+                "reference": "9b98854cb45bc59d100b7d4cc4cf9e05f21026b9",
                 "shasum": ""
             },
             "require": {
@@ -1729,11 +1730,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-28T02:37:08+00:00"
+            "time": "2017-02-16T16:34:18+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
