@@ -44,6 +44,9 @@
     "suggest": {
       "nette/application": "To use RssResponse"
     },
+    "config": {
+        "classmap-authoritative": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
