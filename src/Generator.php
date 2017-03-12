@@ -7,6 +7,9 @@ namespace Nexendrie\Rss;
  * RSS Channel Generator
  *
  * @author Jakub Konečný
+ * @property string $title
+ * @property string $description
+ * @property string $link
  * @property callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
@@ -16,11 +19,11 @@ class Generator {
   use \Nette\SmartObject;
   
   /** @var string */
-  public $title = "";
+  protected $title = "";
   /** @var string */
-  public $description = "";
+  protected $description = "";
   /** @var string */
-  public $link = "";
+  protected $link = "";
   /** @var string */
   protected $dateTimeFormat = "Y-m-d H:i:s";
   /** @var callable|null */
@@ -29,6 +32,48 @@ class Generator {
   protected $shortenDescription = 150;
   /** @var callable|int */
   protected $lastBuildDate = "time";
+  
+  /**
+   * @return string
+   */
+  function getTitle(): string {
+    return $this->title;
+  }
+  
+  /**
+   * @param string $title
+   */
+  function setTitle(string $title) {
+    $this->title = $title;
+  }
+  
+  /**
+   * @return string
+   */
+  function getDescription(): string {
+    return $this->description;
+  }
+  
+  /**
+   * @param string $description
+   */
+  function setDescription(string $description) {
+    $this->description = $description;
+  }
+  
+  /**
+   * @return string
+   */
+  function getLink(): string {
+    return $this->link;
+  }
+  
+  /**
+   * @param string $link
+   */
+  function setLink(string $link) {
+    $this->link = $link;
+  }
   
   /**
    * @param callable $dataSource

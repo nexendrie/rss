@@ -54,8 +54,11 @@ class GeneratorTest extends \Tester\TestCase {
   
   function testGenerate() {
     $this->generator->title = $title = "Nexendrie RSS";
+    Assert::same($title, $this->generator->title);
     $this->generator->description = $description = "News for package nexendrie/rss";
+    Assert::same($description, $this->generator->description);
     $this->generator->link = $link = "https://gitlab.com/nexendrie/rss/";
+    Assert::same($link, $this->generator->link);
     $this->generator->dataSource = function() {
       $pubDate = date($this->generator->dateTimeFormat);
       return [
