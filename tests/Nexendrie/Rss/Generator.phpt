@@ -53,19 +53,20 @@ class GeneratorTest extends \Tester\TestCase {
   }
   
   function testGenerate() {
-    $this->generator->title = "Nexendrie RSS";
-    $this->generator->description = "News for package nexendrie/rss";
-    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->title = $title = "Nexendrie RSS";
+    $this->generator->description = $description = "News for package nexendrie/rss";
+    $this->generator->link = $link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
+      $pubDate = date($this->generator->dateTimeFormat);
       return [
-        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
       ];
     };
     $result = $this->generator->generate();
     Assert::type(\SimpleXMLElement::class, $result);
-    Assert::same("Nexendrie RSS", (string) $result->channel->title);
-    Assert::same("News for package nexendrie/rss", (string) $result->channel->description);
-    Assert::same("https://gitlab.com/nexendrie/rss/", (string) $result->channel->link);
+    Assert::same($title, (string) $result->channel->title);
+    Assert::same($description, (string) $result->channel->description);
+    Assert::same($link, (string) $result->channel->link);
     Assert::same(1, $this->countItems($result));
     Assert::type("string", (string) $result->channel->lastBuidDate);
   }
@@ -84,8 +85,9 @@ class GeneratorTest extends \Tester\TestCase {
   function testShortenDescription() {
     $description = str_repeat("ABDEFGH", 20);
     $this->generator->dataSource = function() use($description) {
+      $pubDate = date($this->generator->dateTimeFormat);
       return [
-        new RssChannelItem("Item 1", $description, "", date($this->generator->dateTimeFormat))
+        new RssChannelItem("Item 1", $description, "", $pubDate)
       ];
     };
     $this->generator->shortenDescription = 0;
@@ -104,8 +106,9 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
+      $pubDate = date($this->generator->dateTimeFormat);
       return [
-        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
       ];
     };
     $this->generator->lastBuildDate = function() {
@@ -123,8 +126,9 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
+      $pubDate = date($this->generator->dateTimeFormat);
       return [
-        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
       ];
     };
     $this->generator->lastBuildDate = "abc";
@@ -147,8 +151,9 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
+      $pubDate = date($this->generator->dateTimeFormat);
       return [
-        new RssChannelItem("Item 1", "Item 1 description", "", date($this->generator->dateTimeFormat))
+        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
       ];
     };
     $result = $this->generator->response();
