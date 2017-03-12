@@ -90,10 +90,8 @@ class Generator {
     }
     $items = call_user_func($this->dataSource);
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
-    unset($channel->channel->link);
-    unset($channel->channel->lastBuildDate);
     if($this->link) {
-      $channel->channel->addChild("link", $this->link);
+      $channel->channel->link[0][0] = $this->link;
     }
     if(is_callable($this->lastBuildDate)) {
       $lastBuildDate = call_user_func($this->lastBuildDate);
@@ -105,14 +103,12 @@ class Generator {
     } else {
       throw new \InvalidArgumentException("Last build date for RSS generator has to be callback or integer.");
     }
-    $channel->channel->addChild("lastBuildDate", date($this->dateTimeFormat, $lastBuildDate));
+    $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
     if($this->title) {
-      unset($channel->channel->title);
-      $channel->channel->addChild("title", $this->title);
+      $channel->channel->title[0][0] = $this->title;
     }
     if($this->description) {
-      unset($channel->channel->description);
-      $channel->channel->addChild("description", $this->description);
+      $channel->channel->description[0][0] = $this->description;
     }
     /** @var RssChannelItem $item */
     foreach($items as $item) {
