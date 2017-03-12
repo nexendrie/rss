@@ -34,7 +34,9 @@ class GeneratorTest extends \Tester\TestCase {
     $items = 0;
     /** @var \SimpleXMLElement $child */
     foreach($channel->channel->children() as $child) {
-      if($child->getName() === "item") $items++;
+      if($child->getName() === "item") {
+        $items++;
+      }
     }
     return $items;
   }
