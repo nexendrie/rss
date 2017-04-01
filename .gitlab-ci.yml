@@ -1,4 +1,4 @@
-image: shipito/php:7.0
+image: chialab/php:7.0
 
 stages:
   - build
@@ -48,11 +48,11 @@ test:default:
   <<: *test_job
 
 test:php71:
-  image: shipito/php:7.1
+  image: chialab/php:7.1
   <<: *test_job
 
 test:cc:
-  image: shipito/php:7.0-xdebug
+  image: chialab/php-dev:7.0
   <<: *test_job
   script:
   - ./vendor/bin/run-tests -p php tests --coverage ./coverage.html --coverage-src ./src
