@@ -40,7 +40,7 @@ class RssResponse implements \Nette\Application\IResponse {
    * @param IResponse $httpResponse
    * @return void
    */
-  function send(IRequest $httpRequest, IResponse $httpResponse) {
+  function send(IRequest $httpRequest, IResponse $httpResponse): void {
     $httpResponse->setContentType("application/xhtml+xml");
     echo $this->source->asXML();
   }
