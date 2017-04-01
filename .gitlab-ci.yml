@@ -62,7 +62,6 @@ test:cc:
     - coverage.html
 
 pages:
-  image: shipito/php:7.0
   stage: deploy
   environment: pages
   dependencies:
