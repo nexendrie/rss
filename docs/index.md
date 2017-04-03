@@ -56,7 +56,7 @@ $generator->shortenDescription = 150;
 
 or completely disable it by setting the property to 0.
 
-You can also change lastBuildDate for channel by setting property lastBuildDate of the Generator. It accepts integer or callback that return integer, the integer is interpreted as timestamp. Default value is current time.
+You can also change lastBuildDate for channel by setting property lastBuildDate of the Generator. It accepts callback that returns integer which is interpreted as timestamp. Default value is current time.
 
 Nette applications
 ------------------

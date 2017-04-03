@@ -119,9 +119,6 @@ class GeneratorTest extends \Tester\TestCase {
     };
     $result = $this->generator->generate();
     Assert::type("string", (string) $result->channel->lastBuidDate);
-    $this->generator->lastBuildDate = time();
-    $result = $this->generator->generate();
-    Assert::type("string", (string) $result->channel->lastBuidDate);
   }
   
   function testInvalidLastBuildDate() {
@@ -134,10 +131,6 @@ class GeneratorTest extends \Tester\TestCase {
         new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
       ];
     };
-    $this->generator->lastBuildDate = "abc";
-    Assert::exception(function() {
-      $this->generator->generate();
-    }, \InvalidArgumentException::class, "Last build date for RSS generator has to be callback or integer.");
     $this->generator->lastBuildDate = function() {
       return "abc";
     };

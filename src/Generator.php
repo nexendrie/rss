@@ -13,7 +13,7 @@ namespace Nexendrie\Rss;
  * @property callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
- * @property callable|int $lastBuildDate
+ * @property callable $lastBuildDate
  */
 class Generator {
   use \Nette\SmartObject;
@@ -30,7 +30,7 @@ class Generator {
   protected $dataSource = NULL;
   /** @var int */
   protected $shortenDescription = 150;
-  /** @var callable|int */
+  /** @var callable */
   protected $lastBuildDate = "time";
   
   /**
@@ -111,16 +111,16 @@ class Generator {
   }
   
   /**
-   * @return callable|int
+   * @return callable
    */
   function getLastBuildDate() {
     return $this->lastBuildDate;
   }
   
   /**
-   * @param callable|int $lastBuildDate
+   * @param callable $lastBuildDate
    */
-  function setLastBuildDate($lastBuildDate) {
+  function setLastBuildDate(callable $lastBuildDate) {
     $this->lastBuildDate = $lastBuildDate;
   }
   
@@ -138,15 +138,9 @@ class Generator {
     if($this->link) {
       $channel->channel->link[0][0] = $this->link;
     }
-    if(is_callable($this->lastBuildDate)) {
-      $lastBuildDate = call_user_func($this->lastBuildDate);
-      if(!is_int($lastBuildDate)) {
-        throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
-      }
-    } elseif(is_int($this->lastBuildDate)) {
-      $lastBuildDate = $this->lastBuildDate;
-    } else {
-      throw new \InvalidArgumentException("Last build date for RSS generator has to be callback or integer.");
+    $lastBuildDate = call_user_func($this->lastBuildDate);
+    if(!is_int($lastBuildDate)) {
+      throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
     }
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
     if($this->title) {
