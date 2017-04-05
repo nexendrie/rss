@@ -170,12 +170,13 @@ class Generator {
   
   /**
    * @return RssResponse
-   * @throws \Exception
+   * @throws InvalidStateException
+   * @throws \InvalidArgumentException
    */
   function response(): RssResponse {
     try {
       return new RssResponse($this->generate());
-    } catch(\Exception $e) {
+    } catch(InvalidStateException | \InvalidArgumentException $e) {
       throw $e;
     }
   }
