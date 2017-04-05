@@ -18,7 +18,7 @@ class RssResponseTest extends \Tester\TestCase {
   function setUp() {
     $this->generator = $this->getService(Generator::class);
     $this->generator->dataSource = function() {
-      return [];
+      return new Collection;
     };
   }
   

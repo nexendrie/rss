@@ -2,6 +2,7 @@ Version 0.3.0+dev
 - raised minimal version of PHP to 7.1
 - allowed setting lastBuildDate for channel
 - title, link and description for Generator and all properties of RssChannelItem now has to be strings
+- callback for Generator::$dataSource now has to return Nexendrie\Rss\Collection
 
 Version 0.3.0
 - allowed setting dateTimeFormat via Nette DI extension

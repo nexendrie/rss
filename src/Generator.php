@@ -134,6 +134,9 @@ class Generator {
       throw new InvalidStateException("Data source for RSS generator is not set.");
     }
     $items = call_user_func($this->dataSource);
+    if(!$items instanceof Collection) {
+      throw new \InvalidArgumentException("Callback for data source for RSS generator has to return " . Collection::class . ".");
+    }
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
     if($this->link) {
       $channel->channel->link[0][0] = $this->link;
@@ -151,9 +154,6 @@ class Generator {
     }
     /** @var RssChannelItem $item */
     foreach($items as $item) {
-      if(!$item instanceof RssChannelItem) {
-        throw new \InvalidArgumentException("The item is not of type " . RssChannelItem::class);
-      }
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
       $i->addChild("title", $item->title);

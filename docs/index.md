@@ -17,7 +17,7 @@ The best way to install it is via Composer. Just add **nexendrie/rss** to your d
 Usage
 -----
 
-Create new instance of \Nexendrie\Rss\Generator, set its properties title and description. Then add data source for channel's items. It should return array of \Nexendrie\Rss\RssChannelItem.
+Create new instance of \Nexendrie\Rss\Generator, set its properties title and description. Then add data source for channel's items. It has to return \Nexendrie\Rss\Collection which is a collection of \Nexendrie\Rss\RssChannelItem.
 
 Example:
 

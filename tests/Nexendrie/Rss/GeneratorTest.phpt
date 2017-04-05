@@ -43,7 +43,7 @@ class GeneratorTest extends \Tester\TestCase {
   
   function testEmptyChannel() {
     $this->generator->dataSource = function() {
-      return [];
+      return new Collection();
     };
     $result = $this->generator->generate();
     Assert::type(\SimpleXMLElement::class, $result);
@@ -61,9 +61,9 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same($link, $this->generator->link);
     $this->generator->dataSource = function() {
       $pubDate = date($this->generator->dateTimeFormat);
-      return [
-        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
-      ];
+      $items = new Collection;
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      return $items;
     };
     $result = $this->generator->generate();
     Assert::type(\SimpleXMLElement::class, $result);
@@ -76,22 +76,20 @@ class GeneratorTest extends \Tester\TestCase {
   
   function testInvalidDataSource() {
     $this->generator->dataSource = function() {
-      return [
-        new \stdClass
-      ];
+      return [];
     };
     Assert::exception(function() {
       $this->generator->generate();
-    }, \InvalidArgumentException::class, "The item is not of type " . RssChannelItem::class);
+    }, \InvalidArgumentException::class, "Callback for data source for RSS generator has to return " . Collection::class . ".");
   }
   
   function testShortenDescription() {
     $description = str_repeat("ABDEFGH", 20);
     $this->generator->dataSource = function() use($description) {
       $pubDate = date($this->generator->dateTimeFormat);
-      return [
-        new RssChannelItem("Item 1", $description, "", $pubDate)
-      ];
+      $items = new Collection;
+      $items[] = new RssChannelItem("Item 1", $description, "", $pubDate);
+      return $items;
     };
     $this->generator->shortenDescription = 0;
     $result = $this->generator->generate();
@@ -110,9 +108,9 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
       $pubDate = date($this->generator->dateTimeFormat);
-      return [
-        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
-      ];
+      $items = new Collection;
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      return $items;
     };
     $this->generator->lastBuildDate = function() {
       return time();
@@ -127,9 +125,9 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
       $pubDate = date($this->generator->dateTimeFormat);
-      return [
-        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
-      ];
+      $items = new Collection;
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      return $items;
     };
     $this->generator->lastBuildDate = function() {
       return "abc";
@@ -148,9 +146,9 @@ class GeneratorTest extends \Tester\TestCase {
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
       $pubDate = date($this->generator->dateTimeFormat);
-      return [
-        new RssChannelItem("Item 1", "Item 1 description", "", $pubDate)
-      ];
+      $items = new Collection;
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      return $items;
     };
     $result = $this->generator->response();
     Assert::type(RssResponse::class, $result);
