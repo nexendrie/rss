@@ -1,7 +1,7 @@
 Rss
 ===
 
-Generate Rss channels.
+This package helps you generate Rss channels.
 
 Links
 -----
@@ -23,16 +23,17 @@ Example:
 
 ```php
 use Nexendrie\Rss\Generator,
-    Nexendrie\Rss\RssChannelItem;
+    Nexendrie\Rss\RssChannelItem,
+    Nexendrie\Rss\Collection;
 
 $generator = new Generator;
 $generator->title = "Nexendrie RSS";
 $generator->link = "https://nexendrie.cz/rss";
 $generator->description = "News for package nexendrie/rss";
-$generator->dataSource = function() {
-  return [
-    new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", date($generator->dateTimeFormat))
-  ];
+$generator->dataSource = function() use($generator) {
+  $items = new Collection;
+  $items[] = new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", date($generator->dateTimeFormat));
+  return $items;
 };
 $result = $generator->generate();
 ```
