@@ -21,7 +21,7 @@ before_install:
     - composer self-update
 
 install:
-    - composer install --no-interaction --prefer-source -a
+    - composer install --no-interaction --prefer-source
 
 script:
     - ./vendor/bin/parallel-lint src tests -e php,phpt
