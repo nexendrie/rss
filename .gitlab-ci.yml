@@ -1,57 +1,23 @@
-image: chialab/php:7.1
+image: nexendrie/php
 
 stages:
-  - build
-  - analyze
   - test
   - deploy
 
-build:
-  stage: build
-
-  script:
-  - composer install --prefer-dist
-
-  cache:
-    paths:
-    - vendor
-
-  artifacts:
-    paths:
-    - vendor
-    expire_in: 10 mins
-
-analyze:lint:
-  stage: analyze
-  script:
-  - ./vendor/bin/parallel-lint src tests -e php,phpt
-
-analyze:cs:
-  stage: analyze
-
-  script:
-  - ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors
-
-analyze:phpstan:
-  stage: analyze
-
-  script:
-  - ./vendor/bin/phpstan analyze -l 5 -c vendor/nexendrie/code-quality/phpstan.neon src tests
-
-.job_template: &test_job
-  stage: test
-
-  script:
-  - ./vendor/bin/run-tests -p php tests
+cache:
+  paths:
+  - vendor/
 
 test:default:
-  <<: *test_job
+  stage: test
+  script:
+  - phing test
 
 test:cc:
-  image: chialab/php-dev:7.1
-  <<: *test_job
+  stage: test
   script:
-  - ./vendor/bin/run-tests -p php tests --coverage ./coverage.html --coverage-src ./src
+  - phing test-coverage
+  coverage: '/(\d+\%) covered/'
   artifacts:
     name: "Code coverage"
     paths:
@@ -59,16 +25,11 @@ test:cc:
 
 pages:
   stage: deploy
-  environment: pages
-  dependencies:
-  - build
-  before_script:
-  - mkdir public
+  environment:
+    name: documentation
+    url: https://nexendrie.gitlab.io/rss
   script:
-  - ./vendor/bin/generate-site --source=docs --output=public
-  cache:
-      paths:
-      - vendor
+  - phing documentation
   artifacts:
       paths:
       - public

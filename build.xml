@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Nexendrie Rss" basedir="." default="test">
+  <target name="test" depends="install,lint,cs,phpstan,tests"/>
+  <target name="test-coverage" depends="install,lint,cs,phpstan,tests-coverage"/>
+  <target name="test-phpdbg" depends="install,lint,cs,phpstan,tests-phpdbg"/>
+  <target name="documentation" depends="install">
+    <exec executable="vendor/bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="--source=docs"/>
+      <arg value="--output=public"/>
+    </exec>
+  </target>
+  <target name="install">
+    <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="install"/>
+      <arg value="--prefer-dist"/>
+      <arg value="--no-progress"/>
+      <arg value="--no-suggest"/>
+      <arg value="--no-interaction"/>
+    </exec>
+  </target>
+  <target name="lint" description="Syntax checks" >
+    <exec executable="vendor/bin/parallel-lint" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="."/>
+      <arg value="-e"/>
+      <arg value="php,phpt"/>
+      <arg value="--exclude"/>
+      <arg path="vendor"/>
+      <arg value="--exclude"/>
+      <arg path="temp"/>
+      <arg value="--exclude"/>
+      <arg path="tests/_temp"/>
+    </exec>
+  </target>
+  <target name="cs" description="Coding standards compliance">
+    <exec executable="vendor/bin/phpcs" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="--extensions=php,phpt"/>
+      <arg value="."/>
+      <arg value="--standard=vendor/nexendrie/code-quality/ruleset.xml"/>
+      <arg value="--colors"/>
+    </exec>
+  </target>
+  <target name="phpstan" description="PHPStan analyzes">
+    <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="analyze"/>
+      <arg value="-l"/>
+      <arg value="5"/>
+      <arg value="-c"/>
+      <arg path="vendor/nexendrie/code-quality/phpstan.neon"/>
+      <arg path="src"/>
+      <arg path="tests"/>
+    </exec>
+  </target>
+  <target name="tests" description="Unit tests">
+    <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="-p"/>
+      <arg value="php"/>
+      <arg path="tests"/>
+    </exec>
+  </target>
+  <target name="tests-coverage" description="Unit tests with code coverage (XDebug)">
+    <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="-p"/>
+      <arg value="php"/>
+      <arg path="tests"/>
+      <arg value="--coverage"/>
+      <arg path="./coverage.html"/>
+      <arg value="--coverage-src"/>
+      <arg path="./src"/>
+    </exec>
+  </target>
+  <target name="tests-phpdbg" description="Unit tests with code coverage (phpdbg)">
+    <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="-p"/>
+      <arg value="phpdbg"/>
+      <arg path="tests"/>
+      <arg value="--coverage"/>
+      <arg path="./coverage.html"/>
+      <arg value="--coverage-src"/>
+      <arg path="./src"/>
+    </exec>
+  </target>
+</project>
