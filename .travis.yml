@@ -12,26 +12,21 @@ env:
 matrix:
     include:
         - php: 7.1
-          env: coverage="--coverage ./coverage.xml --coverage-src ./src" TESTER_PHP_BIN=phpdbg
+          env: TESTER_PHP_BIN=phpdbg
     allow_failures:
         - php: 7.1
-          env: coverage="--coverage ./coverage.xml --coverage-src ./src" TESTER_PHP_BIN=phpdbg
-  
+          env: TESTER_PHP_BIN=phpdbg
+
 before_install:
     - composer self-update
 
 install:
-    - composer install --no-interaction --prefer-source
+    - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
 
 script:
-    - ./vendor/bin/parallel-lint src tests -e php,phpt
-    - ./vendor/bin/phpcs --extensions=php,phpt . --standard=vendor/nexendrie/code-quality/ruleset.xml --colors
-    - ./vendor/bin/phpstan analyze -l 5 -c vendor/nexendrie/code-quality/phpstan.neon src tests
-    - ./vendor/bin/run-tests -p $TESTER_PHP_BIN tests -s $coverage
+    - if [ "$TESTER_PHP_BIN" == "php" ]; then ./phing test; fi
+    - if [ "$TESTER_PHP_BIN" == "phpdbg" ]; then ./phing travis-coverage; fi
 
-after_script:
-    - if [ "$coverage" != "" ]; then php vendor/bin/coveralls --verbose --config tests/.coveralls.yml || true; fi
-    
 after_failure:
     - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
 
