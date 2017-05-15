@@ -49,7 +49,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
   }
   
   /**
-   * @param int $index
+   * @param int|NULL $index
    * @param RssChannelItem $item
    * @return void
    * @throws \OutOfRangeException

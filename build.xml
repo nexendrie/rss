@@ -59,7 +59,7 @@
     <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
       <arg value="analyze"/>
       <arg value="-l"/>
-      <arg value="5"/>
+      <arg value="7"/>
       <arg value="-c"/>
       <arg path="vendor/nexendrie/code-quality/phpstan.neon"/>
       <arg path="src"/>
