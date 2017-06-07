@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b52099b6b9613a5b1e273426575888f",
+    "content-hash": "c1acdce9c9b6613bede8c1ff985f5797",
     "packages": [
         {
             "name": "nette/utils",
@@ -68,6 +68,60 @@
             "description": "Nette Utility Classes",
             "homepage": "https://nette.org",
             "time": "2017-04-26T10:04:49+00:00"
+        },
+        {
+            "name": "nexendrie/utils",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nexendrie/utils.git",
+                "reference": "dbbec3c9e693576d82261762d84ed8444f06371a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nexendrie/utils/zipball/dbbec3c9e693576d82261762d84ed8444f06371a",
+                "reference": "dbbec3c9e693576d82261762d84ed8444f06371a",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^2.4",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "nexendrie/code-quality": "dev-master",
+                "nexendrie/site-generator": "1.0.x-dev",
+                "phpstan/phpstan-nette": "^0.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nexendrie\\Utils\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Konečný",
+                    "email": "jakub.konecny2@centrum.cz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Collection of various utilities for your PHP project",
+            "homepage": "https://nexendrie.gitlab.io",
+            "keywords": [
+                "collections",
+                "intervals",
+                "utils"
+            ],
+            "time": "2017-06-07T10:30:42+00:00"
         }
     ],
     "packages-dev": [
