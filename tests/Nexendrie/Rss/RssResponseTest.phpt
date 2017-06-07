@@ -33,7 +33,7 @@ class RssResponseTest extends \Tester\TestCase {
    * @param array $post
    * @return RssResponse
    */
-  protected function checkRssChannel($destination, $params = [], $post = []) {
+  protected function checkRss($destination, $params = [], $post = []) {
     /** @var RssResponse $response */
     $response = $this->check($destination, $params, $post);
     if(!$this->__testbench_exception) {
@@ -50,7 +50,7 @@ class RssResponseTest extends \Tester\TestCase {
   }
   
   function testSend() {
-    $this->checkRssChannel("Rss:default");
+    $this->checkRss("Rss:default");
   }
 }
 
