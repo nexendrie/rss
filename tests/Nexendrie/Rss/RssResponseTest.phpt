@@ -13,7 +13,6 @@ require __DIR__ . "/../../bootstrap.php";
 
 class RssResponseTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
-  use \Testbench\TPresenter;
   
   /** @var \Nexendrie\Rss\Generator */
   protected $generator;
@@ -23,11 +22,6 @@ class RssResponseTest extends \Tester\TestCase {
     $this->generator->dataSource = function() {
       return new Collection;
     };
-  }
-  
-  function testGetSource() {
-    $response = $this->generator->response();
-    Assert::type(\SimpleXMLElement::class, $response->source);
   }
   
   /**
