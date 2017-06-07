@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Tester\Assert;
+use Tester\Assert,
+    Nette\Application\Application,
+    Nette\Application\Request,
+    Nette\Application\IResponse;
 
 require __DIR__ . "/../../bootstrap.php";
 
@@ -34,18 +37,28 @@ class RssResponseTest extends \Tester\TestCase {
    * @return RssResponse
    */
   protected function checkRss($destination, $params = [], $post = []) {
-    /** @var RssResponse $response */
-    $response = $this->check($destination, $params, $post);
-    if(!$this->__testbench_exception) {
-      Assert::same(200, $this->getReturnCode());
+    $destination = ltrim($destination, ':');
+    $pos = strrpos($destination, ':') ?: strlen($destination);
+    $presenter = substr($destination, 0, $pos);
+    $action = substr($destination, $pos + 1) ?: 'default';
+    $params = ["action" => $action] + $params;
+    /** @var Application $application */
+    $application = $this->getService(Application::class);
+    $request = new Request($presenter, "GET", $params, $post);
+    $application->onResponse[] = function(Application $application, IResponse $response) {
+      /** @var RssResponse $response */
       Assert::type(RssResponse::class, $response);
       Assert::type(\SimpleXMLElement::class, $response->source);
-      $xml = \Tester\DomQuery::fromXml($response->getSource()->asXML());
-      Assert::same("rss", $xml->getName(), "root element is");
-      $channel = $xml->children();
-      Assert::same("channel", $channel->getName(), "child of \"rss\"");
-      Assert::same("title", $channel->children()->getName(), "child of \"channel\"");
-    }
+    };
+    ob_start();
+    $application->processRequest($request);
+    $response = ob_get_clean();
+    Assert::type("string", $response);
+    $xml = \Tester\DomQuery::fromXml($response);
+    Assert::same("rss", $xml->getName(), "root element is");
+    $channel = $xml->children();
+    Assert::same("channel", $channel->getName(), "child of \"rss\"");
+    Assert::same("title", $channel->children()->getName(), "child of \"channel\"");
     return $response;
   }
   
