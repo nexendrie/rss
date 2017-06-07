@@ -28,6 +28,7 @@
         "nexendrie/code-quality": "dev-master",
         "tracy/tracy": "^2.4",
         "nette/di": "^2.4",
+        "nette/application": "^2.4",
         "nexendrie/site-generator": "^1.0"
     },
     "autoload": {
