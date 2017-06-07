@@ -33,8 +33,7 @@
     "autoload": {
         "psr-4": {
             "Nexendrie\\Rss\\": "src/"
-        },
-        "classmap": ["src/exceptions.php"]
+        }
     },
     "autoload-dev": {
         "psr-4": {
