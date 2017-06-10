@@ -2,6 +2,7 @@ language: php
 
 php:
     - 7.1
+    - nightly
 
 notifications:
     email: false
@@ -16,6 +17,7 @@ matrix:
     allow_failures:
         - php: 7.1
           env: TESTER_PHP_BIN=phpdbg
+        - php: nightly
 
 before_install:
     - composer self-update
