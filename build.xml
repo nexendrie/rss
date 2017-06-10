@@ -3,20 +3,19 @@
   <target name="test" depends="install,lint,cs,phpstan,tests"/>
   <target name="test-coverage" depends="install,lint,cs,phpstan,tests-coverage"/>
   <target name="test-phpdbg" depends="install,lint,cs,phpstan,tests-phpdbg"/>
-  <target name="travis-coverage" depends="install,lint,cs,phpstan">
+  <target name="ci-coverage" depends="install,lint,cs,phpstan">
     <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
       <arg value="-p"/>
-      <arg value="phpdbg"/>
+      <arg value="php"/>
       <arg path="tests"/>
       <arg value="--coverage"/>
       <arg path="./coverage.xml"/>
       <arg value="--coverage-src"/>
       <arg path="./src"/>
     </exec>
-    <exec executable="vendor/bin/coveralls" logoutput="true" passthru="true" checkreturn="true">
-      <arg value="--verbose"/>
-      <arg value="--config"/>
-      <arg path="tests/.coveralls.yml"/>
+    <exec executable="vendor/bin/codacycoverage" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="clover"/>
+      <arg path="coverage.xml"/>
     </exec>
   </target>
   <target name="documentation" depends="install">

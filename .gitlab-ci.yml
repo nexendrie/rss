@@ -16,12 +16,8 @@ test:default:
 test:cc:
   stage: test
   script:
-  - phing test-coverage
+  - phing ci-coverage
   coverage: '/(\d+\%) covered/'
-  artifacts:
-    name: "Code coverage"
-    paths:
-    - coverage.html
 
 pages:
   stage: deploy

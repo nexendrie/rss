@@ -7,16 +7,8 @@ php:
 notifications:
     email: false
 
-env:
-    - TESTER_PHP_BIN="php"
-
 matrix:
-    include:
-        - php: 7.1
-          env: TESTER_PHP_BIN=phpdbg
     allow_failures:
-        - php: 7.1
-          env: TESTER_PHP_BIN=phpdbg
         - php: nightly
 
 before_install:
@@ -26,8 +18,7 @@ install:
     - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
 
 script:
-    - if [ "$TESTER_PHP_BIN" == "php" ]; then ./phing test; fi
-    - if [ "$TESTER_PHP_BIN" == "phpdbg" ]; then ./phing travis-coverage; fi
+    - ./phing test
 
 after_failure:
     - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
