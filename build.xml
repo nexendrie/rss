@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Nexendrie Rss" basedir="." default="test">
+  <target name="cs-update">
+    <copy file="vendor/nexendrie/code-quality/ruleset.xml" tofile="phpcs.xml"/>
+  </target>
   <target name="test" depends="install,lint,cs,phpstan,tests"/>
   <target name="test-coverage" depends="install,lint,cs,phpstan,tests-coverage"/>
   <target name="test-phpdbg" depends="install,lint,cs,phpstan,tests-phpdbg"/>

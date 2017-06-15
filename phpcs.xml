@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ruleset name="Nexendrie Standard">
+  <description>Coding standard for Nexendrie Project.</description>
+  <config name="colors" value="1"/>
+  <config name="encoding" value="utf-8"/>
+  <config name="ignore_warnings_on_exit" value="1"/>
+  <config name="tab_width" value="2"/>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*/temp/*</exclude-pattern>
+  <exclude-pattern>*/_temp/*</exclude-pattern>
+  <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+  <rule ref="Generic.Classes"/>
+  <rule ref="Generic.CodeAnalysis">
+    <exclude name="Generic.CodeAnalysis.EmptyStatement"/>
+  </rule>
+  <rule ref="Generic.ControlStructures.InlineControlStructure">
+    <properties>
+      <property name="error" value="false"/>
+    </properties>
+  </rule>
+  <rule ref="Generic.Files.ByteOrderMark"/>
+  <rule ref="Generic.Files.EndFileNoNewline"/>
+  <rule ref="Generic.Files.InlineHTML"/>
+  <rule ref="Generic.Files.LineEndings"/>
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="absoluteLineLimit" value="261"/>
+    </properties>
+  </rule>
+  <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+  <rule ref="Generic.Formatting.SpaceAfterCast"/>
+  <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+  <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+  <rule ref="Generic.Metrics"/>
+  <rule ref="Generic.NamingConventions.ConstructorName"/>
+  <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+  <rule ref="Generic.PHP">
+    <exclude name="Generic.PHP.LowerCaseConstant"/>
+    <exclude name="Generic.PHP.LowerCaseKeyword"/>
+    <exclude name="Generic.PHP.UpperCaseConstant"/>
+  </rule>
+  <rule ref="Generic.Strings"/>
+  <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2"/>
+    </properties>
+  </rule>
+  <rule ref="Squiz.Classes.DuplicateProperty"/>
+  <rule ref="Squiz.Classes.ValidClassName"/>
+  <rule ref="Squiz.ControlStructures">
+    <exclude name="Squiz.ControlStructures.ControlSignature"/>
+    <exclude name="Squiz.ControlStructures.ElseIfDeclaration"/>
+    <exclude name="Squiz.ControlStructures.SwitchDeclaration"/>
+  </rule>
+  <rule ref="Squiz.PHP.CommentedOutCode"/>
+  <rule ref="Squiz.PHP.DiscouragedFunctions"/>
+  <rule ref="Squiz.PHP.Eval"/>
+  <rule ref="Squiz.PHP.GlobalKeyword"/>
+  <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+  <rule ref="Squiz.PHP.NonExecutableCode"/>
+  <rule ref="Squiz.Scope.MemberVarScope"/>
+  <rule ref="Squiz.Scope.StaticThisUsage"/>
+  <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
+  <rule ref="PSR1.Files.SideEffects">
+    <exclude-pattern>*/tests/*</exclude-pattern>
+  </rule>
+  <rule ref="PSR1.Methods.CamelCapsMethodName"/>
+  <rule ref="PSR2.Classes.PropertyDeclaration"/>
+  <rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
+  <rule ref="PSR2.Methods.FunctionCallSignature"/>
+  <rule ref="PSR2.Methods.MethodDeclaration"/>
+  <rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
+</ruleset>
