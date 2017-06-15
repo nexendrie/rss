@@ -1,4 +1,4 @@
-Contributting to Nexendrie Project
+Contributing to Nexendrie Project
 ==================================
 
 So you wish to make a contribution to Nexendrie Project? Great, just read this document beforehand.
@@ -6,7 +6,7 @@ So you wish to make a contribution to Nexendrie Project? Great, just read this d
 Where to contribute
 -------------------
 
-All contributions should be made on [GitLab] (https://gitlab.com/nexendrie). Our packages are also on [GitHub](https://github.com/nexendrie) but just because Composer has issues with GitLab.
+All contributions should be made on [GitLab] (https://gitlab.com/nexendrie). Our packages are also on [GitHub](https://github.com/nexendrie) but these repositories are just mirrors.
 
 Coding standards
 ----------------
@@ -16,7 +16,16 @@ If you are writting any code for the project, be sure to follow our coding stand
 Test the code
 -------------
 
-Do not forget to write tests for new features, we do not want untested code in the codebase. Also all tests for the merge request must pass. That includes syntax checks, compilation with coding standards and unit tests.
+Do not forget to write tests for new features, we do not want untested code in the codebase. Also all tests for the merge request must pass. That includes syntax checks, compilation with coding standards, static analyzes and unit/integration tests.
+
+Other rules
+-----------
+
+* 1 feature/change per Merge request. Do not do changes unrelated to the main purpose.
+
+* Keep the discussion civil. You do not have to extra polite, just use you best judgment.
+
+* Stay in touch with us. After you have opened your issue/merge request, we may need additional input from you. If you keep us waiting for too long, we may lose interest and just close the thing.
 
 Things to work on
 -----------------
