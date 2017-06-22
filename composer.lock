@@ -71,16 +71,16 @@
         },
         {
             "name": "nexendrie/utils",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nexendrie/utils.git",
-                "reference": "dbbec3c9e693576d82261762d84ed8444f06371a"
+                "url": "https://gitlab.com/nexendrie/utils.git",
+                "reference": "738bb06063d41045fb0e1a835e89cd662455053f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/utils/zipball/dbbec3c9e693576d82261762d84ed8444f06371a",
-                "reference": "dbbec3c9e693576d82261762d84ed8444f06371a",
+                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Futils/repository/archive.zip?sha=738bb06063d41045fb0e1a835e89cd662455053f",
+                "reference": "738bb06063d41045fb0e1a835e89cd662455053f",
                 "shasum": ""
             },
             "require": {
@@ -121,7 +121,7 @@
                 "intervals",
                 "utils"
             ],
-            "time": "2017-06-07T10:30:42+00:00"
+            "time": "2017-06-16T10:04:25+00:00"
         }
     ],
     "packages-dev": [
@@ -1447,13 +1447,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nexendrie/code-quality.git",
-                "reference": "7b29a8dcfeb5ad54ae49c2b8144962b1b427e44c"
+                "url": "https://gitlab.com/nexendrie/code-quality.git",
+                "reference": "f5ba9facf0c6dbebcceb8f7323b037a191ea7a2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/code-quality/zipball/7b29a8dcfeb5ad54ae49c2b8144962b1b427e44c",
-                "reference": "7b29a8dcfeb5ad54ae49c2b8144962b1b427e44c",
+                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fcode-quality/repository/archive.zip?sha=f5ba9facf0c6dbebcceb8f7323b037a191ea7a2a",
+                "reference": "f5ba9facf0c6dbebcceb8f7323b037a191ea7a2a",
                 "shasum": ""
             },
             "require": {
@@ -1463,7 +1463,7 @@
                 "mrtnzlml/testbench": "^2.4.2",
                 "nette/tester": "2.0.x-dev",
                 "phpstan/phpstan": "^0.7",
-                "squizlabs/php_codesniffer": "^3.0"
+                "squizlabs/php_codesniffer": "^3.0.1"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -1483,20 +1483,20 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-06-10T13:23:15+00:00"
+            "time": "2017-06-14T08:49:22+00:00"
         },
         {
             "name": "nexendrie/site-generator",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nexendrie/site-generator.git",
-                "reference": "6341a289970d98b9e6bceb7e9bc44d9e00111415"
+                "url": "https://gitlab.com/nexendrie/site-generator.git",
+                "reference": "9e87a419fd0a158e5c70091980525beae3d73998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/site-generator/zipball/6341a289970d98b9e6bceb7e9bc44d9e00111415",
-                "reference": "6341a289970d98b9e6bceb7e9bc44d9e00111415",
+                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=9e87a419fd0a158e5c70091980525beae3d73998",
+                "reference": "9e87a419fd0a158e5c70091980525beae3d73998",
                 "shasum": ""
             },
             "require": {
@@ -1545,7 +1545,7 @@
                 "static",
                 "website"
             ],
-            "time": "2017-06-10T13:37:18+00:00"
+            "time": "2017-06-18T11:59:04+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1701,16 +1701,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "b95ff2c3b122a3ee4b57d149a57d2afce65522c3"
+                "reference": "f9eaf037edf22fdfccf04cb0ab57ebcb1e166219"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/b95ff2c3b122a3ee4b57d149a57d2afce65522c3",
-                "reference": "b95ff2c3b122a3ee4b57d149a57d2afce65522c3",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f9eaf037edf22fdfccf04cb0ab57ebcb1e166219",
+                "reference": "f9eaf037edf22fdfccf04cb0ab57ebcb1e166219",
                 "shasum": ""
             },
             "require": {
@@ -1748,7 +1748,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-05-04T00:33:04+00:00"
+            "time": "2017-06-14T01:23:49+00:00"
         },
         {
             "name": "symfony/console",
