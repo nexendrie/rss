@@ -16,10 +16,6 @@
       <arg value="--coverage-src"/>
       <arg path="./src"/>
     </exec>
-    <exec executable="vendor/bin/codacycoverage" logoutput="true" passthru="true" checkreturn="true">
-      <arg value="clover"/>
-      <arg path="coverage.xml"/>
-    </exec>
   </target>
   <target name="documentation" depends="install">
     <exec executable="vendor/bin/generate-site" logoutput="true" passthru="true" checkreturn="true">

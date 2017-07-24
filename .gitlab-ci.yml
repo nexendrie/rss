@@ -16,7 +16,7 @@ test:default:
 test:cc:
   stage: test
   script:
-  - phing ci-coverage
+  - phing test-coverage
   coverage: '/(\d+\%) covered/'
 
 pages:
