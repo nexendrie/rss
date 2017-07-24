@@ -17,7 +17,7 @@ class RssResponseTest extends \Tester\TestCase {
   /** @var \Nexendrie\Rss\Generator */
   protected $generator;
   
-  function setUp() {
+  public function setUp() {
     $this->generator = $this->getService(Generator::class);
     $this->generator->dataSource = function() {
       return new Collection;
@@ -56,7 +56,7 @@ class RssResponseTest extends \Tester\TestCase {
     return $response;
   }
   
-  function testSend() {
+  public function testSend() {
     $this->checkRss("Rss:default");
   }
 }

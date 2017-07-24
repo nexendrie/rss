@@ -12,7 +12,7 @@ class RssPresenter extends \Nette\Application\UI\Presenter {
   /** @var \Nexendrie\Rss\Generator @inject */
   public $generator;
   
-  function renderDefault() {
+  public function renderDefault() {
     $this->generator->dataSource = function() {
       return new Collection;
     };

@@ -11,17 +11,17 @@ class GeneratorTest extends \Tester\TestCase {
   /** @var Generator */
   protected $generator;
   
-  function setUp() {
+  public function setUp() {
     $this->generator = new Generator;
   }
   
-  function testGetShortenDescription() {
+  public function testGetShortenDescription() {
     $result = $this->generator->shortenDescription;
     Assert::type("int", $result);
     Assert::same(150, $result);
   }
   
-  function testGetLastBuildDate() {
+  public function testGetLastBuildDate() {
     $lastBuildDate = $this->generator->lastBuildDate;
     Assert::type("callable", $lastBuildDate);
   }
@@ -41,7 +41,7 @@ class GeneratorTest extends \Tester\TestCase {
     return $items;
   }
   
-  function testEmptyChannel() {
+  public function testEmptyChannel() {
     $this->generator->dataSource = function() {
       return new Collection();
     };
@@ -52,7 +52,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same(0, $this->countItems($result));
   }
   
-  function testGenerate() {
+  public function testGenerate() {
     $this->generator->title = $title = "Nexendrie RSS";
     Assert::same($title, $this->generator->title);
     $this->generator->description = $description = "News for package nexendrie/rss";
@@ -74,7 +74,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::type("string", (string) $result->channel->lastBuidDate);
   }
   
-  function testInvalidDataSource() {
+  public function testInvalidDataSource() {
     $this->generator->dataSource = function() {
       return [];
     };
@@ -83,7 +83,7 @@ class GeneratorTest extends \Tester\TestCase {
     }, \InvalidArgumentException::class, "Callback for data source for RSS generator has to return " . Collection::class . ".");
   }
   
-  function testShortenDescription() {
+  public function testShortenDescription() {
     $description = str_repeat("ABDEFGH", 20);
     $this->generator->dataSource = function() use($description) {
       $pubDate = date($this->generator->dateTimeFormat);
@@ -102,7 +102,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::same(strlen($description), (strlen((string) $result->channel->item->description)));
   }
   
-  function testCustomLastBuildDate() {
+  public function testCustomLastBuildDate() {
     $this->generator->title = "Nexendrie RSS";
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
@@ -119,7 +119,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::type("string", (string) $result->channel->lastBuidDate);
   }
   
-  function testInvalidLastBuildDate() {
+  public function testInvalidLastBuildDate() {
     $this->generator->title = "Nexendrie RSS";
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
@@ -137,7 +137,7 @@ class GeneratorTest extends \Tester\TestCase {
     }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return integer.");
   }
   
-  function testResponse() {
+  public function testResponse() {
     Assert::exception(function() {
       $this->generator->response();
     }, InvalidStateException::class);

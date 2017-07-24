@@ -22,7 +22,7 @@ class RssExtension extends CompilerExtension {
   /**
    * @return void
    */
-  function loadConfiguration(): void {
+  public function loadConfiguration(): void {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "shortenDescription", "integer");
     Validators::assertField($config, "dateTimeFormat", "string");

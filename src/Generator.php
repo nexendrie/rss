@@ -36,91 +36,91 @@ class Generator {
   /**
    * @return string
    */
-  function getTitle(): string {
+  public function getTitle(): string {
     return $this->title;
   }
   
   /**
    * @param string $title
    */
-  function setTitle(string $title) {
+  public function setTitle(string $title) {
     $this->title = $title;
   }
   
   /**
    * @return string
    */
-  function getDescription(): string {
+  public function getDescription(): string {
     return $this->description;
   }
   
   /**
    * @param string $description
    */
-  function setDescription(string $description) {
+  public function setDescription(string $description) {
     $this->description = $description;
   }
   
   /**
    * @return string
    */
-  function getLink(): string {
+  public function getLink(): string {
     return $this->link;
   }
   
   /**
    * @param string $link
    */
-  function setLink(string $link) {
+  public function setLink(string $link) {
     $this->link = $link;
   }
   
   /**
    * @param callable $dataSource
    */
-  function setDataSource(callable $dataSource) {
+  public function setDataSource(callable $dataSource) {
     $this->dataSource = $dataSource;
   }
   
   /**
    * @return int
    */
-  function getShortenDescription(): int {
+  public function getShortenDescription(): int {
     return $this->shortenDescription;
   }
   
   /**
    * @param int $value
    */
-  function setShortenDescription(int $value) {
+  public function setShortenDescription(int $value) {
     $this->shortenDescription = $value;
   }
   
   /**
    * @return string
    */
-  function getDateTimeFormat(): string {
+  public function getDateTimeFormat(): string {
     return $this->dateTimeFormat;
   }
   
   /**
    * @param string $format
    */
-  function setDateTimeFormat(string $format) {
+  public function setDateTimeFormat(string $format) {
     $this->dateTimeFormat = $format;
   }
   
   /**
    * @return callable
    */
-  function getLastBuildDate() {
+  public function getLastBuildDate() {
     return $this->lastBuildDate;
   }
   
   /**
    * @param callable $lastBuildDate
    */
-  function setLastBuildDate(callable $lastBuildDate) {
+  public function setLastBuildDate(callable $lastBuildDate) {
     $this->lastBuildDate = $lastBuildDate;
   }
   
@@ -129,7 +129,7 @@ class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  function generate(): \SimpleXMLElement {
+  public function generate(): \SimpleXMLElement {
     if(is_null($this->dataSource)) {
       throw new InvalidStateException("Data source for RSS generator is not set.");
     }
@@ -173,7 +173,7 @@ class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  function response(): RssResponse {
+  public function response(): RssResponse {
     try {
       return new RssResponse($this->generate());
     } catch(InvalidStateException | \InvalidArgumentException $e) {

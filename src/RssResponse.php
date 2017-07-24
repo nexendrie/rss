@@ -22,14 +22,14 @@ class RssResponse implements \Nette\Application\IResponse {
   /**
    * @param \SimpleXMLElement $source
    */
-  function __construct(\SimpleXMLElement $source) {
+  public function __construct(\SimpleXMLElement $source) {
     $this->source = $source;
   }
   
   /**
    * @return \SimpleXMLElement
    */
-  function getSource(): \SimpleXMLElement {
+  public function getSource(): \SimpleXMLElement {
     return $this->source;
   }
   
@@ -40,7 +40,7 @@ class RssResponse implements \Nette\Application\IResponse {
    * @param IResponse $httpResponse
    * @return void
    */
-  function send(IRequest $httpRequest, IResponse $httpResponse): void {
+  public function send(IRequest $httpRequest, IResponse $httpResponse): void {
     $httpResponse->setContentType("application/xhtml+xml");
     echo $this->source->asXML();
   }
