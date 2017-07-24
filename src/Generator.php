@@ -33,99 +33,59 @@ class Generator {
   /** @var callable */
   protected $lastBuildDate = "time";
   
-  /**
-   * @return string
-   */
   public function getTitle(): string {
     return $this->title;
   }
   
-  /**
-   * @param string $title
-   */
   public function setTitle(string $title) {
     $this->title = $title;
   }
   
-  /**
-   * @return string
-   */
   public function getDescription(): string {
     return $this->description;
   }
   
-  /**
-   * @param string $description
-   */
   public function setDescription(string $description) {
     $this->description = $description;
   }
   
-  /**
-   * @return string
-   */
   public function getLink(): string {
     return $this->link;
   }
   
-  /**
-   * @param string $link
-   */
   public function setLink(string $link) {
     $this->link = $link;
   }
   
-  /**
-   * @param callable $dataSource
-   */
   public function setDataSource(callable $dataSource) {
     $this->dataSource = $dataSource;
   }
   
-  /**
-   * @return int
-   */
   public function getShortenDescription(): int {
     return $this->shortenDescription;
   }
   
-  /**
-   * @param int $value
-   */
   public function setShortenDescription(int $value) {
     $this->shortenDescription = $value;
   }
   
-  /**
-   * @return string
-   */
   public function getDateTimeFormat(): string {
     return $this->dateTimeFormat;
   }
   
-  /**
-   * @param string $format
-   */
   public function setDateTimeFormat(string $format) {
     $this->dateTimeFormat = $format;
   }
   
-  /**
-   * @return callable
-   */
   public function getLastBuildDate() {
     return $this->lastBuildDate;
   }
   
-  /**
-   * @param callable $lastBuildDate
-   */
   public function setLastBuildDate(callable $lastBuildDate) {
     $this->lastBuildDate = $lastBuildDate;
   }
   
   /**
-   * @return \SimpleXMLElement
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
@@ -169,7 +129,6 @@ class Generator {
   }
   
   /**
-   * @return RssResponse
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */

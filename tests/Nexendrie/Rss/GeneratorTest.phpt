@@ -26,11 +26,7 @@ class GeneratorTest extends \Tester\TestCase {
     Assert::type("callable", $lastBuildDate);
   }
   
-  /**
-   * @param \SimpleXMLElement $channel
-   * @return int
-   */
-  protected function countItems(\SimpleXMLElement $channel) {
+  protected function countItems(\SimpleXMLElement $channel): int {
     $items = 0;
     /** @var \SimpleXMLElement $child */
     foreach($channel->channel->children() as $child) {

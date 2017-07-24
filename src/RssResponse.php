@@ -19,27 +19,14 @@ class RssResponse implements \Nette\Application\IResponse {
   
   use \Nette\SmartObject;
   
-  /**
-   * @param \SimpleXMLElement $source
-   */
   public function __construct(\SimpleXMLElement $source) {
     $this->source = $source;
   }
   
-  /**
-   * @return \SimpleXMLElement
-   */
   public function getSource(): \SimpleXMLElement {
     return $this->source;
   }
   
-  /**
-   * Sends response to output
-   *
-   * @param IRequest $httpRequest
-   * @param IResponse $httpResponse
-   * @return void
-   */
   public function send(IRequest $httpRequest, IResponse $httpResponse): void {
     $httpResponse->setContentType("application/xhtml+xml");
     echo $this->source->asXML();

@@ -24,13 +24,7 @@ class RssResponseTest extends \Tester\TestCase {
     };
   }
   
-  /**
-   * @param $destination
-   * @param array $params
-   * @param array $post
-   * @return RssResponse
-   */
-  protected function checkRss($destination, $params = [], $post = []) {
+  protected function checkRss($destination, array $params = [], array $post = []): string {
     $destination = ltrim($destination, ':');
     $pos = strrpos($destination, ':') ?: strlen($destination);
     $presenter = substr($destination, 0, $pos);
