@@ -1303,16 +1303,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "aef15cb81da1209d056ae26baf6150fe97646a2f"
+                "reference": "900febd77046ba9018720dbae0946db9ec37b50f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/aef15cb81da1209d056ae26baf6150fe97646a2f",
-                "reference": "aef15cb81da1209d056ae26baf6150fe97646a2f",
+                "url": "https://api.github.com/repos/nette/tester/zipball/900febd77046ba9018720dbae0946db9ec37b50f",
+                "reference": "900febd77046ba9018720dbae0946db9ec37b50f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.6.0"
             },
             "bin": [
                 "src/tester"
@@ -1357,7 +1357,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2017-07-23T17:35:28+00:00"
+            "time": "2017-07-31T20:43:15+00:00"
         },
         {
             "name": "nexendrie/code-quality",
@@ -1399,7 +1399,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-07-24T09:53:01+00:00"
+            "time": "2017-07-24 07:53:01"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1407,12 +1407,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "f03e2cd4db21f3d09a8f37caffece649ef10e996"
+                "reference": "149302d160d67dd3097856eb1127f5ebca4c934f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v3/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=f03e2cd4db21f3d09a8f37caffece649ef10e996",
-                "reference": "f03e2cd4db21f3d09a8f37caffece649ef10e996",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=149302d160d67dd3097856eb1127f5ebca4c934f",
+                "reference": "149302d160d67dd3097856eb1127f5ebca4c934f",
                 "shasum": ""
             },
             "require": {
@@ -1462,20 +1462,20 @@
                 "static",
                 "website"
             ],
-            "time": "2017-07-24T10:17:14+00:00"
+            "time": "2017-08-10T10:33:48+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v3.0.6",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "0808939f81c1347a3c8a82a5925385a08074b0f1"
+                "reference": "4d4896e553f2094e657fe493506dc37c509d4e2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/0808939f81c1347a3c8a82a5925385a08074b0f1",
-                "reference": "0808939f81c1347a3c8a82a5925385a08074b0f1",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/4d4896e553f2094e657fe493506dc37c509d4e2b",
+                "reference": "4d4896e553f2094e657fe493506dc37c509d4e2b",
                 "shasum": ""
             },
             "require": {
@@ -1513,7 +1513,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2017-06-28T20:53:48+00:00"
+            "time": "2017-07-28T14:45:09+00:00"
         },
         {
             "name": "phpstan/phpstan",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a97e45d98c59510f085fa05225a1acb74dfe0546"
+                "reference": "b0878233cb5c4391347e5495089c7af11b8e6201"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a97e45d98c59510f085fa05225a1acb74dfe0546",
-                "reference": "a97e45d98c59510f085fa05225a1acb74dfe0546",
+                "url": "https://api.github.com/repos/symfony/console/zipball/b0878233cb5c4391347e5495089c7af11b8e6201",
+                "reference": "b0878233cb5c4391347e5495089c7af11b8e6201",
                 "shasum": ""
             },
             "require": {
@@ -1733,20 +1733,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-03T13:19:36+00:00"
+            "time": "2017-07-29T21:27:59+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "63b85a968486d95ff9542228dc2e4247f16f9743"
+                "reference": "7c13ae8ce1e2adbbd574fc39de7be498e1284e13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/63b85a968486d95ff9542228dc2e4247f16f9743",
-                "reference": "63b85a968486d95ff9542228dc2e4247f16f9743",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/7c13ae8ce1e2adbbd574fc39de7be498e1284e13",
+                "reference": "7c13ae8ce1e2adbbd574fc39de7be498e1284e13",
                 "shasum": ""
             },
             "require": {
@@ -1789,11 +1789,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-05T13:02:37+00:00"
+            "time": "2017-07-28T15:27:31+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -1842,7 +1842,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
