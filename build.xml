@@ -6,7 +6,7 @@
   <target name="test" depends="install,lint,cs,phpstan,tests"/>
   <target name="test-coverage" depends="install,lint,cs,phpstan,tests-coverage"/>
   <target name="test-phpdbg" depends="install,lint,cs,phpstan,tests-phpdbg"/>
-  <target name="ci-coverage" depends="install,lint,cs,phpstan">
+  <target name="ci-coverage">
     <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
       <arg value="-p"/>
       <arg value="php"/>
