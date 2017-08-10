@@ -2,6 +2,7 @@ language: php
 
 php:
     - 7.1
+    - 7.2
     - nightly
 
 notifications:
@@ -9,6 +10,7 @@ notifications:
 
 matrix:
     allow_failures:
+        - php: 7.2
         - php: nightly
 
 before_install:
