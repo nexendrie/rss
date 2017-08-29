@@ -26,8 +26,6 @@ checks:
             isser_method_name: '^(?:is|has|should|may|supports)'
         function_in_camel_caps: true
         encourage_postdec_operator: true
-        custom_coding_standard:
-            ruleset_path: phpcs.xml
         classes_in_camel_caps: true
         check_method_contracts:
             verify_interface_like_constraints: true
@@ -159,6 +157,11 @@ build:
     tests:
         override:
             - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
+            -
+               command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
+               analysis:
+                    file: codesniffer.cs
+                    format: 'general-checkstyle'
             -
                 command: ./phing ci-coverage
                 coverage:
