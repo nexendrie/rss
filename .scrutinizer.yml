@@ -32,7 +32,7 @@ checks:
             verify_documented_constraints: true
             verify_parent_constraints: true
         avoid_multiple_statements_on_same_line: true
-        align_assignments: true
+        align_assignments: false
         prefer_while_loop_over_for_loop: true
         overriding_parameter: true
         no_short_method_names:
