@@ -1407,12 +1407,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "c4f81338bfac6b4e8a3ae13c78516a29123d832a"
+                "reference": "8cf24cf8c07defa85de7e2543c92db7bd3ded5a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/c4f81338bfac6b4e8a3ae13c78516a29123d832a",
-                "reference": "c4f81338bfac6b4e8a3ae13c78516a29123d832a",
+                "url": "https://api.github.com/repos/nette/tester/zipball/8cf24cf8c07defa85de7e2543c92db7bd3ded5a0",
+                "reference": "8cf24cf8c07defa85de7e2543c92db7bd3ded5a0",
                 "shasum": ""
             },
             "require": {
@@ -1461,7 +1461,7 @@
                 "testing",
                 "unit"
             ],
-            "time": "2017-09-10T15:52:48+00:00"
+            "time": "2017-09-26T11:21:20+00:00"
         },
         {
             "name": "nexendrie/code-quality",
@@ -1469,12 +1469,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/code-quality.git",
-                "reference": "ba24c74e27c35e29114a5771f165628eaca97469"
+                "reference": "ec58996471987c8f7913c945de9af5c48dd08896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fcode-quality/repository/archive.zip?sha=ba24c74e27c35e29114a5771f165628eaca97469",
-                "reference": "ba24c74e27c35e29114a5771f165628eaca97469",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fcode-quality/repository/archive.zip?sha=ec58996471987c8f7913c945de9af5c48dd08896",
+                "reference": "ec58996471987c8f7913c945de9af5c48dd08896",
                 "shasum": ""
             },
             "require": {
@@ -1503,7 +1503,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2017-09-23T08:30:14+00:00"
+            "time": "2017-09-30T10:33:40+00:00"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1511,12 +1511,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "3b07742cf6741bf02ee4e8b3ec4657a31d8aeab9"
+                "reference": "181954365d5a36c7bbe150f59b856d2613a64410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=3b07742cf6741bf02ee4e8b3ec4657a31d8aeab9",
-                "reference": "3b07742cf6741bf02ee4e8b3ec4657a31d8aeab9",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=181954365d5a36c7bbe150f59b856d2613a64410",
+                "reference": "181954365d5a36c7bbe150f59b856d2613a64410",
                 "shasum": ""
             },
             "require": {
@@ -1566,7 +1566,7 @@
                 "static",
                 "website"
             ],
-            "time": "2017-09-23T08:57:40+00:00"
+            "time": "2017-09-30T10:52:43+00:00"
         },
         {
             "name": "nikic/php-parser",
