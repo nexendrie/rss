@@ -4,3 +4,4 @@
 composer.lock		export-ignore
 phpstan.neon    	export-ignore
 .scrutinizer.yml	export-ignore
+build.xml           export-ignore
