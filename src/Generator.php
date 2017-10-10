@@ -89,7 +89,7 @@ class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  public function generate(): \SimpleXMLElement {
+  protected function getData(): Collection {
     if(is_null($this->dataSource)) {
       throw new InvalidStateException("Data source for RSS generator is not set.");
     }
@@ -97,15 +97,36 @@ class Generator {
     if(!$items instanceof Collection) {
       throw new \InvalidArgumentException("Callback for data source for RSS generator has to return " . Collection::class . ".");
     }
-    $channel = simplexml_load_file(__DIR__ . "/template.xml");
-    if($this->link) {
-      $channel->channel->link[0][0] = $this->link;
+    return $items;
+  }
+  
+  protected function shortenDescription(string $description): string {
+    if($this->shortenDescription < 1) {
+      return $description;
     }
+    $originalDescription = $description;
+    $description = substr($description, 0, $this->shortenDescription);
+    if($description !== $originalDescription) {
+      $description .= "...";
+    }
+    return $description;
+  }
+  
+  /**
+   * @throws InvalidStateException
+   * @throws \InvalidArgumentException
+   */
+  public function generate(): \SimpleXMLElement {
+    $items = $this->getData();
     $lastBuildDate = call_user_func($this->lastBuildDate);
     if(!is_int($lastBuildDate)) {
       throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
     }
+    $channel = simplexml_load_file(__DIR__ . "/template.xml");
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
+    if($this->link) {
+      $channel->channel->link[0][0] = $this->link;
+    }
     if($this->title) {
       $channel->channel->title[0][0] = $this->title;
     }
@@ -119,11 +140,7 @@ class Generator {
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
       $i->addChild("pubDate", $item->pubDate);
-      $description = ($this->shortenDescription) ? substr($item->description, 0, $this->shortenDescription) : $item->description;
-      if($description !== $item->description) {
-        $description .= "...";
-      }
-      $i->addChild("description", $description);
+      $i->addChild("description", $this->shortenDescription($item->description));
     }
     return $channel;
   }
