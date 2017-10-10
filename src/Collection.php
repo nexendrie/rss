@@ -10,7 +10,7 @@ use Nexendrie\Utils\Collection as BaseCollection;
  *
  * @author Jakub Konečný
  */
-class Collection extends BaseCollection {
+final class Collection extends BaseCollection {
   /** @var string Type of items in the collection */
   protected $class = RssChannelItem::class;
 }

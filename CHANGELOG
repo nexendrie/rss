@@ -1,3 +1,6 @@
+Version 0.4.0+dev
+- marked some classes as final
+
 Version 0.4.0
 - raised minimal version of PHP to 7.1
 - allowed setting lastBuildDate for channel

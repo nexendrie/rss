@@ -10,8 +10,7 @@ use Tester\Assert,
 
 require __DIR__ . "/../../bootstrap.php";
 
-
-class RssResponseTest extends \Tester\TestCase {
+final class RssResponseTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
   
   /** @var \Nexendrie\Rss\Generator */

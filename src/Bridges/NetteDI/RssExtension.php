@@ -12,7 +12,7 @@ use Nette\DI\CompilerExtension,
  *
  * @author Jakub Konečný
  */
-class RssExtension extends CompilerExtension {
+final class RssExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "shortenDescription" => 150,

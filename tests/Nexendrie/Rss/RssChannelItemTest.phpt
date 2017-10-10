@@ -7,7 +7,7 @@ use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
 
-class RssChannelItemTest extends \Tester\TestCase {
+final class RssChannelItemTest extends \Tester\TestCase {
   /** @var RssChannelItem */
   protected $item;
   
