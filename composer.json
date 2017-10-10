@@ -38,7 +38,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Nexendrie\\Rss\\": "tests/"
+            "Nexendrie\\Rss\\": "tests/Nexendrie/Rss/"
         }
     },
     "suggest": {
