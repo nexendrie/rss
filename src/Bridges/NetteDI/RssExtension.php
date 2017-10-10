@@ -25,7 +25,7 @@ class RssExtension extends CompilerExtension {
     Validators::assertField($config, "dateTimeFormat", "string");
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("generator"))
-      ->setClass(Generator::class)
+      ->setType(Generator::class)
       ->addSetup("setShortenDescription", [$config["shortenDescription"]])
       ->addSetup("setDateTimeFormat", [$config["dateTimeFormat"]]);
   }
