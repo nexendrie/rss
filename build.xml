@@ -56,7 +56,7 @@
       <arg value="-l"/>
       <arg value="7"/>
       <arg value="-c"/>
-      <arg path="vendor/nexendrie/code-quality/phpstan.neon"/>
+      <arg path="phpstan.neon"/>
       <arg path="src"/>
       <arg path="tests"/>
     </exec>

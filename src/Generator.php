@@ -124,13 +124,13 @@ class Generator {
     }
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
-    if($this->link) {
+    if($this->link !== "") {
       $channel->channel->link[0][0] = $this->link;
     }
-    if($this->title) {
+    if($this->title !== "") {
       $channel->channel->title[0][0] = $this->title;
     }
-    if($this->description) {
+    if($this->description !== "") {
       $channel->channel->description[0][0] = $this->description;
     }
     /** @var RssChannelItem $item */
