@@ -19,6 +19,9 @@ final class RssExtension extends CompilerExtension {
     "dateTimeFormat" => "Y-m-d H:i:s",
   ];
   
+  /**
+   * @throws \Nette\Utils\AssertionException
+   */
   public function loadConfiguration(): void {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "shortenDescription", "integer");
