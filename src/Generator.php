@@ -112,6 +112,12 @@ class Generator {
     return $description;
   }
   
+  protected function writeProperty(\SimpleXMLElement &$channel, string $property): void {
+    if(isset($this->$property) AND $this->$property !== "") {
+      $channel->channel->{$property}[0][0] = $this->$property;
+    }
+  }
+  
   /**
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
@@ -124,15 +130,9 @@ class Generator {
     }
     $channel = simplexml_load_file(__DIR__ . "/template.xml");
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
-    if($this->link !== "") {
-      $channel->channel->link[0][0] = $this->link;
-    }
-    if($this->title !== "") {
-      $channel->channel->title[0][0] = $this->title;
-    }
-    if($this->description !== "") {
-      $channel->channel->description[0][0] = $this->description;
-    }
+    $this->writeProperty($channel, "link");
+    $this->writeProperty($channel, "title");
+    $this->writeProperty($channel, "description");
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
