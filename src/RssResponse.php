@@ -13,7 +13,7 @@ use Nette\Http\IRequest,
  *
  * @property-read \SimpleXMLElement $source
  */
-class RssResponse implements \Nette\Application\IResponse {
+final class RssResponse implements \Nette\Application\IResponse {
   /** @var \SimpleXMLElement */
   private $source;
   

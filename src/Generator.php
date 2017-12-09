@@ -18,7 +18,7 @@ namespace Nexendrie\Rss;
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
  * @method void onAfterGenerate(Generator $generator)
  */
-class Generator {
+final class Generator {
   use \Nette\SmartObject;
   
   /** @var string */
