@@ -14,6 +14,9 @@ namespace Nexendrie\Rss;
  * @property int $shortenDescription
  * @property string $dateTimeFormat
  * @property callable $lastBuildDate
+ * @method void onBeforeGenerate(Generator $generator)
+ * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
+ * @method void onAfterGenerate(Generator $generator)
  */
 class Generator {
   use \Nette\SmartObject;
@@ -32,6 +35,12 @@ class Generator {
   protected $shortenDescription = 150;
   /** @var callable */
   protected $lastBuildDate = "time";
+  /** @var callable[] */
+  public $onBeforeGenerate = [];
+  /** @var callable[] */
+  public $onAddItem = [];
+  /** @var callable[] */
+  public $onAfterGenerate = [];
   
   public function getTitle(): string {
     return $this->title;
@@ -123,6 +132,7 @@ class Generator {
    * @throws \InvalidArgumentException
    */
   public function generate(): \SimpleXMLElement {
+    $this->onBeforeGenerate($this);
     $items = $this->getData();
     $lastBuildDate = call_user_func($this->lastBuildDate);
     if(!is_int($lastBuildDate)) {
@@ -141,7 +151,9 @@ class Generator {
       $i->addChild("link", $item->link);
       $i->addChild("pubDate", $item->pubDate);
       $i->addChild("description", $this->shortenDescription($item->description));
+      $this->onAddItem($this, $channel, $item, $i);
     }
+    $this->onAfterGenerate($this);
     return $channel;
   }
   
