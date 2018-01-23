@@ -18,7 +18,6 @@ test:php7.2:
   image: nexendrie/php:7.2
   script:
   - phing test
-  allow_failure: true
 
 test:cc:
   stage: test
@@ -37,4 +36,4 @@ pages:
       paths:
       - public
   only:
-  - master@nexendrie/rss
+  - tags@nexendrie/rss
