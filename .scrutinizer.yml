@@ -157,16 +157,22 @@ build:
         postgresql: false
         redis: false
         rabbitmq: false
-    tests:
-        override:
-            - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
-            -
-               command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
-               analysis:
-                    file: codesniffer.cs
-                    format: 'general-checkstyle'
-            -
-                command: ./phing ci-coverage
-                coverage:
-                    file: coverage.xml
-                    format: php-clover
+    nodes:
+        analyzes:
+            tests:
+                override:
+                    - php-scrutinizer-run
+        tests:
+            tests:
+                override:
+                    - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
+                    -
+                        command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
+                        analysis:
+                            file: codesniffer.cs
+                            format: 'general-checkstyle'
+                    -
+                        command: ./phing ci-coverage
+                        coverage:
+                            file: coverage.xml
+                            format: php-clover
