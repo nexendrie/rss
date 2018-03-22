@@ -158,13 +158,10 @@ build:
         redis: false
         rabbitmq: false
     nodes:
-        analyzes:
-            tests:
-                override:
-                    - php-scrutinizer-run
         tests:
             tests:
                 override:
+                    - php-scrutinizer-run
                     - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
                     -
                         command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
