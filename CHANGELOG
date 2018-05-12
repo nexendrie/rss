@@ -1,6 +1,7 @@
 Version 0.4.0+dev
 - marked some classes as final
 - added events onBeforeGenerate, onAddItem and onAfterGenerate to Generator
+- allowed customization of RSS channel template
 
 Version 0.4.0
 - raised minimal version of PHP to 7.1

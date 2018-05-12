@@ -150,6 +150,21 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::type(RssResponse::class, $result);
     Assert::type(\SimpleXMLElement::class, $result->source);
   }
+  
+  public function testCustomTemplate() {
+    Assert::exception(function() {
+      $this->generator->template = "abc.xml";
+    }, \RuntimeException::class);
+    $templateFilename = __DIR__ . "/template.xml";
+    $this->generator->template = $templateFilename;
+    Assert::same($templateFilename, $this->generator->template);
+    $this->generator->dataSource = function() {
+      return new Collection();
+    };
+    $result = $this->generator->generate();
+    Assert::type(\SimpleXMLElement::class, $result);
+    Assert::same("en", (string) $result->channel->language);
+  }
 }
 
 $test = new GeneratorTest;

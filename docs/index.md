@@ -59,6 +59,17 @@ or completely disable it by setting the property to 0.
 
 You can also change lastBuildDate for channel by setting property lastBuildDate of the Generator. It accepts callback that returns integer which is interpreted as timestamp. Default value is current time.
 
+It is also possible to use custom template for RSS Channel. Just use:
+
+```php
+<?php
+declare(strict_types=1);
+
+$generator = new Nexendrie\Rss\Generator();
+$generator->template = "/path/to/your/template.xml";
+?>
+```
+
 Nette applications
 ------------------
 

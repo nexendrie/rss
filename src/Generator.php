@@ -14,6 +14,7 @@ namespace Nexendrie\Rss;
  * @property int $shortenDescription
  * @property string $dateTimeFormat
  * @property callable $lastBuildDate
+ * @property string $template
  * @method void onBeforeGenerate(Generator $generator)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
  * @method void onAfterGenerate(Generator $generator)
@@ -35,6 +36,8 @@ final class Generator {
   protected $shortenDescription = 150;
   /** @var callable */
   protected $lastBuildDate = "time";
+  /** @var string */
+  protected $template = __DIR__ . "/template.xml";
   /** @var callable[] */
   public $onBeforeGenerate = [];
   /** @var callable[] */
@@ -94,6 +97,20 @@ final class Generator {
     $this->lastBuildDate = $lastBuildDate;
   }
   
+  public function getTemplate(): string {
+    return $this->template;
+  }
+  
+  /**
+   * @throws \RuntimeException
+   */
+  public function setTemplate(string $template): void {
+    if(!is_file($template)) {
+      throw new \RuntimeException("File $template does not exist.");
+    }
+    $this->template = $template;
+  }
+  
   /**
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
@@ -138,7 +155,7 @@ final class Generator {
     if(!is_int($lastBuildDate)) {
       throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
     }
-    $channel = simplexml_load_file(__DIR__ . "/template.xml");
+    $channel = simplexml_load_file($this->template);
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
     $this->writeProperty($channel, "link");
     $this->writeProperty($channel, "title");
