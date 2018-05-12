@@ -22,11 +22,14 @@ Create new instance of \Nexendrie\Rss\Generator, set its properties title and de
 Example:
 
 ```php
+<?php
+declare(strict_types=1);
+
 use Nexendrie\Rss\Generator,
     Nexendrie\Rss\RssChannelItem,
     Nexendrie\Rss\Collection;
 
-$generator = new Generator;
+$generator = new Generator();
 $generator->title = "Nexendrie RSS";
 $generator->link = "https://nexendrie.cz/rss";
 $generator->description = "News for package nexendrie/rss";
@@ -36,6 +39,7 @@ $generator->dataSource = function() use($generator) {
   return $items;
 };
 $result = $generator->generate();
+?>
 ```
 
 Method generate returns plain text that can showed with echo.
@@ -46,13 +50,23 @@ Advanced usage
 It is possible to change time format for the channel. Just use:
 
 ```php
+<?php
+declare(strict_types=1);
+
+$generator = new Nexendrie\Rss\Generator();
 $generator->dateTimeFormat = "your preferred format";
+?>
 ```
 
 By default, only first 150 characters of items' description is printed. You can change the length limit like this:
 
 ```php
+<?php
+declare(strict_types=1);
+
+$generator = new Nexendrie\Rss\Generator();
 $generator->shortenDescription = 150;
+?>
 ```
 
 or completely disable it by setting the property to 0.
@@ -75,7 +89,7 @@ Nette applications
 
 The package contains extension for Nette DI container which adds the generator. It allows you to set maximal length of items' description. Example (with default values):
 
-```
+```yaml
 extensions:
     rss: Nexendrie\Rss\Bridges\NetteDI\RssExtension
 rss:
