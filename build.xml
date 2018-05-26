@@ -20,6 +20,16 @@
       <arg value="--output=public"/>
     </exec>
   </target>
+  <target name="release">
+    <input propertyName="version" message="Enter new version number" promptChar=":"/>
+    <replaceregexp file="CHANGELOG" pattern='Version ([0-9]+\.)+[0-9]+(\+|-)dev' replace='Version ${version}'/>
+    <echo message="Written new version number to CHANGELOG."/>
+    <exec command="git add CHANGELOG" logoutput="true" passthru="true" checkreturn="true"/>
+    <exec command="git commit --message='Version ${version}'" logoutput="true" passthru="true" checkreturn="true"/>
+    <echo message="Created release commit."/>
+    <exec command="git tag ${version} --message='Version ${version}' --sign" logoutput="true" passthru="true" checkreturn="true"/>
+    <echo message="Created tag."/>
+  </target>
   <target name="install">
     <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
       <arg value="install"/>
