@@ -42,7 +42,8 @@ final class GeneratorTest extends \Tester\TestCase {
       return new Collection();
     };
     $result = $this->generator->generate();
-    Assert::type(\SimpleXMLElement::class, $result);
+    Assert::type("string", $result);
+    $result = new \SimpleXMLElement($result);
     Assert::same("Test", (string) $result->channel->title);
     Assert::same("Test RSS Channel", (string) $result->channel->description);
     Assert::same(0, $this->countItems($result));
@@ -62,7 +63,8 @@ final class GeneratorTest extends \Tester\TestCase {
       return $items;
     };
     $result = $this->generator->generate();
-    Assert::type(\SimpleXMLElement::class, $result);
+    Assert::type("string", $result);
+    $result = new \SimpleXMLElement($result);
     Assert::same($title, (string) $result->channel->title);
     Assert::same($description, (string) $result->channel->description);
     Assert::same($link, (string) $result->channel->link);
@@ -88,13 +90,13 @@ final class GeneratorTest extends \Tester\TestCase {
       return $items;
     };
     $this->generator->shortenDescription = 0;
-    $result = $this->generator->generate();
+    $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same($description, (string) $result->channel->item->description);
     $this->generator->shortenDescription = 10;
-    $result = $this->generator->generate();
+    $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same(13, (strlen((string) $result->channel->item->description)));
     $this->generator->shortenDescription = 250;
-    $result = $this->generator->generate();
+    $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same(strlen($description), (strlen((string) $result->channel->item->description)));
   }
   
@@ -111,7 +113,7 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->generator->lastBuildDate = function() {
       return time();
     };
-    $result = $this->generator->generate();
+    $result = new \SimpleXMLElement($this->generator->generate());
     Assert::type("string", (string) $result->channel->lastBuidDate);
   }
   
@@ -148,7 +150,7 @@ final class GeneratorTest extends \Tester\TestCase {
     };
     $result = $this->generator->response();
     Assert::type(RssResponse::class, $result);
-    Assert::type(\SimpleXMLElement::class, $result->source);
+    Assert::type("string", $result->source);
   }
   
   public function testCustomTemplate() {
@@ -162,7 +164,8 @@ final class GeneratorTest extends \Tester\TestCase {
       return new Collection();
     };
     $result = $this->generator->generate();
-    Assert::type(\SimpleXMLElement::class, $result);
+    Assert::type("string", $result);
+    $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same("en", (string) $result->channel->language);
   }
 }

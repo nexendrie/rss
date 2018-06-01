@@ -11,25 +11,25 @@ use Nette\Http\IRequest,
  *
  * @author Jakub Konečný
  *
- * @property-read \SimpleXMLElement $source
+ * @property-read string $source
  */
 final class RssResponse implements \Nette\Application\IResponse {
-  /** @var \SimpleXMLElement */
+  /** @var string */
   private $source;
   
   use \Nette\SmartObject;
   
-  public function __construct(\SimpleXMLElement $source) {
+  public function __construct(string $source) {
     $this->source = $source;
   }
   
-  public function getSource(): \SimpleXMLElement {
+  public function getSource(): string {
     return $this->source;
   }
   
   public function send(IRequest $httpRequest, IResponse $httpResponse): void {
     $httpResponse->setContentType("application/xhtml+xml");
-    echo $this->source->asXML();
+    echo $this->source;
   }
 }
 ?>

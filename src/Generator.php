@@ -148,7 +148,7 @@ final class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  public function generate(): \SimpleXMLElement {
+  public function generate(): string {
     $this->onBeforeGenerate($this);
     $items = $this->getData();
     $lastBuildDate = call_user_func($this->lastBuildDate);
@@ -171,7 +171,7 @@ final class Generator {
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this);
-    return $channel;
+    return $channel->asXML();
   }
   
   /**

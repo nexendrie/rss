@@ -35,7 +35,7 @@ final class RssResponseTest extends \Tester\TestCase {
     $application->onResponse[] = function(Application $application, IResponse $response) {
       /** @var RssResponse $response */
       Assert::type(RssResponse::class, $response);
-      Assert::type(\SimpleXMLElement::class, $response->source);
+      Assert::type("string", $response->source);
     };
     ob_start();
     $application->processRequest($request);
