@@ -31,7 +31,7 @@ final class Generator {
   /** @var string */
   protected $dateTimeFormat = "Y-m-d H:i:s";
   /** @var callable|null */
-  protected $dataSource = NULL;
+  protected $dataSource = null;
   /** @var int */
   protected $shortenDescription = 150;
   /** @var callable */
