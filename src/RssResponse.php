@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Nette\Http\IRequest,
-    Nette\Http\IResponse;
+use Nette\Http\IRequest;
+use Nette\Http\IResponse;
 
 /**
  * RSS channel response

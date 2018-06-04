@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Tester\Assert,
-    Nette\Application\Application,
-    Nette\Application\Request,
-    Nette\Application\IResponse;
+use Tester\Assert;
+use Nette\Application\Application;
+use Nette\Application\Request;
+use Nette\Application\IResponse;
 
 require __DIR__ . "/../../bootstrap.php";
 

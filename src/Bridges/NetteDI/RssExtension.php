@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Bridges\NetteDI;
 
-use Nette\DI\CompilerExtension,
-    Nette\Utils\Validators,
-    Nexendrie\Rss\Generator;
+use Nette\DI\CompilerExtension;
+use Nette\Utils\Validators;
+use Nexendrie\Rss\Generator;
 
 /**
  * RssExtension for Nette DI Container
