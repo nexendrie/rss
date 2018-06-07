@@ -36,6 +36,6 @@ final class RssChannelItemTest extends \Tester\TestCase {
   }
 }
 
-$test = new RssChannelItemTest;
+$test = new RssChannelItemTest();
 $test->run();
 ?>

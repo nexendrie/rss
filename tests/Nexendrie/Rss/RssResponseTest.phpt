@@ -19,7 +19,7 @@ final class RssResponseTest extends \Tester\TestCase {
   public function setUp() {
     $this->generator = $this->getService(Generator::class);
     $this->generator->dataSource = function() {
-      return new Collection;
+      return new Collection();
     };
   }
   
@@ -54,6 +54,6 @@ final class RssResponseTest extends \Tester\TestCase {
   }
 }
 
-$test = new RssResponseTest;
+$test = new RssResponseTest();
 $test->run();
 ?>
