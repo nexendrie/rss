@@ -1493,12 +1493,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/code-quality.git",
-                "reference": "698084b6f2ba21cdf9b10f166d963d1ed5e8f289"
+                "reference": "a090c2874da03eaeb3ad1c0160bf20b7fddf3094"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fcode-quality/repository/archive.zip?sha=698084b6f2ba21cdf9b10f166d963d1ed5e8f289",
-                "reference": "698084b6f2ba21cdf9b10f166d963d1ed5e8f289",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fcode-quality/repository/archive.zip?sha=a090c2874da03eaeb3ad1c0160bf20b7fddf3094",
+                "reference": "a090c2874da03eaeb3ad1c0160bf20b7fddf3094",
                 "shasum": ""
             },
             "require": {
@@ -1527,7 +1527,7 @@
                 "quality",
                 "testing"
             ],
-            "time": "2018-06-07T13:29:32+00:00"
+            "time": "2018-06-08T15:31:32+00:00"
         },
         {
             "name": "nexendrie/site-generator",
@@ -1535,12 +1535,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "83ab1d4d43e84a2c8425bca1eb7a724c5ca76417"
+                "reference": "e9c91275a4f46c1fd09581249d939c130d07e8de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=83ab1d4d43e84a2c8425bca1eb7a724c5ca76417",
-                "reference": "83ab1d4d43e84a2c8425bca1eb7a724c5ca76417",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=e9c91275a4f46c1fd09581249d939c130d07e8de",
+                "reference": "e9c91275a4f46c1fd09581249d939c130d07e8de",
                 "shasum": ""
             },
             "require": {
@@ -1590,7 +1590,7 @@
                 "static",
                 "website"
             ],
-            "time": "2018-06-07T13:33:14+00:00"
+            "time": "2018-06-08T15:33:48+00:00"
         },
         {
             "name": "nikic/php-parser",
