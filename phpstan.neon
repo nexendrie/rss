@@ -1,3 +1,6 @@
 includes:
     - vendor/nexendrie/code-quality/phpstan.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+    ignoreErrors:
+        - '#Cannot access property \$channel on SimpleXMLElement\|false#'

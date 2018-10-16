@@ -49,7 +49,7 @@ final class Generator {
     return $this->title;
   }
   
-  public function setTitle(string $title) {
+  public function setTitle(string $title): void {
     $this->title = $title;
   }
   
@@ -57,7 +57,7 @@ final class Generator {
     return $this->description;
   }
   
-  public function setDescription(string $description) {
+  public function setDescription(string $description): void {
     $this->description = $description;
   }
   
@@ -65,11 +65,11 @@ final class Generator {
     return $this->link;
   }
   
-  public function setLink(string $link) {
+  public function setLink(string $link): void {
     $this->link = $link;
   }
   
-  public function setDataSource(callable $dataSource) {
+  public function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
   }
   
@@ -77,7 +77,7 @@ final class Generator {
     return $this->shortenDescription;
   }
   
-  public function setShortenDescription(int $value) {
+  public function setShortenDescription(int $value): void {
     $this->shortenDescription = $value;
   }
   
@@ -85,15 +85,15 @@ final class Generator {
     return $this->dateTimeFormat;
   }
   
-  public function setDateTimeFormat(string $format) {
+  public function setDateTimeFormat(string $format): void {
     $this->dateTimeFormat = $format;
   }
   
-  public function getLastBuildDate() {
+  public function getLastBuildDate(): callable {
     return $this->lastBuildDate;
   }
   
-  public function setLastBuildDate(callable $lastBuildDate) {
+  public function setLastBuildDate(callable $lastBuildDate): void {
     $this->lastBuildDate = $lastBuildDate;
   }
   

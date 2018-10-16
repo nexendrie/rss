@@ -35,7 +35,7 @@ class RssChannelItem {
     return $this->title;
   }
   
-  public function setTitle(string $title) {
+  public function setTitle(string $title): void {
     $this->title = $title;
   }
   
@@ -43,7 +43,7 @@ class RssChannelItem {
     return $this->description;
   }
   
-  public function setDescription(string $description) {
+  public function setDescription(string $description): void {
     $this->description = $description;
   }
   
@@ -51,7 +51,7 @@ class RssChannelItem {
     return $this->link;
   }
   
-  public function setLink(string $link) {
+  public function setLink(string $link): void {
     $this->link = $link;
   }
   
@@ -59,7 +59,7 @@ class RssChannelItem {
     return $this->pubDate;
   }
   
-  public function setPubDate(string $pubDate) {
+  public function setPubDate(string $pubDate): void {
     $this->pubDate = $pubDate;
   }
 }
