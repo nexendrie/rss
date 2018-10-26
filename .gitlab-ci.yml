@@ -19,6 +19,12 @@ test:php7.2:
   script:
   - phing test
 
+test:php7.3:
+  stage: test
+  image: nexendrie/php:7.3
+  script:
+  - phing test
+
 test:cc:
   stage: test
   script:
