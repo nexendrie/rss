@@ -8,6 +8,9 @@ cache:
   paths:
   - vendor/
 
+before_script:
+  - composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
 test:default:
   stage: test
   script:
