@@ -1,4 +1,4 @@
-image: nexendrie/php:7.1
+image: nexendrie/php:7.2
 
 stages:
   - test
@@ -13,12 +13,6 @@ before_script:
 
 test:default:
   stage: test
-  script:
-  - phing test
-
-test:php7.2:
-  stage: test
-  image: nexendrie/php:7.2
   script:
   - phing test
 

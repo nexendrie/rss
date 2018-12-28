@@ -19,7 +19,7 @@
         "docs": "https://nexendrie.gitlab.io/rss"
     },
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.2.0",
         "ext-simplexml": "*",
         "nette/utils": "^2.4",
         "nexendrie/utils": "^1.0"
