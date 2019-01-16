@@ -4,3 +4,4 @@ includes:
 parameters:
     ignoreErrors:
         - '#Cannot access property \$channel on SimpleXMLElement\|false#'
+        - '#Variable property access on \$this\(Nexendrie\\Rss\\Generator\)#'
