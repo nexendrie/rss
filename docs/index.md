@@ -95,6 +95,7 @@ extensions:
 rss:
     shortenDescription: 150
     dateTimeFormat: "Y-m-d H:i:s"
+    template: "/path/to/default/template.xml"
 ```
 
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:

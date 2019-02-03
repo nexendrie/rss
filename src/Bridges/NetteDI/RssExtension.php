@@ -17,6 +17,7 @@ final class RssExtension extends CompilerExtension {
   protected $defaults = [
     "shortenDescription" => 150,
     "dateTimeFormat" => "Y-m-d H:i:s",
+    "template" => "",
   ];
   
   /**
@@ -26,11 +27,15 @@ final class RssExtension extends CompilerExtension {
     $config = $this->getConfig($this->defaults);
     Validators::assertField($config, "shortenDescription", "integer");
     Validators::assertField($config, "dateTimeFormat", "string");
+    Validators::assertField($config, "template", "string");
     $builder = $this->getContainerBuilder();
-    $builder->addDefinition($this->prefix("generator"))
+    $generator = $builder->addDefinition($this->prefix("generator"))
       ->setType(Generator::class)
       ->addSetup('$service->shortenDescription = ?', [$config["shortenDescription"]])
       ->addSetup('$service->dateTimeFormat = ?', [$config["dateTimeFormat"]]);
+    if($config["template"] !== "") {
+      $generator->addSetup('$service->template = ?', [$config["template"]]);
+    }
   }
 }
 ?>
