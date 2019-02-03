@@ -1,7 +1,7 @@
 Version 0.4.0+dev
 - marked some classes as final
 - added events onBeforeGenerate, onAddItem and onAfterGenerate to Generator
-- allowed customization of RSS channel template
+- allowed customization of RSS channel's template
 - BC break: Generator::generate() now returns string, RssResponse::__construct() now takes string as parameter
 - raised minimal version of PHP to 7.2
 - BC break: RssChannelItem::$pubDate has to be integer (timestamp) now
@@ -19,7 +19,7 @@ Version 0.3.0
 
 Version 0.2.0
 - added method Generator::response()
-- added extension for Nette DI
+- added extension for Nette DI container
 
 Version 0.1.0
 - initial version
