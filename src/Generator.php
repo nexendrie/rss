@@ -165,7 +165,7 @@ final class Generator {
     }
     $items = call_user_func($this->dataSource);
     if(!$items instanceof Collection) {
-      throw new \InvalidArgumentException("Callback for data source for RSS generator has to return " . Collection::class . ".");
+      throw new \InvalidArgumentException("Callback for data source for RSS generator has to return an instance of  " . Collection::class . ".");
     }
     return $items;
   }

@@ -77,7 +77,7 @@ final class GeneratorTest extends \Tester\TestCase {
     };
     Assert::exception(function() {
       $this->generator->generate();
-    }, \InvalidArgumentException::class, "Callback for data source for RSS generator has to return " . Collection::class . ".");
+    }, \InvalidArgumentException::class);
   }
   
   public function testShortenDescription() {
