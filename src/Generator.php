@@ -166,7 +166,7 @@ final class Generator {
       $i = $channel->channel->addChild("item");
       $i->addChild("title", $item->title);
       $i->addChild("link", $item->link);
-      $i->addChild("pubDate", $item->pubDate);
+      $i->addChild("pubDate", date($this->dateTimeFormat, $item->pubDate));
       $i->addChild("description", $this->shortenDescription($item->description));
       $this->onAddItem($this, $channel, $item, $i);
     }

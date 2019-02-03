@@ -4,6 +4,7 @@ Version 0.4.0+dev
 - allowed customization of RSS channel template
 - BC break: Generator::generate() now returns string, RssResponse::__construct() now takes string as parameter
 - raised minimal version of PHP to 7.2
+- BC break: RssChannelItem::$pubDate has to be integer (timestamp) now
 
 Version 0.4.0
 - raised minimal version of PHP to 7.1

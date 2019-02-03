@@ -35,7 +35,7 @@ $generator->link = "https://nexendrie.cz/rss";
 $generator->description = "News for package nexendrie/rss";
 $generator->dataSource = function() use($generator) {
   $items = new Collection;
-  $items[] = new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", date($generator->dateTimeFormat));
+  $items[] = new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", time());
   return $items;
 };
 $result = $generator->generate();

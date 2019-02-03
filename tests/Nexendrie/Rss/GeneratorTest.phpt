@@ -57,9 +57,8 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->generator->link = $link = "https://gitlab.com/nexendrie/rss/";
     Assert::same($link, $this->generator->link);
     $this->generator->dataSource = function() {
-      $pubDate = date($this->generator->dateTimeFormat);
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
       return $items;
     };
     $result = $this->generator->generate();
@@ -84,9 +83,8 @@ final class GeneratorTest extends \Tester\TestCase {
   public function testShortenDescription() {
     $description = str_repeat("ABDEFGH", 20);
     $this->generator->dataSource = function() use($description) {
-      $pubDate = date($this->generator->dateTimeFormat);
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", $description, "", $pubDate);
+      $items[] = new RssChannelItem("Item 1", $description, "", 123);
       return $items;
     };
     $this->generator->shortenDescription = 0;
@@ -105,9 +103,8 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
-      $pubDate = date($this->generator->dateTimeFormat);
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
       return $items;
     };
     $this->generator->lastBuildDate = function() {
@@ -122,9 +119,8 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
-      $pubDate = date($this->generator->dateTimeFormat);
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
       return $items;
     };
     $this->generator->lastBuildDate = function() {
@@ -143,9 +139,8 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->generator->description = "News for package nexendrie/rss";
     $this->generator->link = "https://gitlab.com/nexendrie/rss/";
     $this->generator->dataSource = function() {
-      $pubDate = date($this->generator->dateTimeFormat);
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", $pubDate);
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
       return $items;
     };
     $result = $this->generator->response();

@@ -12,7 +12,7 @@ final class RssChannelItemTest extends \Tester\TestCase {
   protected $item;
   
   public function setUp() {
-    $this->item = new RssChannelItem("title", "description", "link", "pubDate");
+    $this->item = new RssChannelItem("title", "description", "link", 1);
   }
   
   public function testTitle() {
@@ -31,8 +31,8 @@ final class RssChannelItemTest extends \Tester\TestCase {
   }
   
   public function testPubDate() {
-    $this->item->pubDate = "abc";
-    Assert::same("abc", $this->item->pubDate);
+    $this->item->pubDate = 123;
+    Assert::same(123, $this->item->pubDate);
   }
 }
 

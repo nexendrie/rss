@@ -10,7 +10,7 @@ namespace Nexendrie\Rss;
  * @property string $title
  * @property string $description
  * @property string $link
- * @property string $pubDate
+ * @property int $pubDate
  */
 class RssChannelItem {
   use \Nette\SmartObject;
@@ -21,10 +21,10 @@ class RssChannelItem {
   protected $description;
   /** @var string */
   protected $link;
-  /** @var string */
+  /** @var int */
   protected $pubDate;
   
-  public function __construct(string $title, string $description, string $link, string $pubDate) {
+  public function __construct(string $title, string $description, string $link, int $pubDate) {
     $this->title = $title;
     $this->description = $description;
     $this->link = $link;
@@ -55,11 +55,11 @@ class RssChannelItem {
     $this->link = $link;
   }
   
-  public function getPubDate(): string {
+  public function getPubDate(): int {
     return $this->pubDate;
   }
   
-  public function setPubDate(string $pubDate): void {
+  public function setPubDate(int $pubDate): void {
     $this->pubDate = $pubDate;
   }
 }
