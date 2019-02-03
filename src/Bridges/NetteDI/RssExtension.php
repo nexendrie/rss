@@ -29,8 +29,8 @@ final class RssExtension extends CompilerExtension {
     $builder = $this->getContainerBuilder();
     $builder->addDefinition($this->prefix("generator"))
       ->setType(Generator::class)
-      ->addSetup("setShortenDescription", [$config["shortenDescription"]])
-      ->addSetup("setDateTimeFormat", [$config["dateTimeFormat"]]);
+      ->addSetup('$service->shortenDescription = ?', [$config["shortenDescription"]])
+      ->addSetup('$service->dateTimeFormat = ?', [$config["dateTimeFormat"]]);
   }
 }
 ?>
