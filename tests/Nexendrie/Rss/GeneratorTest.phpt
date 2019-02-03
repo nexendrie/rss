@@ -161,6 +161,34 @@ final class GeneratorTest extends \Tester\TestCase {
     $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
   }
+
+  public function testOptionalThings() {
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      return new Collection();
+    };
+
+    $language = "en";
+    $this->generator->language = $language;
+    Assert::same($language, $this->generator->language);
+    $copyright = "Copyright 2019, Abc";
+    $this->generator->copyright = $copyright;
+    Assert::same($copyright, $this->generator->copyright);
+    $managingEditor = "Abc";
+    $this->generator->managingEditor = $managingEditor;
+    Assert::same($managingEditor, $this->generator->managingEditor);
+    $webMaster = "Def";
+    $this->generator->webMaster = $webMaster;
+    Assert::same($webMaster, $this->generator->webMaster);
+
+    $result = new \SimpleXMLElement($this->generator->generate());
+    Assert::same($language, (string) $result->channel->language);
+    Assert::same($copyright, (string) $result->channel->copyright);
+    Assert::same($managingEditor, (string) $result->channel->managingEditor);
+    Assert::same($webMaster, (string) $result->channel->webMaster);
+  }
   
   public function testCustomTemplate() {
     Assert::exception(function() {

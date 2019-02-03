@@ -84,6 +84,8 @@ $generator->template = "/path/to/your/template.xml";
 ?>
 ```
 
+You can also set language, copyright, managingEditor and webMaster for channel by setting property of the same name on Generator.
+
 Nette applications
 ------------------
 

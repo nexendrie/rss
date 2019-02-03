@@ -10,6 +10,10 @@ namespace Nexendrie\Rss;
  * @property string $title
  * @property string $description
  * @property string $link
+ * @property string $language
+ * @property string $copyright
+ * @property string $managingEditor
+ * @property string $webMaster
  * @property callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
@@ -28,6 +32,14 @@ final class Generator {
   protected $description = "";
   /** @var string */
   protected $link = "";
+  /** @var string */
+  protected $language = "";
+  /** @var string */
+  protected $copyright = "";
+  /** @var string */
+  protected $managingEditor = "";
+  /** @var string */
+  protected $webMaster = "";
   /** @var string */
   protected $dateTimeFormat = "Y-m-d H:i:s";
   /** @var callable|null */
@@ -68,7 +80,39 @@ final class Generator {
   public function setLink(string $link): void {
     $this->link = $link;
   }
-  
+
+  public function getLanguage(): string {
+    return $this->language;
+  }
+
+  public function setLanguage(string $language): void {
+    $this->language = $language;
+  }
+
+  public function getCopyright(): string {
+    return $this->copyright;
+  }
+
+  public function setCopyright(string $copyright): void {
+    $this->copyright = $copyright;
+  }
+
+  public function getManagingEditor(): string {
+    return $this->managingEditor;
+  }
+
+  public function setManagingEditor(string $managingEditor): void {
+    $this->managingEditor = $managingEditor;
+  }
+
+  public function getWebMaster(): string {
+    return $this->webMaster;
+  }
+
+  public function setWebMaster(string $webMaster): void {
+    $this->webMaster = $webMaster;
+  }
+
   public function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
   }
@@ -160,6 +204,10 @@ final class Generator {
     $this->writeProperty($channel, "link");
     $this->writeProperty($channel, "title");
     $this->writeProperty($channel, "description");
+    $this->writeProperty($channel, "language");
+    $this->writeProperty($channel, "copyright");
+    $this->writeProperty($channel, "managingEditor");
+    $this->writeProperty($channel, "webMaster");
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
