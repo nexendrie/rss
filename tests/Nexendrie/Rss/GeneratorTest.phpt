@@ -147,6 +147,20 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::type(RssResponse::class, $result);
     Assert::type("string", $result->source);
   }
+
+  public function testDateTimeFormat() {
+    $dateTimeFormat = "Y/m/d";
+    $this->generator->dateTimeFormat = $dateTimeFormat;
+    Assert::same($dateTimeFormat, $this->generator->dateTimeFormat);
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      return new Collection();
+    };
+    $result = new \SimpleXMLElement($this->generator->generate());
+    Assert::same(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
+  }
   
   public function testCustomTemplate() {
     Assert::exception(function() {
