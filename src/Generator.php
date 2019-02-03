@@ -227,11 +227,7 @@ final class Generator {
    * @throws \InvalidArgumentException
    */
   public function response(): RssResponse {
-    try {
-      return new RssResponse($this->generate());
-    } catch(InvalidStateException | \InvalidArgumentException $e) {
-      throw $e;
-    }
+    return new RssResponse($this->generate());
   }
 }
 ?>
