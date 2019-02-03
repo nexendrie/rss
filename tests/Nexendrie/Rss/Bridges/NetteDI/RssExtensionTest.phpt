@@ -12,6 +12,9 @@ final class RssExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
 
   public function testShortenDescription() {
+    /** @var Generator $generator */
+    $generator = $this->getService(Generator::class);
+    Assert::notSame("", $generator->shortenDescription);
     Assert::exception(function() {
       $this->refreshContainer(["rss" => [
         "shortenDescription" => "abc",
@@ -26,6 +29,9 @@ final class RssExtensionTest extends \Tester\TestCase {
   }
 
   public function testDateTimeFormat() {
+    /** @var Generator $generator */
+    $generator = $this->getService(Generator::class);
+    Assert::notSame("", $generator->dateTimeFormat);
     Assert::exception(function() {
       $this->refreshContainer(["rss" => [
         "dateTimeFormat" => 123,
@@ -40,6 +46,9 @@ final class RssExtensionTest extends \Tester\TestCase {
   }
 
   public function testTemplate() {
+    /** @var Generator $generator */
+    $generator = $this->getService(Generator::class);
+    Assert::notSame("", $generator->template);
     Assert::exception(function() {
       $this->refreshContainer(["rss" => [
         "template" => 123,

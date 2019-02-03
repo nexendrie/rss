@@ -16,10 +16,16 @@ final class RssExtension extends CompilerExtension {
   /** @var array */
   protected $defaults = [
     "shortenDescription" => 150,
-    "dateTimeFormat" => "Y-m-d H:i:s",
+    "dateTimeFormat" => "",
     "template" => "",
   ];
-  
+
+  protected function setProperty(\Nette\DI\ServiceDefinition &$generator, array $config, string $property): void {
+    if($config[$property] !== "") {
+      $generator->addSetup('$service->' . $property . " = ?", [$config[$property]]);
+    }
+  }
+
   /**
    * @throws \Nette\Utils\AssertionException
    */
@@ -31,11 +37,9 @@ final class RssExtension extends CompilerExtension {
     $builder = $this->getContainerBuilder();
     $generator = $builder->addDefinition($this->prefix("generator"))
       ->setType(Generator::class)
-      ->addSetup('$service->shortenDescription = ?', [$config["shortenDescription"]])
-      ->addSetup('$service->dateTimeFormat = ?', [$config["dateTimeFormat"]]);
-    if($config["template"] !== "") {
-      $generator->addSetup('$service->template = ?', [$config["template"]]);
-    }
+      ->addSetup('$service->shortenDescription = ?', [$config["shortenDescription"]]);
+    $this->setProperty($generator, $config, "dateTimeFormat");
+    $this->setProperty($generator, $config, "template");
   }
 }
 ?>
