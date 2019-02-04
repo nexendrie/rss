@@ -199,6 +199,7 @@ final class Generator {
     if(!is_int($lastBuildDate)) {
       throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
     }
+    /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
     $this->writeProperty($channel, "link");

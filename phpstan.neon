@@ -3,5 +3,4 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
     ignoreErrors:
-        - '#Cannot access property \$channel on SimpleXMLElement\|false#'
         - '#Variable property access on \$this\(Nexendrie\\Rss\\Generator\)#'
