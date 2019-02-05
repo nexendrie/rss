@@ -253,6 +253,9 @@ final class Generator {
         return date($this->dateTimeFormat, $value);
       });
       $this->writeItemProperty($i, $item, "description", [$this, "shortenDescription"]);
+      $this->writeItemProperty($i, $item, "author");
+      $this->writeItemProperty($i, $item, "comments");
+      $this->writeItemProperty($i, $item, "guid");
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this);

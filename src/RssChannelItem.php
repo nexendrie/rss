@@ -11,6 +11,9 @@ namespace Nexendrie\Rss;
  * @property string $description
  * @property string $link
  * @property int $pubDate
+ * @property string $author
+ * @property string $comments
+ * @property string $guid
  */
 class RssChannelItem {
   use \Nette\SmartObject;
@@ -23,6 +26,12 @@ class RssChannelItem {
   protected $link;
   /** @var int */
   protected $pubDate;
+  /** @var string */
+  protected $author = "";
+  /** @var string */
+  protected $comments = "";
+  /** @var string */
+  protected $guid = "";
   
   public function __construct(string $title, string $description, string $link, int $pubDate) {
     $this->title = $title;
@@ -61,6 +70,30 @@ class RssChannelItem {
   
   public function setPubDate(int $pubDate): void {
     $this->pubDate = $pubDate;
+  }
+
+  public function getAuthor(): string {
+    return $this->author;
+  }
+
+  public function setAuthor(string $author): void {
+    $this->author = $author;
+  }
+
+  public function getComments(): string {
+    return $this->comments;
+  }
+
+  public function setComments(string $comments): void {
+    $this->comments = $comments;
+  }
+
+  public function getGuid(): string {
+    return $this->guid;
+  }
+
+  public function setGuid(string $guid): void {
+    $this->guid = $guid;
   }
 }
 ?>

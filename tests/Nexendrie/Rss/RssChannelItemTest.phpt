@@ -34,6 +34,21 @@ final class RssChannelItemTest extends \Tester\TestCase {
     $this->item->pubDate = 123;
     Assert::same(123, $this->item->pubDate);
   }
+
+  public function testAuthor() {
+    $this->item->author = "me@mysite.com";
+    Assert::same("me@mysite.com", $this->item->author);
+  }
+
+  public function testComments() {
+    $this->item->comments = "https://mysite.com/item/1/comments";
+    Assert::same("https://mysite.com/item/1/comments", $this->item->comments);
+  }
+
+  public function testGuid() {
+    $this->item->guid = "https://mysite.com/item/1";
+    Assert::same("https://mysite.com/item/1", $this->item->guid);
+  }
 }
 
 $test = new RssChannelItemTest();

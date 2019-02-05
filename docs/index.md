@@ -88,6 +88,8 @@ You can also set language, copyright, managingEditor and webMaster for channel b
 
 We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
 
+The item contains properties author, comments and guid which when set will be added to the generated xml.
+
 Nette applications
 ------------------
 

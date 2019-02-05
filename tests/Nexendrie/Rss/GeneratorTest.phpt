@@ -197,6 +197,24 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($generator, (string) $result->channel->generator);
     Assert::same($docs, (string) $result->channel->docs);
   }
+
+  public function testItemOptionalThings() {
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      $collection = new Collection();
+      $collection[] = $item = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $item->author = "me@mysite.com";
+      $item->comments = "https://mysite.com/item/1/comments";
+      $item->guid = "https://mysite.com/item/1";
+      return $collection;
+    };
+    $result = new \SimpleXMLElement($this->generator->generate());
+    Assert::same("me@mysite.com", (string) $result->channel->item[0]->author);
+    Assert::same("https://mysite.com/item/1/comments", (string) $result->channel->item[0]->comments);
+    Assert::same("https://mysite.com/item/1", (string) $result->channel->item[0]->guid);
+  }
   
   public function testCustomTemplate() {
     Assert::exception(function() {
