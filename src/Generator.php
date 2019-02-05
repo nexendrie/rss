@@ -43,7 +43,7 @@ final class Generator {
   /** @var string */
   protected $webMaster = "";
   /** @var string */
-  protected $dateTimeFormat = "Y-m-d H:i:s";
+  protected $dateTimeFormat = "D, d M Y H:i:s";
   /** @var callable|null */
   protected $dataSource = null;
   /** @var int */

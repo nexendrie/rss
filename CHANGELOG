@@ -8,6 +8,7 @@ Version 0.5.0-dev
 - added support for language, copyright, managingEditor and webMaster in channel
 - Generator now adds generator and docs to channel by default
 - added support for author, comments and guid in items
+- changed default time format to D, d M Y H:i:s
 
 Version 0.4.0
 - raised minimal version of PHP to 7.1
