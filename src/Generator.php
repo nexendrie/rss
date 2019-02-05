@@ -209,6 +209,16 @@ final class Generator {
       $channel->channel->{$property}[0][0] = $this->$property;
     }
   }
+
+  protected function writeItemProperty(\SimpleXMLElement $element, RssChannelItem $item, string $property, callable $callback = null): void {
+    if(isset($item->$property) AND $item->$property !== "") {
+      $value = $item->$property;
+      if(!is_null($callback)) {
+        $value = $callback($value);
+      }
+      $element->addChild($property, $value);
+    }
+  }
   
   /**
    * @throws InvalidStateException
@@ -237,10 +247,12 @@ final class Generator {
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
-      $i->addChild("title", $item->title);
-      $i->addChild("link", $item->link);
-      $i->addChild("pubDate", date($this->dateTimeFormat, $item->pubDate));
-      $i->addChild("description", $this->shortenDescription($item->description));
+      $this->writeItemProperty($i, $item, "title");
+      $this->writeItemProperty($i, $item, "link");
+      $this->writeItemProperty($i, $item, "pubDate", function($value) {
+        return date($this->dateTimeFormat, $value);
+      });
+      $this->writeItemProperty($i, $item, "description", [$this, "shortenDescription"]);
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this);

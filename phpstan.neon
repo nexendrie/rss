@@ -4,3 +4,4 @@ includes:
 parameters:
     ignoreErrors:
         - '#Variable property access on \$this\(Nexendrie\\Rss\\Generator\)#'
+        - '#Variable property access on Nexendrie\\Rss\\RssChannelItem#'
