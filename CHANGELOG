@@ -5,7 +5,7 @@ Version 0.5.0-dev
 - BC break: Generator::generate() now returns string, RssResponse::__construct() now takes string as parameter
 - raised minimal version of PHP to 7.2
 - BC break: RssChannelItem::$pubDate has to be integer (timestamp) now
-- added support for language, copyright, managingEditor and webMaster in channel
+- added support for language, copyright, managingEditor, webMaster, pubDate and ttl in channel
 - Generator now adds generator and docs to channel by default
 - added support for author, comments and guid in items
 - changed default time format to D, d M Y H:i:s

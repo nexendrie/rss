@@ -162,6 +162,32 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
   }
 
+  public function testPubDate() {
+    Assert::null($this->generator->pubDate);
+    $dateTimeFormat = "Y/m/d";
+    $this->generator->dateTimeFormat = $dateTimeFormat;
+    $this->generator->title = "Nexendrie RSS";
+    $this->generator->description = "News for package nexendrie/rss";
+    $this->generator->link = "https://gitlab.com/nexendrie/rss/";
+    $this->generator->dataSource = function() {
+      $items = new Collection();
+      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      return $items;
+    };
+    $this->generator->pubDate = function() {
+      return "abc";
+    };
+    Assert::type("callable", $this->generator->pubDate);
+    Assert::exception(function() {
+      $this->generator->generate();
+    }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return integer.");
+    $this->generator->pubDate = function() {
+      return time();
+    };
+    $result = new \SimpleXMLElement($this->generator->generate());
+    Assert::same(date($dateTimeFormat), (string) $result->channel->pubDate);
+  }
+
   public function testOptionalThings() {
     $this->generator->title = "Nexendrie RSS";
     $this->generator->description = "News for package nexendrie/rss";
@@ -188,6 +214,10 @@ final class GeneratorTest extends \Tester\TestCase {
     $docs = "https://nexendrie.gitlab.io/rss";
     $this->generator->docs = $docs;
     Assert::same($docs, $this->generator->docs);
+    Assert::null($this->generator->ttl);
+    $ttl = 60;
+    $this->generator->ttl = $ttl;
+    Assert::same($ttl, $this->generator->ttl);
 
     $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same($language, (string) $result->channel->language);
@@ -196,6 +226,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($webMaster, (string) $result->channel->webMaster);
     Assert::same($generator, (string) $result->channel->generator);
     Assert::same($docs, (string) $result->channel->docs);
+    Assert::same((string) $ttl, (string) $result->channel->ttl);
   }
 
   public function testItemOptionalThings() {

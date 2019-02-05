@@ -14,10 +14,12 @@ namespace Nexendrie\Rss;
  * @property string $copyright
  * @property string $managingEditor
  * @property string $webMaster
+ * @property int|null $ttl
  * @property callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
  * @property callable $lastBuildDate
+ * @property callable|null $pubDate
  * @property string $generator
  * @property string $docs
  * @property string $template
@@ -42,6 +44,8 @@ final class Generator {
   protected $managingEditor = "";
   /** @var string */
   protected $webMaster = "";
+  /** @var int|null */
+  protected $ttl = null;
   /** @var string */
   protected $dateTimeFormat = "D, d M Y H:i:s";
   /** @var callable|null */
@@ -50,6 +54,8 @@ final class Generator {
   protected $shortenDescription = 150;
   /** @var callable */
   protected $lastBuildDate = "time";
+  /** @var callable|null */
+  protected $pubDate = null;
   /** @var string */
   protected $generator = "Nexendrie RSS";
   /** @var string */
@@ -119,6 +125,14 @@ final class Generator {
     $this->webMaster = $webMaster;
   }
 
+  public function getTtl(): ?int {
+    return $this->ttl;
+  }
+
+  public function setTtl(int $ttl): void {
+    $this->ttl = $ttl;
+  }
+
   public function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
   }
@@ -145,6 +159,14 @@ final class Generator {
   
   public function setLastBuildDate(callable $lastBuildDate): void {
     $this->lastBuildDate = $lastBuildDate;
+  }
+
+  public function getPubDate(): ?callable {
+    return $this->pubDate;
+  }
+
+  public function setPubDate(callable $pubDate): void {
+    $this->pubDate = $pubDate;
   }
 
   public function getGenerator(): string {
@@ -234,6 +256,13 @@ final class Generator {
     /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
+    if(isset($this->pubDate)) {
+      $pubDate = call_user_func($this->pubDate);
+      if(!is_int($pubDate)) {
+        throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
+      }
+      $channel->channel->addChild("pubDate", date($this->dateTimeFormat, $pubDate));
+    }
     $this->writeProperty($channel, "link");
     $this->writeProperty($channel, "title");
     $this->writeProperty($channel, "description");
@@ -241,6 +270,7 @@ final class Generator {
     $this->writeProperty($channel, "copyright");
     $this->writeProperty($channel, "managingEditor");
     $this->writeProperty($channel, "webMaster");
+    $this->writeProperty($channel, "ttl");
     $this->writeProperty($channel, "generator");
     $this->writeProperty($channel, "docs");
     /** @var RssChannelItem $item */
