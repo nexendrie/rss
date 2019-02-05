@@ -182,12 +182,20 @@ final class GeneratorTest extends \Tester\TestCase {
     $webMaster = "Def";
     $this->generator->webMaster = $webMaster;
     Assert::same($webMaster, $this->generator->webMaster);
+    $generator = "Custom generator";
+    $this->generator->generator = $generator;
+    Assert::same($generator, $this->generator->generator);
+    $docs = "https://nexendrie.gitlab.io/rss";
+    $this->generator->docs = $docs;
+    Assert::same($docs, $this->generator->docs);
 
     $result = new \SimpleXMLElement($this->generator->generate());
     Assert::same($language, (string) $result->channel->language);
     Assert::same($copyright, (string) $result->channel->copyright);
     Assert::same($managingEditor, (string) $result->channel->managingEditor);
     Assert::same($webMaster, (string) $result->channel->webMaster);
+    Assert::same($generator, (string) $result->channel->generator);
+    Assert::same($docs, (string) $result->channel->docs);
   }
   
   public function testCustomTemplate() {

@@ -18,6 +18,8 @@ namespace Nexendrie\Rss;
  * @property int $shortenDescription
  * @property string $dateTimeFormat
  * @property callable $lastBuildDate
+ * @property string $generator
+ * @property string $docs
  * @property string $template
  * @method void onBeforeGenerate(Generator $generator)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
@@ -48,6 +50,10 @@ final class Generator {
   protected $shortenDescription = 150;
   /** @var callable */
   protected $lastBuildDate = "time";
+  /** @var string */
+  protected $generator = "Nexendrie RSS";
+  /** @var string */
+  protected $docs = "http://blogs.law.harvard.edu/tech/rss";
   /** @var string */
   protected $template = __DIR__ . "/template.xml";
   /** @var callable[] */
@@ -140,6 +146,22 @@ final class Generator {
   public function setLastBuildDate(callable $lastBuildDate): void {
     $this->lastBuildDate = $lastBuildDate;
   }
+
+  public function getGenerator(): string {
+    return $this->generator;
+  }
+
+  public function setGenerator(string $generator): void {
+    $this->generator = $generator;
+  }
+
+  public function getDocs(): string {
+    return $this->docs;
+  }
+
+  public function setDocs(string $docs): void {
+    $this->docs = $docs;
+  }
   
   public function getTemplate(): string {
     return $this->template;
@@ -209,6 +231,8 @@ final class Generator {
     $this->writeProperty($channel, "copyright");
     $this->writeProperty($channel, "managingEditor");
     $this->writeProperty($channel, "webMaster");
+    $this->writeProperty($channel, "generator");
+    $this->writeProperty($channel, "docs");
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */

@@ -86,6 +86,8 @@ $generator->template = "/path/to/your/template.xml";
 
 You can also set language, copyright, managingEditor and webMaster for channel by setting property of the same name on Generator.
 
+We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
+
 Nette applications
 ------------------
 
@@ -98,6 +100,8 @@ rss:
     shortenDescription: 150
     dateTimeFormat: "Y-m-d H:i:s"
     template: "/path/to/default/template.xml"
+    generator: "Nexendrie RSS"
+    docs: "http://blogs.law.harvard.edu/tech/rss"
 ```
 
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
