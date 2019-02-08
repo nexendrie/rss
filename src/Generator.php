@@ -59,7 +59,7 @@ final class Generator {
   /** @var string */
   protected $generator = "Nexendrie RSS";
   /** @var string */
-  protected $docs = "http://blogs.law.harvard.edu/tech/rss";
+  protected $docs = "http://www.rssboard.org/rss-specification";
   /** @var string */
   protected $template = __DIR__ . "/template.xml";
   /** @var callable[] */

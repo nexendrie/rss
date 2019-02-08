@@ -103,7 +103,7 @@ rss:
     dateTimeFormat: "r"
     template: "/path/to/default/template.xml"
     generator: "Nexendrie RSS"
-    docs: "http://blogs.law.harvard.edu/tech/rss"
+    docs: "http://www.rssboard.org/rss-specification"
 ```
 
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
