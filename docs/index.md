@@ -31,7 +31,7 @@ use Nexendrie\Rss\Generator,
 
 $generator = new Generator();
 $generator->dataSource = function() use($generator) {
-  $items = new Collection;
+  $items = new Collection();
   $items[] = new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", time());
   return $items;
 };
@@ -42,12 +42,12 @@ $result = $generator->generate($info);
 ?>
 ```
 
-Method generate returns plain text that can showed with echo.
+Method generate returns plain text that can shown with echo.
 
 Advanced usage
 --------------
 
-It is possible to change time format for the channel. Just use:
+By default, the generator shows all times in the channel in the recommended format but it is possible to change it. Just use:
 
 ```php
 <?php
@@ -58,14 +58,14 @@ $generator->dateTimeFormat = "your preferred format";
 ?>
 ```
 
-By default, only first 150 characters of items' description is printed. You can change the length limit like this:
+By default, only first 150 characters of items' description are printed (remember, it is supposed to be synopsis). You can change the length limit like this:
 
 ```php
 <?php
 declare(strict_types=1);
 
 $generator = new Nexendrie\Rss\Generator();
-$generator->shortenDescription = 150;
+$generator->shortenDescription = 500;
 ?>
 ```
 
@@ -88,14 +88,14 @@ You can also set language, copyright, managingEditor, webMaster, ttl and rating 
 
 We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
 
-The item contains properties author, comments and guid which when set will be added to the generated xml.
+The item contains (besides those passed to constructor) properties author, comments and guid which when set will be added to the generated xml.
 
 Both channel and individual items can have any number of categories. Category is represented by class Nexendrie\Rss\Category and has an identifier and domain (the latter is optional). You can add categories to channel via key categories in info parameter in form of array. Item class has property categories which behaves like an array (you can add new elements and remove/modify them).
 
 Nette applications
 ------------------
 
-The package contains extension for Nette DI container which adds the generator. It allows you to set maximal length of items' description. Example (with default values):
+The package contains extension for Nette DI container which adds the generator. It allows you to change some parameters of generator. Example (with default values):
 
 ```yaml
 extensions:
@@ -104,8 +104,6 @@ rss:
     shortenDescription: 150
     dateTimeFormat: "r"
     template: "/path/to/default/template.xml"
-    generator: "Nexendrie RSS"
-    docs: "http://www.rssboard.org/rss-specification"
 ```
 
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
