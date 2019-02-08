@@ -230,7 +230,11 @@ final class Generator {
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this, $info);
-    return $channel->asXML();
+    $dom = new \DOMDocument();
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
+    $dom->loadXML($channel->asXML());
+    return $dom->saveXML();
   }
   
   /**
