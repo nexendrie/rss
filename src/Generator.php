@@ -122,7 +122,7 @@ final class Generator {
   protected function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
     $value = Arrays::get($info, $property, "");
     if($value !== "") {
-      $channel->channel->{$property}[0][0] = $value;
+      $channel->channel->{$property} = $value;
     }
   }
 
@@ -204,10 +204,10 @@ final class Generator {
     $this->writeProperty($channel, $info, "webMaster");
     $this->writeProperty($channel, $info, "ttl");
     if($this->generator !== "") {
-      $channel->channel->generator[0][0] = $this->generator;
+      $channel->channel->generator = $this->generator;
     }
     if($this->docs !== "") {
-      $channel->channel->docs[0][0] = $this->docs;
+      $channel->channel->docs = $this->docs;
     }
     $this->writeProperty($channel, $info, "generator");
     $this->writeProperty($channel, $info, "docs");
