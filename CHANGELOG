@@ -1,5 +1,6 @@
 Version 0.6.0-dev
 - BC break: info about channel is now passed via parameter to Generator::generate/response()
+- added support for rating in channel
 
 Version 0.5.1
 - changed default time format to r

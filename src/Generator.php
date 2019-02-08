@@ -121,7 +121,9 @@ final class Generator {
     $resolver->setAllowedTypes("link", "string");
     $resolver->setAllowedTypes("lastBuildDate", "callable");
     $resolver->setDefault("lastBuildDate", "time");
-    $resolver->setDefined(["language", "copyright", "managingEditor", "webMaster", "ttl", "generator", "docs", "pubDate", ]);
+    $resolver->setDefined([
+      "language", "copyright", "managingEditor", "webMaster", "ttl", "generator", "docs", "pubDate", "rating",
+    ]);
     $resolver->setAllowedTypes("language", "string");
     $resolver->setAllowedTypes("copyright", "string");
     $resolver->setAllowedTypes("managingEditor", "string");
@@ -135,6 +137,7 @@ final class Generator {
     $resolver->setAllowedTypes("docs", "string");
     $resolver->setDefault("docs", "http://www.rssboard.org/rss-specification");
     $resolver->setAllowedTypes("pubDate", "callable");
+    $resolver->setAllowedTypes("rating", "string");
   }
   
   /**
@@ -171,6 +174,7 @@ final class Generator {
     $this->writeProperty($channel, $info, "ttl");
     $this->writeProperty($channel, $info, "generator");
     $this->writeProperty($channel, $info, "docs");
+    $this->writeProperty($channel, $info, "rating");
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */

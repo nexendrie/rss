@@ -193,6 +193,7 @@ final class GeneratorTest extends \Tester\TestCase {
       "description" => "News for package nexendrie/rss", "copyright" => "Copyright 2019, Abc",
       "managingEditor" => "Abc", "webMaster" => "Def", "generator" => "Custom generator",
       "docs" => "https://nexendrie.gitlab.io/rss", "ttl" => 60,
+      "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
     ];
     $this->generator->dataSource = function() {
       return new Collection();
@@ -206,6 +207,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($info["generator"], (string) $result->channel->generator);
     Assert::same($info["docs"], (string) $result->channel->docs);
     Assert::same((string) $info["ttl"], (string) $result->channel->ttl);
+    Assert::same($info["rating"], (string) $result->channel->rating);
   }
 
   public function testItemOptionalThings() {
