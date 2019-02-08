@@ -90,6 +90,8 @@ We add generator and docs to channel but you can change their values by adding t
 
 The item contains properties author, comments and guid which when set will be added to the generated xml.
 
+Both channel and individual items can have any number of categories. Category is represented by class Nexendrie\Rss\Category and has an identifier and domain (the latter is optional). You can add categories to channel via key categories in info parameter in form of array. Item class has property categories which behaves like an array (you can add new elements and remove/modify them).
+
 Nette applications
 ------------------
 

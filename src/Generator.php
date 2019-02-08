@@ -114,6 +114,18 @@ final class Generator {
     }
   }
 
+  /**
+   * @param Category[] $categories
+   */
+  protected function writeCategories(\SimpleXMLElement &$element, array $categories): void {
+    foreach($categories as $category) {
+      $categoryElement = $element->addChild("category", $category->identifier);
+      if($category->domain !== "") {
+        $categoryElement->addAttribute("domain", $category->domain);
+      }
+    }
+  }
+
   protected function configureOptions(OptionsResolver $resolver): void {
     $resolver->setRequired(["title", "description", "link", "lastBuildDate", ]);
     $resolver->setAllowedTypes("title", "string");
@@ -123,6 +135,7 @@ final class Generator {
     $resolver->setDefault("lastBuildDate", "time");
     $resolver->setDefined([
       "language", "copyright", "managingEditor", "webMaster", "ttl", "generator", "docs", "pubDate", "rating",
+      "categories",
     ]);
     $resolver->setAllowedTypes("language", "string");
     $resolver->setAllowedTypes("copyright", "string");
@@ -138,6 +151,7 @@ final class Generator {
     $resolver->setDefault("docs", "http://www.rssboard.org/rss-specification");
     $resolver->setAllowedTypes("pubDate", "callable");
     $resolver->setAllowedTypes("rating", "string");
+    $resolver->setAllowedTypes("categories", Category::class . "[]");
   }
   
   /**
@@ -175,6 +189,7 @@ final class Generator {
     $this->writeProperty($channel, $info, "generator");
     $this->writeProperty($channel, $info, "docs");
     $this->writeProperty($channel, $info, "rating");
+    $this->writeCategories($channel->channel, Arrays::get($info, "categories", []));
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
@@ -188,6 +203,7 @@ final class Generator {
       $this->writeItemProperty($i, $item, "author");
       $this->writeItemProperty($i, $item, "comments");
       $this->writeItemProperty($i, $item, "guid");
+      $this->writeCategories($i, $item->categories->toArray());
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this);

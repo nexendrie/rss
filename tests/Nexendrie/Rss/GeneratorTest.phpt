@@ -228,6 +228,33 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same("https://mysite.com/item/1/comments", (string) $result->channel->item[0]->comments);
     Assert::same("https://mysite.com/item/1", (string) $result->channel->item[0]->guid);
   }
+
+  public function testCategories() {
+    $this->generator->dataSource = function() {
+      return new Collection();
+    };
+    $info = [
+      "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
+      "description" => "News for package nexendrie/rss", "categories" => [],
+    ];
+    $info["categories"][] = new Category("abc");
+    $info["categories"][] = new Category("def", "domain");
+    $result = new \SimpleXMLElement($this->generator->generate($info));
+    Assert::same("abc", (string) $result->channel->category[0]);
+    Assert::same("def", (string) $result->channel->category[1]);
+    Assert::same("domain", (string) $result->channel->category[1]["domain"]);
+    $this->generator->dataSource = function() {
+      $items = new Collection();
+      $items[] = $item = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $item->categories[] = new Category("abc");
+      $item->categories[] = new Category("def", "domain");
+      return $items;
+    };
+    $result = new \SimpleXMLElement($this->generator->generate($info));
+    Assert::same("abc", (string) $result->channel->item->category[0]);
+    Assert::same("def", (string) $result->channel->item->category[1]);
+    Assert::same("domain", (string) $result->channel->item->category[1]["domain"]);
+  }
   
   public function testCustomTemplate() {
     Assert::exception(function() {

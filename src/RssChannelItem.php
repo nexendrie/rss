@@ -14,6 +14,7 @@ namespace Nexendrie\Rss;
  * @property string $author
  * @property string $comments
  * @property string $guid
+ * @property \Nexendrie\Utils\Collection|Category[] $categories
  */
 class RssChannelItem {
   use \Nette\SmartObject;
@@ -32,12 +33,18 @@ class RssChannelItem {
   protected $comments = "";
   /** @var string */
   protected $guid = "";
+  /** @var \Nexendrie\Utils\Collection|Category[] */
+  protected $categories;
   
   public function __construct(string $title, string $description, string $link, int $pubDate) {
     $this->title = $title;
     $this->description = $description;
     $this->link = $link;
     $this->pubDate = $pubDate;
+    $this->categories = new class extends \Nexendrie\Utils\Collection {
+      /** @var string */
+      protected $class = Category::class;
+    };
   }
   
   public function getTitle(): string {
@@ -94,6 +101,13 @@ class RssChannelItem {
 
   public function setGuid(string $guid): void {
     $this->guid = $guid;
+  }
+
+  /**
+   * @return \Nexendrie\Utils\Collection|Category[]
+   */
+  public function getCategories(): \Nexendrie\Utils\Collection {
+    return $this->categories;
   }
 }
 ?>

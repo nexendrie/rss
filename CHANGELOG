@@ -1,6 +1,8 @@
 Version 0.6.0-dev
 - BC break: info about channel is now passed via parameter to Generator::generate/response()
 - added support for rating in channel
+- added support for categories in channel and items
+- raised minimal required version of nexendrie/utils to 1.3
 
 Version 0.5.1
 - changed default time format to r
