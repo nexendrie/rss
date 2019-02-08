@@ -797,26 +797,31 @@
         },
         {
             "name": "nette/command-line",
-            "version": "v1.3",
+            "version": "v1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/command-line.git",
-                "reference": "d6b0a5b03d8ca44187576e74419a6f35d70f4cd3"
+                "reference": "57f3a0123cae9e8e4102bc4863a23b3d1662c013"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/command-line/zipball/d6b0a5b03d8ca44187576e74419a6f35d70f4cd3",
-                "reference": "d6b0a5b03d8ca44187576e74419a6f35d70f4cd3",
+                "url": "https://api.github.com/repos/nette/command-line/zipball/57f3a0123cae9e8e4102bc4863a23b3d1662c013",
+                "reference": "57f3a0123cae9e8e4102bc4863a23b3d1662c013",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.4"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "nette/tester": "~2.0",
+                "nette/tester": "^2.0",
                 "tracy/tracy": "^2.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -845,7 +850,7 @@
                 "cmd-line",
                 "nette"
             ],
-            "time": "2017-07-11T01:04:11+00:00"
+            "time": "2019-02-06T00:21:25+00:00"
         },
         {
             "name": "nette/component-model",
@@ -1365,32 +1370,29 @@
         },
         {
             "name": "nette/safe-stream",
-            "version": "v2.3.3",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/safe-stream.git",
-                "reference": "0fcd45ae82be5817f4b3ad25bc8955968f355412"
+                "reference": "5e46d5fe397956d697501785d50b16fecea8e935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/safe-stream/zipball/0fcd45ae82be5817f4b3ad25bc8955968f355412",
-                "reference": "0fcd45ae82be5817f4b3ad25bc8955968f355412",
+                "url": "https://api.github.com/repos/nette/safe-stream/zipball/5e46d5fe397956d697501785d50b16fecea8e935",
+                "reference": "5e46d5fe397956d697501785d50b16fecea8e935",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.1"
-            },
-            "conflict": {
-                "nette/nette": "<2.2"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "nette/tester": "~1.7",
+                "nette/tester": "^2.0",
                 "tracy/tracy": "^2.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -1422,7 +1424,7 @@
                 "nette",
                 "safe"
             ],
-            "time": "2017-07-13T18:20:37+00:00"
+            "time": "2019-02-06T00:22:25+00:00"
         },
         {
             "name": "nette/security",
@@ -1598,12 +1600,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "530e9fb65b9b0bbf530bb5b2e3c017605f3b4d6b"
+                "reference": "b32213180155f1faea64f050b4e898c195fcdf0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=530e9fb65b9b0bbf530bb5b2e3c017605f3b4d6b",
-                "reference": "530e9fb65b9b0bbf530bb5b2e3c017605f3b4d6b",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=b32213180155f1faea64f050b4e898c195fcdf0d",
+                "reference": "b32213180155f1faea64f050b4e898c195fcdf0d",
                 "shasum": ""
             },
             "require": {
@@ -1654,7 +1656,7 @@
                 "static",
                 "website"
             ],
-            "time": "2019-01-16T13:15:35+00:00"
+            "time": "2019-02-04T12:01:23+00:00"
         },
         {
             "name": "nikic/php-parser",
