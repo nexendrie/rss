@@ -16,9 +16,9 @@ use Nette\Utils\Arrays;
  * @property string $generator
  * @property string $docs
  * @property string $template
- * @method void onBeforeGenerate(Generator $generator)
+ * @method void onBeforeGenerate(Generator $generator, array $info)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
- * @method void onAfterGenerate(Generator $generator)
+ * @method void onAfterGenerate(Generator $generator, array $info)
  */
 final class Generator {
   use \Nette\SmartObject;
@@ -176,7 +176,7 @@ final class Generator {
    * @throws \InvalidArgumentException
    */
   public function generate(array $info): string {
-    $this->onBeforeGenerate($this);
+    $this->onBeforeGenerate($this, $info);
     $items = $this->getData();
     $resolver = new OptionsResolver();
     $this->configureOptions($resolver);
@@ -229,7 +229,7 @@ final class Generator {
       $this->writeCategories($i, $item->categories->toArray());
       $this->onAddItem($this, $channel, $item, $i);
     }
-    $this->onAfterGenerate($this);
+    $this->onAfterGenerate($this, $info);
     return $channel->asXML();
   }
   

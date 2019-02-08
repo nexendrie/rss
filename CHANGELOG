@@ -3,6 +3,7 @@ Version 0.6.0-dev
 - added support for rating in channel
 - added support for categories in channel and items
 - raised minimal required version of nexendrie/utils to 1.3
+- events onBeforeGenerate and onAfterGenerate of Generator now get channel info as second parameter
 
 Version 0.5.1
 - changed default time format to r
