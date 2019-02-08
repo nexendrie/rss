@@ -104,7 +104,7 @@ final class Generator {
     }
   }
 
-  protected function writeItemProperty(\SimpleXMLElement $element, RssChannelItem $item, string $property, callable $callback = null): void {
+  protected function writeItemProperty(\SimpleXMLElement &$element, RssChannelItem $item, string $property, callable $callback = null): void {
     if(isset($item->$property) AND $item->$property !== "") {
       $value = $item->$property;
       if(!is_null($callback)) {
