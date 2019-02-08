@@ -13,6 +13,8 @@ use Nette\Utils\Arrays;
  * @property callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
+ * @property string $generator
+ * @property string $docs
  * @property string $template
  * @method void onBeforeGenerate(Generator $generator)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
@@ -27,6 +29,10 @@ final class Generator {
   protected $dataSource = null;
   /** @var int */
   protected $shortenDescription = 150;
+  /** @var string */
+  protected $generator = "Nexendrie RSS";
+  /** @var string */
+  protected $docs = "http://www.rssboard.org/rss-specification";
   /** @var string */
   protected $template = __DIR__ . "/template.xml";
   /** @var callable[] */
@@ -54,6 +60,22 @@ final class Generator {
   
   public function setDateTimeFormat(string $format): void {
     $this->dateTimeFormat = $format;
+  }
+
+  public function getGenerator(): string {
+    return $this->generator;
+  }
+
+  public function setGenerator(string $generator): void {
+    $this->generator = $generator;
+  }
+
+  public function getDocs(): string {
+    return $this->docs;
+  }
+
+  public function setDocs(string $docs): void {
+    $this->docs = $docs;
   }
   
   public function getTemplate(): string {
@@ -134,8 +156,7 @@ final class Generator {
     $resolver->setAllowedTypes("lastBuildDate", "callable");
     $resolver->setDefault("lastBuildDate", "time");
     $resolver->setDefined([
-      "language", "copyright", "managingEditor", "webMaster", "ttl", "generator", "docs", "pubDate", "rating",
-      "categories",
+      "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories",
     ]);
     $resolver->setAllowedTypes("language", "string");
     $resolver->setAllowedTypes("copyright", "string");
@@ -145,10 +166,6 @@ final class Generator {
     $resolver->setAllowedValues("ttl", function(int $value) {
       return ($value >= 0);
     });
-    $resolver->setAllowedTypes("generator", "string");
-    $resolver->setDefault("generator", "Nexendrie RSS");
-    $resolver->setAllowedTypes("docs", "string");
-    $resolver->setDefault("docs", "http://www.rssboard.org/rss-specification");
     $resolver->setAllowedTypes("pubDate", "callable");
     $resolver->setAllowedTypes("rating", "string");
     $resolver->setAllowedTypes("categories", Category::class . "[]");
@@ -186,6 +203,12 @@ final class Generator {
     $this->writeProperty($channel, $info, "managingEditor");
     $this->writeProperty($channel, $info, "webMaster");
     $this->writeProperty($channel, $info, "ttl");
+    if($this->generator !== "") {
+      $channel->channel->generator[0][0] = $this->generator;
+    }
+    if($this->docs !== "") {
+      $channel->channel->docs[0][0] = $this->docs;
+    }
     $this->writeProperty($channel, $info, "generator");
     $this->writeProperty($channel, $info, "docs");
     $this->writeProperty($channel, $info, "rating");

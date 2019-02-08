@@ -191,21 +191,24 @@ final class GeneratorTest extends \Tester\TestCase {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/", "language" => "en",
       "description" => "News for package nexendrie/rss", "copyright" => "Copyright 2019, Abc",
-      "managingEditor" => "Abc", "webMaster" => "Def", "generator" => "Custom generator",
-      "docs" => "https://nexendrie.gitlab.io/rss", "ttl" => 60,
+      "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
       "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
     ];
     $this->generator->dataSource = function() {
       return new Collection();
     };
+    $this->generator->generator = $generator = "Custom generator";
+    Assert::same($generator, $this->generator->generator);
+    $this->generator->docs = $docs = "https://nexendrie.gitlab.io/rss";
+    Assert::same($docs, $this->generator->docs);
 
     $result = new \SimpleXMLElement($this->generator->generate($info));
     Assert::same($info["language"], (string) $result->channel->language);
     Assert::same($info["copyright"], (string) $result->channel->copyright);
     Assert::same($info["managingEditor"], (string) $result->channel->managingEditor);
     Assert::same($info["webMaster"], (string) $result->channel->webMaster);
-    Assert::same($info["generator"], (string) $result->channel->generator);
-    Assert::same($info["docs"], (string) $result->channel->docs);
+    Assert::same($generator, (string) $result->channel->generator);
+    Assert::same($docs, (string) $result->channel->docs);
     Assert::same((string) $info["ttl"], (string) $result->channel->ttl);
     Assert::same($info["rating"], (string) $result->channel->rating);
   }
