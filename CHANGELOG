@@ -1,4 +1,4 @@
-Version 0.6.0-dev
+Version 0.6.0
 - BC break: info about channel is now passed via parameter to Generator::generate/response()
 - added support for rating in channel
 - added support for categories in channel and items
