@@ -1,3 +1,6 @@
+Version 0.5.0+dev
+- changed default time format to r
+
 Version 0.5.0
 - marked some classes as final
 - added events onBeforeGenerate, onAddItem and onAfterGenerate to Generator

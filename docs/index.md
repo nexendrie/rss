@@ -100,7 +100,7 @@ extensions:
     rss: Nexendrie\Rss\Bridges\NetteDI\RssExtension
 rss:
     shortenDescription: 150
-    dateTimeFormat: "D, d M Y H:i:s"
+    dateTimeFormat: "r"
     template: "/path/to/default/template.xml"
     generator: "Nexendrie RSS"
     docs: "http://blogs.law.harvard.edu/tech/rss"

@@ -47,7 +47,7 @@ final class Generator {
   /** @var int|null */
   protected $ttl = null;
   /** @var string */
-  protected $dateTimeFormat = "D, d M Y H:i:s";
+  protected $dateTimeFormat = "r";
   /** @var callable|null */
   protected $dataSource = null;
   /** @var int */
