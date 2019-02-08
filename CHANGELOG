@@ -1,3 +1,6 @@
+Version 0.6.0-dev
+- BC break: info about channel is now passed via parameter to Generator::generate/response()
+
 Version 0.5.1
 - changed default time format to r
 - changed default value for docs

@@ -3,25 +3,16 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Nette\Utils\Arrays;
+
 /**
  * RSS Channel Generator
  *
  * @author Jakub Konečný
- * @property string $title
- * @property string $description
- * @property string $link
- * @property string $language
- * @property string $copyright
- * @property string $managingEditor
- * @property string $webMaster
- * @property int|null $ttl
  * @property callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
- * @property callable $lastBuildDate
- * @property callable|null $pubDate
- * @property string $generator
- * @property string $docs
  * @property string $template
  * @method void onBeforeGenerate(Generator $generator)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
@@ -29,37 +20,13 @@ namespace Nexendrie\Rss;
  */
 final class Generator {
   use \Nette\SmartObject;
-  
-  /** @var string */
-  protected $title = "";
-  /** @var string */
-  protected $description = "";
-  /** @var string */
-  protected $link = "";
-  /** @var string */
-  protected $language = "";
-  /** @var string */
-  protected $copyright = "";
-  /** @var string */
-  protected $managingEditor = "";
-  /** @var string */
-  protected $webMaster = "";
-  /** @var int|null */
-  protected $ttl = null;
+
   /** @var string */
   protected $dateTimeFormat = "r";
   /** @var callable|null */
   protected $dataSource = null;
   /** @var int */
   protected $shortenDescription = 150;
-  /** @var callable */
-  protected $lastBuildDate = "time";
-  /** @var callable|null */
-  protected $pubDate = null;
-  /** @var string */
-  protected $generator = "Nexendrie RSS";
-  /** @var string */
-  protected $docs = "http://www.rssboard.org/rss-specification";
   /** @var string */
   protected $template = __DIR__ . "/template.xml";
   /** @var callable[] */
@@ -68,70 +35,6 @@ final class Generator {
   public $onAddItem = [];
   /** @var callable[] */
   public $onAfterGenerate = [];
-  
-  public function getTitle(): string {
-    return $this->title;
-  }
-  
-  public function setTitle(string $title): void {
-    $this->title = $title;
-  }
-  
-  public function getDescription(): string {
-    return $this->description;
-  }
-  
-  public function setDescription(string $description): void {
-    $this->description = $description;
-  }
-  
-  public function getLink(): string {
-    return $this->link;
-  }
-  
-  public function setLink(string $link): void {
-    $this->link = $link;
-  }
-
-  public function getLanguage(): string {
-    return $this->language;
-  }
-
-  public function setLanguage(string $language): void {
-    $this->language = $language;
-  }
-
-  public function getCopyright(): string {
-    return $this->copyright;
-  }
-
-  public function setCopyright(string $copyright): void {
-    $this->copyright = $copyright;
-  }
-
-  public function getManagingEditor(): string {
-    return $this->managingEditor;
-  }
-
-  public function setManagingEditor(string $managingEditor): void {
-    $this->managingEditor = $managingEditor;
-  }
-
-  public function getWebMaster(): string {
-    return $this->webMaster;
-  }
-
-  public function setWebMaster(string $webMaster): void {
-    $this->webMaster = $webMaster;
-  }
-
-  public function getTtl(): ?int {
-    return $this->ttl;
-  }
-
-  public function setTtl(int $ttl): void {
-    $this->ttl = $ttl;
-  }
 
   public function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
@@ -151,38 +54,6 @@ final class Generator {
   
   public function setDateTimeFormat(string $format): void {
     $this->dateTimeFormat = $format;
-  }
-  
-  public function getLastBuildDate(): callable {
-    return $this->lastBuildDate;
-  }
-  
-  public function setLastBuildDate(callable $lastBuildDate): void {
-    $this->lastBuildDate = $lastBuildDate;
-  }
-
-  public function getPubDate(): ?callable {
-    return $this->pubDate;
-  }
-
-  public function setPubDate(callable $pubDate): void {
-    $this->pubDate = $pubDate;
-  }
-
-  public function getGenerator(): string {
-    return $this->generator;
-  }
-
-  public function setGenerator(string $generator): void {
-    $this->generator = $generator;
-  }
-
-  public function getDocs(): string {
-    return $this->docs;
-  }
-
-  public function setDocs(string $docs): void {
-    $this->docs = $docs;
   }
   
   public function getTemplate(): string {
@@ -226,9 +97,10 @@ final class Generator {
     return $description;
   }
   
-  protected function writeProperty(\SimpleXMLElement &$channel, string $property): void {
-    if(isset($this->$property) AND $this->$property !== "") {
-      $channel->channel->{$property}[0][0] = $this->$property;
+  protected function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
+    $value = Arrays::get($info, $property, "");
+    if($value !== "") {
+      $channel->channel->{$property}[0][0] = $value;
     }
   }
 
@@ -241,38 +113,64 @@ final class Generator {
       $element->addChild($property, $value);
     }
   }
+
+  protected function configureOptions(OptionsResolver $resolver): void {
+    $resolver->setRequired(["title", "description", "link", "lastBuildDate", ]);
+    $resolver->setAllowedTypes("title", "string");
+    $resolver->setAllowedTypes("description", "string");
+    $resolver->setAllowedTypes("link", "string");
+    $resolver->setAllowedTypes("lastBuildDate", "callable");
+    $resolver->setDefault("lastBuildDate", "time");
+    $resolver->setDefined(["language", "copyright", "managingEditor", "webMaster", "ttl", "generator", "docs", "pubDate", ]);
+    $resolver->setAllowedTypes("language", "string");
+    $resolver->setAllowedTypes("copyright", "string");
+    $resolver->setAllowedTypes("managingEditor", "string");
+    $resolver->setAllowedTypes("webMaster", "string");
+    $resolver->setAllowedTypes("ttl", "int");
+    $resolver->setAllowedValues("ttl", function(int $value) {
+      return ($value >= 0);
+    });
+    $resolver->setAllowedTypes("generator", "string");
+    $resolver->setDefault("generator", "Nexendrie RSS");
+    $resolver->setAllowedTypes("docs", "string");
+    $resolver->setDefault("docs", "http://www.rssboard.org/rss-specification");
+    $resolver->setAllowedTypes("pubDate", "callable");
+  }
   
   /**
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  public function generate(): string {
+  public function generate(array $info): string {
     $this->onBeforeGenerate($this);
     $items = $this->getData();
-    $lastBuildDate = call_user_func($this->lastBuildDate);
+    $resolver = new OptionsResolver();
+    $this->configureOptions($resolver);
+    $info = $resolver->resolve($info);
+    $lastBuildDate = call_user_func($info["lastBuildDate"]);
     if(!is_int($lastBuildDate)) {
       throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
     }
     /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
     $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
-    if(isset($this->pubDate)) {
-      $pubDate = call_user_func($this->pubDate);
+    if(isset($info["pubDate"])) {
+      $pubDate = call_user_func($info["pubDate"]);
       if(!is_int($pubDate)) {
         throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
       }
       $channel->channel->addChild("pubDate", date($this->dateTimeFormat, $pubDate));
     }
-    $this->writeProperty($channel, "link");
-    $this->writeProperty($channel, "title");
-    $this->writeProperty($channel, "description");
-    $this->writeProperty($channel, "language");
-    $this->writeProperty($channel, "copyright");
-    $this->writeProperty($channel, "managingEditor");
-    $this->writeProperty($channel, "webMaster");
-    $this->writeProperty($channel, "ttl");
-    $this->writeProperty($channel, "generator");
-    $this->writeProperty($channel, "docs");
+    $this->writeProperty($channel, $info, "link");
+    $this->writeProperty($channel, $info, "title");
+    $this->writeProperty($channel, $info, "description");
+    $this->writeProperty($channel, $info, "language");
+    $this->writeProperty($channel, $info, "copyright");
+    $this->writeProperty($channel, $info, "managingEditor");
+    $this->writeProperty($channel, $info, "webMaster");
+    $this->writeProperty($channel, $info, "ttl");
+    $this->writeProperty($channel, $info, "generator");
+    $this->writeProperty($channel, $info, "docs");
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
@@ -296,8 +194,8 @@ final class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  public function response(): RssResponse {
-    return new RssResponse($this->generate());
+  public function response(array $info): RssResponse {
+    return new RssResponse($this->generate($info));
   }
 }
 ?>

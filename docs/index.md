@@ -17,7 +17,7 @@ The best way to install it is via Composer. Just add **nexendrie/rss** to your d
 Usage
 -----
 
-Create new instance of \Nexendrie\Rss\Generator, set its properties title and description. Then add data source for channel's items. It has to return \Nexendrie\Rss\Collection which is a collection of \Nexendrie\Rss\RssChannelItem.
+Create new instance of \Nexendrie\Rss\Generator and add data source for channel's items. It has to return \Nexendrie\Rss\Collection which is a collection of \Nexendrie\Rss\RssChannelItem. Then you can call method generate with array that contains info about the channel. The basic minimum is title, description and link.
 
 Example:
 
@@ -30,15 +30,15 @@ use Nexendrie\Rss\Generator,
     Nexendrie\Rss\Collection;
 
 $generator = new Generator();
-$generator->title = "Nexendrie RSS";
-$generator->link = "https://nexendrie.cz/rss";
-$generator->description = "News for package nexendrie/rss";
 $generator->dataSource = function() use($generator) {
   $items = new Collection;
   $items[] = new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", time());
   return $items;
 };
-$result = $generator->generate();
+$info = [
+  "title" => "Nexendrie RSS", "link" => "https://nexendrie.cz/rss", "description" => "News for package nexendrie/rss",
+];
+$result = $generator->generate($info);
 ?>
 ```
 
@@ -84,9 +84,9 @@ $generator->template = "/path/to/your/template.xml";
 ?>
 ```
 
-You can also set language, copyright, managingEditor, webMaster and ttl for channel by setting property of the same name on Generator.
+You can also set language, copyright, managingEditor, webMaster and ttl for channel by adding those keys to the info parameter.
 
-We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
+We add generator and docs to channel but you can change their values by adding those keys to the info parameter. If you do not want to have them in your channel at all, set their values to an empty string.
 
 The item contains properties author, comments and guid which when set will be added to the generated xml.
 
@@ -109,7 +109,7 @@ rss:
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
 
 ```php
-$response = $this->generator->response();
+$response = $this->generator->response([...]);
 $this->sendResponse($reponse);
 ```
 
