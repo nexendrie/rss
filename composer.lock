@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf693c2e008bfb9cd933f785af736895",
+    "content-hash": "aa3a69d6579e04757793d40062cb1b13",
     "packages": [
         {
             "name": "nette/utils",
@@ -90,16 +90,16 @@
         },
         {
             "name": "nexendrie/utils",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/utils.git",
-                "reference": "86e3373ddc7ee7a47ec9e626ee2f7924f094e9db"
+                "reference": "40fdc0cd5591e63e2e20be50aea920be1c202514"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Futils/repository/archive.zip?sha=86e3373ddc7ee7a47ec9e626ee2f7924f094e9db",
-                "reference": "86e3373ddc7ee7a47ec9e626ee2f7924f094e9db",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Futils/repository/archive.zip?sha=40fdc0cd5591e63e2e20be50aea920be1c202514",
+                "reference": "40fdc0cd5591e63e2e20be50aea920be1c202514",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -142,7 +142,7 @@
                 "range",
                 "utils"
             ],
-            "time": "2019-01-01T10:09:12+00:00"
+            "time": "2019-02-08T19:57:39+00:00"
         },
         {
             "name": "symfony/options-resolver",

@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\Options;
 use Nette\Utils\Arrays;
+use Nexendrie\Utils\Numbers;
 
 /**
  * RSS Channel Generator
@@ -121,8 +123,25 @@ final class Generator {
   
   protected function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
     $value = Arrays::get($info, $property, "");
-    if($value !== "") {
-      $channel->channel->{$property} = $value;
+    if($value === "") {
+      return;
+    }
+    switch($property) {
+      case "skipDays":
+        $element = $channel->channel->addChild("skipDays");
+        array_walk($value, function(string $value) use($element) {
+          $element->addChild("day", $value);
+        });
+        break;
+      case "skipHours":
+        $element = $channel->channel->addChild("skipHours");
+        array_walk($value, function(string $value) use($element) {
+          $element->addChild("hour", $value);
+        });
+        break;
+      default:
+        $channel->channel->{$property} = $value;
+        break;
     }
   }
 
@@ -156,7 +175,8 @@ final class Generator {
     $resolver->setAllowedTypes("lastBuildDate", "callable");
     $resolver->setDefault("lastBuildDate", "time");
     $resolver->setDefined([
-      "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories",
+      "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories", "skipDays",
+      "skipHours",
     ]);
     $resolver->setAllowedTypes("language", "string");
     $resolver->setAllowedTypes("copyright", "string");
@@ -169,6 +189,31 @@ final class Generator {
     $resolver->setAllowedTypes("pubDate", "callable");
     $resolver->setAllowedTypes("rating", "string");
     $resolver->setAllowedTypes("categories", Category::class . "[]");
+    $resolver->setAllowedTypes("skipDays", "string[]");
+    $resolver->setAllowedValues("skipDays", function(array $value) {
+      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", ];
+      return Arrays::every($value, function(string $value) use($allowedValues) {
+        return in_array($value, $allowedValues, true);
+      });
+    });
+    $resolver->setNormalizer("skipDays", function(Options $options, array $value) {
+      return array_unique($value);
+    });
+    $resolver->setAllowedTypes("skipHours", "int[]");
+    $resolver->setAllowedValues("skipHours", function(array $value) {
+      return Arrays::every($value, function(int $value) {
+        return Numbers::isInRange($value, 0, 23);
+      });
+    });
+    $resolver->setNormalizer("skipHours", function(Options $options, array $value) {
+      array_walk($value, function(int &$value) {
+        if($value < 10) {
+          $value = "0" . (string) $value;
+        }
+        $value = (string) $value;
+      });
+      return array_unique($value);
+    });
   }
   
   /**
@@ -203,6 +248,8 @@ final class Generator {
     $this->writeProperty($channel, $info, "managingEditor");
     $this->writeProperty($channel, $info, "webMaster");
     $this->writeProperty($channel, $info, "ttl");
+    $this->writeProperty($channel, $info, "skipDays");
+    $this->writeProperty($channel, $info, "skipHours");
     if($this->generator !== "") {
       $channel->channel->generator = $this->generator;
     }

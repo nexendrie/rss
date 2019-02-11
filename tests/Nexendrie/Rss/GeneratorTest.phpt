@@ -193,6 +193,7 @@ final class GeneratorTest extends \Tester\TestCase {
       "description" => "News for package nexendrie/rss", "copyright" => "Copyright 2019, Abc",
       "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
       "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
+      "skipDays" => ["Monday", "Monday", "Sunday", ], "skipHours" => [1, 1, 10],
     ];
     $this->generator->dataSource = function() {
       return new Collection();
@@ -211,6 +212,10 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($docs, (string) $result->channel->docs);
     Assert::same((string) $info["ttl"], (string) $result->channel->ttl);
     Assert::same($info["rating"], (string) $result->channel->rating);
+    Assert::same("Monday", (string) $result->channel->skipDays->day[0]);
+    Assert::same("Sunday", (string) $result->channel->skipDays->day[1]);
+    Assert::same("01", (string) $result->channel->skipHours->hour[0]);
+    Assert::same("10", (string) $result->channel->skipHours->hour[1]);
   }
 
   public function testItemOptionalThings() {

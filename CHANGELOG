@@ -1,5 +1,7 @@
 Version 0.6.0+dev
 - fixed content type in RssResponse
+- added support for skipDays and skipHours in channel
+- raised minimal required version of nexendrie/utils to 1.4
 
 Version 0.6.0
 - BC break: info about channel is now passed via parameter to Generator::generate/response()

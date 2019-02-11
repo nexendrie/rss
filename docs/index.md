@@ -84,7 +84,7 @@ $generator->template = "/path/to/your/template.xml";
 ?>
 ```
 
-You can also set language, copyright, managingEditor, webMaster, ttl and rating for channel by adding those keys to the info parameter.
+You can also set language, copyright, managingEditor, webMaster, ttl, rating, skipDays and skipHours for channel by adding those keys to the info parameter. skipHours has to be an array of integers between 0 and 23, skipDays has to be an array of strings (names of days in English with first capital letter).
 
 We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
 
