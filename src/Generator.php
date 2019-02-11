@@ -116,13 +116,13 @@ final class Generator {
     }
     switch($property) {
       case "skipDays":
-        $element = $channel->channel->addChild("skipDays");
+        $element = $channel->channel->addChild($property);
         array_walk($value, function(string $value) use($element) {
           $element->addChild("day", $value);
         });
         break;
       case "skipHours":
-        $element = $channel->channel->addChild("skipHours");
+        $element = $channel->channel->addChild($property);
         array_walk($value, function(string $value) use($element) {
           $element->addChild("hour", $value);
         });
