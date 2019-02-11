@@ -151,18 +151,10 @@ final class Generator {
       if(!is_null($callback)) {
         $value = $callback($value);
       }
-      $element->addChild($property, $value);
-    }
-  }
-
-  /**
-   * @param Category[] $categories
-   */
-  protected function writeCategories(\SimpleXMLElement &$element, array $categories): void {
-    foreach($categories as $category) {
-      $categoryElement = $element->addChild("category", $category->identifier);
-      if($category->domain !== "") {
-        $categoryElement->addAttribute("domain", $category->domain);
+      if($value instanceof IXmlConvertible) {
+        $value->appendToXml($element);
+      } else {
+        $element->addChild($property, $value);
       }
     }
   }
@@ -259,7 +251,10 @@ final class Generator {
     $this->writeProperty($channel, $info, "generator");
     $this->writeProperty($channel, $info, "docs");
     $this->writeProperty($channel, $info, "rating");
-    $this->writeCategories($channel->channel, Arrays::get($info, "categories", []));
+    $categories =  Arrays::get($info, "categories", []);
+    array_walk($categories, function(Category $value) use($channel) {
+      $value->appendToXml($channel->channel);
+    });
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
@@ -273,7 +268,7 @@ final class Generator {
       $this->writeItemProperty($i, $item, "author");
       $this->writeItemProperty($i, $item, "comments");
       $this->writeItemProperty($i, $item, "guid");
-      $this->writeCategories($i, $item->categories->toArray());
+      $this->writeItemProperty($i, $item, "categories");
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this, $info);

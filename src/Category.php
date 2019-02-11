@@ -10,7 +10,7 @@ namespace Nexendrie\Rss;
  * @property string $identifier
  * @property string $domain
  */
-final class Category {
+final class Category implements IXmlConvertible {
   use \Nette\SmartObject;
 
   /** @var string */
@@ -37,6 +37,13 @@ final class Category {
 
   public function setDomain(string $domain): void {
     $this->domain = $domain;
+  }
+
+  public function appendToXml(\SimpleXMLElement &$parent): void {
+    $categoryElement = $parent->addChild("category", $this->identifier);
+    if($this->domain !== "") {
+      $categoryElement->addAttribute("domain", $this->domain);
+    }
   }
 }
 ?>

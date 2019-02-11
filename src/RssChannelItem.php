@@ -41,9 +41,15 @@ class RssChannelItem {
     $this->description = $description;
     $this->link = $link;
     $this->pubDate = $pubDate;
-    $this->categories = new class extends \Nexendrie\Utils\Collection {
+    $this->categories = new class extends \Nexendrie\Utils\Collection implements IXmlConvertible {
       /** @var string */
       protected $class = Category::class;
+
+      public function appendToXml(\SimpleXMLElement &$parent): void {
+        array_walk($this->items, function(Category $value) use($parent) {
+          $value->appendToXml($parent);
+        });
+      }
     };
   }
   
