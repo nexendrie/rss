@@ -15,6 +15,7 @@ namespace Nexendrie\Rss;
  * @property string $comments
  * @property string $guid
  * @property \Nexendrie\Utils\Collection|Category[] $categories
+ * @property \Nexendrie\Utils\Collection|Enclosure[] $enclosures
  */
 class RssChannelItem {
   use \Nette\SmartObject;
@@ -35,6 +36,8 @@ class RssChannelItem {
   protected $guid = "";
   /** @var \Nexendrie\Utils\Collection|Category[] */
   protected $categories;
+  /** @var \Nexendrie\Utils\Collection|Enclosure[] */
+  protected $enclosures;
   
   public function __construct(string $title, string $description, string $link, int $pubDate) {
     $this->title = $title;
@@ -47,6 +50,16 @@ class RssChannelItem {
 
       public function appendToXml(\SimpleXMLElement &$parent): void {
         array_walk($this->items, function(Category $value) use($parent) {
+          $value->appendToXml($parent);
+        });
+      }
+    };
+    $this->enclosures = new class extends \Nexendrie\Utils\Collection implements IXmlConvertible {
+      /** @var string */
+      protected $class = Enclosure::class;
+
+      public function appendToXml(\SimpleXMLElement &$parent): void {
+        array_walk($this->items, function(Enclosure $value) use($parent) {
           $value->appendToXml($parent);
         });
       }
@@ -114,6 +127,13 @@ class RssChannelItem {
    */
   public function getCategories(): \Nexendrie\Utils\Collection {
     return $this->categories;
+  }
+
+  /**
+   * @return \Nexendrie\Utils\Collection|Enclosure[]
+   */
+  public function getEnclosures(): \Nexendrie\Utils\Collection {
+    return $this->enclosures;
   }
 
   protected function shortenDescription(string $description, int $maxLength): string {

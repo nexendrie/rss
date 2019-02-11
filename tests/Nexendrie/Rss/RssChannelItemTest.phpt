@@ -56,12 +56,16 @@ final class RssChannelItemTest extends \Tester\TestCase {
     $item->comments = "https://mysite.com/item/1/comments";
     $item->guid = "https://mysite.com/item/1";
     $item->categories[] = new Category("abc");
+    $item->enclosures[] = new Enclosure("url", 15, "text/plain");
     $xml = new \SimpleXMLElement("<test></test>");
     $item->toXml($xml, new Generator());
     Assert::same($item->author, (string) $xml->author);
     Assert::same($item->comments, (string) $xml->comments);
     Assert::same($item->guid, (string) $xml->guid);
     Assert::same($item->categories[0]->domain, (string) $xml->categories->category);
+    Assert::same($item->enclosures[0]->url, (string) $xml->enclosure["url"]);
+    Assert::same((string) $item->enclosures[0]->length, (string) $xml->enclosure["length"]);
+    Assert::same($item->enclosures[0]->type, (string) $xml->enclosure["type"]);
   }
 }
 
