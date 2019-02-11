@@ -188,23 +188,18 @@ final class Generator {
       }
       $channel->channel->addChild("pubDate", date($this->dateTimeFormat, $pubDate));
     }
-    $this->writeProperty($channel, $info, "link");
-    $this->writeProperty($channel, $info, "title");
-    $this->writeProperty($channel, $info, "description");
-    $this->writeProperty($channel, $info, "language");
-    $this->writeProperty($channel, $info, "copyright");
-    $this->writeProperty($channel, $info, "managingEditor");
-    $this->writeProperty($channel, $info, "webMaster");
-    $this->writeProperty($channel, $info, "ttl");
-    $this->writeProperty($channel, $info, "skipDays");
-    $this->writeProperty($channel, $info, "skipHours");
+    $properties = array_filter($resolver->getDefinedOptions(), function(string $value) {
+      return !in_array($value, ["lastBuildDate", "pubDate", "categories", ], true);
+    });
+    foreach($properties as $property) {
+      $this->writeProperty($channel, $info, $property);
+    }
     if($this->generator !== "") {
       $channel->channel->generator = $this->generator;
     }
     if($this->docs !== "") {
       $channel->channel->docs = $this->docs;
     }
-    $this->writeProperty($channel, $info, "rating");
     $categories =  Arrays::get($info, "categories", []);
     array_walk($categories, function(Category $value) use($channel) {
       $value->appendToXml($channel->channel);
