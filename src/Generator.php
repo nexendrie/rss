@@ -12,7 +12,7 @@ use Nexendrie\Utils\Numbers;
  * RSS Channel Generator
  *
  * @author Jakub Konečný
- * @property callable $dataSource
+ * @property-write callable $dataSource
  * @property int $shortenDescription
  * @property string $dateTimeFormat
  * @property string $generator
