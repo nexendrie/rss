@@ -114,22 +114,10 @@ final class Generator {
     if($value === "") {
       return;
     }
-    switch($property) {
-      case "skipDays":
-        $element = $channel->channel->addChild($property);
-        array_walk($value, function(string $value) use($element) {
-          $element->addChild("day", $value);
-        });
-        break;
-      case "skipHours":
-        $element = $channel->channel->addChild($property);
-        array_walk($value, function(string $value) use($element) {
-          $element->addChild("hour", $value);
-        });
-        break;
-      default:
-        $channel->channel->{$property} = $value;
-        break;
+    if($value instanceof IXmlConvertible) {
+      $value->appendToXml($channel->channel);
+    } else {
+      $channel->channel->$property = $value;
     }
   }
 
@@ -163,7 +151,7 @@ final class Generator {
       });
     });
     $resolver->setNormalizer("skipDays", function(Options $options, array $value) {
-      return array_unique($value);
+      return new SkipDaysCollection($value);
     });
     $resolver->setAllowedTypes("skipHours", "int[]");
     $resolver->setAllowedValues("skipHours", function(array $value) {
@@ -172,13 +160,7 @@ final class Generator {
       });
     });
     $resolver->setNormalizer("skipHours", function(Options $options, array $value) {
-      array_walk($value, function(int &$value) {
-        if($value < 10) {
-          $value = "0" . (string) $value;
-        }
-        $value = (string) $value;
-      });
-      return array_unique($value);
+      return new SkipHoursCollection($value);
     });
   }
   

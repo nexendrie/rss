@@ -214,8 +214,10 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($info["rating"], (string) $result->channel->rating);
     Assert::same("Monday", (string) $result->channel->skipDays->day[0]);
     Assert::same("Sunday", (string) $result->channel->skipDays->day[1]);
+    Assert::same("", (string) $result->channel->skipDays->day[2]);
     Assert::same("01", (string) $result->channel->skipHours->hour[0]);
     Assert::same("10", (string) $result->channel->skipHours->hour[1]);
+    Assert::same("", (string) $result->channel->skipHours->hour[2]);
 
     $this->generator->generator = "";
     $this->generator->docs = "";
