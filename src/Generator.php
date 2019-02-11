@@ -222,8 +222,6 @@ final class Generator {
     if($this->docs !== "") {
       $channel->channel->docs = $this->docs;
     }
-    $this->writeProperty($channel, $info, "generator");
-    $this->writeProperty($channel, $info, "docs");
     $this->writeProperty($channel, $info, "rating");
     $categories =  Arrays::get($info, "categories", []);
     array_walk($categories, function(Category $value) use($channel) {
