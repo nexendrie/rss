@@ -1,3 +1,6 @@
+Version 0.6.0+dev
+- fixed content type in RssResponse
+
 Version 0.6.0
 - BC break: info about channel is now passed via parameter to Generator::generate/response()
 - added support for rating in channel
