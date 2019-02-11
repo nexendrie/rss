@@ -49,6 +49,20 @@ final class RssChannelItemTest extends \Tester\TestCase {
     $this->item->guid = "https://mysite.com/item/1";
     Assert::same("https://mysite.com/item/1", $this->item->guid);
   }
+  
+  public function testToXml() {
+    $item = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+    $item->author = "me@mysite.com";
+    $item->comments = "https://mysite.com/item/1/comments";
+    $item->guid = "https://mysite.com/item/1";
+    $item->categories[] = new Category("abc");
+    $xml = new \SimpleXMLElement("<test></test>");
+    $item->toXml($xml, new Generator());
+    Assert::same($item->author, (string) $xml->author);
+    Assert::same($item->comments, (string) $xml->comments);
+    Assert::same($item->guid, (string) $xml->guid);
+    Assert::same($item->categories[0]->domain, (string) $xml->categories->category);
+  }
 }
 
 $test = new RssChannelItemTest();
