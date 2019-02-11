@@ -92,7 +92,7 @@ The item contains (besides those passed to constructor) properties author, comme
 
 Both channel and individual items can have any number of categories. Category is represented by class Nexendrie\Rss\Category and has an identifier and domain (the latter is optional). You can add categories to channel via key categories in info parameter in form of array. Item class has property categories which behaves like an array (you can add new elements and remove/modify them).
 
-It is possible to adde multiple enclosures into an item, just add an instance of Nexendrie\Rss\Enclosure as new element of array to property enclosures to the item.
+It is possible to add multiple enclosures into an item, just add an instance of Nexendrie\Rss\Enclosure as new element of array to property enclosures on the item.
 
 Nette applications
 ------------------
