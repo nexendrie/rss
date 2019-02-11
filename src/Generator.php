@@ -187,7 +187,7 @@ final class Generator {
     }
     /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
-    $channel->channel->lastBuildDate[0][0] = date($this->dateTimeFormat, $lastBuildDate);
+    $channel->channel->lastBuildDate = date($this->dateTimeFormat, $lastBuildDate);
     if(isset($info["pubDate"])) {
       $pubDate = call_user_func($info["pubDate"]);
       if(!is_int($pubDate)) {
