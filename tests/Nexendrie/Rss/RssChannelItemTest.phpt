@@ -67,6 +67,27 @@ final class RssChannelItemTest extends \Tester\TestCase {
     Assert::same((string) $item->enclosures[0]->length, (string) $xml->enclosure["length"]);
     Assert::same($item->enclosures[0]->type, (string) $xml->enclosure["type"]);
   }
+
+  public function testShortenDescription() {
+    $generator = new Generator();
+    $description = str_repeat("ABDEFGH", 20);
+    $item = new RssChannelItem("Item 1", $description, "", 123);
+
+    $xml = new \SimpleXMLElement("<test></test>");
+    $generator->shortenDescription = 0;
+    $item->toXml($xml, $generator);
+    Assert::same($description, (string) $xml->description);
+
+    $xml = new \SimpleXMLElement("<test></test>");
+    $generator->shortenDescription = 10;
+    $item->toXml($xml, $generator);
+    Assert::same(13, strlen((string) $xml->description));
+
+    $xml = new \SimpleXMLElement("<test></test>");
+    $generator->shortenDescription = 150;
+    $item->toXml($xml, $generator);
+    Assert::same($description, (string) $xml->description);
+  }
 }
 
 $test = new RssChannelItemTest();

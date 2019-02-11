@@ -76,27 +76,6 @@ final class GeneratorTest extends \Tester\TestCase {
     }, \InvalidArgumentException::class);
   }
   
-  public function testShortenDescription() {
-    $info = [
-      "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
-      "description" => str_repeat("ABDEFGH", 20),
-    ];
-    $this->generator->dataSource = function() use($info) {
-      $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", $info["description"], "", 123);
-      return $items;
-    };
-    $this->generator->shortenDescription = 0;
-    $result = new \SimpleXMLElement($this->generator->generate($info));
-    Assert::same($info["description"], (string) $result->channel->item->description);
-    $this->generator->shortenDescription = 10;
-    $result = new \SimpleXMLElement($this->generator->generate($info));
-    Assert::same(13, (strlen((string) $result->channel->item->description)));
-    $this->generator->shortenDescription = 250;
-    $result = new \SimpleXMLElement($this->generator->generate($info));
-    Assert::same(strlen($info["description"]), (strlen((string) $result->channel->item->description)));
-  }
-  
   public function testCustomLastBuildDate() {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
