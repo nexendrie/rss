@@ -109,18 +109,6 @@ final class Generator {
     return $items;
   }
   
-  protected function shortenDescription(string $description): string {
-    if($this->shortenDescription < 1) {
-      return $description;
-    }
-    $originalDescription = $description;
-    $description = substr($description, 0, $this->shortenDescription);
-    if($description !== $originalDescription) {
-      $description .= "...";
-    }
-    return $description;
-  }
-  
   protected function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
     $value = Arrays::get($info, $property, "");
     if($value === "") {
@@ -142,20 +130,6 @@ final class Generator {
       default:
         $channel->channel->{$property} = $value;
         break;
-    }
-  }
-
-  protected function writeItemProperty(\SimpleXMLElement &$element, RssChannelItem $item, string $property, callable $callback = null): void {
-    if(isset($item->$property) AND $item->$property !== "") {
-      $value = $item->$property;
-      if(!is_null($callback)) {
-        $value = $callback($value);
-      }
-      if($value instanceof IXmlConvertible) {
-        $value->appendToXml($element);
-      } else {
-        $element->addChild($property, $value);
-      }
     }
   }
 
@@ -259,16 +233,7 @@ final class Generator {
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
-      $this->writeItemProperty($i, $item, "title");
-      $this->writeItemProperty($i, $item, "link");
-      $this->writeItemProperty($i, $item, "pubDate", function($value) {
-        return date($this->dateTimeFormat, $value);
-      });
-      $this->writeItemProperty($i, $item, "description", [$this, "shortenDescription"]);
-      $this->writeItemProperty($i, $item, "author");
-      $this->writeItemProperty($i, $item, "comments");
-      $this->writeItemProperty($i, $item, "guid");
-      $this->writeItemProperty($i, $item, "categories");
+      $item->toXml($i, $this);
       $this->onAddItem($this, $channel, $item, $i);
     }
     $this->onAfterGenerate($this, $info);

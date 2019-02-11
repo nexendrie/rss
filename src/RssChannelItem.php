@@ -115,5 +115,47 @@ class RssChannelItem {
   public function getCategories(): \Nexendrie\Utils\Collection {
     return $this->categories;
   }
+
+  protected function shortenDescription(string $description, int $maxLength): string {
+    if($maxLength < 1) {
+      return $description;
+    }
+    $originalDescription = $description;
+    $description = substr($description, 0, $maxLength);
+    if($description !== $originalDescription) {
+      $description .= "...";
+    }
+    return $description;
+  }
+
+  /**
+   * @param mixed $value
+   * @return mixed
+   */
+  protected function normalizeValue(string $name, $value, Generator $generator) {
+    switch($name) {
+      case "pubDate":
+        return date($generator->dateTimeFormat, $value);
+      case "description":
+        return $this->shortenDescription($value, $generator->shortenDescription);
+      default:
+        return $value;
+    }
+  }
+
+  public function toXml(\SimpleXMLElement &$element, Generator $generator): void {
+    $properties = array_keys(get_object_vars($this));
+    foreach($properties as $property) {
+      if($this->$property === "") {
+        continue;
+      }
+      $value = $this->normalizeValue($property, $this->$property, $generator);
+      if($value instanceof IXmlConvertible) {
+        $value->appendToXml($element);
+      } else {
+        $element->addChild($property, $value);
+      }
+    }
+  }
 }
 ?>
