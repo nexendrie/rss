@@ -14,6 +14,8 @@ namespace Nexendrie\Rss;
  * @property string $author
  * @property string $comments
  * @property string $guid
+ * @property string $sourceUrl
+ * @property string $sourceTitle
  * @property \Nexendrie\Utils\Collection|Category[] $categories
  * @property \Nexendrie\Utils\Collection|Enclosure[] $enclosures
  */
@@ -34,6 +36,8 @@ class RssChannelItem {
   protected $comments = "";
   /** @var string */
   protected $guid = "";
+  /** @var \stdClass */
+  protected $source;
   /** @var \Nexendrie\Utils\Collection|Category[] */
   protected $categories;
   /** @var \Nexendrie\Utils\Collection|Enclosure[] */
@@ -62,6 +66,19 @@ class RssChannelItem {
         array_walk($this->items, function(Enclosure $value) use($parent) {
           $value->appendToXml($parent);
         });
+      }
+    };
+    $this->source = new class extends \stdClass implements IXmlConvertible {
+      /** @var string */
+      public $url = "";
+      /** @var string */
+      public $title = "";
+
+      public function appendToXml(\SimpleXMLElement &$parent): void {
+        if($this->url !== "") {
+          $element = $parent->addChild("source", $this->title);
+          $element->addAttribute("url", $this->url);
+        }
       }
     };
   }
@@ -120,6 +137,22 @@ class RssChannelItem {
 
   public function setGuid(string $guid): void {
     $this->guid = $guid;
+  }
+
+  public function getSourceUrl(): string {
+    return $this->source->url;
+  }
+
+  public function setSourceUrl(string $sourceUrl): void {
+    $this->source->url = $sourceUrl;
+  }
+
+  public function getSourceTitle(): string {
+    return $this->source->title;
+  }
+
+  public function setSourceTitle(string $sourceTitle): void {
+    $this->source->title = $sourceTitle;
   }
 
   /**

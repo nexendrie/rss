@@ -3,7 +3,7 @@ Version 0.7.0-dev
 - added support for skipDays, skipHours, image, cloud and textInput in channel
 - raised minimal required version of nexendrie/utils to 1.4
 - RSSChannelItem now renders itself
-- added support for enclosures in items
+- added support for enclosures and source in items
 
 Version 0.6.0
 - BC break: info about channel is now passed via parameter to Generator::generate/response()

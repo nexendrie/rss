@@ -88,6 +88,36 @@ final class RssChannelItemTest extends \Tester\TestCase {
     $item->toXml($xml, $generator);
     Assert::same($description, (string) $xml->description);
   }
+
+  public function testSource() {
+    $generator = new Generator();
+    $item = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+
+    $xml = new \SimpleXMLElement("<test></test>");
+    $item->sourceTitle = "abc";
+    Assert::same("abc", $item->sourceTitle);
+    $item->toXml($xml, $generator);
+    Assert::same("", (string) $xml->source);
+    Assert::same("", (string) $xml->source["url"]);
+
+    $xml = new \SimpleXMLElement("<test></test>");
+    $item->sourceTitle = "";
+    Assert::same("", $item->sourceTitle);
+    $item->sourceUrl = "abc";
+    Assert::same("abc", $item->sourceUrl);
+    $item->toXml($xml, $generator);
+    Assert::same("", (string) $xml->source);
+    Assert::same("abc", (string) $xml->source["url"]);
+
+    $xml = new \SimpleXMLElement("<test></test>");
+    $item->sourceTitle = "abc";
+    Assert::same("abc", $item->sourceTitle);
+    $item->sourceUrl = "abc";
+    Assert::same("abc", $item->sourceUrl);
+    $item->toXml($xml, $generator);
+    Assert::same("abc", (string) $xml->source);
+    Assert::same("abc", (string) $xml->source["url"]);
+  }
 }
 
 $test = new RssChannelItemTest();

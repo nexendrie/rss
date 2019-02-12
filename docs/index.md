@@ -88,7 +88,7 @@ You can also set language, copyright, managingEditor, webMaster, ttl, rating, sk
 
 We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
 
-The item contains (besides those passed to constructor) properties author, comments and guid which when set will be added to the generated xml.
+The item contains (besides those passed to constructor) properties author, comments and guid which when set will be added to the generated xml. You can also add source to items, just assign some values to properties sourceUrl and sourceTitle (url is mandatory, without it source is not added to xml).
 
 Both channel and individual items can have any number of categories. Category is represented by class Nexendrie\Rss\Category and has an identifier and domain (the latter is optional). You can add categories to channel via key categories in info parameter in form of array. Item class has property categories which behaves like an array (you can add new elements and remove/modify them).
 
