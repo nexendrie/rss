@@ -173,6 +173,9 @@ final class GeneratorTest extends \Tester\TestCase {
       "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
       "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
       "skipDays" => ["Monday", "Monday", "Sunday", ], "skipHours" => [1, 1, 10],
+      "image" => new Image("url", "title", "description"),
+      "cloud" => new Cloud("test.com", 80, "/test", "test.a", "http-post"),
+      "textInput" => new TextInput("title", "description", "name", "link"),
     ];
     $this->generator->dataSource = function() {
       return new Collection();
@@ -197,6 +200,18 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same("01", (string) $result->channel->skipHours->hour[0]);
     Assert::same("10", (string) $result->channel->skipHours->hour[1]);
     Assert::same("", (string) $result->channel->skipHours->hour[2]);
+    Assert::same($info["image"]->url, (string) $result->channel->image->url);
+    Assert::same($info["image"]->title, (string) $result->channel->image->title);
+    Assert::same($info["image"]->description, (string) $result->channel->image->description);
+    Assert::same($info["cloud"]->domain, (string) $result->channel->cloud["domain"]);
+    Assert::same((string) $info["cloud"]->port, (string) $result->channel->cloud["port"]);
+    Assert::same($info["cloud"]->path, (string) $result->channel->cloud["path"]);
+    Assert::same($info["cloud"]->registerProcedure, (string) $result->channel->cloud["registerProcedure"]);
+    Assert::same($info["cloud"]->protocol, (string) $result->channel->cloud["protocol"]);
+    Assert::same($info["textInput"]->title, (string) $result->channel->textInput->title);
+    Assert::same($info["textInput"]->name, (string) $result->channel->textInput->name);
+    Assert::same($info["textInput"]->description, (string) $result->channel->textInput->description);
+    Assert::same($info["textInput"]->link, (string) $result->channel->textInput->link);
 
     $this->generator->generator = "";
     $this->generator->docs = "";

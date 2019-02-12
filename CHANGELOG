@@ -1,6 +1,6 @@
 Version 0.7.0-dev
 - fixed content type in RssResponse
-- added support for skipDays and skipHours in channel
+- added support for skipDays, skipHours, image, cloud and textInput in channel
 - raised minimal required version of nexendrie/utils to 1.4
 - RSSChannelItem now renders itself
 - added support for enclosures in items

@@ -130,7 +130,7 @@ final class Generator {
     $resolver->setDefault("lastBuildDate", "time");
     $resolver->setDefined([
       "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories", "skipDays",
-      "skipHours",
+      "skipHours", "image", "cloud", "textInput",
     ]);
     $resolver->setAllowedTypes("language", "string");
     $resolver->setAllowedTypes("copyright", "string");
@@ -162,6 +162,9 @@ final class Generator {
     $resolver->setNormalizer("skipHours", function(Options $options, array $value) {
       return new SkipHoursCollection($value);
     });
+    $resolver->setAllowedTypes("image", Image::class);
+    $resolver->setAllowedTypes("cloud", Cloud::class);
+    $resolver->setAllowedTypes("textInput", TextInput::class);
   }
   
   /**
