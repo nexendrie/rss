@@ -1,3 +1,6 @@
+Version 0.7.0+dev
+- RssResponse now sets encoding
+
 Version 0.7.0
 - fixed content type in RssResponse
 - added support for skipDays, skipHours, image, cloud and textInput in channel
