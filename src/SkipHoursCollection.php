@@ -18,9 +18,6 @@ final class SkipHoursCollection implements IXmlConvertible {
    */
   public function __construct(array $hours) {
     array_walk($hours, function(int &$value) {
-      if($value < 10) {
-        $value = "0" . (string) $value;
-      }
       $value = (string) $value;
     });
     /** @var string[] $hours */

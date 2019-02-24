@@ -1,5 +1,6 @@
 Version 0.7.0+dev
 - RssResponse now sets encoding
+- fixed values for <skipHours><hour>
 
 Version 0.7.0
 - fixed content type in RssResponse
