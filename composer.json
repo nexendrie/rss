@@ -23,7 +23,7 @@
         "ext-simplexml": "*",
         "ext-dom": "*",
         "nette/utils": "^3.0",
-        "nexendrie/utils": "^1.4",
+        "nexendrie/utils": "^1.6.1",
         "symfony/options-resolver": "^4.0"
     },
     "require-dev": {

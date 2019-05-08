@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86498ee68e5f4b7f3167ad79a0580485",
+    "content-hash": "665d024b9147b85f0be868b9ce84d63a",
     "packages": [
         {
             "name": "nette/utils",
@@ -140,7 +140,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -1550,19 +1550,19 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/nexendrie/site-generator.git",
-                "reference": "39f4007084f6f71807507adc692d6cd410635ccb"
+                "reference": "9c7f17d8217fb6f3f3f8edfa679f9a5039f0f7c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=39f4007084f6f71807507adc692d6cd410635ccb",
-                "reference": "39f4007084f6f71807507adc692d6cd410635ccb",
+                "url": "https://gitlab.com/api/v4/projects/nexendrie%2Fsite-generator/repository/archive.zip?sha=9c7f17d8217fb6f3f3f8edfa679f9a5039f0f7c9",
+                "reference": "9c7f17d8217fb6f3f3f8edfa679f9a5039f0f7c9",
                 "shasum": ""
             },
             "require": {
                 "cebe/markdown": "^1.2",
                 "ext-dom": "*",
                 "nette/command-line": "^1.4",
-                "nette/finder": "^2.4",
+                "nette/finder": "^2.4 || ^3.0",
                 "nette/neon": "^2.4 || ^3.0",
                 "nette/utils": "^2.4 || ^3.0",
                 "php": ">=7.2.0",
@@ -1606,7 +1606,7 @@
                 "static",
                 "website"
             ],
-            "time": "2019-05-01T12:19:41+00:00"
+            "time": "2019-05-04T11:48:16+00:00"
         },
         {
             "name": "nexendrie/testbench",
@@ -1614,12 +1614,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nexendrie/testbench.git",
-                "reference": "3023e0861c5838edcef471be00fc9ceb0355007f"
+                "reference": "ee7b78c71e81b4200c63128ef5993184fc9419fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nexendrie/testbench/zipball/3023e0861c5838edcef471be00fc9ceb0355007f",
-                "reference": "3023e0861c5838edcef471be00fc9ceb0355007f",
+                "url": "https://api.github.com/repos/nexendrie/testbench/zipball/ee7b78c71e81b4200c63128ef5993184fc9419fa",
+                "reference": "ee7b78c71e81b4200c63128ef5993184fc9419fa",
                 "shasum": ""
             },
             "require": {
@@ -1682,7 +1682,7 @@
                 }
             ],
             "description": "Simple integration testing tool for Nette Framework applications",
-            "time": "2019-05-01T11:29:23+00:00"
+            "time": "2019-05-05T11:44:48+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2051,7 +2051,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -2191,7 +2191,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.7",
+            "version": "v4.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
