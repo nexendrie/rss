@@ -165,6 +165,7 @@ build:
                     - composer update --prefer-dist --no-progress --no-suggest --no-interaction
             tests:
                 override:
+                    - php-scrutinizer-run
                     -
                         command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
                         analysis:
