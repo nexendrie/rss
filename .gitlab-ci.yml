@@ -9,21 +9,33 @@ cache:
   - vendor/
 
 before_script:
-  - composer install --prefer-dist --no-progress --no-suggest --no-interaction
+  - composer update --prefer-dist --no-progress --no-suggest --no-interaction
+
+.job_template: &test_job
+  stage: test
+  script:
+  - phing test
 
 test:default:
-  stage: test
-  script:
-  - phing test
+  <<: *test_job
+
+test:default:lowest-deps:
+  <<: *test_job
+  before_script:
+    - composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction
 
 test:php7.3:
-  stage: test
+  <<: *test_job
   image: nexendrie/php:7.3
-  script:
-  - phing test
+
+test:php7.3:lowest-deps:
+  <<: *test_job
+  image: nexendrie/php:7.3
+  before_script:
+    - composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction
 
 test:cc:
-  stage: test
+  <<: *test_job
   script:
   - phing test-coverage
   coverage: '/(\d+\%) covered/'

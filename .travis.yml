@@ -1,23 +1,26 @@
 language: php
 
 php:
-    - 7.2
-    - 7.3
+    - '7.2'
+    - '7.3'
     - nightly
 
 notifications:
     email: false
 
+env:
+    - dependencies=lowest
+    - dependencies=highest
+
 matrix:
     allow_failures:
         - php: nightly
-
-before_install:
-    - composer self-update
+    fast_finish: true
 
 install:
     - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
-    - composer install --prefer-dist --no-progress --no-suggest --no-interaction
+    - if [ "$dependencies" = "highest" ]; then composer update --prefer-dist --no-progress --no-suggest --no-interaction; fi
+    - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction; fi
 
 script:
     - ./phing test
