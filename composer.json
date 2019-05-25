@@ -28,7 +28,6 @@
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master",
-        "tracy/tracy": "^2.4",
         "nette/di": "^3.0",
         "nette/application": "^3.0",
         "nexendrie/site-generator": "^1.0"
