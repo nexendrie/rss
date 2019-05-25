@@ -197,12 +197,12 @@ class RssChannelItem {
   }
 
   public function toXml(\SimpleXMLElement &$element, Generator $generator): void {
-    $properties = array_keys(get_object_vars($this));
-    foreach($properties as $property) {
-      if($this->$property === "") {
+    $properties = get_object_vars($this);
+    foreach($properties as $property => $value) {
+      if($value === "") {
         continue;
       }
-      $value = $this->normalizeValue($property, $this->$property, $generator);
+      $value = $this->normalizeValue($property, $value, $generator);
       if($value instanceof IXmlConvertible) {
         $value->appendToXml($element);
       } else {

@@ -3,4 +3,3 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
     ignoreErrors:
-        - '#Variable property access on \$this\(Nexendrie\\Rss\\RssChannelItem\)#'
