@@ -27,9 +27,6 @@ final class RssExtension extends CompilerExtension {
     ]);
   }
 
-  /**
-   * @throws \Nette\Utils\AssertionException
-   */
   public function loadConfiguration(): void {
     /** @var \stdClass $config */
     $config = $this->getConfig();
