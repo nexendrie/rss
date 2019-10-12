@@ -1,6 +1,7 @@
 /vendor/
 /tests/_temp/
 output/
+/public/
 *.actual
 coverage.*
 /composer.lock
