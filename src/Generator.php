@@ -114,11 +114,10 @@ final class Generator {
     if($value === "") {
       return;
     }
-    if($value instanceof IXmlConvertible) {
-      $value->appendToXml($channel->channel);
-    } else {
-      $channel->channel->$property = $value;
+    if(!$value instanceof IXmlConvertible) {
+      $value = new GenericElement($property, $value);
     }
+    $value->appendToXml($channel->channel);
   }
 
   protected function configureOptions(OptionsResolver $resolver): void {
@@ -128,6 +127,14 @@ final class Generator {
     $resolver->setAllowedTypes("link", "string");
     $resolver->setAllowedTypes("lastBuildDate", "callable");
     $resolver->setDefault("lastBuildDate", "time");
+    $resolver->setNormalizer("lastBuildDate", function(Options $options, callable $value) {
+      $value = call_user_func($value);
+      if(!is_int($value)) {
+        throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
+      }
+      $value = date($this->dateTimeFormat, $value);
+      return new GenericElement("lastBuildDate", $value);
+    });
     $resolver->setDefined([
       "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories", "skipDays",
       "skipHours", "image", "cloud", "textInput",
@@ -141,6 +148,14 @@ final class Generator {
       return ($value >= 0);
     });
     $resolver->setAllowedTypes("pubDate", "callable");
+    $resolver->setNormalizer("pubDate", function(Options $options, callable $value) {
+      $value = call_user_func($value);
+      if(!is_int($value)) {
+        throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
+      }
+      $value = date($this->dateTimeFormat, $value);
+      return new GenericElement("pubDate", $value);
+    });
     $resolver->setAllowedTypes("rating", "string");
     $resolver->setAllowedTypes("categories", Category::class . "[]");
     $resolver->setAllowedTypes("skipDays", "string[]");
@@ -177,22 +192,10 @@ final class Generator {
     $resolver = new OptionsResolver();
     $this->configureOptions($resolver);
     $info = $resolver->resolve($info);
-    $lastBuildDate = call_user_func($info["lastBuildDate"]);
-    if(!is_int($lastBuildDate)) {
-      throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
-    }
     /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
-    $channel->channel->lastBuildDate = date($this->dateTimeFormat, $lastBuildDate);
-    if(isset($info["pubDate"])) {
-      $pubDate = call_user_func($info["pubDate"]);
-      if(!is_int($pubDate)) {
-        throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
-      }
-      $channel->channel->addChild("pubDate", date($this->dateTimeFormat, $pubDate));
-    }
     $properties = array_filter($resolver->getDefinedOptions(), function(string $value) {
-      return !in_array($value, ["lastBuildDate", "pubDate", "categories", ], true);
+      return !in_array($value, ["categories", ], true);
     });
     foreach($properties as $property) {
       $this->writeProperty($channel, $info, $property);

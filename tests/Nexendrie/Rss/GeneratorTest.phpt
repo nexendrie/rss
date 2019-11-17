@@ -44,6 +44,7 @@ final class GeneratorTest extends \Tester\TestCase {
     $result = new \SimpleXMLElement($result);
     Assert::same("Test", (string) $result->channel->title);
     Assert::same("Test RSS Channel", (string) $result->channel->description);
+    Assert::same("", (string) $result->channel->pubDate);
     Assert::same(0, $this->countItems($result));
   }
   
@@ -65,6 +66,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($info["link"], (string) $result->channel->link);
     Assert::same(1, $this->countItems($result));
     Assert::type("string", (string) $result->channel->lastBuidDate);
+    Assert::same("", (string) $result->channel->pubDate);
   }
   
   public function testInvalidDataSource() {

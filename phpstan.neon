@@ -4,3 +4,4 @@ includes:
 parameters:
     ignoreErrors:
         - '#Variable property access on SimpleXMLElement#'
+        - '#Construct empty\(\) is not allowed. Use more strict comparison#'
