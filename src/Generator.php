@@ -99,7 +99,7 @@ final class Generator {
    * @throws \InvalidArgumentException
    */
   protected function getData(): Collection {
-    if(is_null($this->dataSource)) {
+    if($this->dataSource === null) {
       throw new InvalidStateException("Data source for RSS generator is not set.");
     }
     $items = call_user_func($this->dataSource);
