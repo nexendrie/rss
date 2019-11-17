@@ -158,6 +158,9 @@ final class Generator {
     });
     $resolver->setAllowedTypes("rating", "string");
     $resolver->setAllowedTypes("categories", Category::class . "[]");
+    $resolver->setNormalizer("categories", function(Options $options, array $value) {
+      return CategoriesCollection::fromArray($value);
+    });
     $resolver->setAllowedTypes("skipDays", "string[]");
     $resolver->setAllowedValues("skipDays", function(array $value) {
       $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", ];
@@ -194,9 +197,7 @@ final class Generator {
     $info = $resolver->resolve($info);
     /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
-    $properties = array_filter($resolver->getDefinedOptions(), function(string $value) {
-      return !in_array($value, ["categories", ], true);
-    });
+    $properties = $resolver->getDefinedOptions();
     foreach($properties as $property) {
       $this->writeProperty($channel, $info, $property);
     }
@@ -206,10 +207,6 @@ final class Generator {
     if($this->docs !== "") {
       $channel->channel->docs = $this->docs;
     }
-    $categories =  Arrays::get($info, "categories", []);
-    array_walk($categories, function(Category $value) use($channel) {
-      $value->appendToXml($channel->channel);
-    });
     /** @var RssChannelItem $item */
     foreach($items as $item) {
       /** @var \SimpleXMLElement $i */
