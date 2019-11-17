@@ -111,9 +111,6 @@ final class Generator {
   
   protected function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
     $value = Arrays::get($info, $property, "");
-    if($value === "") {
-      return;
-    }
     if(!$value instanceof IXmlConvertible) {
       $value = new GenericElement($property, $value);
     }
