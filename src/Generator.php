@@ -104,7 +104,7 @@ final class Generator {
    * @throws \RuntimeException
    */
   public function setTemplate(string $template): void {
-    if(!is_file($template) OR !is_readable($template)) {
+    if(!is_file($template) || !is_readable($template)) {
       throw new \RuntimeException("File $template does not exist or is not readable.");
     }
     $this->template = $template;
