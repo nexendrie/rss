@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Nexendrie\Rss\Extensions\RssCore;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\Options;
 use Nette\Utils\Arrays;
-use Nexendrie\Utils\Numbers;
 
 /**
  * RSS Channel Generator
@@ -37,12 +36,22 @@ final class Generator {
   protected $docs = "http://www.rssboard.org/rss-specification";
   /** @var string */
   protected $template = __DIR__ . "/template.xml";
+  /** @var \Nexendrie\Utils\Collection|IRssExtension[] */
+  protected $extensions;
   /** @var callable[] */
   public $onBeforeGenerate = [];
   /** @var callable[] */
   public $onAddItem = [];
   /** @var callable[] */
   public $onAfterGenerate = [];
+
+  public function __construct() {
+    $this->extensions = new class extends \Nexendrie\Utils\Collection {
+      /** @var string */
+      protected $class = IRssExtension::class;
+    };
+    $this->extensions[] = new RssCore();
+  }
 
   public function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
@@ -83,6 +92,13 @@ final class Generator {
   public function getTemplate(): string {
     return $this->template;
   }
+
+  /**
+   * @internal
+   */
+  public function getExtensions(): \Nexendrie\Utils\Collection {
+    return $this->extensions;
+  }
   
   /**
    * @throws \RuntimeException
@@ -118,68 +134,9 @@ final class Generator {
   }
 
   protected function configureOptions(OptionsResolver $resolver): void {
-    $resolver->setRequired(["title", "description", "link", "lastBuildDate", ]);
-    $resolver->setAllowedTypes("title", "string");
-    $resolver->setAllowedTypes("description", "string");
-    $resolver->setAllowedTypes("link", "string");
-    $resolver->setAllowedTypes("lastBuildDate", "callable");
-    $resolver->setDefault("lastBuildDate", "time");
-    $resolver->setNormalizer("lastBuildDate", function(Options $options, callable $value) {
-      $value = call_user_func($value);
-      if(!is_int($value)) {
-        throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
-      }
-      $value = date($this->dateTimeFormat, $value);
-      return new GenericElement("lastBuildDate", $value);
-    });
-    $resolver->setDefined([
-      "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories", "skipDays",
-      "skipHours", "image", "cloud", "textInput",
-    ]);
-    $resolver->setAllowedTypes("language", "string");
-    $resolver->setAllowedTypes("copyright", "string");
-    $resolver->setAllowedTypes("managingEditor", "string");
-    $resolver->setAllowedTypes("webMaster", "string");
-    $resolver->setAllowedTypes("ttl", "int");
-    $resolver->setAllowedValues("ttl", function(int $value) {
-      return ($value >= 0);
-    });
-    $resolver->setAllowedTypes("pubDate", "callable");
-    $resolver->setNormalizer("pubDate", function(Options $options, callable $value) {
-      $value = call_user_func($value);
-      if(!is_int($value)) {
-        throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
-      }
-      $value = date($this->dateTimeFormat, $value);
-      return new GenericElement("pubDate", $value);
-    });
-    $resolver->setAllowedTypes("rating", "string");
-    $resolver->setAllowedTypes("categories", Category::class . "[]");
-    $resolver->setNormalizer("categories", function(Options $options, array $value) {
-      return CategoriesCollection::fromArray($value);
-    });
-    $resolver->setAllowedTypes("skipDays", "string[]");
-    $resolver->setAllowedValues("skipDays", function(array $value) {
-      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", ];
-      return Arrays::every($value, function(string $value) use($allowedValues) {
-        return in_array($value, $allowedValues, true);
-      });
-    });
-    $resolver->setNormalizer("skipDays", function(Options $options, array $value) {
-      return new SkipDaysCollection($value);
-    });
-    $resolver->setAllowedTypes("skipHours", "int[]");
-    $resolver->setAllowedValues("skipHours", function(array $value) {
-      return Arrays::every($value, function(int $value) {
-        return Numbers::isInRange($value, 0, 23);
-      });
-    });
-    $resolver->setNormalizer("skipHours", function(Options $options, array $value) {
-      return new SkipHoursCollection($value);
-    });
-    $resolver->setAllowedTypes("image", Image::class);
-    $resolver->setAllowedTypes("cloud", Cloud::class);
-    $resolver->setAllowedTypes("textInput", TextInput::class);
+    foreach($this->extensions as $extension) {
+      $extension->configureChannelOptions($resolver, $this);
+    }
   }
   
   /**

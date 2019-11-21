@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -22,38 +21,9 @@ class RssChannelItem {
   }
 
   protected function configureOptions(OptionsResolver $resolver, Generator $generator): void {
-    $resolver->setRequired(["title", "description", "link", ]);
-    $resolver->setAllowedTypes("title", "string");
-    $resolver->setAllowedTypes("description", "string");
-    $resolver->setNormalizer("description", function(Options $options, string $value) use($generator) {
-      return $this->shortenDescription($value, $generator->shortenDescription);
-    });
-    $resolver->setAllowedTypes("link", "string");
-    $resolver->setDefined([
-      "pubDate", "author", "comments", "guid", "source", "categories", "enclosures",
-    ]);
-    $resolver->setAllowedTypes("pubDate", "int");
-    $resolver->setNormalizer("pubDate", function(Options $options, int $value) use($generator) {
-      return date($generator->dateTimeFormat, $value);
-    });
-    $resolver->setAllowedTypes("author", "string");
-    $resolver->setAllowedTypes("comments", "string");
-    $resolver->setAllowedTypes("guid", "string");
-    $resolver->setAllowedTypes("source", Source::class);
-    $resolver->setAllowedTypes("categories", CategoriesCollection::class);
-    $resolver->setAllowedTypes("enclosures", EnclosuresCollection::class);
-  }
-
-  protected function shortenDescription(string $description, int $maxLength): string {
-    if($maxLength < 1) {
-      return $description;
+    foreach($generator->getExtensions() as $extension) {
+      $extension->configureItemOptions($resolver, $generator);
     }
-    $originalDescription = $description;
-    $description = substr($description, 0, $maxLength);
-    if($description !== $originalDescription) {
-      $description .= "...";
-    }
-    return $description;
   }
 
   public function toXml(\SimpleXMLElement &$element, Generator $generator): void {
