@@ -55,7 +55,7 @@ final class GeneratorTest extends \Tester\TestCase {
     ];
     $this->generator->dataSource = function() {
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $items[] = new RssChannelItem(["title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123]);
       return $items;
     };
     $result = $this->generator->generate($info);
@@ -87,7 +87,7 @@ final class GeneratorTest extends \Tester\TestCase {
     ];
     $this->generator->dataSource = function() {
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $items[] = new RssChannelItem(["title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123]);
       return $items;
     };
     $result = new \SimpleXMLElement($this->generator->generate($info));
@@ -97,7 +97,7 @@ final class GeneratorTest extends \Tester\TestCase {
   public function testInvalidLastBuildDate() {
     $this->generator->dataSource = function() {
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $items[] = new RssChannelItem(["title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123]);
       return $items;
     };
     Assert::exception(function() {
@@ -121,7 +121,7 @@ final class GeneratorTest extends \Tester\TestCase {
     }, InvalidStateException::class);
     $this->generator->dataSource = function() {
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $items[] = new RssChannelItem(["title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123]);
       return $items;
     };
     $result = $this->generator->response($info);
@@ -155,7 +155,7 @@ final class GeneratorTest extends \Tester\TestCase {
     $this->generator->dateTimeFormat = $dateTimeFormat;
     $this->generator->dataSource = function() {
       $items = new Collection();
-      $items[] = new RssChannelItem("Item 1", "Item 1 description", "", 123);
+      $items[] = new RssChannelItem(["title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123]);
       return $items;
     };
     Assert::exception(function() use($info) {

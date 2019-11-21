@@ -12,66 +12,32 @@ final class RssChannelItemTest extends \Tester\TestCase {
   protected $item;
   
   public function setUp() {
-    $this->item = new RssChannelItem("title", "description", "link", 1);
-  }
-  
-  public function testTitle() {
-    $this->item->title = "abc";
-    Assert::same("abc", $this->item->title);
-  }
-  
-  public function testDescription() {
-    $this->item->description = "abc";
-    Assert::same("abc", $this->item->description);
-  }
-  
-  public function testLink() {
-    $this->item->link = "abc";
-    Assert::same("abc", $this->item->link);
-  }
-  
-  public function testPubDate() {
-    $this->item->pubDate = 123;
-    Assert::same(123, $this->item->pubDate);
-  }
-
-  public function testAuthor() {
-    $this->item->author = "me@mysite.com";
-    Assert::same("me@mysite.com", $this->item->author);
-  }
-
-  public function testComments() {
-    $this->item->comments = "https://mysite.com/item/1/comments";
-    Assert::same("https://mysite.com/item/1/comments", $this->item->comments);
-  }
-
-  public function testGuid() {
-    $this->item->guid = "https://mysite.com/item/1";
-    Assert::same("https://mysite.com/item/1", $this->item->guid);
+    $this->item = new RssChannelItem(["title" => "title", "description" => "description", "link" => "link", "pubDate" => 1]);
   }
   
   public function testToXml() {
-    $item = new RssChannelItem("Item 1", "Item 1 description", "", 123);
-    $item->author = "me@mysite.com";
-    $item->comments = "https://mysite.com/item/1/comments";
-    $item->guid = "https://mysite.com/item/1";
-    $item->categories[] = new Category("abc");
-    $item->enclosures[] = new Enclosure("url", 15, "text/plain");
+    $data = [
+      "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123, "author" => "me@mysite.com",
+      "comments" => "https://mysite.com/item/1/comments", "guid" => "https://mysite.com/item/1",
+    ];
+    $data["categories"] = CategoriesCollection::fromArray([new Category("abc"),]);
+    $data["enclosures"] = EnclosuresCollection::fromArray([new Enclosure("url", 15, "text/plain"),]);
+    $item = new RssChannelItem($data);
     $xml = new \SimpleXMLElement("<test></test>");
     $item->toXml($xml, new Generator());
-    Assert::same($item->author, (string) $xml->author);
-    Assert::same($item->comments, (string) $xml->comments);
-    Assert::same($item->guid, (string) $xml->guid);
-    Assert::same($item->categories[0]->domain, (string) $xml->categories->category);
-    Assert::same($item->enclosures[0]->url, (string) $xml->enclosure["url"]);
-    Assert::same((string) $item->enclosures[0]->length, (string) $xml->enclosure["length"]);
-    Assert::same($item->enclosures[0]->type, (string) $xml->enclosure["type"]);
+    Assert::same($data["author"], (string) $xml->author);
+    Assert::same($data["comments"], (string) $xml->comments);
+    Assert::same($data["guid"], (string) $xml->guid);
+    Assert::same($data["categories"][0]->domain, (string) $xml->categories->category);
+    Assert::same($data["enclosures"][0]->url, (string) $xml->enclosure["url"]);
+    Assert::same((string) $data["enclosures"][0]->length, (string) $xml->enclosure["length"]);
+    Assert::same($data["enclosures"][0]->type, (string) $xml->enclosure["type"]);
   }
 
   public function testShortenDescription() {
     $generator = new Generator();
     $description = str_repeat("ABDEFGH", 20);
-    $item = new RssChannelItem("Item 1", $description, "", 123);
+    $item = new RssChannelItem(["title" => "Item 1", "description" => $description, "link" => "", "pubDate" => 123,]);
 
     $xml = new \SimpleXMLElement("<test></test>");
     $generator->shortenDescription = 0;
@@ -89,35 +55,6 @@ final class RssChannelItemTest extends \Tester\TestCase {
     Assert::same($description, (string) $xml->description);
   }
 
-  public function testSource() {
-    $generator = new Generator();
-    $item = new RssChannelItem("Item 1", "Item 1 description", "", 123);
-
-    $xml = new \SimpleXMLElement("<test></test>");
-    $item->sourceTitle = "abc";
-    Assert::same("abc", $item->sourceTitle);
-    $item->toXml($xml, $generator);
-    Assert::same("", (string) $xml->source);
-    Assert::same("", (string) $xml->source["url"]);
-
-    $xml = new \SimpleXMLElement("<test></test>");
-    $item->sourceTitle = "";
-    Assert::same("", $item->sourceTitle);
-    $item->sourceUrl = "abc";
-    Assert::same("abc", $item->sourceUrl);
-    $item->toXml($xml, $generator);
-    Assert::same("", (string) $xml->source);
-    Assert::same("abc", (string) $xml->source["url"]);
-
-    $xml = new \SimpleXMLElement("<test></test>");
-    $item->sourceTitle = "abc";
-    Assert::same("abc", $item->sourceTitle);
-    $item->sourceUrl = "abc";
-    Assert::same("abc", $item->sourceUrl);
-    $item->toXml($xml, $generator);
-    Assert::same("abc", (string) $xml->source);
-    Assert::same("abc", (string) $xml->source["url"]);
-  }
 }
 
 $test = new RssChannelItemTest();

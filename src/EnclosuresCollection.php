@@ -10,12 +10,12 @@ use Nexendrie\Utils\Collection as BaseCollection;
  *
  * @author Jakub Konečný
  */
-final class CategoriesCollection extends BaseCollection implements IXmlConvertible {
+final class EnclosuresCollection extends BaseCollection implements IXmlConvertible {
   /** @var string */
-  protected $class = Category::class;
+  protected $class = Enclosure::class;
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
-    array_walk($this->items, function(Category $value) use($parent) {
+    array_walk($this->items, function(Enclosure $value) use($parent) {
       $value->appendToXml($parent);
     });
   }

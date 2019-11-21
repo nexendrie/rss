@@ -32,7 +32,9 @@ use Nexendrie\Rss\Generator,
 $generator = new Generator();
 $generator->dataSource = function() use($generator) {
   $items = new Collection();
-  $items[] = new RssChannelItem("Item 1", "Item 1 description", "https://nexendrie.cz/item1", time());
+  $items[] = new RssChannelItem([
+    "title" => "Item 1", "description" => "Item 1 description", "link" => "https://nexendrie.cz/item1", "pubDate" => time()
+  ]);
   return $items;
 };
 $info = [
