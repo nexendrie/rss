@@ -31,35 +31,35 @@ final class TextInput implements IXmlConvertible {
     $this->link = $link;
   }
 
-  public function getTitle(): string {
+  protected function getTitle(): string {
     return $this->title;
   }
 
-  public function setTitle(string $title): void {
+  protected function setTitle(string $title): void {
     $this->title = $title;
   }
 
-  public function getDescription(): string {
+  protected function getDescription(): string {
     return $this->description;
   }
 
-  public function setDescription(string $description): void {
+  protected function setDescription(string $description): void {
     $this->description = $description;
   }
 
-  public function getName(): string {
+  protected function getName(): string {
     return $this->name;
   }
 
-  public function setName(string $name): void {
+  protected function setName(string $name): void {
     $this->name = $name;
   }
 
-  public function getLink(): string {
+  protected function getLink(): string {
     return $this->link;
   }
 
-  public function setLink(string $link): void {
+  protected function setLink(string $link): void {
     $this->link = $link;
   }
 

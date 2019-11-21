@@ -39,51 +39,51 @@ final class Image implements IXmlConvertible {
     $this->description = $description;
   }
 
-  public function getUrl(): string {
+  protected function getUrl(): string {
     return $this->url;
   }
 
-  public function setUrl(string $url): void {
+  protected function setUrl(string $url): void {
     $this->url = $url;
   }
 
-  public function getTitle(): string {
+  protected function getTitle(): string {
     return $this->title;
   }
 
-  public function setTitle(string $title): void {
+  protected function setTitle(string $title): void {
     $this->title = $title;
   }
 
-  public function getLink(): string {
+  protected function getLink(): string {
     return $this->link;
   }
 
-  public function setLink(string $link): void {
+  protected function setLink(string $link): void {
     $this->link = $link;
   }
 
-  public function getWidth(): int {
+  protected function getWidth(): int {
     return $this->width;
   }
 
-  public function setWidth(int $width): void {
+  protected function setWidth(int $width): void {
     $this->width = Numbers::range($width, 0, 144);
   }
 
-  public function getHeight(): int {
+  protected function getHeight(): int {
     return $this->height;
   }
 
-  public function setHeight(int $height): void {
+  protected function setHeight(int $height): void {
     $this->height = Numbers::range($height, 0, 400);
   }
 
-  public function getDescription(): string {
+  protected function getDescription(): string {
     return $this->description;
   }
 
-  public function setDescription(string $description): void {
+  protected function setDescription(string $description): void {
     $this->description = $description;
   }
 

@@ -32,21 +32,21 @@ final class GenericElement implements IXmlConvertible {
     $this->value = $value;
   }
 
-  public function getName(): string {
+  protected function getName(): string {
     return $this->name;
   }
 
   /**
    * @return mixed
    */
-  public function getValue() {
+  protected function getValue() {
     return $this->value;
   }
 
   /**
    * @param mixed $value
    */
-  public function setValue($value): void {
+  protected function setValue($value): void {
     $this->value = $value;
   }
 

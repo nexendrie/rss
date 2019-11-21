@@ -38,52 +38,52 @@ final class Cloud implements IXmlConvertible {
     $this->setProtocol($protocol);
   }
 
-  public function getDomain(): string {
+  protected function getDomain(): string {
     return $this->domain;
   }
 
-  public function setDomain(string $domain): void {
+  protected function setDomain(string $domain): void {
     $this->domain = $domain;
   }
 
-  public function getPort(): int {
+  protected function getPort(): int {
     return $this->port;
   }
 
-  public function setPort(int $port): void {
+  protected function setPort(int $port): void {
     $this->port = Numbers::range($port, 0, 65535);
   }
 
-  public function getPath(): string {
+  protected function getPath(): string {
     return $this->path;
   }
 
   /**
    * @throws \InvalidArgumentException
    */
-  public function setPath(string $path): void {
+  protected function setPath(string $path): void {
     if(!Strings::startsWith($path, "/")) {
       throw new \InvalidArgumentException("Path has to start with /.");
     }
     $this->path = $path;
   }
 
-  public function getRegisterProcedure(): string {
+  protected function getRegisterProcedure(): string {
     return $this->registerProcedure;
   }
 
-  public function setRegisterProcedure(string $registerProcedure): void {
+  protected function setRegisterProcedure(string $registerProcedure): void {
     $this->registerProcedure = $registerProcedure;
   }
 
-  public function getProtocol(): string {
+  protected function getProtocol(): string {
     return $this->protocol;
   }
 
   /**
    * @throws \InvalidArgumentException
    */
-  public function setProtocol(string $protocol): void {
+  protected function setProtocol(string $protocol): void {
     if(!in_array($protocol, ["xml-rpc", "soap", "http-post", ], true)) {
       throw new \InvalidArgumentException("Invalid value for protocol. Expected xml-rpc, soap or http-post, $protocol given.");
     }

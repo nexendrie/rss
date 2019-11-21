@@ -23,19 +23,19 @@ final class Category implements IXmlConvertible {
     $this->domain = $domain;
   }
 
-  public function getIdentifier(): string {
+  protected function getIdentifier(): string {
     return $this->identifier;
   }
 
-  public function setIdentifier(string $identifier): void {
+  protected function setIdentifier(string $identifier): void {
     $this->identifier = $identifier;
   }
 
-  public function getDomain(): string {
+  protected function getDomain(): string {
     return $this->domain;
   }
 
-  public function setDomain(string $domain): void {
+  protected function setDomain(string $domain): void {
     $this->domain = $domain;
   }
 

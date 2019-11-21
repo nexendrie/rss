@@ -53,44 +53,54 @@ final class Generator {
     $this->extensions[] = new RssCore();
   }
 
-  public function setDataSource(callable $dataSource): void {
+  protected function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
   }
-  
-  public function getShortenDescription(): int {
+
+  protected function getShortenDescription(): int {
     return $this->shortenDescription;
   }
-  
-  public function setShortenDescription(int $value): void {
+
+  protected function setShortenDescription(int $value): void {
     $this->shortenDescription = $value;
   }
-  
-  public function getDateTimeFormat(): string {
+
+  protected function getDateTimeFormat(): string {
     return $this->dateTimeFormat;
   }
-  
-  public function setDateTimeFormat(string $format): void {
+
+  protected function setDateTimeFormat(string $format): void {
     $this->dateTimeFormat = $format;
   }
 
-  public function getGenerator(): string {
+  protected function getGenerator(): string {
     return $this->generator;
   }
 
-  public function setGenerator(string $generator): void {
+  protected function setGenerator(string $generator): void {
     $this->generator = $generator;
   }
 
-  public function getDocs(): string {
+  protected function getDocs(): string {
     return $this->docs;
   }
 
-  public function setDocs(string $docs): void {
+  protected function setDocs(string $docs): void {
     $this->docs = $docs;
   }
-  
-  public function getTemplate(): string {
+
+  protected function getTemplate(): string {
     return $this->template;
+  }
+  
+  /**
+   * @throws \RuntimeException
+   */
+  protected function setTemplate(string $template): void {
+    if(!is_file($template) || !is_readable($template)) {
+      throw new \RuntimeException("File $template does not exist or is not readable.");
+    }
+    $this->template = $template;
   }
 
   /**
@@ -98,16 +108,6 @@ final class Generator {
    */
   public function getExtensions(): \Nexendrie\Utils\Collection {
     return $this->extensions;
-  }
-  
-  /**
-   * @throws \RuntimeException
-   */
-  public function setTemplate(string $template): void {
-    if(!is_file($template) || !is_readable($template)) {
-      throw new \RuntimeException("File $template does not exist or is not readable.");
-    }
-    $this->template = $template;
   }
   
   /**

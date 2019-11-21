@@ -23,19 +23,19 @@ final class Source extends \stdClass implements IXmlConvertible {
     $this->title = $title;
   }
 
-  public function getUrl(): string {
+  protected function getUrl(): string {
     return $this->url;
   }
 
-  public function setUrl(string $url): void {
+  protected function setUrl(string $url): void {
     $this->url = $url;
   }
 
-  public function getTitle(): string {
+  protected function getTitle(): string {
     return $this->title;
   }
 
-  public function setTitle(string $title): void {
+  protected function setTitle(string $title): void {
     $this->title = $title;
   }
 

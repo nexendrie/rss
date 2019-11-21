@@ -22,8 +22,8 @@ final class RssResponse implements \Nette\Application\IResponse {
   public function __construct(string $source) {
     $this->source = $source;
   }
-  
-  public function getSource(): string {
+
+  protected function getSource(): string {
     return $this->source;
   }
   

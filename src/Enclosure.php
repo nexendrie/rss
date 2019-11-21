@@ -27,27 +27,27 @@ final class Enclosure implements IXmlConvertible {
     $this->type = $type;
   }
 
-  public function getUrl(): string {
+  protected function getUrl(): string {
     return $this->url;
   }
 
-  public function setUrl(string $url): void {
+  protected function setUrl(string $url): void {
     $this->url = $url;
   }
 
-  public function getLength(): int {
+  protected function getLength(): int {
     return $this->length;
   }
 
-  public function setLength(int $length): void {
+  protected function setLength(int $length): void {
     $this->length = $length;
   }
 
-  public function getType(): string {
+  protected function getType(): string {
     return $this->type;
   }
 
-  public function setType(string $type): void {
+  protected function setType(string $type): void {
     $this->type = $type;
   }
 
