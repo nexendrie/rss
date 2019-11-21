@@ -34,11 +34,10 @@ class RssChannelItem {
       if($value === "") {
         continue;
       }
-      if($value instanceof IXmlConvertible) {
-        $value->appendToXml($element);
-      } else {
-        $element->addChild($key, $value);
+      if(!$value instanceof IXmlConvertible) {
+        $value = new GenericElement($key, $value);
       }
+      $value->appendToXml($element);
     }
   }
 }
