@@ -27,6 +27,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @internal
  */
 final class RssCore implements IRssExtension {
+  use \Nette\SmartObject;
+
   public function getName(): string {
     return "";
   }
