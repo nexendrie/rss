@@ -51,6 +51,7 @@ final class Generator {
       protected $class = IRssExtension::class;
     };
     $this->extensions[] = new RssCore();
+    $this->extensions->lock();
   }
 
   protected function setDataSource(callable $dataSource): void {
