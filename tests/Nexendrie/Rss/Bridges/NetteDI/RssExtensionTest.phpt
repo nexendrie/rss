@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Bridges\NetteDI;
 
 use Nexendrie\Rss\Extensions\TestExtension;
+use Nexendrie\Rss\InvalidRssExtension;
 use Tester\Assert;
 use Nexendrie\Rss\Generator;
 
@@ -58,7 +59,16 @@ final class RssExtensionTest extends \Tester\TestCase {
   }
 
   public function testExtensions() {
-    $this->refreshContainer(["services" => [TestExtension::class]]);
+    Assert::exception(function() {
+      $this->refreshContainer(["rss" => [
+        "extensions" => [
+          \stdClass::class,
+        ],
+      ]]);
+    }, InvalidRssExtension::class);
+    $this->refreshContainer(["rss" => [
+      "extensions" => [TestExtension::class],
+    ]]);
     /** @var Generator $generator */
     $generator = $this->getService(Generator::class);
     Assert::count(1, $generator->extensions->getItems(["%class%" => TestExtension::class]));

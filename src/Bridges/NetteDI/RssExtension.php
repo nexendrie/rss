@@ -7,6 +7,7 @@ use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nexendrie\Rss\Generator;
 use Nette\Schema\Expect;
+use Nexendrie\Rss\InvalidRssExtension;
 use Nexendrie\Rss\IRssExtension;
 
 /**
@@ -15,6 +16,7 @@ use Nexendrie\Rss\IRssExtension;
  * @author Jakub Konečný
  */
 final class RssExtension extends CompilerExtension {
+  /** @internal */
   public const SERVICE_GENERATOR = "generator";
 
   protected function setProperty(ServiceDefinition &$generator, \stdClass $config, string $property): void {
@@ -28,6 +30,7 @@ final class RssExtension extends CompilerExtension {
       "shortenDescription" => Expect::int(150),
       "dateTimeFormat" => Expect::string(""),
       "template" => Expect::string(""),
+      "extensions" => Expect::arrayOf("class")->default([]),
     ]);
   }
 
@@ -40,6 +43,14 @@ final class RssExtension extends CompilerExtension {
       ->addSetup('$service->shortenDescription = ?', [$config->shortenDescription]);
     $this->setProperty($generator, $config, "dateTimeFormat");
     $this->setProperty($generator, $config, "template");
+    /** @var string $extension */
+    foreach($config->extensions as $index => $extension) {
+      if(!class_exists($extension) || !is_subclass_of($extension, IRssExtension::class)) {
+        throw new InvalidRssExtension("Invalid RSS extension $extension.");
+      }
+      $builder->addDefinition($this->prefix("extension.$index"))
+        ->setType($extension);
+    }
   }
 
   public function beforeCompile() {
