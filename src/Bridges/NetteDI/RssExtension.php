@@ -7,7 +7,7 @@ use Nette\DI\CompilerExtension;
 use Nette\DI\Definitions\ServiceDefinition;
 use Nexendrie\Rss\Generator;
 use Nette\Schema\Expect;
-use Nexendrie\Rss\InvalidRssExtension;
+use Nexendrie\Rss\InvalidRssExtensionException;
 use Nexendrie\Rss\IRssExtension;
 
 /**
@@ -46,7 +46,7 @@ final class RssExtension extends CompilerExtension {
     /** @var string $extension */
     foreach($config->extensions as $index => $extension) {
       if(!class_exists($extension) || !is_subclass_of($extension, IRssExtension::class)) {
-        throw new InvalidRssExtension("Invalid RSS extension $extension.");
+        throw new InvalidRssExtensionException("Invalid RSS extension $extension.");
       }
       $builder->addDefinition($this->prefix("extension.$index"))
         ->setType($extension);
