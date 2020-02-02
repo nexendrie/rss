@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Tester\Assert;
+use Nexendrie\Rss\Extensions\TestExtension;
 
 require __DIR__ . "/../../bootstrap.php";
 
@@ -257,6 +258,26 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::type("string", $result);
     $result = new \SimpleXMLElement($this->generator->generate($info));
     Assert::same("en", (string) $result->channel->language);
+  }
+
+  public function testExtension() {
+    $this->generator->extensions[] = $extension = new TestExtension();
+    $extensionName = $extension->getName();
+    $extensionNamespace = $extension->getNamespace();
+    $elementName = TestExtension::ELEMENT_ABC;
+    $info = [
+      "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
+      "description" => "News for package nexendrie/rss", "$extensionName:$elementName" => "def",
+    ];
+    $this->generator->dataSource = function() {
+      return new Collection();
+    };
+    $result = $this->generator->generate($info);
+    Assert::type("string", $result);
+    $result = new \SimpleXMLElement($result);
+    $namespaces = $result->getNamespaces(true);
+    Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
+    Assert::same($info["$extensionName:$elementName"], (string) $result->channel->children($extensionNamespace, false)->$elementName);
   }
 }
 

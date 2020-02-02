@@ -17,12 +17,15 @@ use Nette\Utils\Arrays;
  * @property string $generator
  * @property string $docs
  * @property string $template
+ * @property \Nexendrie\Utils\Collection|IRssExtension[] $extensions
  * @method void onBeforeGenerate(Generator $generator, array $info)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
  * @method void onAfterGenerate(Generator $generator, array $info)
  */
 final class Generator {
   use \Nette\SmartObject;
+
+  private const NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
 
   /** @var string */
   protected $dateTimeFormat = "r";
@@ -51,7 +54,6 @@ final class Generator {
       protected $class = IRssExtension::class;
     };
     $this->extensions[] = new RssCore();
-    $this->extensions->lock();
   }
 
   protected function setDataSource(callable $dataSource): void {
@@ -104,9 +106,6 @@ final class Generator {
     $this->template = $template;
   }
 
-  /**
-   * @internal
-   */
   public function getExtensions(): \Nexendrie\Utils\Collection {
     return $this->extensions;
   }
@@ -133,12 +132,6 @@ final class Generator {
     }
     $value->appendToXml($channel->channel);
   }
-
-  protected function configureOptions(OptionsResolver $resolver): void {
-    foreach($this->extensions as $extension) {
-      $extension->configureChannelOptions($resolver, $this);
-    }
-  }
   
   /**
    * @throws InvalidStateException
@@ -148,10 +141,17 @@ final class Generator {
     $this->onBeforeGenerate($this, $info);
     $items = $this->getData();
     $resolver = new OptionsResolver();
-    $this->configureOptions($resolver);
+    foreach($this->extensions as $extension) {
+      $extension->configureChannelOptions($resolver, $this);
+    }
     $info = $resolver->resolve($info);
     /** @var \SimpleXMLElement $channel */
     $channel = simplexml_load_file($this->template);
+    foreach($this->extensions as $extension) {
+      if($extension->getName() !== "" && $extension->getNamespace() !== "") {
+        $channel->addAttribute(static::NAMESPACE_ATTRIBUTE_HACK . $extension->getName(), $extension->getNamespace());
+      }
+    }
     $properties = $resolver->getDefinedOptions();
     foreach($properties as $property) {
       $this->writeProperty($channel, $info, $property);
@@ -173,7 +173,9 @@ final class Generator {
     $dom = new \DOMDocument();
     $dom->preserveWhiteSpace = false;
     $dom->formatOutput = true;
-    $dom->loadXML($channel->asXML());
+    $xml = $channel->asXML();
+    $xml = str_replace(static::NAMESPACE_ATTRIBUTE_HACK, "xmlns:", $xml);
+    $dom->loadXML($xml);
     return $dom->saveXML();
   }
   

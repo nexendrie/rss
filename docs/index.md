@@ -114,7 +114,7 @@ If do not need to do anything with the result after generating, you can you meth
 
 ```php
 $response = $this->generator->response([...]);
-$this->sendResponse($reponse);
+$this->sendResponse($response);
 ```
 
 .

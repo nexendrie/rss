@@ -24,7 +24,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * RssCore
  *
  * @author Jakub Konečný
- * @internal
  */
 final class RssCore implements IRssExtension {
   use \Nette\SmartObject;
