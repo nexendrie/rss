@@ -21,7 +21,7 @@ class RssChannelItem {
   }
 
   protected function configureOptions(OptionsResolver $resolver, Generator $generator): void {
-    foreach($generator->getExtensions() as $extension) {
+    foreach($generator->extensions as $extension) {
       $extension->configureItemOptions($resolver, $generator);
     }
   }

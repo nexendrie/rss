@@ -106,7 +106,7 @@ final class Generator {
     $this->template = $template;
   }
 
-  public function getExtensions(): \Nexendrie\Utils\Collection {
+  protected function getExtensions(): \Nexendrie\Utils\Collection {
     return $this->extensions;
   }
   
