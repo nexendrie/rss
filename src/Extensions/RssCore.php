@@ -52,7 +52,7 @@ final class RssCore implements IRssExtension {
       return new GenericElement("lastBuildDate", $value);
     });
     $resolver->setDefined([
-      "language", "copyright", "managingEditor", "webMaster", "ttl",  "pubDate", "rating", "categories", "skipDays",
+      "language", "copyright", "managingEditor", "webMaster", "ttl", "pubDate", "rating", "categories", "skipDays",
       "skipHours", "image", "cloud", "textInput",
     ]);
     $resolver->setAllowedTypes("language", "string");

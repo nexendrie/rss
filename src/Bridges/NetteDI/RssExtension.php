@@ -13,7 +13,7 @@ use Nette\Schema\Expect;
  * @author Jakub Konečný
  */
 final class RssExtension extends CompilerExtension {
-  protected function setProperty(\Nette\DI\ServiceDefinition &$generator, \stdClass $config, string $property): void {
+  protected function setProperty(\Nette\DI\Definitions\ServiceDefinition &$generator, \stdClass $config, string $property): void {
     if($config->$property !== "") {
       $generator->addSetup('$service->' . $property . " = ?", [$config->$property]);
     }
