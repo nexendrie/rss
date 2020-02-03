@@ -2,6 +2,7 @@ Version 0.9.0-dev
 - BC break: RssChannelItem's constructor now accepts an array with all data
 - BC break: RssChannelItem cannot be changed once constructed now
 - added support for RSS extensions
+- marked RssChannelItem as final
 
 Version 0.8.0
 - dropped support for Nette 2.4

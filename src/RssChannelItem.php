@@ -10,12 +10,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Jakub Konečný
  */
-class RssChannelItem {
+final class RssChannelItem {
   use \Nette\SmartObject;
 
   /** @var array */
   protected $data;
-  
+
   public function __construct(array $data) {
     $this->data = $data;
   }
