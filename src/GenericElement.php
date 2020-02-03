@@ -7,7 +7,6 @@ namespace Nexendrie\Rss;
  * GenericElement
  *
  * @author Jakub Konečný
- * @internal
  * @property-read string $name
  * @property mixed $value
  */

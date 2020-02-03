@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * IRssExtension
  *
  * @author Jakub Konečný
- * @internal
  */
 interface IRssExtension {
   public function getName(): string;

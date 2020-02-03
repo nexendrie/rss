@@ -7,7 +7,6 @@ namespace Nexendrie\Rss;
  * IXmlConvertible
  *
  * @author Jakub Konečný
- * @internal
  */
 interface IXmlConvertible {
   public function appendToXml(\SimpleXMLElement &$parent): void;
