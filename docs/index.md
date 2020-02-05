@@ -96,6 +96,24 @@ Both channel and individual items can have any number of categories. Category is
 
 It is possible to add multiple enclosures into an item, just add an instance of Nexendrie\Rss\Enclosure as new element of array to property enclosures on the item.
 
+Custom elements and attributes
+------------------------------
+
+It is possible to insert also other elements and attributes to the channel and single items. It is rather simple. Firstly you need to create an extension which defines the additional things for channel and items and register the extension to the generator. Then you can add those keys to info parameter when generating the channel or data parameter when creating a new item.
+
+Extensions have to implement the Nexendrie\Rss\IRssExtension interface and are registered this way:
+
+```php
+<?php
+$generator = new Nexendrie\Rss\Generator();
+$generator->extensions[] = new classname();
+?>
+```
+
+.
+
+A few extensions are a part of this package (in namespace Nexendrie\Rss\Extension) and also all core elements and attributes are defined in an extension.
+
 Nette applications
 ------------------
 
@@ -108,6 +126,15 @@ rss:
     shortenDescription: 150
     dateTimeFormat: "r"
     template: "/path/to/default/template.xml"
+```
+
+If you add any class implementing the Nexendrie\Rss\IRssExtension interface to the container, they will be automatically registered to the generator. Alternatively, you can register them through the DIC extension:
+
+```yaml
+rss:
+    extensions:
+        - classname1
+        - classname2
 ```
 
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
