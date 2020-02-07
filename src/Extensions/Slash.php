@@ -34,7 +34,7 @@ final class Slash extends BaseExtension {
     $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_DEPARTMENT), "string");
     $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_COMMENTS), "int");
     $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_HIT_PARADE), "string");
-    $resolver->setAllowedValues($this->getElementName(self::ELEMENT_HIT_PARADE), function(string $value) {
+    $resolver->setAllowedValues($this->getElementName(self::ELEMENT_HIT_PARADE), function(string $value): bool {
       return (preg_match('#^\d(,\d)*$#', $value) === 1);
     });
   }

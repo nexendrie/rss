@@ -16,7 +16,7 @@ abstract class BaseExtension implements IRssExtension {
 
   protected function registerElements(OptionsResolver $resolver): void {
     $elements = Constants::getConstantsValues(static::class, "ELEMENT_");
-    array_walk($elements, function(string $value) use ($resolver) {
+    array_walk($elements, function(string $value) use ($resolver): void {
       $resolver->setDefined($this->getElementName($value));
     });
   }

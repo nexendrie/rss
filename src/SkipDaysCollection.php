@@ -22,7 +22,7 @@ final class SkipDaysCollection implements IXmlConvertible {
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
     $element = $parent->addChild("skipDays");
-    array_walk($this->days, function(string $value) use($element) {
+    array_walk($this->days, function(string $value) use ($element): void {
       $element->addChild("day", $value);
     });
   }

@@ -17,7 +17,7 @@ final class SkipHoursCollection implements IXmlConvertible {
    * @param int[] $hours
    */
   public function __construct(array $hours) {
-    array_walk($hours, function(int &$value) {
+    array_walk($hours, function(int &$value): void {
       $value = (string) $value;
     });
     /** @var string[] $hours */
@@ -27,7 +27,7 @@ final class SkipHoursCollection implements IXmlConvertible {
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
     $element = $parent->addChild("skipHours");
-    array_walk($this->hours, function(string $value) use($element) {
+    array_walk($this->hours, function(string $value) use ($element): void {
       $element->addChild("hour", $value);
     });
   }

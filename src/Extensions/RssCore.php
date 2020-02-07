@@ -43,7 +43,7 @@ final class RssCore implements IRssExtension {
     $resolver->setAllowedTypes("link", "string");
     $resolver->setAllowedTypes("lastBuildDate", "callable");
     $resolver->setDefault("lastBuildDate", "time");
-    $resolver->setNormalizer("lastBuildDate", function(Options $options, callable $value) use($generator) {
+    $resolver->setNormalizer("lastBuildDate", function(Options $options, callable $value) use ($generator): GenericElement {
       $value = call_user_func($value);
       if(!is_int($value)) {
         throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
@@ -60,11 +60,11 @@ final class RssCore implements IRssExtension {
     $resolver->setAllowedTypes("managingEditor", "string");
     $resolver->setAllowedTypes("webMaster", "string");
     $resolver->setAllowedTypes("ttl", "int");
-    $resolver->setAllowedValues("ttl", function(int $value) {
+    $resolver->setAllowedValues("ttl", function(int $value): bool {
       return ($value >= 0);
     });
     $resolver->setAllowedTypes("pubDate", "callable");
-    $resolver->setNormalizer("pubDate", function(Options $options, callable $value) use($generator) {
+    $resolver->setNormalizer("pubDate", function(Options $options, callable $value) use ($generator): GenericElement {
       $value = call_user_func($value);
       if(!is_int($value)) {
         throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
@@ -74,26 +74,26 @@ final class RssCore implements IRssExtension {
     });
     $resolver->setAllowedTypes("rating", "string");
     $resolver->setAllowedTypes("categories", Category::class . "[]");
-    $resolver->setNormalizer("categories", function(Options $options, array $value) {
+    $resolver->setNormalizer("categories", function(Options $options, array $value): CategoriesCollection {
       return CategoriesCollection::fromArray($value);
     });
     $resolver->setAllowedTypes("skipDays", "string[]");
-    $resolver->setAllowedValues("skipDays", function(array $value) {
-      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", ];
-      return Arrays::every($value, function(string $value) use($allowedValues) {
+    $resolver->setAllowedValues("skipDays", function(array $value): bool {
+      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",];
+      return Arrays::every($value, function(string $value) use ($allowedValues): bool {
         return in_array($value, $allowedValues, true);
       });
     });
-    $resolver->setNormalizer("skipDays", function(Options $options, array $value) {
+    $resolver->setNormalizer("skipDays", function(Options $options, array $value): SkipDaysCollection {
       return new SkipDaysCollection($value);
     });
     $resolver->setAllowedTypes("skipHours", "int[]");
-    $resolver->setAllowedValues("skipHours", function(array $value) {
-      return Arrays::every($value, function(int $value) {
+    $resolver->setAllowedValues("skipHours", function(array $value): bool {
+      return Arrays::every($value, function(int $value): bool {
         return Numbers::isInRange($value, 0, 23);
       });
     });
-    $resolver->setNormalizer("skipHours", function(Options $options, array $value) {
+    $resolver->setNormalizer("skipHours", function(Options $options, array $value): SkipHoursCollection {
       return new SkipHoursCollection($value);
     });
     $resolver->setAllowedTypes("image", Image::class);
@@ -105,7 +105,7 @@ final class RssCore implements IRssExtension {
     $resolver->setRequired(["title", "description", "link", ]);
     $resolver->setAllowedTypes("title", "string");
     $resolver->setAllowedTypes("description", "string");
-    $resolver->setNormalizer("description", function(Options $options, string $value) use($generator) {
+    $resolver->setNormalizer("description", function(Options $options, string $value) use ($generator): string {
       return $this->shortenDescription($value, $generator->shortenDescription);
     });
     $resolver->setAllowedTypes("link", "string");
@@ -113,7 +113,7 @@ final class RssCore implements IRssExtension {
       "pubDate", "author", "comments", "guid", "source", "categories", "enclosures",
     ]);
     $resolver->setAllowedTypes("pubDate", "int");
-    $resolver->setNormalizer("pubDate", function(Options $options, int $value) use($generator) {
+    $resolver->setNormalizer("pubDate", function(Options $options, int $value) use ($generator): string {
       return date($generator->dateTimeFormat, $value);
     });
     $resolver->setAllowedTypes("author", "string");
