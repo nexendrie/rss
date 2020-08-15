@@ -1,4 +1,4 @@
-Version 0.9.0-dev
+Version 0.9.0
 - BC break: RssChannelItem's constructor now accepts an array with all data
 - BC break: RssChannelItem cannot be changed once constructed now
 - added support for RSS extensions
