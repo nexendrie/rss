@@ -14,6 +14,7 @@ use Nexendrie\Rss\IRssExtension;
  * RssExtension for Nette DI Container
  *
  * @author Jakub Konečný
+ * @method \stdClass getConfig()
  */
 final class RssExtension extends CompilerExtension {
   /** @internal */
@@ -35,7 +36,6 @@ final class RssExtension extends CompilerExtension {
   }
 
   public function loadConfiguration(): void {
-    /** @var \stdClass $config */
     $config = $this->getConfig();
     $builder = $this->getContainerBuilder();
     $generator = $builder->addDefinition($this->prefix(static::SERVICE_GENERATOR))

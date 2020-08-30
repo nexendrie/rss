@@ -176,7 +176,7 @@ final class Generator {
     $xml = $channel->asXML();
     $xml = str_replace(static::NAMESPACE_ATTRIBUTE_HACK, "xmlns:", $xml);
     $dom->loadXML($xml);
-    return $dom->saveXML();
+    return (string) $dom->saveXML();
   }
   
   /**

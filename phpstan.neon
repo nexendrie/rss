@@ -6,4 +6,3 @@ parameters:
         - '#Variable property access on SimpleXMLElement#'
         - '#Construct empty\(\) is not allowed. Use more strict comparison#'
         - '#Anonymous function should return Nexendrie\\Rss\\CategoriesCollection but returns Nexendrie\\Utils\\Collection#'
-        - '#Method Nexendrie\\Rss\\Generator::generate\(\) should return string but returns string\|false#'
