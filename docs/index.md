@@ -105,6 +105,8 @@ Extensions have to implement the Nexendrie\Rss\IRssExtension interface and are r
 
 ```php
 <?php
+declare(strict_types=1);
+
 $generator = new Nexendrie\Rss\Generator();
 $generator->extensions[] = new classname();
 ?>
@@ -140,8 +142,12 @@ rss:
 If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
 
 ```php
+<?php
+declare(strict_types=1);
+
 $response = $this->generator->response([...]);
 $this->sendResponse($response);
+?>
 ```
 
 .
