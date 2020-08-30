@@ -5,4 +5,3 @@ parameters:
     ignoreErrors:
         - '#Variable property access on SimpleXMLElement#'
         - '#Construct empty\(\) is not allowed. Use more strict comparison#'
-        - '#Anonymous function should return Nexendrie\\Rss\\CategoriesCollection but returns Nexendrie\\Utils\\Collection#'
