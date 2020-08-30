@@ -159,6 +159,9 @@ build:
         rabbitmq: false
     nodes:
         tests:
+            cache:
+                directories:
+                    - vendor/
             dependencies:
                 override:
                     - wget https://www.phing.info/get/phing-latest.phar && mv phing-latest.phar phing && chmod +x phing
@@ -166,9 +169,8 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run
-                    -
-                        command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
-                        analysis:
+                    - command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
+                      analysis:
                             file: codesniffer.cs
                             format: 'general-checkstyle'
                     -
