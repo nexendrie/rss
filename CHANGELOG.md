@@ -1,4 +1,4 @@
-Version 0.10.0-dev
+Version 0.10.0
 - raised minimal version of PHP to 7.4
 - used typed properties (possible BC break)
 
