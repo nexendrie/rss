@@ -13,7 +13,6 @@ use Nette\Utils\Arrays;
  * @author Jakub Konečný
  * @property-write callable $dataSource
  * @property string $template
- * @property \Nexendrie\Utils\Collection|IRssExtension[] $extensions
  * @method void onBeforeGenerate(Generator $generator, array $info)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
  * @method void onAfterGenerate(Generator $generator, array $info)
@@ -30,8 +29,8 @@ final class Generator {
   public string $generator = "Nexendrie RSS";
   public string $docs = "http://www.rssboard.org/rss-specification";
   protected string $template = __DIR__ . "/template.xml";
-  /** @var \Nexendrie\Utils\Collection|IRssExtension[] */
-  protected \Nexendrie\Utils\Collection $extensions;
+  /** @var RssExtensionsCollection|IRssExtension[] */
+  public RssExtensionsCollection $extensions;
   /** @var callable[] */
   public array $onBeforeGenerate = [];
   /** @var callable[] */
@@ -40,10 +39,7 @@ final class Generator {
   public array $onAfterGenerate = [];
 
   public function __construct() {
-    $this->extensions = new class extends \Nexendrie\Utils\Collection {
-      protected string $class = IRssExtension::class;
-    };
-    $this->extensions[] = new RssCore();
+    $this->extensions = RssExtensionsCollection::fromArray([new RssCore()]);
   }
 
   protected function setDataSource(callable $dataSource): void {
@@ -62,10 +58,6 @@ final class Generator {
       throw new \RuntimeException("File $template does not exist or is not readable.");
     }
     $this->template = $template;
-  }
-
-  protected function getExtensions(): \Nexendrie\Utils\Collection {
-    return $this->extensions;
   }
   
   /**
