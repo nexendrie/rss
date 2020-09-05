@@ -1,3 +1,6 @@
+Version 0.10.0-dev
+- raised minimal version of PHP to 7.4
+
 Version 0.9.0
 - BC break: RssChannelItem's constructor now accepts an array with all data
 - BC break: RssChannelItem cannot be changed once constructed now

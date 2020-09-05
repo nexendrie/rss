@@ -1,4 +1,4 @@
-image: nexendrie/php:7.3
+image: nexendrie/php:7.4
 
 stages:
   - test
@@ -21,16 +21,6 @@ test:default:
 
 test:default:lowest-deps:
   <<: *test_job
-  before_script:
-    - composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction
-
-test:php7.4:
-  <<: *test_job
-  image: nexendrie/php:7.4
-
-test:php7.4:lowest-deps:
-  <<: *test_job
-  image: nexendrie/php:7.4
   before_script:
     - composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction
 
