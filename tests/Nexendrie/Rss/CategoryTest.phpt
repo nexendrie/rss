@@ -7,6 +7,10 @@ use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class CategoryTest extends \Tester\TestCase {
   public function testIdentifier() {
     $category = new Category("id");

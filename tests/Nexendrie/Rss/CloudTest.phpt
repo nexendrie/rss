@@ -7,6 +7,10 @@ use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class CloudTest extends \Tester\TestCase {
   public function testDomain() {
     $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");

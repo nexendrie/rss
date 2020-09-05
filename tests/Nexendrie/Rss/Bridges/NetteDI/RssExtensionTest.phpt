@@ -10,6 +10,10 @@ use Nexendrie\Rss\Generator;
 
 require __DIR__ . "/../../../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class RssExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
 

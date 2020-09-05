@@ -7,6 +7,10 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class RssCoreTest extends \Tester\TestCase {
   public function testGetName() {
     $extension = new RssCore();

@@ -10,6 +10,10 @@ use Tester\Assert;
 
 require __DIR__ . "/../../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class SyndicationTest extends \Tester\TestCase {
   public function testExtension() {
     $generator = new Generator();

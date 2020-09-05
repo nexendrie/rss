@@ -8,6 +8,10 @@ use Nexendrie\Rss\Extensions\TestExtension;
 
 require __DIR__ . "/../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class GeneratorTest extends \Tester\TestCase {
   /** @var Generator */
   protected $generator;

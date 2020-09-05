@@ -7,6 +7,10 @@ use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class TextInputTest extends \Tester\TestCase {
   public function testTitle() {
     $textInput = new TextInput("title", "description", "name", "link");

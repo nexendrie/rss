@@ -7,6 +7,10 @@ use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
 
+/**
+ * @author Jakub Konečný
+ * @testCase
+ */
 final class EnclosureTest extends \Tester\TestCase {
   public function testUrl() {
     $enclosure = new Enclosure("url", 15, "text/plain");
