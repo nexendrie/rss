@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Nexendrie\Utils\Numbers;
-use Nette\Utils\Strings;
 
 /**
  * Cloud
@@ -62,7 +61,7 @@ final class Cloud implements IXmlConvertible {
    * @throws \InvalidArgumentException
    */
   protected function setPath(string $path): void {
-    if(!Strings::startsWith($path, "/")) {
+    if(!str_starts_with($path, "/")) {
       throw new \InvalidArgumentException("Path has to start with /.");
     }
     $this->path = $path;
