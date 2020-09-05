@@ -14,8 +14,7 @@ use Nette\Http\IResponse;
  * @property-read string $source
  */
 final class RssResponse implements \Nette\Application\IResponse {
-  /** @var string */
-  private $source;
+  private string $source;
   
   use \Nette\SmartObject;
   

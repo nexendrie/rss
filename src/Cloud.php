@@ -9,40 +9,25 @@ use Nexendrie\Utils\Numbers;
  * Cloud
  *
  * @author Jakub Konečný
- * @property string $domain
  * @property int $port
  * @property string $path
- * @property string $registerProcedure
  * @property string $protocol
  */
 final class Cloud implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  /** @var string */
-  protected $domain;
-  /** @var int */
-  protected $port;
-  /** @var string */
-  protected $path;
-  /** @var string */
-  protected $registerProcedure;
-  /** @var string */
-  protected $protocol;
+  public string $domain;
+  protected int $port;
+  protected string $path;
+  public string $registerProcedure;
+  protected string $protocol;
 
   public function __construct(string $domain, int $port, string $path, string $registerProcedure, string $protocol) {
-    $this->setDomain($domain);
+    $this->domain = $domain;
     $this->setPort($port);
     $this->setPath($path);
-    $this->setRegisterProcedure($registerProcedure);
+    $this->registerProcedure = $registerProcedure;
     $this->setProtocol($protocol);
-  }
-
-  protected function getDomain(): string {
-    return $this->domain;
-  }
-
-  protected function setDomain(string $domain): void {
-    $this->domain = $domain;
   }
 
   protected function getPort(): int {
@@ -65,14 +50,6 @@ final class Cloud implements IXmlConvertible {
       throw new \InvalidArgumentException("Path has to start with /.");
     }
     $this->path = $path;
-  }
-
-  protected function getRegisterProcedure(): string {
-    return $this->registerProcedure;
-  }
-
-  protected function setRegisterProcedure(string $registerProcedure): void {
-    $this->registerProcedure = $registerProcedure;
   }
 
   protected function getProtocol(): string {

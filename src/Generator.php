@@ -12,10 +12,6 @@ use Nette\Utils\Arrays;
  *
  * @author Jakub Konečný
  * @property-write callable $dataSource
- * @property int $shortenDescription
- * @property string $dateTimeFormat
- * @property string $generator
- * @property string $docs
  * @property string $template
  * @property \Nexendrie\Utils\Collection|IRssExtension[] $extensions
  * @method void onBeforeGenerate(Generator $generator, array $info)
@@ -27,69 +23,31 @@ final class Generator {
 
   private const NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
 
-  /** @var string */
-  protected $dateTimeFormat = "r";
+  public string $dateTimeFormat = "r";
   /** @var callable|null */
   protected $dataSource = null;
-  /** @var int */
-  protected $shortenDescription = 150;
-  /** @var string */
-  protected $generator = "Nexendrie RSS";
-  /** @var string */
-  protected $docs = "http://www.rssboard.org/rss-specification";
-  /** @var string */
-  protected $template = __DIR__ . "/template.xml";
+  public int $shortenDescription = 150;
+  public string $generator = "Nexendrie RSS";
+  public string $docs = "http://www.rssboard.org/rss-specification";
+  protected string $template = __DIR__ . "/template.xml";
   /** @var \Nexendrie\Utils\Collection|IRssExtension[] */
-  protected $extensions;
+  protected \Nexendrie\Utils\Collection $extensions;
   /** @var callable[] */
-  public $onBeforeGenerate = [];
+  public array $onBeforeGenerate = [];
   /** @var callable[] */
-  public $onAddItem = [];
+  public array $onAddItem = [];
   /** @var callable[] */
-  public $onAfterGenerate = [];
+  public array $onAfterGenerate = [];
 
   public function __construct() {
     $this->extensions = new class extends \Nexendrie\Utils\Collection {
-      /** @var string */
-      protected $class = IRssExtension::class;
+      protected string $class = IRssExtension::class;
     };
     $this->extensions[] = new RssCore();
   }
 
   protected function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
-  }
-
-  protected function getShortenDescription(): int {
-    return $this->shortenDescription;
-  }
-
-  protected function setShortenDescription(int $value): void {
-    $this->shortenDescription = $value;
-  }
-
-  protected function getDateTimeFormat(): string {
-    return $this->dateTimeFormat;
-  }
-
-  protected function setDateTimeFormat(string $format): void {
-    $this->dateTimeFormat = $format;
-  }
-
-  protected function getGenerator(): string {
-    return $this->generator;
-  }
-
-  protected function setGenerator(string $generator): void {
-    $this->generator = $generator;
-  }
-
-  protected function getDocs(): string {
-    return $this->docs;
-  }
-
-  protected function setDocs(string $docs): void {
-    $this->docs = $docs;
   }
 
   protected function getTemplate(): string {

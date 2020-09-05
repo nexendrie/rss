@@ -12,30 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class TextInputTest extends \Tester\TestCase {
-  public function testTitle() {
-    $textInput = new TextInput("title", "description", "name", "link");
-    $textInput->title = "abc";
-    Assert::same("abc", $textInput->title);
-  }
-
-  public function testName() {
-    $textInput = new TextInput("title", "description", "name", "link");
-    $textInput->name = "abc";
-    Assert::same("abc", $textInput->name);
-  }
-
-  public function testDescription() {
-    $textInput = new TextInput("title", "description", "name", "link");
-    $textInput->description = "abc";
-    Assert::same("abc", $textInput->description);
-  }
-
-  public function testLink() {
-    $textInput = new TextInput("title", "description", "name", "link");
-    $textInput->link = "abc";
-    Assert::same("abc", $textInput->link);
-  }
-
   public function testAppendToXml() {
     $textInput = new TextInput("title", "description", "name", "link");
     $xml = new \SimpleXMLElement("<test></test>");

@@ -12,18 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class GenericElementTest extends \Tester\TestCase {
-  public function testName() {
-    $element = new GenericElement("abc", "");
-    Assert::same("abc", $element->name);
-  }
-
-  public function testValue() {
-    $element = new GenericElement("abc", "");
-    Assert::same("", $element->value);
-    $element->value = "def";
-    Assert::same("def", $element->value);
-  }
-
   public function testAppendToXml() {
     $element = new GenericElement("abc", "");
     $xml = new \SimpleXMLElement("<test></test>");

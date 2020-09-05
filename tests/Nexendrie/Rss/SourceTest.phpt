@@ -12,18 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class SourceTest extends \Tester\TestCase {
-  public function testUrl() {
-    $source = new Source();
-    $source->url = "abc";
-    Assert::same("abc", $source->url);
-  }
-
-  public function testTitle() {
-    $source = new Source();
-    $source->title = "abc";
-    Assert::same("abc", $source->title);
-  }
-
   public function testAppendToXml() {
     $source = new Source("", "title");
     $xml = new \SimpleXMLElement("<test></test>");

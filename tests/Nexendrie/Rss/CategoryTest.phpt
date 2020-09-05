@@ -12,18 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class CategoryTest extends \Tester\TestCase {
-  public function testIdentifier() {
-    $category = new Category("id");
-    $category->identifier = "abc";
-    Assert::same("abc", $category->identifier);
-  }
-
-  public function testDomain() {
-    $category = new Category("id");
-    $category->domain = "abc";
-    Assert::same("abc", $category->domain);
-  }
-
   public function testAppendToXml() {
     $category = new Category("abc");
     $xml = new \SimpleXMLElement("<test></test>");

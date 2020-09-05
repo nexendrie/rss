@@ -12,12 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class CloudTest extends \Tester\TestCase {
-  public function testDomain() {
-    $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
-    $cloud->domain = "abc";
-    Assert::same("abc", $cloud->domain);
-  }
-
   public function testPort() {
     $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
     $cloud->port = 1;
@@ -31,12 +25,6 @@ final class CloudTest extends \Tester\TestCase {
     Assert::exception(function() use($cloud) {
       $cloud->path = "abc";
     }, \InvalidArgumentException::class);
-  }
-
-  public function testRegisterProcedure() {
-    $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
-    $cloud->registerProcedure = "abc";
-    Assert::same("abc", $cloud->registerProcedure);
   }
 
   public function testRegisterProtocol() {

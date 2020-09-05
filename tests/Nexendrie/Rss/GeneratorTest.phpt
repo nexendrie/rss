@@ -13,17 +13,10 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class GeneratorTest extends \Tester\TestCase {
-  /** @var Generator */
-  protected $generator;
+  protected Generator $generator;
   
   public function setUp() {
     $this->generator = new Generator();
-  }
-  
-  public function testGetShortenDescription() {
-    $result = $this->generator->shortenDescription;
-    Assert::type("int", $result);
-    Assert::same(150, $result);
   }
   
   protected function countItems(\SimpleXMLElement $channel): int {

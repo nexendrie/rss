@@ -13,8 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class RssChannelItem {
   use \Nette\SmartObject;
 
-  /** @var array */
-  protected $data;
+  protected array $data;
 
   public function __construct(array $data) {
     $this->data = $data;

@@ -12,24 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class ImageTest extends \Tester\TestCase {
-  public function testUrl() {
-    $image = new Image("url", "title", "link");
-    $image->url = "abc";
-    Assert::same("abc", $image->url);
-  }
-
-  public function testTitle() {
-    $image = new Image("url", "title", "link");
-    $image->title = "abc";
-    Assert::same("abc", $image->title);
-  }
-
-  public function testLink() {
-    $image = new Image("url", "title", "link");
-    $image->link = "abc";
-    Assert::same("abc", $image->link);
-  }
-
   public function testWidth() {
     $image = new Image("url", "title", "link");
     $image->width = 1;
@@ -40,12 +22,6 @@ final class ImageTest extends \Tester\TestCase {
     $image = new Image("url", "title", "link");
     $image->height = 1;
     Assert::same(1, $image->height);
-  }
-
-  public function testDescription() {
-    $image = new Image("url", "title", "link");
-    $image->description = "abc";
-    Assert::same("abc", $image->description);
   }
 
   public function testAppendToXml() {

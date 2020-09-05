@@ -11,7 +11,7 @@ namespace Nexendrie\Rss;
  */
 final class SkipDaysCollection implements IXmlConvertible {
   /** @var string[] */
-  protected $days = [];
+  protected array $days = [];
 
   /**
    * @param string[] $days

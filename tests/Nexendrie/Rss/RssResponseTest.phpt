@@ -16,17 +16,16 @@ require __DIR__ . "/../../bootstrap.php";
  */
 final class RssResponseTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
-  
-  /** @var \Nexendrie\Rss\Generator */
-  protected $generator;
-  
+
+  protected Generator $generator;
+
   public function setUp() {
     $this->generator = $this->getService(Generator::class);
     $this->generator->dataSource = function() {
       return new Collection();
     };
   }
-  
+
   protected function checkRss($destination, array $params = [], array $post = []): string {
     $destination = ltrim($destination, ':');
     $pos = strrpos($destination, ':') ?: strlen($destination);

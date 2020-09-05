@@ -12,8 +12,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class RssChannelItemTest extends \Tester\TestCase {
-  /** @var RssChannelItem */
-  protected $item;
+  protected RssChannelItem $item;
   
   public function setUp() {
     $this->item = new RssChannelItem(["title" => "title", "description" => "description", "link" => "link", "pubDate" => 1]);

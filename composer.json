@@ -23,13 +23,13 @@
         "ext-simplexml": "*",
         "ext-dom": "*",
         "nette/utils": "^3.0",
-        "nexendrie/utils": "^1.7",
+        "nexendrie/utils": "^1.8",
         "symfony/options-resolver": "^4.3 || ^5.0",
         "symfony/polyfill-php80": "^1.18"
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master",
-        "nette/di": "^3.0",
+        "nette/di": "^3.0.2",
         "nette/application": "^3.0",
         "nexendrie/site-generator": "^0.6.2"
     },

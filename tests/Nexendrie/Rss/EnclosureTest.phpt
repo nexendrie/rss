@@ -12,24 +12,6 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class EnclosureTest extends \Tester\TestCase {
-  public function testUrl() {
-    $enclosure = new Enclosure("url", 15, "text/plain");
-    $enclosure->url = "abc";
-    Assert::same("abc", $enclosure->url);
-  }
-
-  public function testLength() {
-    $enclosure = new Enclosure("url", 15, "text/plain");
-    $enclosure->length = 1;
-    Assert::same(1, $enclosure->length);
-  }
-
-  public function testType() {
-    $enclosure = new Enclosure("url", 15, "text/plain");
-    $enclosure->type = "application/xml";
-    Assert::same("application/xml", $enclosure->type);
-  }
-
   public function testAppendToXml() {
     $enclosure = new Enclosure("url", 15, "text/plain");
     $xml = new \SimpleXMLElement("<test></test>");

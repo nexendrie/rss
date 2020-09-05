@@ -7,35 +7,15 @@ namespace Nexendrie\Rss;
  * Category
  *
  * @author Jakub Konečný
- * @property string $identifier
- * @property string $domain
  */
 final class Category implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  /** @var string */
-  protected $identifier;
-  /** @var string */
-  protected $domain;
+  public string $identifier;
+  public string $domain;
 
   public function __construct(string $identifier, string $domain = "") {
     $this->identifier = $identifier;
-    $this->domain = $domain;
-  }
-
-  protected function getIdentifier(): string {
-    return $this->identifier;
-  }
-
-  protected function setIdentifier(string $identifier): void {
-    $this->identifier = $identifier;
-  }
-
-  protected function getDomain(): string {
-    return $this->domain;
-  }
-
-  protected function setDomain(string $domain): void {
     $this->domain = $domain;
   }
 

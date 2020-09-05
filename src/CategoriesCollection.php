@@ -11,8 +11,7 @@ use Nexendrie\Utils\Collection as BaseCollection;
  * @author Jakub Konečný
  */
 final class CategoriesCollection extends BaseCollection implements IXmlConvertible {
-  /** @var string */
-  protected $class = Category::class;
+  protected string $class = Category::class;
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
     array_walk($this->items, function(Category $value) use ($parent): void {
