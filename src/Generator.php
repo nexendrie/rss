@@ -24,11 +24,11 @@ final class Generator {
 
   public string $dateTimeFormat = "r";
   /** @var callable|null */
-  protected $dataSource = null;
+  private $dataSource = null;
   public int $shortenDescription = 150;
   public string $generator = "Nexendrie RSS";
   public string $docs = "http://www.rssboard.org/rss-specification";
-  protected string $template = __DIR__ . "/template.xml";
+  private string $template = __DIR__ . "/template.xml";
   /** @var RssExtensionsCollection|IRssExtension[] */
   public RssExtensionsCollection $extensions;
   /** @var callable[] */
@@ -64,7 +64,7 @@ final class Generator {
    * @throws InvalidStateException
    * @throws \InvalidArgumentException
    */
-  protected function getData(): Collection {
+  private function getData(): Collection {
     if($this->dataSource === null) {
       throw new InvalidStateException("Data source for RSS generator is not set.");
     }
@@ -74,15 +74,15 @@ final class Generator {
     }
     return $items;
   }
-  
-  protected function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
+
+  private function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
     $value = Arrays::get($info, $property, "");
     if(!$value instanceof IXmlConvertible) {
       $value = new GenericElement($property, $value);
     }
     $value->appendToXml($channel->channel);
   }
-  
+
   /**
    * @throws InvalidStateException
    * @throws \InvalidArgumentException

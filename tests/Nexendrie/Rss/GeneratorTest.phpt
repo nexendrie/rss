@@ -13,7 +13,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class GeneratorTest extends \Tester\TestCase {
-  protected Generator $generator;
+  private Generator $generator;
   
   public function setUp() {
     $this->generator = new Generator();

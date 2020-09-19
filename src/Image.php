@@ -18,8 +18,8 @@ final class Image implements IXmlConvertible {
   public string $url;
   public string $title;
   public string $link;
-  protected int $width;
-  protected int $height;
+  private int $width;
+  private int $height;
   public string $description;
 
   public function __construct(string $url, string $title, string $link, string $description = "") {

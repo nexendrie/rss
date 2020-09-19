@@ -10,7 +10,7 @@ namespace Nexendrie\Rss;
  * @internal
  */
 final class SkipHoursCollection implements IXmlConvertible {
-  protected array $hours = [];
+  private array $hours = [];
 
   /**
    * @param int[] $hours

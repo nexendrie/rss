@@ -17,7 +17,7 @@ require __DIR__ . "/../../bootstrap.php";
 final class RssResponseTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
 
-  protected Generator $generator;
+  private Generator $generator;
 
   public function setUp() {
     $this->generator = $this->getService(Generator::class);

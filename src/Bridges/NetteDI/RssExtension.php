@@ -20,7 +20,7 @@ final class RssExtension extends CompilerExtension {
   /** @internal */
   public const SERVICE_GENERATOR = "generator";
 
-  protected function setProperty(ServiceDefinition &$generator, \stdClass $config, string $property): void {
+  private function setProperty(ServiceDefinition &$generator, \stdClass $config, string $property): void {
     if($config->$property !== "") {
       $generator->addSetup('$service->' . $property . " = ?", [$config->$property]);
     }

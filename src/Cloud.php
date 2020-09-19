@@ -17,10 +17,10 @@ final class Cloud implements IXmlConvertible {
   use \Nette\SmartObject;
 
   public string $domain;
-  protected int $port;
-  protected string $path;
+  private int $port;
+  private string $path;
   public string $registerProcedure;
-  protected string $protocol;
+  private string $protocol;
 
   public function __construct(string $domain, int $port, string $path, string $registerProcedure, string $protocol) {
     $this->domain = $domain;
