@@ -27,10 +27,11 @@ final class GenericElement implements IXmlConvertible {
   }
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
-    if(empty($this->value)) {
+    $value = (string) $this->value;
+    if($value === "") {
       return;
     }
-    $parent->{$this->name} = $this->value;
+    $parent->{$this->name} = $value;
   }
 }
 ?>

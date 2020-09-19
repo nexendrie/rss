@@ -2,6 +2,6 @@ includes:
     - vendor/nexendrie/code-quality/phpstan.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
+    universalObjectCratesClasses:
+        - SimpleXMLElement
     ignoreErrors:
-        - '#Variable property access on SimpleXMLElement#'
-        - '#Construct empty\(\) is not allowed. Use more strict comparison#'
