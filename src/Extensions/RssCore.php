@@ -79,7 +79,7 @@ final class RssCore implements IRssExtension {
     });
     $resolver->setAllowedTypes("skipDays", "string[]");
     $resolver->setAllowedValues("skipDays", function(array $value): bool {
-      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",];
+      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", ];
       return Arrays::every($value, function(string $value) use ($allowedValues): bool {
         return in_array($value, $allowedValues, true);
       });
