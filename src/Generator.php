@@ -11,7 +11,7 @@ use Nette\Utils\Arrays;
  * RSS Channel Generator
  *
  * @author Jakub Konečný
- * @property-write callable $dataSource
+ * @property callable|null $dataSource
  * @property string $template
  * @method void onBeforeGenerate(Generator $generator, array $info)
  * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
@@ -42,6 +42,10 @@ final class Generator {
     $this->extensions = RssExtensionsCollection::fromArray([new RssCore()]);
   }
 
+  protected function getDataSource(): ?callable {
+    return $this->dataSource;
+  }
+
   protected function setDataSource(callable $dataSource): void {
     $this->dataSource = $dataSource;
   }
@@ -49,7 +53,7 @@ final class Generator {
   protected function getTemplate(): string {
     return $this->template;
   }
-  
+
   /**
    * @throws \RuntimeException
    */

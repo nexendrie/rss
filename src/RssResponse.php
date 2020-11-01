@@ -10,20 +10,14 @@ use Nette\Http\IResponse;
  * RSS channel response
  *
  * @author Jakub Konečný
- *
- * @property-read string $source
  */
 final class RssResponse implements \Nette\Application\IResponse {
-  private string $source;
+  public string $source;
   
   use \Nette\SmartObject;
   
   public function __construct(string $source) {
     $this->source = $source;
-  }
-
-  protected function getSource(): string {
-    return $this->source;
   }
   
   public function send(IRequest $httpRequest, IResponse $httpResponse): void {
