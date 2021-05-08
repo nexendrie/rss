@@ -2,5 +2,8 @@ application:
     scanDirs: false
     mapping:
         *: Nexendrie\Rss\*Presenter
+routing:
+    routes:
+        "<presenter>[/<action>][/<id>]": "Test:default"
 extensions:
     rss: Nexendrie\Rss\Bridges\NetteDI\RssExtension
