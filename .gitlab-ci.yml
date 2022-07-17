@@ -34,6 +34,16 @@ test:php8.0:lowest-deps:
   before_script:
     - composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction
 
+test:php8.1:
+  <<: *test_job
+  image: nexendrie/php:8.1
+
+test:php8.1:lowest-deps:
+  <<: *test_job
+  image: nexendrie/php:8.1
+  before_script:
+    - composer update --prefer-lowest --prefer-dist --no-progress --no-suggest --no-interaction
+
 test:cc:
   <<: *test_job
   script:
