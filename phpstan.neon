@@ -5,3 +5,4 @@ parameters:
     universalObjectCratesClasses:
         - SimpleXMLElement
     ignoreErrors:
+        - '#Parameter \#2 \$callback of function array_walk expects callable\(object, \(int\|string\)\): mixed, Closure\(Nexendrie\\Rss\\(Category|Enclosure)\): void given#'
