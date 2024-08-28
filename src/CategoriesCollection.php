@@ -14,7 +14,7 @@ final class CategoriesCollection extends BaseCollection implements IXmlConvertib
   protected string $class = Category::class;
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
-    array_walk($this->items, function(Category $value) use ($parent): void {
+    array_walk($this->items, function (Category $value) use ($parent): void { // @phpstan-ignore argument.type
       $value->appendToXml($parent);
     });
   }
