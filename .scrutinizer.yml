@@ -154,6 +154,8 @@ build:
     environment:
         php:
             version: 7.4
+            pecl_extensions:
+                - pcov
         postgresql: false
         redis: false
         rabbitmq: false
