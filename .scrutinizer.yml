@@ -171,9 +171,9 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run
-                    - command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.cs --standard=vendor/nexendrie/code-quality/ruleset.xml
+                    - command: ./vendor/bin/phpcs . --extensions=php,phpt --report=checkstyle --report-file=codesniffer.xml --standard=vendor/nexendrie/code-quality/ruleset.xml
                       analysis:
-                            file: codesniffer.cs
+                            file: codesniffer.xml
                             format: 'general-checkstyle'
                     -
                         command: ./phing ci-coverage
