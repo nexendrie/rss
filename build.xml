@@ -3,7 +3,6 @@
   <import file="vendor/nexendrie/code-quality/build.xml"/>
   <target name="test" depends="lint,cs,phpstan,tests"/>
   <target name="test-coverage" depends="lint,cs,phpstan,tests-coverage"/>
-  <target name="test-phpdbg" depends="lint,cs,phpstan,tests-phpdbg"/>
   <target name="ci-coverage">
     <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
       <arg value="-p"/>
@@ -20,15 +19,5 @@
       <arg value="--source=docs"/>
       <arg value="--output=public"/>
     </exec>
-  </target>
-  <target name="release">
-    <input propertyName="version" message="Enter new version number" promptChar=":"/>
-    <replaceregexp file="CHANGELOG.md" pattern='Version ([0-9]+\.)+[0-9]+(\+|-)dev' replace='Version ${version}'/>
-    <echo message="Written new version number to CHANGELOG."/>
-    <exec command="git add CHANGELOG.md" logoutput="true" passthru="true" checkreturn="true"/>
-    <exec command="git commit --message='Version ${version}'" logoutput="true" passthru="true" checkreturn="true"/>
-    <echo message="Created release commit."/>
-    <exec command="git tag ${version} --message='Version ${version}' --sign" logoutput="true" passthru="true" checkreturn="true"/>
-    <echo message="Created tag."/>
   </target>
 </project>
