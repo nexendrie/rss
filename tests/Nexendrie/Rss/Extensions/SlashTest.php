@@ -15,7 +15,7 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class SlashTest extends \Tester\TestCase {
-  public function testExtension() {
+  public function testExtension(): void {
     $generator = new Generator();
     $generator->extensions[] = $extension = new Slash();
     $extensionName = $extension->getName();

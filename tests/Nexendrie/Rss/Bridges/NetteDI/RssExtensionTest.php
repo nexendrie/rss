@@ -17,7 +17,7 @@ require __DIR__ . "/../../../../bootstrap.php";
 final class RssExtensionTest extends \Tester\TestCase {
   use \Testbench\TCompiledContainer;
 
-  public function testShortenDescription() {
+  public function testShortenDescription(): void {
     /** @var Generator $generator */
     $generator = $this->getService(Generator::class);
     Assert::notSame("", $generator->shortenDescription);
@@ -29,7 +29,7 @@ final class RssExtensionTest extends \Tester\TestCase {
     Assert::same(15, $generator->shortenDescription);
   }
 
-  public function testDateTimeFormat() {
+  public function testDateTimeFormat(): void {
     /** @var Generator $generator */
     $generator = $this->getService(Generator::class);
     Assert::notSame("", $generator->dateTimeFormat);
@@ -41,7 +41,7 @@ final class RssExtensionTest extends \Tester\TestCase {
     Assert::same("Y/m/d", $generator->dateTimeFormat);
   }
 
-  public function testTemplate() {
+  public function testTemplate(): void {
     /** @var Generator $generator */
     $generator = $this->getService(Generator::class);
     Assert::notSame("", $generator->template);
@@ -62,7 +62,7 @@ final class RssExtensionTest extends \Tester\TestCase {
     Assert::same($filename, $generator->template);
   }
 
-  public function testExtensions() {
+  public function testExtensions(): void {
     Assert::exception(function() {
       $this->refreshContainer(["rss" => [
         "extensions" => [

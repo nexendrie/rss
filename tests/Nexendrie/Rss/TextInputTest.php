@@ -12,7 +12,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class TextInputTest extends \Tester\TestCase {
-  public function testAppendToXml() {
+  public function testAppendToXml(): void {
     $textInput = new TextInput("title", "description", "name", "link");
     $xml = new \SimpleXMLElement("<test></test>");
     $textInput->appendToXml($xml);

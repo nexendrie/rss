@@ -15,7 +15,7 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class SyndicationTest extends \Tester\TestCase {
-  public function testExtension() {
+  public function testExtension(): void {
     $generator = new Generator();
     $generator->extensions[] = $extension = new Syndication();
     $extensionName = $extension->getName();
@@ -28,7 +28,7 @@ final class SyndicationTest extends \Tester\TestCase {
       "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => Syndication::UPDATE_PERIOD_HOURLY,
       "$extensionName:$elementName2" => 1, "$extensionName:$elementName3" => "abc",
     ];
-    $generator->dataSource = function() use ($extensionName) {
+    $generator->dataSource = function () {
       $collection = new Collection();
       $collection[] = new RssChannelItem([
         "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,

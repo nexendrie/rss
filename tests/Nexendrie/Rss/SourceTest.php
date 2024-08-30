@@ -12,7 +12,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class SourceTest extends \Tester\TestCase {
-  public function testAppendToXml() {
+  public function testAppendToXml(): void {
     $source = new Source("", "title");
     $xml = new \SimpleXMLElement("<test></test>");
     $source->appendToXml($xml);

@@ -12,7 +12,7 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class EnclosureTest extends \Tester\TestCase {
-  public function testAppendToXml() {
+  public function testAppendToXml(): void {
     $enclosure = new Enclosure("url", 15, "text/plain");
     $xml = new \SimpleXMLElement("<test></test>");
     $enclosure->appendToXml($xml);

@@ -12,19 +12,19 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class ImageTest extends \Tester\TestCase {
-  public function testWidth() {
+  public function testWidth(): void {
     $image = new Image("url", "title", "link");
     $image->width = 1;
     Assert::same(1, $image->width);
   }
 
-  public function testHeight() {
+  public function testHeight(): void {
     $image = new Image("url", "title", "link");
     $image->height = 1;
     Assert::same(1, $image->height);
   }
 
-  public function testAppendToXml() {
+  public function testAppendToXml(): void {
     $image = new Image("url", "title", "link");
     $xml = new \SimpleXMLElement("<test></test>");
     $image->appendToXml($xml);

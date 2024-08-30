@@ -14,8 +14,8 @@ require __DIR__ . "/../../bootstrap.php";
  */
 final class GeneratorTest extends \Tester\TestCase {
   private Generator $generator;
-  
-  public function setUp() {
+
+  public function setUp(): void {
     $this->generator = new Generator();
   }
   
@@ -29,8 +29,8 @@ final class GeneratorTest extends \Tester\TestCase {
     }
     return $items;
   }
-  
-  public function testEmptyChannel() {
+
+  public function testEmptyChannel(): void {
     $info = [
       "title" => "Test", "link" => "https://gitlab.com/nexendrie/rss/", "description" => "Test RSS Channel",
     ];
@@ -45,8 +45,8 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same("", (string) $result->channel->pubDate);
     Assert::same(0, $this->countItems($result));
   }
-  
-  public function testGenerate() {
+
+  public function testGenerate(): void {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
       "description" => "News for package nexendrie/rss",
@@ -66,8 +66,8 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::type("string", (string) $result->channel->lastBuidDate);
     Assert::same("", (string) $result->channel->pubDate);
   }
-  
-  public function testInvalidDataSource() {
+
+  public function testInvalidDataSource(): void {
     $this->generator->dataSource = function() {
       return [];
     };
@@ -75,8 +75,8 @@ final class GeneratorTest extends \Tester\TestCase {
       $this->generator->generate(["title" => "", "link" => "", "description" => "", ]);
     }, \InvalidArgumentException::class);
   }
-  
-  public function testCustomLastBuildDate() {
+
+  public function testCustomLastBuildDate(): void {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
       "description" => "News for package nexendrie/rss", "lastBuildDate" => function() {
@@ -91,8 +91,8 @@ final class GeneratorTest extends \Tester\TestCase {
     $result = new \SimpleXMLElement($this->generator->generate($info));
     Assert::type("string", (string) $result->channel->lastBuidDate);
   }
-  
-  public function testInvalidLastBuildDate() {
+
+  public function testInvalidLastBuildDate(): void {
     $this->generator->dataSource = function() {
       $items = new Collection();
       $items[] = new RssChannelItem(["title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123]);
@@ -108,8 +108,8 @@ final class GeneratorTest extends \Tester\TestCase {
       $this->generator->generate($info);
     }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return integer.");
   }
-  
-  public function testResponse() {
+
+  public function testResponse(): void {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
       "description" => "News for package nexendrie/rss",
@@ -127,7 +127,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::type("string", $result->source);
   }
 
-  public function testDateTimeFormat() {
+  public function testDateTimeFormat(): void {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
       "description" => "News for package nexendrie/rss",
@@ -142,7 +142,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
   }
 
-  public function testPubDate() {
+  public function testPubDate(): void {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
       "description" => "News for package nexendrie/rss", "pubDate" => function() {
@@ -166,7 +166,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same(date($dateTimeFormat), (string) $result->channel->pubDate);
   }
 
-  public function testOptionalThings() {
+  public function testOptionalThings(): void {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/", "language" => "en",
       "description" => "News for package nexendrie/rss", "copyright" => "Copyright 2019, Abc",
@@ -220,7 +220,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same("", (string) $result->channel->docs);
   }
 
-  public function testCategories() {
+  public function testCategories(): void {
     $this->generator->dataSource = function() {
       return new Collection();
     };
@@ -232,12 +232,12 @@ final class GeneratorTest extends \Tester\TestCase {
     $info["categories"][] = new Category("def", "domain");
     $result = new \SimpleXMLElement($this->generator->generate($info));
     Assert::same("abc", (string) $result->channel->category[0]);
-    Assert::same("", (string) $result->channel->category[0]["domain"]);
+    Assert::same("", (string)$result->channel->category[0]["domain"]); // @phpstan-ignore offsetAccess.notFound
     Assert::same("def", (string) $result->channel->category[1]);
-    Assert::same("domain", (string) $result->channel->category[1]["domain"]);
+    Assert::same("domain", (string)$result->channel->category[1]["domain"]); // @phpstan-ignore offsetAccess.notFound
   }
-  
-  public function testCustomTemplate() {
+
+  public function testCustomTemplate(): void {
     Assert::exception(function() {
       $this->generator->template = "abc.xml";
     }, \RuntimeException::class);
@@ -257,7 +257,7 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same("en", (string) $result->channel->language);
   }
 
-  public function testExtension() {
+  public function testExtension(): void {
     $this->generator->extensions[] = $extension = new TestExtension();
     $extensionName = $extension->getName();
     $extensionNamespace = $extension->getNamespace();

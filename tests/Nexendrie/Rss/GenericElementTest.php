@@ -12,14 +12,14 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class GenericElementTest extends \Tester\TestCase {
-  public function testAppendToXml() {
+  public function testAppendToXml(): void {
     $element = new GenericElement("abc", "");
     $xml = new \SimpleXMLElement("<test></test>");
     $element->appendToXml($xml);
-    Assert::same("", (string) $xml->{$element->name});
+    Assert::same("", (string)$xml->abc);
     $element->value = "def";
     $element->appendToXml($xml);
-    Assert::same("def", (string) $xml->{$element->name});
+    Assert::same("def", (string)$xml->abc);
   }
 }
 

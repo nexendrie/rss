@@ -12,13 +12,13 @@ require __DIR__ . "/../../bootstrap.php";
  * @testCase
  */
 final class CloudTest extends \Tester\TestCase {
-  public function testPort() {
+  public function testPort(): void {
     $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
     $cloud->port = 1;
     Assert::same(1, $cloud->port);
   }
 
-  public function testPath() {
+  public function testPath(): void {
     $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
     $cloud->path = "/abc";
     Assert::same("/abc", $cloud->path);
@@ -27,7 +27,7 @@ final class CloudTest extends \Tester\TestCase {
     }, \InvalidArgumentException::class);
   }
 
-  public function testRegisterProtocol() {
+  public function testRegisterProtocol(): void {
     $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
     $cloud->protocol = "soap";
     Assert::same("soap", $cloud->protocol);
@@ -36,7 +36,7 @@ final class CloudTest extends \Tester\TestCase {
     }, \InvalidArgumentException::class);
   }
 
-  public function testAppendToXml() {
+  public function testAppendToXml(): void {
     $cloud = new Cloud("test.com", 80, "/test", "test.a", "http-post");
     $xml = new \SimpleXMLElement("<test></test>");
     $cloud->appendToXml($xml);

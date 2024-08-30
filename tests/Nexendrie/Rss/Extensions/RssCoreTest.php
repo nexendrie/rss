@@ -12,12 +12,12 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class RssCoreTest extends \Tester\TestCase {
-  public function testGetName() {
+  public function testGetName(): void {
     $extension = new RssCore();
     Assert::same("", $extension->getName());
   }
 
-  public function testGetNamespace() {
+  public function testGetNamespace(): void {
     $extension = new RssCore();
     Assert::same("", $extension->getNamespace());
   }

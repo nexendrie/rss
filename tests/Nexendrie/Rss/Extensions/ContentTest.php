@@ -15,7 +15,7 @@ require __DIR__ . "/../../../bootstrap.php";
  * @testCase
  */
 final class ContentTest extends \Tester\TestCase {
-  public function testExtension() {
+  public function testExtension(): void {
     $generator = new Generator();
     $generator->extensions[] = $extension = new Content();
     $extensionName = $extension->getName();
