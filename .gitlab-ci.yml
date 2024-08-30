@@ -16,7 +16,7 @@ before_script:
   script:
     - phing test
 
-test:default7.4:
+test:php7.4:
   <<: *test_job
 
 test:php8.0:
