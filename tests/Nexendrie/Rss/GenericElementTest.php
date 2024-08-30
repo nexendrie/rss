@@ -16,10 +16,10 @@ final class GenericElementTest extends \Tester\TestCase {
     $element = new GenericElement("abc", "");
     $xml = new \SimpleXMLElement("<test></test>");
     $element->appendToXml($xml);
-    Assert::same("", (string)$xml->abc);
+    Assert::same("", (string) $xml->abc);
     $element->value = "def";
     $element->appendToXml($xml);
-    Assert::same("def", (string)$xml->abc);
+    Assert::same("def", (string) $xml->abc);
   }
 }
 

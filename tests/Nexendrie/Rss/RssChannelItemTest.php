@@ -27,10 +27,10 @@ final class RssChannelItemTest extends \Tester\TestCase {
     Assert::same($data["author"], (string) $xml->author);
     Assert::same($data["comments"], (string) $xml->comments);
     Assert::same($data["guid"], (string) $xml->guid);
-    Assert::same($category->domain, (string)$xml->categories->category);
-    Assert::same($enclosure->url, (string)$xml->enclosure["url"]);
-    Assert::same((string)$enclosure->length, (string)$xml->enclosure["length"]);
-    Assert::same($enclosure->type, (string)$xml->enclosure["type"]);
+    Assert::same($category->domain, (string) $xml->categories->category);
+    Assert::same($enclosure->url, (string) $xml->enclosure["url"]);
+    Assert::same((string) $enclosure->length, (string) $xml->enclosure["length"]);
+    Assert::same($enclosure->type, (string) $xml->enclosure["type"]);
   }
 
   public function testShortenDescription(): void {

@@ -232,9 +232,9 @@ final class GeneratorTest extends \Tester\TestCase {
     $info["categories"][] = new Category("def", "domain");
     $result = new \SimpleXMLElement($this->generator->generate($info));
     Assert::same("abc", (string) $result->channel->category[0]);
-    Assert::same("", (string)$result->channel->category[0]["domain"]); // @phpstan-ignore offsetAccess.notFound
+    Assert::same("", (string) $result->channel->category[0]["domain"]); // @phpstan-ignore offsetAccess.notFound
     Assert::same("def", (string) $result->channel->category[1]);
-    Assert::same("domain", (string)$result->channel->category[1]["domain"]); // @phpstan-ignore offsetAccess.notFound
+    Assert::same("domain", (string) $result->channel->category[1]["domain"]); // @phpstan-ignore offsetAccess.notFound
   }
 
   public function testCustomTemplate(): void {
