@@ -13,10 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class RssChannelItem {
   use \Nette\SmartObject;
 
-  private array $data;
-
-  public function __construct(array $data) {
-    $this->data = $data;
+  public function __construct(private array $data) {
   }
 
   private function configureOptions(OptionsResolver $resolver, Generator $generator): void {

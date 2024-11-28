@@ -11,19 +11,7 @@ namespace Nexendrie\Rss;
 final class GenericElement implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $name;
-
-  /**
-   * @var mixed
-   */
-  public $value;
-
-  /**
-   * @param mixed $value
-   */
-  public function __construct(string $name, $value) {
-    $this->name = $name;
-    $this->value = $value;
+  public function __construct(public string $name, public mixed $value) {
   }
 
   public function appendToXml(\SimpleXMLElement &$parent): void {

@@ -12,12 +12,9 @@ use Nette\Http\IResponse;
  * @author Jakub Konečný
  */
 final class RssResponse implements \Nette\Application\Response {
-  public string $source;
-
   use \Nette\SmartObject;
 
-  public function __construct(string $source) {
-    $this->source = $source;
+  public function __construct(public string $source) {
   }
 
   public function send(IRequest $httpRequest, IResponse $httpResponse): void {

@@ -15,18 +15,10 @@ use Nexendrie\Utils\Numbers;
 final class Image implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $url;
-  public string $title;
-  public string $link;
   private int $width;
   private int $height;
-  public string $description;
 
-  public function __construct(string $url, string $title, string $link, string $description = "") {
-    $this->url = $url;
-    $this->title = $title;
-    $this->link = $link;
-    $this->description = $description;
+  public function __construct(public string $url, public string $title, public string $link, public string $description = "") {
   }
 
   protected function getWidth(): int {

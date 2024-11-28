@@ -11,12 +11,7 @@ namespace Nexendrie\Rss;
 final class Source extends \stdClass implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $url;
-  public string $title;
-
-  public function __construct(string $url = "", string $title = "") {
-    $this->url = $url;
-    $this->title = $title;
+  public function __construct(public string $url = "", public string $title = "") {
   }
 
   public function appendToXml(\SimpleXMLElement &$parent): void {

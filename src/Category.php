@@ -11,12 +11,7 @@ namespace Nexendrie\Rss;
 final class Category implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $identifier;
-  public string $domain;
-
-  public function __construct(string $identifier, string $domain = "") {
-    $this->identifier = $identifier;
-    $this->domain = $domain;
+  public function __construct(public string $identifier, public string $domain = "") {
   }
 
   public function appendToXml(\SimpleXMLElement &$parent): void {

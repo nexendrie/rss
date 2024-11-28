@@ -16,14 +16,12 @@ use Nexendrie\Utils\Numbers;
 final class Cloud implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $domain;
   private int $port;
   private string $path;
   public string $registerProcedure;
   private string $protocol;
 
-  public function __construct(string $domain, int $port, string $path, string $registerProcedure, string $protocol) {
-    $this->domain = $domain;
+  public function __construct(public string $domain, int $port, string $path, string $registerProcedure, string $protocol) {
     $this->setPort($port);
     $this->setPath($path);
     $this->registerProcedure = $registerProcedure;

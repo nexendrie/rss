@@ -11,16 +11,7 @@ namespace Nexendrie\Rss;
 final class TextInput implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $title;
-  public string $description;
-  public string $name;
-  public string $link;
-
-  public function __construct(string $title, string $description, string $name, string $link) {
-    $this->title = $title;
-    $this->description = $description;
-    $this->name = $name;
-    $this->link = $link;
+  public function __construct(public string $title, public string $description, public string $name, public string $link) {
   }
 
   public function appendToXml(\SimpleXMLElement &$parent): void {

@@ -11,14 +11,7 @@ namespace Nexendrie\Rss;
 final class Enclosure implements IXmlConvertible {
   use \Nette\SmartObject;
 
-  public string $url;
-  public int $length;
-  public string $type;
-
-  public function __construct(string $url, int $length, string $type) {
-    $this->url = $url;
-    $this->length = $length;
-    $this->type = $type;
+  public function __construct(public string $url, public int $length, public string $type) {
   }
 
   public function appendToXml(\SimpleXMLElement &$parent): void {
