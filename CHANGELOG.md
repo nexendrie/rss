@@ -2,6 +2,7 @@ Version 0.10.0+dev
 - made Generator::$dataSource readable
 - made RssResponse::$source writable
 - BC break: moved RssResponse to namespace Nexendrie\Rss\Bridges\NetteApplication
+- raised minimal version of PHP to 8.1
 
 Version 0.10.0
 - raised minimal version of PHP to 7.4

@@ -19,13 +19,12 @@
         "docs": "https://nexendrie.gitlab.io/rss"
     },
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=8.1.0",
         "ext-simplexml": "*",
         "ext-dom": "*",
         "nette/utils": "^3.2.7",
         "nexendrie/utils": "^1.8.1",
-        "symfony/options-resolver": "^5.4",
-        "symfony/polyfill-php80": "^1.26"
+        "symfony/options-resolver": "^5.4"
     },
     "require-dev": {
         "nexendrie/code-quality": "dev-master",
