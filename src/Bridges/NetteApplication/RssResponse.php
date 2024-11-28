@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Nexendrie\Rss;
+namespace Nexendrie\Rss\Bridges\NetteApplication;
 
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;

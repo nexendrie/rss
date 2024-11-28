@@ -1,14 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Nexendrie\Rss;
+namespace Nexendrie\Rss\Bridges\NetteApplication;
 
-use Tester\Assert;
-use Nette\Application\Application;
-use Nette\Application\Request;
-use Nette\Application\Response;
+use Nexendrie\Rss\Collection;
+use Nexendrie\Rss\Generator;
 
-require __DIR__ . "/../../bootstrap.php";
+require __DIR__ . "/../../../../bootstrap.php";
 
 /**
  * @author Jakub Konečný

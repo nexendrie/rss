@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
 use Tester\Assert;
 use Nexendrie\Rss\Extensions\TestExtension;
 

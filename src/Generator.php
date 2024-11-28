@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
 use Nexendrie\Rss\Extensions\RssCore;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Nette\Utils\Arrays;
