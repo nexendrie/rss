@@ -2,7 +2,10 @@
     "name": "nexendrie/rss",
     "description": "Rss channel generator",
     "keywords": [
-        "rss", "generator"
+        "rss",
+        "generator",
+        "syndication",
+        "feed"
     ],
     "license": "BSD-3-Clause",
     "homepage": "https://nexendrie.gitlab.io",
