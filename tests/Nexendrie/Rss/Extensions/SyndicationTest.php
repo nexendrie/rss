@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use Nexendrie\Rss\Collection;
+use Nexendrie\Rss\Extensions\Syndication\UpdatePeriod;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
 use Tester\Assert;
@@ -25,7 +26,7 @@ final class SyndicationTest extends \Tester\TestCase {
     $elementName3 = Syndication::ELEMENT_UPDATE_BASE;
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
-      "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => Syndication::UPDATE_PERIOD_HOURLY,
+      "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => UpdatePeriod::HOURLY,
       "$extensionName:$elementName2" => 1, "$extensionName:$elementName3" => "abc",
     ];
     $generator->dataSource = function () {
@@ -40,9 +41,9 @@ final class SyndicationTest extends \Tester\TestCase {
     $result = new \SimpleXMLElement($result);
     $namespaces = $result->getNamespaces(true);
     Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-    Assert::same(Syndication::UPDATE_PERIOD_HOURLY, (string) $result->channel->children($extensionNamespace, false)->$elementName1);
-    Assert::same("1", (string) $result->channel->children($extensionNamespace, false)->$elementName2);
-    Assert::same("abc", (string) $result->channel->children($extensionNamespace, false)->$elementName3);
+    Assert::same(UpdatePeriod::HOURLY->value, (string) $result->channel->children($extensionNamespace)->$elementName1);
+    Assert::same("1", (string) $result->channel->children($extensionNamespace)->$elementName2);
+    Assert::same("abc", (string) $result->channel->children($extensionNamespace)->$elementName3);
   }
 }
 
