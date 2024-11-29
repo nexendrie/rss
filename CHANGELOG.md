@@ -1,4 +1,4 @@
-Version 0.10.0+dev
+Version 0.11.0-dev
 - made Generator::$dataSource readable
 - made RssResponse::$source writable
 - BC break: moved RssResponse to namespace Nexendrie\Rss\Bridges\NetteApplication
