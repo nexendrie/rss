@@ -42,13 +42,13 @@ final class RssCore implements IRssExtension {
     $resolver->setAllowedTypes("description", "string");
     $resolver->setAllowedTypes("link", "string");
     $resolver->setAllowedTypes("lastBuildDate", "callable");
-    $resolver->setDefault("lastBuildDate", "time");
+    $resolver->setDefault("lastBuildDate", "date_create");
     $resolver->setNormalizer("lastBuildDate", function(Options $options, callable $value) use ($generator): GenericElement {
       $value = call_user_func($value);
-      if(!is_int($value)) {
-        throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return integer.");
+      if (!$value instanceof \DateTime) {
+        throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return DateTime.");
       }
-      $value = date($generator->dateTimeFormat, $value);
+      $value = $value->format($generator->dateTimeFormat);
       return new GenericElement("lastBuildDate", $value);
     });
     $resolver->setDefined([
@@ -66,10 +66,10 @@ final class RssCore implements IRssExtension {
     $resolver->setAllowedTypes("pubDate", "callable");
     $resolver->setNormalizer("pubDate", function(Options $options, callable $value) use ($generator): GenericElement {
       $value = call_user_func($value);
-      if(!is_int($value)) {
-        throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return integer.");
+      if (!$value instanceof \DateTime) {
+        throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return DateTime.");
       }
-      $value = date($generator->dateTimeFormat, $value);
+      $value = $value->format($generator->dateTimeFormat);
       return new GenericElement("pubDate", $value);
     });
     $resolver->setAllowedTypes("rating", "string");

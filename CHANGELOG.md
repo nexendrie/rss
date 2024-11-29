@@ -3,6 +3,7 @@ Version 0.11.0-dev
 - made RssResponse::$source writable
 - BC break: moved RssResponse to namespace Nexendrie\Rss\Bridges\NetteApplication
 - raised minimal version of PHP to 8.1
+- BC break: callbacks for lastBuildDate and pubDate now have to return DateTime
 
 Version 0.10.0
 - raised minimal version of PHP to 7.4

@@ -81,7 +81,7 @@ final class GeneratorTest extends \Tester\TestCase {
     $info = [
       "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
       "description" => "News for package nexendrie/rss", "lastBuildDate" => function() {
-        return time();
+        return new \DateTime("2024-12-31");
       },
     ];
     $this->generator->dataSource = function() {
@@ -107,7 +107,7 @@ final class GeneratorTest extends \Tester\TestCase {
         },
       ];
       $this->generator->generate($info);
-    }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return integer.");
+    }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return DateTime.");
   }
 
   public function testResponse(): void {
@@ -159,12 +159,12 @@ final class GeneratorTest extends \Tester\TestCase {
     };
     Assert::exception(function() use($info) {
       $this->generator->generate($info);
-    }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return integer.");
+    }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return DateTime.");
     $info["pubDate"] = function() {
-      return time();
+      return new \DateTime("2024-12-31");
     };
     $result = new \SimpleXMLElement($this->generator->generate($info));
-    Assert::same(date($dateTimeFormat), (string) $result->channel->pubDate);
+    Assert::same("2024/12/31", (string) $result->channel->pubDate);
   }
 
   public function testOptionalThings(): void {

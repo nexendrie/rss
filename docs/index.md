@@ -73,7 +73,7 @@ $generator->shortenDescription = 500;
 
 or completely disable it by setting the property to 0.
 
-You can also change lastBuildDate for channel by setting property lastBuildDate of the Generator. It accepts callback that returns integer which is interpreted as timestamp. Default value is current time. The same applies to pubDate but that has no default value.
+You can also change lastBuildDate for channel by setting property lastBuildDate of the Generator. It accepts callback that returns a DateTime object. Default value is current time. The same applies to pubDate but that has no default value.
 
 It is also possible to use custom template for RSS Channel. Just use:
 
