@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
+use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Tester\Assert;
 use Nexendrie\Rss\Extensions\TestExtension;
 
@@ -173,7 +174,7 @@ final class GeneratorTest extends \Tester\TestCase {
       "description" => "News for package nexendrie/rss", "copyright" => "Copyright 2019, Abc",
       "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
       "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
-      "skipDays" => ["Monday", "Monday", "Sunday", ], "skipHours" => [1, 1, 10],
+      "skipDays" => [SkipDay::Monday, SkipDay::Monday, SkipDay::Sunday,], "skipHours" => [1, 1, 10],
       "image" => new Image("url", "title", "description"),
       "cloud" => new Cloud("test.com", 80, "/test", "test.a", "http-post"),
       "textInput" => new TextInput("title", "description", "name", "link"),
@@ -195,8 +196,8 @@ final class GeneratorTest extends \Tester\TestCase {
     Assert::same($docs, (string) $result->channel->docs);
     Assert::same((string) $info["ttl"], (string) $result->channel->ttl);
     Assert::same($info["rating"], (string) $result->channel->rating);
-    Assert::same("Monday", (string) $result->channel->skipDays->day[0]);
-    Assert::same("Sunday", (string) $result->channel->skipDays->day[1]);
+    Assert::same(SkipDay::Monday->name, (string) $result->channel->skipDays->day[0]);
+    Assert::same(SkipDay::Sunday->name, (string) $result->channel->skipDays->day[1]);
     Assert::same("", (string) $result->channel->skipDays->day[2]);
     Assert::same((string) $info["skipHours"][0], (string) $result->channel->skipHours->hour[0]);
     Assert::same((string) $info["skipHours"][2], (string) $result->channel->skipHours->hour[1]);

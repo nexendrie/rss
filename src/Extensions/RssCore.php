@@ -8,6 +8,7 @@ use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\EnclosuresCollection;
+use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\GenericElement;
 use Nexendrie\Rss\Image;
@@ -77,14 +78,12 @@ final class RssCore implements IRssExtension {
     $resolver->setNormalizer("categories", function(Options $options, array $value): CategoriesCollection {
       return CategoriesCollection::fromArray($value);
     });
-    $resolver->setAllowedTypes("skipDays", "string[]");
-    $resolver->setAllowedValues("skipDays", function(array $value): bool {
-      $allowedValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", ];
-      return Arrays::every($value, function(string $value) use ($allowedValues): bool {
-        return in_array($value, $allowedValues, true);
-      });
-    });
+    $resolver->setAllowedTypes("skipDays", SkipDay::class . "[]");
     $resolver->setNormalizer("skipDays", function(Options $options, array $value): SkipDaysCollection {
+      /** @var SkipDay $item */
+      foreach ($value as &$item) {
+        $item = $item->name;
+      }
       return new SkipDaysCollection($value);
     });
     $resolver->setAllowedTypes("skipHours", "int[]");

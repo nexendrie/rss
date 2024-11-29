@@ -5,6 +5,7 @@ Version 0.11.0-dev
 - raised minimal version of PHP to 8.1
 - BC break: callbacks for lastBuildDate and pubDate now have to return DateTime
 - BC break: removed Syndication::UPDATE_PERIOD_* constants, updatePeriod in Syndication now accepts enum Nexendrie\Rss\Extensions\Syndication\UpdatePeriod
+- BC break: skipDays now has to be an array enum Nexendrie\Rss\Extensions\RssCore\SkipDay
 
 Version 0.10.0
 - raised minimal version of PHP to 7.4
