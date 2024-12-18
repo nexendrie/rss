@@ -128,7 +128,7 @@ final class Generator {
     $dom = new \DOMDocument();
     $dom->preserveWhiteSpace = false;
     $dom->formatOutput = true;
-    $xml = $channel->asXML();
+    $xml = (string) $channel->asXML();
     $xml = str_replace(static::NAMESPACE_ATTRIBUTE_HACK, "xmlns:", $xml);
     $dom->loadXML($xml);
     return (string) $dom->saveXML();

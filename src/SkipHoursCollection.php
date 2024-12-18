@@ -19,7 +19,6 @@ final class SkipHoursCollection implements IXmlConvertible {
     array_walk($hours, function(int &$value): void {
       $value = (string) $value;
     });
-    /** @var string[] $hours */
     $hours = array_unique($hours);
     $this->hours = $hours;
   }
