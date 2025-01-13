@@ -1,5 +1,3 @@
-image: nexendrie/php:8.1
-
 stages:
   - test
   - deploy
@@ -30,6 +28,7 @@ test:php8.3:
 
 test:cc:
   <<: *test_job
+  image: nexendrie/php:8.3
   coverage: '/(\d+\%) covered/'
 
 pages:
@@ -37,6 +36,7 @@ pages:
   environment:
     name: documentation
     url: https://nexendrie.gitlab.io/rss
+  image: nexendrie/php:8.3
   script:
   - phing documentation
   artifacts:
