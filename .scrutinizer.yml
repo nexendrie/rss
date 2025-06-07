@@ -18,8 +18,9 @@ build:
                     - composer update --prefer-dist --no-progress --no-interaction
             tests:
                 override:
-                    - command: ./vendor/bin/phpcs . --extensions=php --report=checkstyle --report-file=codesniffer.xml --standard=vendor/nexendrie/code-quality/ruleset.xml
-                      analysis:
+                    -
+                        command: ./vendor/bin/phpcs . --extensions=php --report=checkstyle --report-file=codesniffer.xml --standard=vendor/nexendrie/code-quality/ruleset.xml
+                        analysis:
                             file: codesniffer.xml
                             format: 'general-checkstyle'
                     -
