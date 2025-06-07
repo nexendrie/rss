@@ -44,3 +44,15 @@ pages:
       - public
   only:
   - tags@nexendrie/rss
+
+release:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - echo "Creating GitLab release"
+  release:
+    tag_name: $CI_COMMIT_TAG
+    name: "Version $CI_COMMIT_TAG"
+    description: "./RELEASE_NOTES"
