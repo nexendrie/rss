@@ -1,0 +1,8 @@
+Changelog:
+- made Generator::$dataSource readable
+- made RssResponse::$source writable
+- BC break: moved RssResponse to namespace Nexendrie\Rss\Bridges\NetteApplication
+- raised minimal version of PHP to 8.1
+- BC break: callbacks for lastBuildDate and pubDate now have to return DateTime
+- BC break: removed Syndication::UPDATE_PERIOD_* constants, updatePeriod in Syndication now accepts enum Nexendrie\Rss\Extensions\Syndication\UpdatePeriod
+- BC break: skipDays now has to be an array enum Nexendrie\Rss\Extensions\RssCore\SkipDay
