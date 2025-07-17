@@ -2,17 +2,15 @@ stages:
   - test
   - deploy
 
-cache:
-  paths:
-  - vendor/
-
-before_script:
-  - composer update --prefer-dist --no-progress --no-interaction
-
 .job_template: &test_job
   stage: test
   script:
     - phing test
+  cache:
+    paths:
+      - vendor/
+  before_script:
+    - composer update --prefer-dist --no-progress --no-interaction
 
 test:php8.1:
   <<: *test_job
@@ -37,6 +35,8 @@ pages:
     name: documentation
     url: https://nexendrie.gitlab.io/rss
   image: nexendrie/php:8.3
+  before_script:
+    - composer update --prefer-dist --no-progress --no-interaction
   script:
   - phing documentation
   artifacts:
