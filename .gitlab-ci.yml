@@ -11,6 +11,8 @@ stages:
       - vendor/
   before_script:
     - composer update --prefer-dist --no-progress --no-interaction
+  rules:
+    - if: $CI_COMMIT_BRANCH
 
 test:php8.1:
   <<: *test_job
