@@ -8,7 +8,7 @@ namespace Nexendrie\Rss;
  *
  * @author Jakub Konečný
  */
-final class TextInput implements IXmlConvertible {
+final class TextInput implements XmlConvertible {
   use \Nette\SmartObject;
 
   public function __construct(public string $title, public string $description, public string $name, public string $link) {

@@ -30,7 +30,7 @@ final class Generator {
   public string $generator = "Nexendrie RSS";
   public string $docs = "http://www.rssboard.org/rss-specification";
   private string $template = __DIR__ . "/template.xml";
-  /** @var RssExtensionsCollection|IRssExtension[] */
+  /** @var RssExtensionsCollection|RssExtension[] */
   public RssExtensionsCollection $extensions;
   /** @var callable[] */
   public array $onBeforeGenerate = [];
@@ -82,7 +82,7 @@ final class Generator {
 
   private function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void {
     $value = Arrays::get($info, $property, "");
-    if(!$value instanceof IXmlConvertible) {
+    if(!$value instanceof XmlConvertible) {
       $value = new GenericElement($property, $value);
     }
     $value->appendToXml($channel->channel);

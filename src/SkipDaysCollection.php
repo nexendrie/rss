@@ -9,7 +9,7 @@ namespace Nexendrie\Rss;
  * @author Jakub Konečný
  * @internal
  */
-final class SkipDaysCollection implements IXmlConvertible {
+final class SkipDaysCollection implements XmlConvertible {
   /** @var string[] */
   private array $days = [];
 

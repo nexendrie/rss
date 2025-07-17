@@ -30,7 +30,7 @@ final class RssChannelItem {
       if($value === "") {
         continue;
       }
-      if(!$value instanceof IXmlConvertible) {
+      if(!$value instanceof XmlConvertible) {
         $value = new GenericElement($key, $value);
       }
       $value->appendToXml($element);

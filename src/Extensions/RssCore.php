@@ -12,7 +12,7 @@ use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\GenericElement;
 use Nexendrie\Rss\Image;
-use Nexendrie\Rss\IRssExtension;
+use Nexendrie\Rss\RssExtension;
 use Nexendrie\Rss\SkipDaysCollection;
 use Nexendrie\Rss\SkipHoursCollection;
 use Nexendrie\Rss\Source;
@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Jakub Konečný
  */
-final class RssCore implements IRssExtension {
+final class RssCore implements RssExtension {
   use \Nette\SmartObject;
 
   public function getName(): string {

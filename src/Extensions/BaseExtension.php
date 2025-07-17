@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
-use Nexendrie\Rss\IRssExtension;
+use Nexendrie\Rss\RssExtension;
 use Nexendrie\Utils\Constants;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class BaseExtension implements IRssExtension {
+abstract class BaseExtension implements RssExtension {
   use \Nette\SmartObject;
 
   protected function getElementName(string $baseName): string {

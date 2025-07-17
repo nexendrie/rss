@@ -8,7 +8,7 @@ namespace Nexendrie\Rss;
  *
  * @author Jakub Konečný
  */
-final class Source extends \stdClass implements IXmlConvertible {
+final class Source extends \stdClass implements XmlConvertible {
   use \Nette\SmartObject;
 
   public function __construct(public string $url = "", public string $title = "") {

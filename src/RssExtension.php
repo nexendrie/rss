@@ -6,11 +6,11 @@ namespace Nexendrie\Rss;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * IRssExtension
+ * RssExtension
  *
  * @author Jakub Konečný
  */
-interface IRssExtension {
+interface RssExtension {
   public function getName(): string;
   public function getNamespace(): string;
   public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void;

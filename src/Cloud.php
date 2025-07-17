@@ -13,7 +13,7 @@ use Nexendrie\Utils\Numbers;
  * @property string $path
  * @property string $protocol
  */
-final class Cloud implements IXmlConvertible {
+final class Cloud implements XmlConvertible {
   use \Nette\SmartObject;
 
   private int $port;

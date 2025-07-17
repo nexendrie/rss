@@ -12,7 +12,7 @@ use Nexendrie\Utils\Numbers;
  * @property int $width
  * @property int $height
  */
-final class Image implements IXmlConvertible {
+final class Image implements XmlConvertible {
   use \Nette\SmartObject;
 
   private int $width;

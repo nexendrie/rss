@@ -1,3 +1,6 @@
+Version 0.12.0-dev
+- BC break: renamed IXmlConvertible to XmlConvertible and IRssExtension to RssExtension
+
 Version 0.11.0
 - made Generator::$dataSource readable
 - made RssResponse::$source writable

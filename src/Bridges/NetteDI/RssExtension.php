@@ -8,7 +8,6 @@ use Nette\DI\Definitions\ServiceDefinition;
 use Nexendrie\Rss\Generator;
 use Nette\Schema\Expect;
 use Nexendrie\Rss\InvalidRssExtensionException;
-use Nexendrie\Rss\IRssExtension;
 
 /**
  * RssExtension for Nette DI Container
@@ -45,7 +44,7 @@ final class RssExtension extends CompilerExtension {
     $this->setProperty($generator, $config, "template");
     /** @var string $extension */
     foreach($config->extensions as $index => $extension) {
-      if(!class_exists($extension) || !is_subclass_of($extension, IRssExtension::class)) {
+      if(!class_exists($extension) || !is_subclass_of($extension, \Nexendrie\Rss\RssExtension::class)) {
         throw new InvalidRssExtensionException("Invalid RSS extension $extension.");
       }
       $builder->addDefinition($this->prefix("extension.$index"))
@@ -57,7 +56,7 @@ final class RssExtension extends CompilerExtension {
     $builder = $this->getContainerBuilder();
     /** @var ServiceDefinition $generator */
     $generator = $builder->getDefinition($this->prefix(static::SERVICE_GENERATOR));
-    $extensions = $builder->findByType(IRssExtension::class);
+    $extensions = $builder->findByType(\Nexendrie\Rss\RssExtension::class);
     foreach($extensions as $extension) {
       $generator->addSetup('$service->extensions[] = ?', [$extension]);
     }

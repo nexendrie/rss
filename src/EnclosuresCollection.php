@@ -10,7 +10,7 @@ use Nexendrie\Utils\Collection as BaseCollection;
  *
  * @author Jakub Konečný
  */
-final class EnclosuresCollection extends BaseCollection implements IXmlConvertible {
+final class EnclosuresCollection extends BaseCollection implements XmlConvertible {
   protected string $class = Enclosure::class;
 
   public function appendToXml(\SimpleXMLElement &$parent): void {

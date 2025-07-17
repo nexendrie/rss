@@ -101,7 +101,7 @@ Custom elements and attributes
 
 It is possible to insert also other elements and attributes to the channel and single items. It is rather simple. Firstly you need to create an extension which defines the additional things for channel and items and register the extension to the generator. Then you can add those keys to info parameter when generating the channel or data parameter when creating a new item.
 
-Extensions have to implement the Nexendrie\Rss\IRssExtension interface and are registered this way:
+Extensions have to implement the Nexendrie\Rss\RssExtension interface and are registered this way:
 
 ```php
 <?php
@@ -130,7 +130,7 @@ rss:
     template: "/path/to/default/template.xml"
 ```
 
-If you add any class implementing the Nexendrie\Rss\IRssExtension interface to the container, they will be automatically registered to the generator. Alternatively, you can register them through the DIC extension:
+If you add any class implementing the Nexendrie\Rss\RssExtension interface to the container, they will be automatically registered to the generator. Alternatively, you can register them through the DIC extension:
 
 ```yaml
 rss:

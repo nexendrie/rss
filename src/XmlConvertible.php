@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 /**
- * IXmlConvertible
+ * XmlConvertible
  *
  * @author Jakub Konečný
  */
-interface IXmlConvertible {
+interface XmlConvertible {
   public function appendToXml(\SimpleXMLElement &$parent): void;
 }
 ?>

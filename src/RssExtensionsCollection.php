@@ -8,7 +8,7 @@ namespace Nexendrie\Rss;
  * @internal
  */
 final class RssExtensionsCollection extends \Nexendrie\Utils\Collection {
-  protected string $class = IRssExtension::class;
+  protected string $class = RssExtension::class;
 }
 
 ?>
