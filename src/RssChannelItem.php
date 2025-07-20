@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @author Jakub Konečný
  */
 final class RssChannelItem {
-  public function __construct(private array $data) {
+  public function __construct(private readonly array $data) {
   }
 
   private function configureOptions(OptionsResolver $resolver, Generator $generator): void {
