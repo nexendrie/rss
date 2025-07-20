@@ -32,8 +32,8 @@ final class SlashTest extends \Tester\TestCase {
       $collection = new Collection();
       $collection[] = new RssChannelItem([
         "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
-        "$extensionName:$elementName1" => "abc", "$extensionName:$elementName2" => "def", "$extensionName:$elementName3" => 1,
-        "$extensionName:$elementName4" => "1,2,3",
+        "$extensionName:$elementName1" => "abc", "$extensionName:$elementName2" => "def",
+        "$extensionName:$elementName3" => 1, "$extensionName:$elementName4" => "1,2,3",
       ]);
       return $collection;
     };

@@ -14,8 +14,9 @@ require __DIR__ . "/../../bootstrap.php";
 final class RssChannelItemTest extends \Tester\TestCase {
   public function testToXml(): void {
     $data = [
-      "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123, "author" => "me@mysite.com",
-      "comments" => "https://mysite.com/item/1/comments", "guid" => "https://mysite.com/item/1",
+      "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+      "author" => "me@mysite.com", "comments" => "https://mysite.com/item/1/comments",
+      "guid" => "https://mysite.com/item/1",
     ];
     $category = new Category("abc");
     $data["categories"] = CategoriesCollection::fromArray([$category,]);
