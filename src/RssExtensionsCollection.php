@@ -10,5 +10,4 @@ namespace Nexendrie\Rss;
 final class RssExtensionsCollection extends \Nexendrie\Utils\Collection {
   protected string $class = RssExtension::class;
 }
-
 ?>
