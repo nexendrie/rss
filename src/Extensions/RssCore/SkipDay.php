@@ -12,5 +12,4 @@ enum SkipDay {
   case Saturday;
   case Sunday;
 }
-
 ?>
