@@ -11,8 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * @author Jakub Konečný
  */
 final class RssChannelItem {
-  use \Nette\SmartObject;
-
   public function __construct(private array $data) {
   }
 

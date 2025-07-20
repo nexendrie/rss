@@ -9,8 +9,6 @@ namespace Nexendrie\Rss;
  * @author Jakub Konečný
  */
 final class GenericElement implements XmlConvertible {
-  use \Nette\SmartObject;
-
   public function __construct(public string $name, public mixed $value) {
   }
 

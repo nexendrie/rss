@@ -12,8 +12,6 @@ use Nette\Http\IResponse;
  * @author Jakub Konečný
  */
 final class RssResponse implements \Nette\Application\Response {
-  use \Nette\SmartObject;
-
   public function __construct(public string $source) {
   }
 

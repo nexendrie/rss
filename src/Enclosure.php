@@ -9,8 +9,6 @@ namespace Nexendrie\Rss;
  * @author Jakub Konečný
  */
 final class Enclosure implements XmlConvertible {
-  use \Nette\SmartObject;
-
   public function __construct(public string $url, public int $length, public string $type) {
   }
 
