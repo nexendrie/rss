@@ -8,8 +8,6 @@ use Nexendrie\Utils\Constants;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class BaseExtension implements RssExtension {
-  use \Nette\SmartObject;
-
   protected function getElementName(string $baseName): string {
     return $this->getName() . ":" . $baseName;
   }
