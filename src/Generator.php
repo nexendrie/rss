@@ -4,7 +4,11 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
+use Nexendrie\Rss\Events\ChannelAfterGenerate;
+use Nexendrie\Rss\Events\ChannelBeforeGenerate;
+use Nexendrie\Rss\Events\ItemAdded;
 use Nexendrie\Rss\Extensions\RssCore;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Nette\Utils\Arrays;
 
@@ -14,9 +18,6 @@ use Nette\Utils\Arrays;
  * @author Jakub Konečný
  * @property callable|null $dataSource
  * @property string $template
- * @method void onBeforeGenerate(Generator $generator, array $info)
- * @method void onAddItem(Generator $generator, \SimpleXMLElement $channel, RssChannelItem $itemDefinition, \SimpleXMLElement $item)
- * @method void onAfterGenerate(Generator $generator, array $info)
  */
 final class Generator {
   use \Nette\SmartObject;
@@ -32,14 +33,8 @@ final class Generator {
   private string $template = __DIR__ . "/template.xml";
   /** @var RssExtensionsCollection|RssExtension[] */
   public RssExtensionsCollection $extensions;
-  /** @var callable[] */
-  public array $onBeforeGenerate = [];
-  /** @var callable[] */
-  public array $onAddItem = [];
-  /** @var callable[] */
-  public array $onAfterGenerate = [];
 
-  public function __construct() {
+  public function __construct(private readonly ?EventDispatcherInterface $eventDispatcher = null) {
     $this->extensions = RssExtensionsCollection::fromArray([new RssCore()]);
   }
 
@@ -93,7 +88,7 @@ final class Generator {
    * @throws \InvalidArgumentException
    */
   public function generate(array $info): string {
-    $this->onBeforeGenerate($this, $info);
+    $this->eventDispatcher?->dispatch(new ChannelBeforeGenerate($this, $info));
     $items = $this->getData();
     $resolver = new OptionsResolver();
     foreach($this->extensions as $extension) {
@@ -122,9 +117,9 @@ final class Generator {
       /** @var \SimpleXMLElement $i */
       $i = $channel->channel->addChild("item");
       $item->toXml($i, $this);
-      $this->onAddItem($this, $channel, $item, $i);
+      $this->eventDispatcher?->dispatch(new ItemAdded($this, $channel, $item, $i));
     }
-    $this->onAfterGenerate($this, $info);
+    $this->eventDispatcher?->dispatch(new ChannelAfterGenerate($this, $info));
     $dom = new \DOMDocument();
     $dom->preserveWhiteSpace = false;
     $dom->formatOutput = true;
