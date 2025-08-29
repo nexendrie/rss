@@ -13,7 +13,7 @@ final class RssPresenter extends \Nette\Application\UI\Presenter
     /** @inject */
     public Generator $generator;
 
-    public function renderDefault(): void
+    public function renderDefault(): never
     {
         $this->generator->dataSource = function (): Collection {
             return new Collection();
