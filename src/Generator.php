@@ -108,7 +108,7 @@ final class Generator
         $channel = simplexml_load_file($this->template);
         foreach ($this->extensions as $extension) {
             if ($extension->getName() !== "" && $extension->getNamespace() !== "") {
-                $channel->addAttribute(static::NAMESPACE_ATTRIBUTE_HACK . $extension->getName(), $extension->getNamespace());
+                $channel->addAttribute(self::NAMESPACE_ATTRIBUTE_HACK . $extension->getName(), $extension->getNamespace());
             }
         }
         $properties = $resolver->getDefinedOptions();
@@ -133,7 +133,7 @@ final class Generator
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $xml = (string) $channel->asXML();
-        $xml = str_replace(static::NAMESPACE_ATTRIBUTE_HACK, "xmlns:", $xml);
+        $xml = str_replace(self::NAMESPACE_ATTRIBUTE_HACK, "xmlns:", $xml);
         $dom->loadXML($xml);
         return (string) $dom->saveXML();
     }

@@ -23,7 +23,7 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator = new Generator();
     }
 
-    protected function countItems(\SimpleXMLElement $channel): int
+    private function countItems(\SimpleXMLElement $channel): int
     {
         $items = 0;
         /** @var \SimpleXMLElement $child */

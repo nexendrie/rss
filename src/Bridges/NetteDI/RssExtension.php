@@ -41,7 +41,7 @@ final class RssExtension extends CompilerExtension
     {
         $config = $this->getConfig();
         $builder = $this->getContainerBuilder();
-        $generator = $builder->addDefinition($this->prefix(static::SERVICE_GENERATOR))
+        $generator = $builder->addDefinition($this->prefix(self::SERVICE_GENERATOR))
             ->setType(Generator::class)
             ->addSetup('$service->shortenDescription = ?', [$config->shortenDescription]);
         $this->setProperty($generator, $config, "dateTimeFormat");
@@ -60,7 +60,7 @@ final class RssExtension extends CompilerExtension
     {
         $builder = $this->getContainerBuilder();
         /** @var ServiceDefinition $generator */
-        $generator = $builder->getDefinition($this->prefix(static::SERVICE_GENERATOR));
+        $generator = $builder->getDefinition($this->prefix(self::SERVICE_GENERATOR));
         $extensions = $builder->findByType(\Nexendrie\Rss\RssExtension::class);
         foreach ($extensions as $extension) {
             $generator->addSetup('$service->extensions[] = ?', [$extension]);
