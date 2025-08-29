@@ -13,64 +13,72 @@ use Nexendrie\Utils\Numbers;
  * @property string $path
  * @property string $protocol
  */
-final class Cloud implements XmlConvertible {
-  use \Nette\SmartObject;
+final class Cloud implements XmlConvertible
+{
+    use \Nette\SmartObject;
 
-  private int $port;
-  private string $path;
-  public string $registerProcedure;
-  private string $protocol;
+    private int $port;
+    private string $path;
+    public string $registerProcedure;
+    private string $protocol;
 
-  public function __construct(public string $domain, int $port, string $path, string $registerProcedure, string $protocol) {
-    $this->setPort($port);
-    $this->setPath($path);
-    $this->registerProcedure = $registerProcedure;
-    $this->setProtocol($protocol);
-  }
-
-  protected function getPort(): int {
-    return $this->port;
-  }
-
-  protected function setPort(int $port): void {
-    $this->port = Numbers::range($port, 0, 65535);
-  }
-
-  protected function getPath(): string {
-    return $this->path;
-  }
-
-  /**
-   * @throws \InvalidArgumentException
-   */
-  protected function setPath(string $path): void {
-    if(!str_starts_with($path, "/")) {
-      throw new \InvalidArgumentException("Path has to start with /.");
+    public function __construct(public string $domain, int $port, string $path, string $registerProcedure, string $protocol)
+    {
+        $this->setPort($port);
+        $this->setPath($path);
+        $this->registerProcedure = $registerProcedure;
+        $this->setProtocol($protocol);
     }
-    $this->path = $path;
-  }
 
-  protected function getProtocol(): string {
-    return $this->protocol;
-  }
-
-  /**
-   * @throws \InvalidArgumentException
-   */
-  protected function setProtocol(string $protocol): void {
-    if(!in_array($protocol, ["xml-rpc", "soap", "http-post", ], true)) {
-      throw new \InvalidArgumentException("Invalid value for protocol. Expected xml-rpc, soap or http-post, $protocol given.");
+    protected function getPort(): int
+    {
+        return $this->port;
     }
-    $this->protocol = $protocol;
-  }
 
-  public function appendToXml(\SimpleXMLElement &$parent): void {
-    $element = $parent->addChild("cloud");
-    $element->addAttribute("domain", $this->domain);
-    $element->addAttribute("port", (string) $this->port);
-    $element->addAttribute("path", $this->path);
-    $element->addAttribute("registerProcedure", $this->registerProcedure);
-    $element->addAttribute("protocol", $this->protocol);
-  }
+    protected function setPort(int $port): void
+    {
+        $this->port = Numbers::range($port, 0, 65535);
+    }
+
+    protected function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    protected function setPath(string $path): void
+    {
+        if (!str_starts_with($path, "/")) {
+            throw new \InvalidArgumentException("Path has to start with /.");
+        }
+        $this->path = $path;
+    }
+
+    protected function getProtocol(): string
+    {
+        return $this->protocol;
+    }
+
+    /**
+     * @throws \InvalidArgumentException
+     */
+    protected function setProtocol(string $protocol): void
+    {
+        if (!in_array($protocol, ["xml-rpc", "soap", "http-post",], true)) {
+            throw new \InvalidArgumentException("Invalid value for protocol. Expected xml-rpc, soap or http-post, $protocol given.");
+        }
+        $this->protocol = $protocol;
+    }
+
+    public function appendToXml(\SimpleXMLElement &$parent): void
+    {
+        $element = $parent->addChild("cloud");
+        $element->addAttribute("domain", $this->domain);
+        $element->addAttribute("port", (string) $this->port);
+        $element->addAttribute("path", $this->path);
+        $element->addAttribute("registerProcedure", $this->registerProcedure);
+        $element->addAttribute("protocol", $this->protocol);
+    }
 }
-?>

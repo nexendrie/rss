@@ -13,26 +13,28 @@ require __DIR__ . "/../../../../bootstrap.php";
  * @testCase
  * @skip
  */
-final class RssResponseTest extends \Tester\TestCase {
-  use \Testbench\TCompiledContainer;
-  use \Testbench\TPresenter;
+final class RssResponseTest extends \Tester\TestCase
+{
+    use \Testbench\TCompiledContainer;
+    use \Testbench\TPresenter;
 
-  private Generator $generator;
+    private Generator $generator;
 
-  public function setUp(): void {
-    /** @var Generator $generator */
-    $generator = $this->getService(Generator::class);
-    $this->generator = $generator;
-    $this->generator->dataSource = function() {
-      return new Collection();
-    };
-  }
+    public function setUp(): void
+    {
+        /** @var Generator $generator */
+        $generator = $this->getService(Generator::class);
+        $this->generator = $generator;
+        $this->generator->dataSource = function () {
+            return new Collection();
+        };
+    }
 
-  public function testSend(): void {
-    $this->checkRss("Rss:default");
-  }
+    public function testSend(): void
+    {
+        $this->checkRss("Rss:default");
+    }
 }
 
 $test = new RssResponseTest();
 $test->run();
-?>

@@ -8,7 +8,7 @@ namespace Nexendrie\Rss;
  *
  * @author Jakub Konečný
  */
-interface XmlConvertible {
-  public function appendToXml(\SimpleXMLElement &$parent): void;
+interface XmlConvertible
+{
+    public function appendToXml(\SimpleXMLElement &$parent): void;
 }
-?>

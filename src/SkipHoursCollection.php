@@ -9,25 +9,27 @@ namespace Nexendrie\Rss;
  * @author Jakub Konečný
  * @internal
  */
-final class SkipHoursCollection implements XmlConvertible {
-  private array $hours;
+final class SkipHoursCollection implements XmlConvertible
+{
+    private array $hours;
 
-  /**
-   * @param int[] $hours
-   */
-  public function __construct(array $hours) {
-    array_walk($hours, function(int &$value): void {
-      $value = (string) $value;
-    });
-    $hours = array_unique($hours);
-    $this->hours = $hours;
-  }
+    /**
+     * @param int[] $hours
+     */
+    public function __construct(array $hours)
+    {
+        array_walk($hours, function (int &$value): void {
+            $value = (string) $value;
+        });
+        $hours = array_unique($hours);
+        $this->hours = $hours;
+    }
 
-  public function appendToXml(\SimpleXMLElement &$parent): void {
-    $element = $parent->addChild("skipHours");
-    array_walk($this->hours, function(string $value) use ($element): void {
-      $element->addChild("hour", $value);
-    });
-  }
+    public function appendToXml(\SimpleXMLElement &$parent): void
+    {
+        $element = $parent->addChild("skipHours");
+        array_walk($this->hours, function (string $value) use ($element): void {
+            $element->addChild("hour", $value);
+        });
+    }
 }
-?>

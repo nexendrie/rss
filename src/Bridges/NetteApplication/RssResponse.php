@@ -11,13 +11,15 @@ use Nette\Http\IResponse;
  *
  * @author Jakub Konečný
  */
-final class RssResponse implements \Nette\Application\Response {
-  public function __construct(public string $source) {
-  }
+final class RssResponse implements \Nette\Application\Response
+{
+    public function __construct(public string $source)
+    {
+    }
 
-  public function send(IRequest $httpRequest, IResponse $httpResponse): void {
-    $httpResponse->setContentType("application/rss+xml", "utf-8");
-    echo $this->source;
-  }
+    public function send(IRequest $httpRequest, IResponse $httpResponse): void
+    {
+        $httpResponse->setContentType("application/rss+xml", "utf-8");
+        echo $this->source;
+    }
 }
-?>

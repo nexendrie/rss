@@ -11,18 +11,20 @@ require __DIR__ . "/../../../bootstrap.php";
  * @author Jakub Konečný
  * @testCase
  */
-final class RssCoreTest extends \Tester\TestCase {
-  public function testGetName(): void {
-    $extension = new RssCore();
-    Assert::same("", $extension->getName());
-  }
+final class RssCoreTest extends \Tester\TestCase
+{
+    public function testGetName(): void
+    {
+        $extension = new RssCore();
+        Assert::same("", $extension->getName());
+    }
 
-  public function testGetNamespace(): void {
-    $extension = new RssCore();
-    Assert::same("", $extension->getNamespace());
-  }
+    public function testGetNamespace(): void
+    {
+        $extension = new RssCore();
+        Assert::same("", $extension->getNamespace());
+    }
 }
 
 $test = new RssCoreTest();
 $test->run();
-?>

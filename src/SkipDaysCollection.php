@@ -9,22 +9,24 @@ namespace Nexendrie\Rss;
  * @author Jakub Konečný
  * @internal
  */
-final class SkipDaysCollection implements XmlConvertible {
-  /** @var string[] */
-  private array $days;
+final class SkipDaysCollection implements XmlConvertible
+{
+    /** @var string[] */
+    private array $days;
 
-  /**
-   * @param string[] $days
-   */
-  public function __construct(array $days) {
-    $this->days = array_unique($days);
-  }
+    /**
+     * @param string[] $days
+     */
+    public function __construct(array $days)
+    {
+        $this->days = array_unique($days);
+    }
 
-  public function appendToXml(\SimpleXMLElement &$parent): void {
-    $element = $parent->addChild("skipDays");
-    array_walk($this->days, function(string $value) use ($element): void {
-      $element->addChild("day", $value);
-    });
-  }
+    public function appendToXml(\SimpleXMLElement &$parent): void
+    {
+        $element = $parent->addChild("skipDays");
+        array_walk($this->days, function (string $value) use ($element): void {
+            $element->addChild("day", $value);
+        });
+    }
 }
-?>

@@ -7,17 +7,18 @@ use Nexendrie\Rss\RssExtension;
 use Nexendrie\Utils\Constants;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class BaseExtension implements RssExtension {
-  protected function getElementName(string $baseName): string {
-    return $this->getName() . ":" . $baseName;
-  }
+abstract class BaseExtension implements RssExtension
+{
+    protected function getElementName(string $baseName): string
+    {
+        return $this->getName() . ":" . $baseName;
+    }
 
-  protected function registerElements(OptionsResolver $resolver): void {
-    $elements = Constants::getConstantsValues(static::class, "ELEMENT_");
-    array_walk($elements, function(string $value) use ($resolver): void {
-      $resolver->setDefined($this->getElementName($value));
-    });
-  }
+    protected function registerElements(OptionsResolver $resolver): void
+    {
+        $elements = Constants::getConstantsValues(static::class, "ELEMENT_");
+        array_walk($elements, function (string $value) use ($resolver): void {
+            $resolver->setDefined($this->getElementName($value));
+        });
+    }
 }
-
-?>

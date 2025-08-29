@@ -10,10 +10,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Jakub Konečný
  */
-interface RssExtension {
-  public function getName(): string;
-  public function getNamespace(): string;
-  public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void;
-  public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void;
+interface RssExtension
+{
+    public function getName(): string;
+    public function getNamespace(): string;
+    public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void;
+    public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void;
 }
-?>

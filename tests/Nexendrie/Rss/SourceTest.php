@@ -11,26 +11,27 @@ require __DIR__ . "/../../bootstrap.php";
  * @author Jakub Konečný
  * @testCase
  */
-final class SourceTest extends \Tester\TestCase {
-  public function testAppendToXml(): void {
-    $source = new Source("", "title");
-    $xml = new \SimpleXMLElement("<test></test>");
-    $source->appendToXml($xml);
-    Assert::same("", (string) $xml->source);
-    Assert::same("", (string) $xml->source["url"]);
-    $source = new Source("url", "");
-    $xml = new \SimpleXMLElement("<test></test>");
-    $source->appendToXml($xml);
-    Assert::same("", (string) $xml->source);
-    Assert::same($source->url, (string) $xml->source["url"]);
-    $source = new Source("url", "title");
-    $xml = new \SimpleXMLElement("<test></test>");
-    $source->appendToXml($xml);
-    Assert::same($source->title, (string) $xml->source);
-    Assert::same($source->url, (string) $xml->source["url"]);
-  }
+final class SourceTest extends \Tester\TestCase
+{
+    public function testAppendToXml(): void
+    {
+        $source = new Source("", "title");
+        $xml = new \SimpleXMLElement("<test></test>");
+        $source->appendToXml($xml);
+        Assert::same("", (string) $xml->source);
+        Assert::same("", (string) $xml->source["url"]);
+        $source = new Source("url", "");
+        $xml = new \SimpleXMLElement("<test></test>");
+        $source->appendToXml($xml);
+        Assert::same("", (string) $xml->source);
+        Assert::same($source->url, (string) $xml->source["url"]);
+        $source = new Source("url", "title");
+        $xml = new \SimpleXMLElement("<test></test>");
+        $source->appendToXml($xml);
+        Assert::same($source->title, (string) $xml->source);
+        Assert::same($source->url, (string) $xml->source["url"]);
+    }
 }
 
 $test = new SourceTest();
 $test->run();
-?>

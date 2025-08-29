@@ -8,15 +8,17 @@ namespace Nexendrie\Rss;
  *
  * @author Jakub Konečný
  */
-final class Category implements XmlConvertible {
-  public function __construct(public string $identifier, public string $domain = "") {
-  }
-
-  public function appendToXml(\SimpleXMLElement &$parent): void {
-    $categoryElement = $parent->addChild("category", $this->identifier);
-    if($this->domain !== "") {
-      $categoryElement->addAttribute("domain", $this->domain);
+final class Category implements XmlConvertible
+{
+    public function __construct(public string $identifier, public string $domain = "")
+    {
     }
-  }
+
+    public function appendToXml(\SimpleXMLElement &$parent): void
+    {
+        $categoryElement = $parent->addChild("category", $this->identifier);
+        if ($this->domain !== "") {
+            $categoryElement->addAttribute("domain", $this->domain);
+        }
+    }
 }
-?>

@@ -10,13 +10,15 @@ use Nexendrie\Utils\Collection as BaseCollection;
  *
  * @author Jakub Konečný
  */
-final class CategoriesCollection extends BaseCollection implements XmlConvertible {
-  protected string $class = Category::class;
+final class CategoriesCollection extends BaseCollection implements XmlConvertible
+{
+    protected string $class = Category::class;
 
-  public function appendToXml(\SimpleXMLElement &$parent): void {
-    array_walk($this->items, function (Category $value) use ($parent): void { // @phpstan-ignore argument.type
-      $value->appendToXml($parent);
-    });
-  }
+    public function appendToXml(\SimpleXMLElement &$parent): void
+    {
+        // @phpstan-ignore argument.type
+        array_walk($this->items, function (Category $value) use ($parent): void {
+            $value->appendToXml($parent);
+        });
+    }
 }
-?>

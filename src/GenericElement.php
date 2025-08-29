@@ -8,16 +8,18 @@ namespace Nexendrie\Rss;
  *
  * @author Jakub Konečný
  */
-final class GenericElement implements XmlConvertible {
-  public function __construct(public string $name, public mixed $value) {
-  }
-
-  public function appendToXml(\SimpleXMLElement &$parent): void {
-    $value = (string) $this->value;
-    if($value === "") {
-      return;
+final class GenericElement implements XmlConvertible
+{
+    public function __construct(public string $name, public mixed $value)
+    {
     }
-    $parent->{$this->name} = $value;
-  }
+
+    public function appendToXml(\SimpleXMLElement &$parent): void
+    {
+        $value = (string) $this->value;
+        if ($value === "") {
+            return;
+        }
+        $parent->{$this->name} = $value;
+    }
 }
-?>
