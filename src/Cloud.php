@@ -11,7 +11,6 @@ use Nexendrie\Utils\Numbers;
  * @author Jakub Konečný
  * @property int $port
  * @property string $path
- * @property string $protocol
  */
 final class Cloud implements XmlConvertible
 {
@@ -20,19 +19,17 @@ final class Cloud implements XmlConvertible
     private int $port;
     private string $path;
     public string $registerProcedure;
-    private string $protocol;
 
     public function __construct(
         public string $domain,
         int $port,
         string $path,
         string $registerProcedure,
-        string $protocol
+        public CloudProtocol $protocol
     ) {
         $this->setPort($port);
         $this->setPath($path);
         $this->registerProcedure = $registerProcedure;
-        $this->setProtocol($protocol);
     }
 
     protected function getPort(): int
@@ -61,24 +58,6 @@ final class Cloud implements XmlConvertible
         $this->path = $path;
     }
 
-    protected function getProtocol(): string
-    {
-        return $this->protocol;
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     */
-    protected function setProtocol(string $protocol): void
-    {
-        if (!in_array($protocol, ["xml-rpc", "soap", "http-post",], true)) {
-            throw new \InvalidArgumentException(
-                "Invalid value for protocol. Expected xml-rpc, soap or http-post, $protocol given."
-            );
-        }
-        $this->protocol = $protocol;
-    }
-
     public function appendToXml(\SimpleXMLElement &$parent): void
     {
         $element = $parent->addChild("cloud");
@@ -86,6 +65,6 @@ final class Cloud implements XmlConvertible
         $element->addAttribute("port", (string) $this->port);
         $element->addAttribute("path", $this->path);
         $element->addAttribute("registerProcedure", $this->registerProcedure);
-        $element->addAttribute("protocol", $this->protocol);
+        $element->addAttribute("protocol", $this->protocol->value);
     }
 }

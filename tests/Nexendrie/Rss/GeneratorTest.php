@@ -198,7 +198,7 @@ final class GeneratorTest extends \Tester\TestCase
             "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
             "skipDays" => [SkipDay::Monday, SkipDay::Monday, SkipDay::Sunday,], "skipHours" => [1, 1, 10],
             "image" => new Image("url", "title", "description"),
-            "cloud" => new Cloud("test.com", 80, "/test", "test.a", "http-post"),
+            "cloud" => new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost),
             "textInput" => new TextInput("title", "description", "name", "link"),
         ];
         $this->generator->dataSource = function () {
@@ -231,7 +231,7 @@ final class GeneratorTest extends \Tester\TestCase
         Assert::same((string) $info["cloud"]->port, (string) $result->channel->cloud["port"]);
         Assert::same($info["cloud"]->path, (string) $result->channel->cloud["path"]);
         Assert::same($info["cloud"]->registerProcedure, (string) $result->channel->cloud["registerProcedure"]);
-        Assert::same($info["cloud"]->protocol, (string) $result->channel->cloud["protocol"]);
+        Assert::same($info["cloud"]->protocol->value, (string) $result->channel->cloud["protocol"]);
         Assert::same($info["textInput"]->title, (string) $result->channel->textInput->title);
         Assert::same($info["textInput"]->name, (string) $result->channel->textInput->name);
         Assert::same($info["textInput"]->description, (string) $result->channel->textInput->description);

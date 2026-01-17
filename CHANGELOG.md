@@ -2,6 +2,7 @@ Version 0.12.0-dev
 - BC break: renamed IXmlConvertible to XmlConvertible and IRssExtension to RssExtension
 - BC break: replaced Nette events with PSR-14 event dispatcher
 - BC break: Generator::$dataSource now only accepts Closure or null
+- BC break: $protocol in Cloud now accepts enum Nexendrie\Rss\CloudProtocol
 
 Version 0.11.0
 - made Generator::$dataSource readable
