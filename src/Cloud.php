@@ -18,18 +18,16 @@ final class Cloud implements XmlConvertible
 
     private int $port;
     private string $path;
-    public string $registerProcedure;
 
     public function __construct(
         public string $domain,
         int $port,
         string $path,
-        string $registerProcedure,
+        public string $registerProcedure,
         public CloudProtocol $protocol
     ) {
         $this->setPort($port);
         $this->setPath($path);
-        $this->registerProcedure = $registerProcedure;
     }
 
     protected function getPort(): int
