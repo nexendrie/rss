@@ -66,7 +66,9 @@ final class Generator
         }
         $items = call_user_func($this->dataSource);
         if (!$items instanceof Collection) {
-            throw new \InvalidArgumentException("Callback for data source for RSS generator has to return an instance of  " . Collection::class . ".");
+            throw new \InvalidArgumentException(
+                "Callback for data source for RSS generator has to return an instance of  " . Collection::class . "."
+            );
         }
         return $items;
     }
@@ -97,7 +99,10 @@ final class Generator
         $channel = simplexml_load_file($this->template);
         foreach ($this->extensions as $extension) {
             if ($extension->getName() !== "" && $extension->getNamespace() !== "") {
-                $channel->addAttribute(self::NAMESPACE_ATTRIBUTE_HACK . $extension->getName(), $extension->getNamespace());
+                $channel->addAttribute(
+                    self::NAMESPACE_ATTRIBUTE_HACK . $extension->getName(),
+                    $extension->getNamespace()
+                );
             }
         }
         $properties = $resolver->getDefinedOptions();

@@ -22,8 +22,13 @@ final class Cloud implements XmlConvertible
     public string $registerProcedure;
     private string $protocol;
 
-    public function __construct(public string $domain, int $port, string $path, string $registerProcedure, string $protocol)
-    {
+    public function __construct(
+        public string $domain,
+        int $port,
+        string $path,
+        string $registerProcedure,
+        string $protocol
+    ) {
         $this->setPort($port);
         $this->setPath($path);
         $this->registerProcedure = $registerProcedure;
@@ -67,7 +72,9 @@ final class Cloud implements XmlConvertible
     protected function setProtocol(string $protocol): void
     {
         if (!in_array($protocol, ["xml-rpc", "soap", "http-post",], true)) {
-            throw new \InvalidArgumentException("Invalid value for protocol. Expected xml-rpc, soap or http-post, $protocol given.");
+            throw new \InvalidArgumentException(
+                "Invalid value for protocol. Expected xml-rpc, soap or http-post, $protocol given."
+            );
         }
         $this->protocol = $protocol;
     }

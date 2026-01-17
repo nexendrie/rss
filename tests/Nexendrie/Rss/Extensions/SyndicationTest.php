@@ -43,7 +43,10 @@ final class SyndicationTest extends \Tester\TestCase
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
         Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same(UpdatePeriod::HOURLY->value, (string) $result->channel->children($extensionNamespace)->$elementName1);
+        Assert::same(
+            UpdatePeriod::HOURLY->value,
+            (string) $result->channel->children($extensionNamespace)->$elementName1
+        );
         Assert::same("1", (string) $result->channel->children($extensionNamespace)->$elementName2);
         Assert::same("abc", (string) $result->channel->children($extensionNamespace)->$elementName3);
     }

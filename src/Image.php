@@ -19,8 +19,12 @@ final class Image implements XmlConvertible
     private int $width;
     private int $height;
 
-    public function __construct(public string $url, public string $title, public string $link, public string $description = "")
-    {
+    public function __construct(
+        public string $url,
+        public string $title,
+        public string $link,
+        public string $description = ""
+    ) {
     }
 
     protected function getWidth(): int

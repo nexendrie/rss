@@ -301,7 +301,10 @@ final class GeneratorTest extends \Tester\TestCase
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
         Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same($info["$extensionName:$elementName"], (string) $result->channel->children($extensionNamespace, false)->$elementName);
+        Assert::same(
+            $info["$extensionName:$elementName"],
+            (string) $result->channel->children($extensionNamespace, false)->$elementName
+        );
     }
 }
 

@@ -8,7 +8,11 @@ use Nexendrie\Rss\RssChannelItem;
 
 final class ItemAdded
 {
-    public function __construct(public readonly Generator $generator, public readonly \SimpleXMLElement $channel, public readonly RssChannelItem $itemDefinition, public readonly \SimpleXMLElement $item)
-    {
+    public function __construct(
+        public readonly Generator $generator,
+        public readonly \SimpleXMLElement $channel,
+        public readonly RssChannelItem $itemDefinition,
+        public readonly \SimpleXMLElement $item
+    ) {
     }
 }

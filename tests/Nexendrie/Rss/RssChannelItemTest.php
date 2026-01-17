@@ -40,7 +40,9 @@ final class RssChannelItemTest extends \Tester\TestCase
     {
         $generator = new Generator();
         $description = str_repeat("ABDEFGH", 20);
-        $item = new RssChannelItem(["title" => "Item 1", "description" => $description, "link" => "", "pubDate" => 123,]);
+        $item = new RssChannelItem(
+            ["title" => "Item 1", "description" => $description, "link" => "", "pubDate" => 123,]
+        );
 
         $xml = new \SimpleXMLElement("<test></test>");
         $generator->shortenDescription = 0;

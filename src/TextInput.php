@@ -10,8 +10,12 @@ namespace Nexendrie\Rss;
  */
 final class TextInput implements XmlConvertible
 {
-    public function __construct(public string $title, public string $description, public string $name, public string $link)
-    {
+    public function __construct(
+        public string $title,
+        public string $description,
+        public string $name,
+        public string $link
+    ) {
     }
 
     public function appendToXml(\SimpleXMLElement &$parent): void

@@ -46,17 +46,22 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("link", "string");
         $resolver->setAllowedTypes("lastBuildDate", "callable");
         $resolver->setDefault("lastBuildDate", "date_create");
-        $resolver->setNormalizer("lastBuildDate", function (Options $options, callable $value) use ($generator): GenericElement {
-            $value = call_user_func($value);
-            if (!$value instanceof \DateTime) {
-                throw new \InvalidArgumentException("Callback for last build date for RSS generator has to return DateTime.");
+        $resolver->setNormalizer(
+            "lastBuildDate",
+            function (Options $options, callable $value) use ($generator): GenericElement {
+                $value = call_user_func($value);
+                if (!$value instanceof \DateTime) {
+                    throw new \InvalidArgumentException(
+                        "Callback for last build date for RSS generator has to return DateTime."
+                    );
+                }
+                $value = $value->format($generator->dateTimeFormat);
+                return new GenericElement("lastBuildDate", $value);
             }
-            $value = $value->format($generator->dateTimeFormat);
-            return new GenericElement("lastBuildDate", $value);
-        });
+        );
         $resolver->setDefined([
-            "language", "copyright", "managingEditor", "webMaster", "ttl", "pubDate", "rating", "categories", "skipDays",
-            "skipHours", "image", "cloud", "textInput",
+            "language", "copyright", "managingEditor", "webMaster", "ttl", "pubDate", "rating", "categories",
+            "skipDays", "skipHours", "image", "cloud", "textInput",
         ]);
         $resolver->setAllowedTypes("language", "string");
         $resolver->setAllowedTypes("copyright", "string");
@@ -67,14 +72,19 @@ final class RssCore implements RssExtension
             return ($value >= 0);
         });
         $resolver->setAllowedTypes("pubDate", "callable");
-        $resolver->setNormalizer("pubDate", function (Options $options, callable $value) use ($generator): GenericElement {
-            $value = call_user_func($value);
-            if (!$value instanceof \DateTime) {
-                throw new \InvalidArgumentException("Callback for pub date for RSS generator has to return DateTime.");
+        $resolver->setNormalizer(
+            "pubDate",
+            function (Options $options, callable $value) use ($generator): GenericElement {
+                $value = call_user_func($value);
+                if (!$value instanceof \DateTime) {
+                    throw new \InvalidArgumentException(
+                        "Callback for pub date for RSS generator has to return DateTime."
+                    );
+                }
+                $value = $value->format($generator->dateTimeFormat);
+                return new GenericElement("pubDate", $value);
             }
-            $value = $value->format($generator->dateTimeFormat);
-            return new GenericElement("pubDate", $value);
-        });
+        );
         $resolver->setAllowedTypes("rating", "string");
         $resolver->setAllowedTypes("categories", Category::class . "[]");
         $resolver->setNormalizer("categories", function (Options $options, array $value): CategoriesCollection {
