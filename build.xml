@@ -3,17 +3,6 @@
   <property name="phpcs_standard" value="vendor/nexendrie/code-quality/phpcs.xml"/>
   <import file="vendor/nexendrie/code-quality/build.xml"/>
   <target name="test" depends="lint,cs,phpstan,tests"/>
-  <target name="ci-coverage">
-    <exec executable="vendor/bin/run-tests" logoutput="true" passthru="true" checkreturn="true">
-      <arg value="-p"/>
-      <arg value="php"/>
-      <arg path="tests"/>
-      <arg value="--coverage"/>
-      <arg path="./coverage.xml"/>
-      <arg value="--coverage-src"/>
-      <arg path="./src"/>
-    </exec>
-  </target>
   <target name="documentation">
     <exec executable="vendor/bin/generate-site" logoutput="true" passthru="true" checkreturn="true">
       <arg value="--source=docs"/>
