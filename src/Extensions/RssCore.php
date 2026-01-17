@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
-use Nette\Utils\Arrays;
 use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
@@ -100,7 +99,7 @@ final class RssCore implements RssExtension
         });
         $resolver->setAllowedTypes("skipHours", "int[]");
         $resolver->setAllowedValues("skipHours", function (array $value): bool {
-            return Arrays::every($value, function (int $value): bool {
+            return array_all($value, function (int $value): bool {
                 return Numbers::isInRange($value, 0, 23);
             });
         });

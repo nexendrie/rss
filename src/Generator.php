@@ -11,7 +11,6 @@ use Nexendrie\Rss\Events\ItemAdded;
 use Nexendrie\Rss\Extensions\RssCore;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Nette\Utils\Arrays;
 
 /**
  * RSS Channel Generator
@@ -75,7 +74,7 @@ final class Generator
 
     private function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void
     {
-        $value = Arrays::get($info, $property, "");
+        $value = $info[$property] ?? "";
         if (!$value instanceof XmlConvertible) {
             $value = new GenericElement($property, $value);
         }
