@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Closure;
 use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
 use Nexendrie\Rss\Events\ChannelAfterGenerate;
 use Nexendrie\Rss\Events\ChannelBeforeGenerate;
@@ -16,7 +17,6 @@ use Nette\Utils\Arrays;
  * RSS Channel Generator
  *
  * @author Jakub Konečný
- * @property callable|null $dataSource
  * @property string $template
  */
 final class Generator
@@ -26,8 +26,7 @@ final class Generator
     private const NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
 
     public string $dateTimeFormat = "r";
-    /** @var callable|null */
-    private $dataSource = null;
+    public ?Closure $dataSource = null;
     public int $shortenDescription = 150;
     public string $generator = "Nexendrie RSS";
     public string $docs = "http://www.rssboard.org/rss-specification";
@@ -38,16 +37,6 @@ final class Generator
     public function __construct(private readonly ?EventDispatcherInterface $eventDispatcher = null)
     {
         $this->extensions = RssExtensionsCollection::fromArray([new RssCore()]);
-    }
-
-    protected function getDataSource(): ?callable
-    {
-        return $this->dataSource;
-    }
-
-    protected function setDataSource(callable $dataSource): void
-    {
-        $this->dataSource = $dataSource;
     }
 
     protected function getTemplate(): string
