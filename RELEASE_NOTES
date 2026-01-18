@@ -1,9 +1,3 @@
-A new version of Rss is out. It focuses on code clean up at cost of BC breaks.
-
-Interfaces IXmlConvertible and IRssExtension were renamed: we dropped the I prefix.
-
-Property Generator::$dataSource now only accepts Closure or null and $protocol in Cloud now accepts new enum Nexendrie\Rss\CloudProtocol.
-
-Nette style events were replaced with PSR-14 event dispatcher.
+A new version of Rss is out.
 
 For complete list of changes since previous version, see CHANGELOG.md.
