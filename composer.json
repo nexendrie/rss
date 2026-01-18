@@ -28,7 +28,7 @@
         "psr/event-dispatcher": "^1.0",
         "nette/utils": "^3.2.7",
         "nexendrie/utils": "^1.9",
-        "symfony/options-resolver": "^6.0",
+        "symfony/options-resolver": "^6.0 || ^7.0",
         "symfony/polyfill-php84": "^1.30"
     },
     "require-dev": {
