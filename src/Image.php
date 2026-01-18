@@ -34,7 +34,7 @@ final class Image implements XmlConvertible
 
     protected function setWidth(int $width): void
     {
-        $this->width = Numbers::range($width, 0, 144);
+        $this->width = Numbers::clamp($width, 0, 144);
     }
 
     protected function getHeight(): int
@@ -44,7 +44,7 @@ final class Image implements XmlConvertible
 
     protected function setHeight(int $height): void
     {
-        $this->height = Numbers::range($height, 0, 400);
+        $this->height = Numbers::clamp($height, 0, 400);
     }
 
     public function appendToXml(\SimpleXMLElement &$parent): void

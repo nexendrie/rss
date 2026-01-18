@@ -37,7 +37,7 @@ final class Cloud implements XmlConvertible
 
     protected function setPort(int $port): void
     {
-        $this->port = Numbers::range($port, 0, 65535);
+        $this->port = Numbers::clamp($port, 0, 65535);
     }
 
     protected function getPath(): string
