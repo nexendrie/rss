@@ -17,8 +17,6 @@
         }
     ],
     "support": {
-        "source": "https://gitlab.com/nexendrie/rss/",
-        "issues": "https://gitlab.com/nexendrie/rss/issues",
         "docs": "https://nexendrie.gitlab.io/rss"
     },
     "require": {
