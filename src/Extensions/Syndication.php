@@ -10,9 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class Syndication extends BaseExtension
 {
-    public const ELEMENT_UPDATE_PERIOD = "updatePeriod";
-    public const ELEMENT_UPDATE_FREQUENCY = "updateFrequency";
-    public const ELEMENT_UPDATE_BASE = "updateBase";
+    public const string ELEMENT_UPDATE_PERIOD = "updatePeriod";
+    public const string ELEMENT_UPDATE_FREQUENCY = "updateFrequency";
+    public const string ELEMENT_UPDATE_BASE = "updateBase";
 
     public function getName(): string
     {

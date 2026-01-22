@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class Content extends BaseExtension
 {
-    public const ELEMENT_ENCODED = "encoded";
+    public const string ELEMENT_ENCODED = "encoded";
 
     public function getName(): string
     {

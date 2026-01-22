@@ -22,7 +22,7 @@ final class Generator
 {
     use \Nette\SmartObject;
 
-    private const NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
+    private const string NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
 
     public string $dateTimeFormat = "r";
     public ?Closure $dataSource = null;

@@ -13,10 +13,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class Slash extends BaseExtension
 {
-    public const ELEMENT_SECTION = "section";
-    public const ELEMENT_DEPARTMENT = "department";
-    public const ELEMENT_COMMENTS = "comments";
-    public const ELEMENT_HIT_PARADE = "hit_parade";
+    public const string ELEMENT_SECTION = "section";
+    public const string ELEMENT_DEPARTMENT = "department";
+    public const string ELEMENT_COMMENTS = "comments";
+    public const string ELEMENT_HIT_PARADE = "hit_parade";
 
     public function getName(): string
     {

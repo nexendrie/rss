@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TestExtension extends BaseExtension
 {
-    public const ELEMENT_ABC = "abc";
+    public const string ELEMENT_ABC = "abc";
 
     public function getName(): string
     {

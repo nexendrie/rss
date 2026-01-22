@@ -18,7 +18,7 @@ use Nexendrie\Rss\InvalidRssExtensionException;
 final class RssExtension extends CompilerExtension
 {
     /** @internal */
-    public const SERVICE_GENERATOR = "generator";
+    public const string SERVICE_GENERATOR = "generator";
 
     private function setProperty(ServiceDefinition &$generator, \stdClass $config, string $property): void
     {
