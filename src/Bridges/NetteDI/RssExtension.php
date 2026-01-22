@@ -56,7 +56,7 @@ final class RssExtension extends CompilerExtension
         }
     }
 
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $builder = $this->getContainerBuilder();
         /** @var ServiceDefinition $generator */
