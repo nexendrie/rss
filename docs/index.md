@@ -7,7 +7,7 @@ Links
 -----
 
 Primary repository: https://gitlab.com/nexendrie/rss
-Github repository: https://github.com/nexendrie/rss
+GitHub repository: https://github.com/nexendrie/rss
 Packagist: https://packagist.org/packages/nexendrie/rss
 
 Installation
@@ -139,7 +139,7 @@ rss:
         - classname2
 ```
 
-If do not need to do anything with the result after generating, you can you method **response** instead of **generate** to get a response to send from your presenter:
+If do not need to do anything with the result after generating, you can use method **response** instead of **generate** to get a response to send from your presenter:
 
 ```php
 <?php
