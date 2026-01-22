@@ -10,9 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Jakub Konečný
  */
-final class RssChannelItem
+final readonly class RssChannelItem
 {
-    public function __construct(private readonly array $data)
+    public function __construct(private array $data)
     {
     }
 

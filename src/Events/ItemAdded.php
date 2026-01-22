@@ -6,13 +6,13 @@ namespace Nexendrie\Rss\Events;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
 
-final class ItemAdded
+final readonly class ItemAdded
 {
     public function __construct(
-        public readonly Generator $generator,
-        public readonly \SimpleXMLElement $channel,
-        public readonly RssChannelItem $itemDefinition,
-        public readonly \SimpleXMLElement $item
+        public Generator $generator,
+        public \SimpleXMLElement $channel,
+        public RssChannelItem $itemDefinition,
+        public \SimpleXMLElement $item
     ) {
     }
 }

@@ -5,9 +5,9 @@ namespace Nexendrie\Rss\Events;
 
 use Nexendrie\Rss\Generator;
 
-final class ChannelAfterGenerate
+final readonly class ChannelAfterGenerate
 {
-    public function __construct(public readonly Generator $generator, public readonly array $info)
+    public function __construct(public Generator $generator, public array $info)
     {
     }
 }
