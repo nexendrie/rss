@@ -25,7 +25,7 @@ final class CloudTest extends \Tester\TestCase
         $cloud = new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost);
         $cloud->path = "/abc";
         Assert::same("/abc", $cloud->path);
-        Assert::exception(function () use ($cloud) {
+        Assert::exception(static function () use ($cloud) {
             $cloud->path = "abc";
         }, \InvalidArgumentException::class);
     }

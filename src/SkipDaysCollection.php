@@ -25,7 +25,7 @@ final class SkipDaysCollection implements XmlConvertible
     public function appendToXml(\SimpleXMLElement &$parent): void
     {
         $element = $parent->addChild("skipDays");
-        array_walk($this->days, function (string $value) use ($element): void {
+        array_walk($this->days, static function (string $value) use ($element): void {
             $element->addChild("day", $value);
         });
     }

@@ -30,7 +30,7 @@ final class SlashTest extends \Tester\TestCase
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss",
         ];
-        $generator->dataSource = function () use ($extensionName, $elementName1, $elementName2, $elementName3, $elementName4) {
+        $generator->dataSource = static function () use ($extensionName, $elementName1, $elementName2, $elementName3, $elementName4) {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,

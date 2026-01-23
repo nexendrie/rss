@@ -31,7 +31,7 @@ final class SyndicationTest extends \Tester\TestCase
             "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => UpdatePeriod::HOURLY,
             "$extensionName:$elementName2" => 1, "$extensionName:$elementName3" => "abc",
         ];
-        $generator->dataSource = function () {
+        $generator->dataSource = static function () {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,

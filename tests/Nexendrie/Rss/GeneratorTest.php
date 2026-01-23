@@ -56,7 +56,7 @@ final class GeneratorTest extends \Tester\TestCase
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss",
         ];
-        $this->generator->dataSource = function () {
+        $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123
@@ -89,7 +89,7 @@ final class GeneratorTest extends \Tester\TestCase
             "description" => "News for package nexendrie/rss",
             "lastBuildDate" => static fn() => new \DateTime("2024-12-31"),
         ];
-        $this->generator->dataSource = function () {
+        $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
@@ -102,7 +102,7 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testInvalidLastBuildDate(): void
     {
-        $this->generator->dataSource = function () {
+        $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
@@ -127,7 +127,7 @@ final class GeneratorTest extends \Tester\TestCase
         Assert::exception(function () use ($info) {
             $this->generator->response($info);
         }, InvalidStateException::class);
-        $this->generator->dataSource = function () {
+        $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
@@ -161,7 +161,7 @@ final class GeneratorTest extends \Tester\TestCase
         ];
         $dateTimeFormat = "Y/m/d";
         $this->generator->dateTimeFormat = $dateTimeFormat;
-        $this->generator->dataSource = function () {
+        $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,

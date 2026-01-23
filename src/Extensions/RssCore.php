@@ -47,7 +47,7 @@ final class RssCore implements RssExtension
         $resolver->setDefault("lastBuildDate", "date_create");
         $resolver->setNormalizer(
             "lastBuildDate",
-            function (Options $options, callable $value) use ($generator): GenericElement {
+            static function (Options $options, callable $value) use ($generator): GenericElement {
                 $value = call_user_func($value);
                 if (!$value instanceof \DateTime) {
                     throw new \InvalidArgumentException(
@@ -71,7 +71,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("pubDate", "callable");
         $resolver->setNormalizer(
             "pubDate",
-            function (Options $options, callable $value) use ($generator): GenericElement {
+            static function (Options $options, callable $value) use ($generator): GenericElement {
                 $value = call_user_func($value);
                 if (!$value instanceof \DateTime) {
                     throw new \InvalidArgumentException(
@@ -89,7 +89,7 @@ final class RssCore implements RssExtension
             static fn(Options $options, array $value): CategoriesCollection => CategoriesCollection::fromArray($value)
         );
         $resolver->setAllowedTypes("skipDays", SkipDay::class . "[]");
-        $resolver->setNormalizer("skipDays", function (Options $options, array $value): SkipDaysCollection {
+        $resolver->setNormalizer("skipDays", static function (Options $options, array $value): SkipDaysCollection {
             /** @var SkipDay $item */
             foreach ($value as &$item) {
                 $item = $item->name;
@@ -97,8 +97,8 @@ final class RssCore implements RssExtension
             return new SkipDaysCollection($value);
         });
         $resolver->setAllowedTypes("skipHours", "int[]");
-        $resolver->setAllowedValues("skipHours", function (array $value): bool {
-            return array_all($value, function (int $value): bool {
+        $resolver->setAllowedValues("skipHours", static function (array $value): bool {
+            return array_all($value, static function (int $value): bool {
                 return Numbers::isInRange($value, 0, 23);
             });
         });
@@ -124,7 +124,7 @@ final class RssCore implements RssExtension
             "pubDate", "author", "comments", "guid", "source", "categories", "enclosures",
         ]);
         $resolver->setAllowedTypes("pubDate", "int");
-        $resolver->setNormalizer("pubDate", function (Options $options, int $value) use ($generator): string {
+        $resolver->setNormalizer("pubDate", static function (Options $options, int $value) use ($generator): string {
             return date($generator->dateTimeFormat, $value);
         });
         $resolver->setAllowedTypes("author", "string");
