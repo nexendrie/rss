@@ -15,9 +15,7 @@ final class RssPresenter extends \Nette\Application\UI\Presenter
 
     public function renderDefault(): never
     {
-        $this->generator->dataSource = function (): Collection {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $this->sendResponse($this->generator->response(["title" => "", "link" => "", "description" => "",]));
     }
 }

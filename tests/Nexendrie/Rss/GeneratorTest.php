@@ -40,9 +40,7 @@ final class GeneratorTest extends \Tester\TestCase
         $info = [
             "title" => "Test", "link" => "https://gitlab.com/nexendrie/rss/", "description" => "Test RSS Channel",
         ];
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $result = $this->generator->generate($info);
         Assert::type("string", $result);
         $result = new \SimpleXMLElement($result);
@@ -78,9 +76,7 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testInvalidDataSource(): void
     {
-        $this->generator->dataSource = function () {
-            return [];
-        };
+        $this->generator->dataSource = static fn() => [];
         Assert::exception(function () {
             $this->generator->generate(["title" => "", "link" => "", "description" => "",]);
         }, \InvalidArgumentException::class);
@@ -90,9 +86,8 @@ final class GeneratorTest extends \Tester\TestCase
     {
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
-            "description" => "News for package nexendrie/rss", "lastBuildDate" => function () {
-                return new \DateTime("2024-12-31");
-            },
+            "description" => "News for package nexendrie/rss",
+            "lastBuildDate" => static fn() => new \DateTime("2024-12-31"),
         ];
         $this->generator->dataSource = function () {
             $items = new Collection();
@@ -117,9 +112,7 @@ final class GeneratorTest extends \Tester\TestCase
         Assert::exception(function () {
             $info = [
                 "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
-                "description" => "News for package nexendrie/rss", "lastBuildDate" => function () {
-                    return "abc";
-                },
+                "description" => "News for package nexendrie/rss", "lastBuildDate" => static fn() => "abc",
             ];
             $this->generator->generate($info);
         }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return DateTime.");
@@ -155,9 +148,7 @@ final class GeneratorTest extends \Tester\TestCase
         $dateTimeFormat = "Y/m/d";
         $this->generator->dateTimeFormat = $dateTimeFormat;
         Assert::same($dateTimeFormat, $this->generator->dateTimeFormat);
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $result = new \SimpleXMLElement($this->generator->generate($info));
         Assert::same(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
     }
@@ -166,9 +157,7 @@ final class GeneratorTest extends \Tester\TestCase
     {
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
-            "description" => "News for package nexendrie/rss", "pubDate" => function () {
-                return "abc";
-            },
+            "description" => "News for package nexendrie/rss", "pubDate" => static fn() => "abc",
         ];
         $dateTimeFormat = "Y/m/d";
         $this->generator->dateTimeFormat = $dateTimeFormat;
@@ -182,9 +171,7 @@ final class GeneratorTest extends \Tester\TestCase
         Assert::exception(function () use ($info) {
             $this->generator->generate($info);
         }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return DateTime.");
-        $info["pubDate"] = function () {
-            return new \DateTime("2024-12-31");
-        };
+        $info["pubDate"] = static fn() => new \DateTime("2024-12-31");
         $result = new \SimpleXMLElement($this->generator->generate($info));
         Assert::same("2024/12/31", (string) $result->channel->pubDate);
     }
@@ -201,9 +188,7 @@ final class GeneratorTest extends \Tester\TestCase
             "cloud" => new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost),
             "textInput" => new TextInput("title", "description", "name", "link"),
         ];
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $this->generator->generator = $generator = "Custom generator";
         Assert::same($generator, $this->generator->generator);
         $this->generator->docs = $docs = "https://nexendrie.gitlab.io/rss";
@@ -246,9 +231,7 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testCategories(): void
     {
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss", "categories" => [],
@@ -274,9 +257,7 @@ final class GeneratorTest extends \Tester\TestCase
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss",
         ];
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $result = $this->generator->generate($info);
         Assert::type("string", $result);
         $result = new \SimpleXMLElement($this->generator->generate($info));
@@ -293,9 +274,7 @@ final class GeneratorTest extends \Tester\TestCase
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss", "$extensionName:$elementName" => "def",
         ];
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
         $result = $this->generator->generate($info);
         Assert::type("string", $result);
         $result = new \SimpleXMLElement($result);

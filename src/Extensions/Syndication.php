@@ -30,14 +30,13 @@ final class Syndication extends BaseExtension
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_PERIOD), UpdatePeriod::class);
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_UPDATE_PERIOD),
-            function (Options $options, UpdatePeriod $value): string {
-                return $value->value;
-            }
+            static fn(Options $options, UpdatePeriod $value): string => $value->value
         );
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_FREQUENCY), "int");
-        $resolver->setAllowedValues($this->getElementName(self::ELEMENT_UPDATE_FREQUENCY), function (int $value): bool {
-            return ($value >= 1);
-        });
+        $resolver->setAllowedValues(
+            $this->getElementName(self::ELEMENT_UPDATE_FREQUENCY),
+            static fn(int $value): bool => ($value >= 1)
+        );
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_BASE), "string");
     }
 

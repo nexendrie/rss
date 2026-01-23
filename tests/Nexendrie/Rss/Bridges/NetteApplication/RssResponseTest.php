@@ -25,9 +25,7 @@ final class RssResponseTest extends \Tester\TestCase
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
         $this->generator = $generator;
-        $this->generator->dataSource = function () {
-            return new Collection();
-        };
+        $this->generator->dataSource = static fn() => new Collection();
     }
 
     public function testSend(): void

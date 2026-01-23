@@ -67,9 +67,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("managingEditor", "string");
         $resolver->setAllowedTypes("webMaster", "string");
         $resolver->setAllowedTypes("ttl", "int");
-        $resolver->setAllowedValues("ttl", function (int $value): bool {
-            return ($value >= 0);
-        });
+        $resolver->setAllowedValues("ttl", static fn(int $value): bool => ($value >= 0));
         $resolver->setAllowedTypes("pubDate", "callable");
         $resolver->setNormalizer(
             "pubDate",
@@ -86,9 +84,10 @@ final class RssCore implements RssExtension
         );
         $resolver->setAllowedTypes("rating", "string");
         $resolver->setAllowedTypes("categories", Category::class . "[]");
-        $resolver->setNormalizer("categories", function (Options $options, array $value): CategoriesCollection {
-            return CategoriesCollection::fromArray($value);
-        });
+        $resolver->setNormalizer(
+            "categories",
+            static fn(Options $options, array $value): CategoriesCollection => CategoriesCollection::fromArray($value)
+        );
         $resolver->setAllowedTypes("skipDays", SkipDay::class . "[]");
         $resolver->setNormalizer("skipDays", function (Options $options, array $value): SkipDaysCollection {
             /** @var SkipDay $item */
@@ -103,9 +102,10 @@ final class RssCore implements RssExtension
                 return Numbers::isInRange($value, 0, 23);
             });
         });
-        $resolver->setNormalizer("skipHours", function (Options $options, array $value): SkipHoursCollection {
-            return new SkipHoursCollection($value);
-        });
+        $resolver->setNormalizer(
+            "skipHours",
+            static fn (Options $options, array $value): SkipHoursCollection => new SkipHoursCollection($value)
+        );
         $resolver->setAllowedTypes("image", Image::class);
         $resolver->setAllowedTypes("cloud", Cloud::class);
         $resolver->setAllowedTypes("textInput", TextInput::class);
