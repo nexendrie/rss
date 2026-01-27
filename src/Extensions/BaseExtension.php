@@ -5,10 +5,16 @@ namespace Nexendrie\Rss\Extensions;
 
 use Nexendrie\Rss\RssExtension;
 use Nexendrie\Utils\Constants;
+use ReflectionClass;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class BaseExtension implements RssExtension
 {
+    public function getName(): string
+    {
+        return strtolower((new ReflectionClass($this))->getShortName());
+    }
+
     protected function getElementName(string $baseName): string
     {
         return $this->getName() . ":" . $baseName;

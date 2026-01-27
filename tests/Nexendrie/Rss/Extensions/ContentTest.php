@@ -16,6 +16,12 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class ContentTest extends \Tester\TestCase
 {
+    public function testGetName(): void
+    {
+        $extension = new Content();
+        Assert::same("content", $extension->getName());
+    }
+
     public function testExtension(): void
     {
         $generator = new Generator();

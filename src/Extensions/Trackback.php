@@ -16,11 +16,6 @@ final class Trackback extends BaseExtension
     public const string ELEMENT_ABOUT = "about";
     public const string ELEMENT_PING = "ping";
 
-    public function getName(): string
-    {
-        return "trackback";
-    }
-
     public function getNamespace(): string
     {
         return "http://madskills.com/public/xml/rss/module/trackback/";

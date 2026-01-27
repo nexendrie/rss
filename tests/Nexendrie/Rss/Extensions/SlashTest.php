@@ -16,6 +16,12 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class SlashTest extends \Tester\TestCase
 {
+    public function testGetName(): void
+    {
+        $extension = new Slash();
+        Assert::same("slash", $extension->getName());
+    }
+
     public function testExtension(): void
     {
         $generator = new Generator();

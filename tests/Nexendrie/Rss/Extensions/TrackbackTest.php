@@ -16,6 +16,12 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class TrackbackTest extends \Tester\TestCase
 {
+    public function testGetName(): void
+    {
+        $extension = new Trackback();
+        Assert::same("trackback", $extension->getName());
+    }
+
     public function testExtension(): void
     {
         $generator = new Generator();

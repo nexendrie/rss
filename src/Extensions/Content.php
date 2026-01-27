@@ -10,11 +10,6 @@ final class Content extends BaseExtension
 {
     public const string ELEMENT_ENCODED = "encoded";
 
-    public function getName(): string
-    {
-        return "content";
-    }
-
     public function getNamespace(): string
     {
         return "http://purl.org/rss/1.0/modules/content/";

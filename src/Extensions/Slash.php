@@ -18,11 +18,6 @@ final class Slash extends BaseExtension
     public const string ELEMENT_COMMENTS = "comments";
     public const string ELEMENT_HIT_PARADE = "hit_parade";
 
-    public function getName(): string
-    {
-        return "slash";
-    }
-
     public function getNamespace(): string
     {
         return "http://purl.org/rss/1.0/modules/slash/";

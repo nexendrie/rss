@@ -17,6 +17,12 @@ require __DIR__ . "/../../../bootstrap.php";
  */
 final class SyndicationTest extends \Tester\TestCase
 {
+    public function testGetName(): void
+    {
+        $extension = new Syndication();
+        Assert::same("sy", $extension->getName());
+    }
+
     public function testExtension(): void
     {
         $generator = new Generator();
