@@ -1,5 +1,6 @@
 Version 0.13.0-dev
 - raised minimal version of PHP to 8.3
+- added RSS extension Trackback
 
 Version 0.12.0
 - BC break: renamed IXmlConvertible to XmlConvertible and IRssExtension to RssExtension
