@@ -1,5 +1,5 @@
 A new version of Rss is out. It is for PHP 8.3 or later.
 
-It adds RSS extension Trackback.
+It adds RSS extensions Trackback and DublinCore.
 
 For complete list of changes since previous version, see CHANGELOG.md.
