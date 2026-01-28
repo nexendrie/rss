@@ -1,4 +1,4 @@
-Version 0.13.0-dev
+Version 0.13.0
 - raised minimal version of PHP to 8.3
 - added RSS extensions Trackback and DublinCore
 
