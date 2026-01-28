@@ -28,7 +28,7 @@ final class Generator
     public ?Closure $dataSource = null;
     public int $shortenDescription = 150;
     public string $generator = "Nexendrie RSS";
-    public string $docs = "http://www.rssboard.org/rss-specification";
+    public string $docs = "https://www.rssboard.org/rss-specification";
     private string $template = __DIR__ . "/template.xml";
     /** @var RssExtensionsCollection|RssExtension[] */
     public RssExtensionsCollection $extensions;
