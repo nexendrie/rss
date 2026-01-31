@@ -3,8 +3,14 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Konecnyjakub\EventDispatcher\DebugEventDispatcher;
+use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
 use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
+use Nexendrie\Rss\Events\ChannelAfterGenerate;
+use Nexendrie\Rss\Events\ChannelBeforeGenerate;
+use Nexendrie\Rss\Events\ItemAdded;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
+use Psr\Log\NullLogger;
 use Tester\Assert;
 use Nexendrie\Rss\Extensions\TestExtension;
 
@@ -284,6 +290,33 @@ final class GeneratorTest extends \Tester\TestCase
             $info["$extensionName:$elementName"],
             (string) $result->channel->children($extensionNamespace, false)->$elementName
         );
+    }
+
+    public function testEvents(): void
+    {
+        $eventDispatcher = new DebugEventDispatcher(new DummyEventDispatcher(), new NullLogger());
+        $generator = new Generator($eventDispatcher);
+        $info = [
+            "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
+            "description" => "News for package nexendrie/rss",
+        ];
+        $generator->dataSource = static function () {
+            $items = new Collection();
+            $items[] = new RssChannelItem([
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123
+            ]);
+            $items[] = new RssChannelItem([
+                "title" => "Item 2", "description" => "Item 1 description", "link" => "", "pubDate" => 123
+            ]);
+            return $items;
+        };
+        $generator->generate($info);
+        Assert::true($eventDispatcher->dispatched(ChannelBeforeGenerate::class));
+        Assert::false($eventDispatcher->dispatched(ChannelBeforeGenerate::class, 2));
+        Assert::true($eventDispatcher->dispatched(ChannelAfterGenerate::class));
+        Assert::false($eventDispatcher->dispatched(ChannelAfterGenerate::class, 2));
+        Assert::true($eventDispatcher->dispatched(ItemAdded::class, 2));
+        Assert::false($eventDispatcher->dispatched(ItemAdded::class, 3));
     }
 }
 
