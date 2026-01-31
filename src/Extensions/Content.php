@@ -18,10 +18,6 @@ final class Content extends BaseExtension
         return "http://purl.org/rss/1.0/modules/content/";
     }
 
-    public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
-    {
-    }
-
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);

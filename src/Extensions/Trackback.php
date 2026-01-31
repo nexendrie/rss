@@ -22,10 +22,6 @@ final class Trackback extends BaseExtension
         return "http://madskills.com/public/xml/rss/module/trackback/";
     }
 
-    public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
-    {
-    }
-
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);

@@ -24,8 +24,4 @@ final class TestExtension extends BaseExtension
     {
         $this->registerElements($resolver);
     }
-
-    public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
-    {
-    }
 }

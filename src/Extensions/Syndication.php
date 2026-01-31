@@ -42,8 +42,4 @@ final class Syndication extends BaseExtension
         );
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_BASE), "string");
     }
-
-    public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
-    {
-    }
 }

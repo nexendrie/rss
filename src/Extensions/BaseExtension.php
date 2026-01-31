@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssExtension;
 use Nexendrie\Utils\Constants;
 use ReflectionClass;
@@ -13,6 +14,14 @@ abstract class BaseExtension implements RssExtension
     public function getName(): string
     {
         return strtolower((new ReflectionClass($this))->getShortName());
+    }
+
+    public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
+    {
+    }
+
+    public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
+    {
     }
 
     protected function getElementName(string $baseName): string
