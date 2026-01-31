@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use DateTime;
 use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
@@ -49,9 +50,9 @@ final class RssCore implements RssExtension
             "lastBuildDate",
             static function (Options $options, callable $value) use ($generator): GenericElement {
                 $value = call_user_func($value);
-                if (!$value instanceof \DateTime) {
+                if (!$value instanceof DateTime) {
                     throw new \InvalidArgumentException(
-                        "Callback for last build date for RSS generator has to return DateTime."
+                        "Callback for last build date for RSS generator has to return " . DateTime::class . "."
                     );
                 }
                 $value = $value->format($generator->dateTimeFormat);
@@ -73,9 +74,9 @@ final class RssCore implements RssExtension
             "pubDate",
             static function (Options $options, callable $value) use ($generator): GenericElement {
                 $value = call_user_func($value);
-                if (!$value instanceof \DateTime) {
+                if (!$value instanceof DateTime) {
                     throw new \InvalidArgumentException(
-                        "Callback for pub date for RSS generator has to return DateTime."
+                        "Callback for pub date for RSS generator has to return " . DateTime::class . "."
                     );
                 }
                 $value = $value->format($generator->dateTimeFormat);
@@ -123,10 +124,14 @@ final class RssCore implements RssExtension
         $resolver->setDefined([
             "pubDate", "author", "comments", "guid", "source", "categories", "enclosures",
         ]);
-        $resolver->setAllowedTypes("pubDate", "int");
-        $resolver->setNormalizer("pubDate", static function (Options $options, int $value) use ($generator): string {
-            return date($generator->dateTimeFormat, $value);
-        });
+        $resolver->setAllowedTypes("pubDate", DateTime::class);
+        $resolver->setNormalizer(
+            "pubDate",
+            static function (Options $options, DateTime $value) use ($generator): GenericElement {
+                $value = $value->format($generator->dateTimeFormat);
+                return new GenericElement("pubDate", $value);
+            }
+        );
         $resolver->setAllowedTypes("author", "string");
         $resolver->setAllowedTypes("comments", "string");
         $resolver->setAllowedTypes("guid", "string");

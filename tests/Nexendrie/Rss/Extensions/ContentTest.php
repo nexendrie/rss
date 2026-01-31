@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use DateTime;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
@@ -36,7 +37,7 @@ final class ContentTest extends \Tester\TestCase
         $generator->dataSource = static function () use ($extensionName, $elementName) {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
                 "$extensionName:$elementName" => "def",
             ]);
             return $collection;

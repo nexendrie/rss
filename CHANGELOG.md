@@ -1,5 +1,6 @@
 Version 0.14.0-dev
 - added RSS extension CreativeCommons
+- BC break: pubDate in items now has to be a DateTime
 
 Version 0.13.0
 - raised minimal version of PHP to 8.3

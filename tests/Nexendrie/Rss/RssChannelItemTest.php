@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use DateTime;
 use Tester\Assert;
 
 require __DIR__ . "/../../bootstrap.php";
@@ -16,7 +17,7 @@ final class RssChannelItemTest extends \Tester\TestCase
     public function testToXml(): void
     {
         $data = [
-            "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+            "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             "author" => "me@mysite.com", "comments" => "https://mysite.com/item/1/comments",
             "guid" => "https://mysite.com/item/1",
         ];
@@ -41,7 +42,7 @@ final class RssChannelItemTest extends \Tester\TestCase
         $generator = new Generator();
         $description = str_repeat("ABDEFGH", 20);
         $item = new RssChannelItem(
-            ["title" => "Item 1", "description" => $description, "link" => "", "pubDate" => 123,]
+            ["title" => "Item 1", "description" => $description, "link" => "", "pubDate" => new DateTime(),]
         );
 
         $xml = new \SimpleXMLElement("<test></test>");

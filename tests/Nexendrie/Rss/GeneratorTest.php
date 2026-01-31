@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use DateTime;
 use Konecnyjakub\EventDispatcher\DebugEventDispatcher;
 use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
 use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
@@ -65,7 +66,7 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -93,12 +94,12 @@ final class GeneratorTest extends \Tester\TestCase
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss",
-            "lastBuildDate" => static fn() => new \DateTime("2024-12-31"),
+            "lastBuildDate" => static fn() => new DateTime("2024-12-31"),
         ];
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -111,7 +112,7 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -136,7 +137,7 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -170,14 +171,14 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $items;
         };
         Assert::exception(function () use ($info) {
             $this->generator->generate($info);
         }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return DateTime.");
-        $info["pubDate"] = static fn() => new \DateTime("2024-12-31");
+        $info["pubDate"] = static fn() => new DateTime("2024-12-31");
         $result = new \SimpleXMLElement($this->generator->generate($info));
         Assert::same("2024/12/31", (string) $result->channel->pubDate);
     }
@@ -303,10 +304,10 @@ final class GeneratorTest extends \Tester\TestCase
         $generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             $items[] = new RssChannelItem([
-                "title" => "Item 2", "description" => "Item 1 description", "link" => "", "pubDate" => 123
+                "title" => "Item 2", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $items;
         };

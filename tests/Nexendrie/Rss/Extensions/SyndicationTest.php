@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use DateTime;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Extensions\Syndication\UpdatePeriod;
 use Nexendrie\Rss\Generator;
@@ -40,7 +41,7 @@ final class SyndicationTest extends \Tester\TestCase
         $generator->dataSource = static function () {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => 123,
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
             ]);
             return $collection;
         };

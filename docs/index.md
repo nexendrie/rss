@@ -25,15 +25,16 @@ Example:
 <?php
 declare(strict_types=1);
 
-use Nexendrie\Rss\Generator,
-    Nexendrie\Rss\RssChannelItem,
-    Nexendrie\Rss\Collection;
+use DateTime;
+use Nexendrie\Rss\Generator;
+use Nexendrie\Rss\RssChannelItem,
+use Nexendrie\Rss\Collection;
 
 $generator = new Generator();
 $generator->dataSource = function() use($generator) {
   $items = new Collection();
   $items[] = new RssChannelItem([
-    "title" => "Item 1", "description" => "Item 1 description", "link" => "https://nexendrie.cz/item1", "pubDate" => time()
+    "title" => "Item 1", "description" => "Item 1 description", "link" => "https://nexendrie.cz/item1", "pubDate" => new DateTime(),
   ]);
   return $items;
 };
