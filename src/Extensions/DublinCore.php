@@ -6,6 +6,9 @@ namespace Nexendrie\Rss\Extensions;
 use Nexendrie\Rss\Generator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @see https://web.resource.org/rss/1.0/modules/dc/
+ */
 class DublinCore extends BaseExtension
 {
     public const string ELEMENT_TITLE = "title";

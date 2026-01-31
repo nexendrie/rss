@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Slash
  *
  * @author Jakub Konečný
+ * @see https://web.resource.org/rss/1.0/modules/slash/
  */
 final class Slash extends BaseExtension
 {

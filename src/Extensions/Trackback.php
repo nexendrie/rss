@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Trackback
  *
  * @author Jakub Konečný
+ * @see https://www.rssboard.org/trackback
  */
 final class Trackback extends BaseExtension
 {

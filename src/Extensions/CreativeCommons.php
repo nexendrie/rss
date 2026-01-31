@@ -6,6 +6,9 @@ namespace Nexendrie\Rss\Extensions;
 use Nexendrie\Rss\Generator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @see https://www.rssboard.org/creative-commons
+ */
 class CreativeCommons extends BaseExtension
 {
     public const string ELEMENT_LICENSE = "license";
