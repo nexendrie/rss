@@ -13,27 +13,24 @@ use Nexendrie\Rss\InvalidRssExtensionException;
  * RssExtension for Nette DI Container
  *
  * @author Jakub Konečný
- * @method \stdClass getConfig()
+ * @method Config getConfig()
  */
 final class RssExtension extends CompilerExtension
 {
     /** @internal */
     public const string SERVICE_GENERATOR = "generator";
 
-    private function setProperty(ServiceDefinition &$generator, \stdClass $config, string $property): void
+    private function setProperty(ServiceDefinition &$generator, Config $config, string $property): void
     {
-        if ($config->$property !== "") {
-            $generator->addSetup('$service->' . $property . " = ?", [$config->$property]);
+        if ($config->$property !== "") { // @phpstan-ignore property.dynamicName
+            $generator->addSetup('$service->' . $property . " = ?", [$config->$property]); // @phpstan-ignore property.dynamicName
         }
     }
 
     public function getConfigSchema(): \Nette\Schema\Schema
     {
-        return Expect::structure([
-            "shortenDescription" => Expect::int(150),
-            "dateTimeFormat" => Expect::string(""),
-            "template" => Expect::string(""),
-            "extensions" => Expect::arrayOf("class")->default([]),
+        return Expect::from(new Config(), [
+            "extensions" => Expect::arrayOf("class"),
         ]);
     }
 
@@ -46,7 +43,6 @@ final class RssExtension extends CompilerExtension
             ->addSetup('$service->shortenDescription = ?', [$config->shortenDescription]);
         $this->setProperty($generator, $config, "dateTimeFormat");
         $this->setProperty($generator, $config, "template");
-        /** @var string $extension */
         foreach ($config->extensions as $index => $extension) {
             if (!class_exists($extension) || !is_subclass_of($extension, \Nexendrie\Rss\RssExtension::class)) {
                 throw new InvalidRssExtensionException("Invalid RSS extension $extension.");
