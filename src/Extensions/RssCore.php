@@ -11,6 +11,7 @@ use Nexendrie\Rss\EnclosuresCollection;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\GenericElement;
+use Nexendrie\Rss\Guid;
 use Nexendrie\Rss\Image;
 use Nexendrie\Rss\RssExtension;
 use Nexendrie\Rss\SkipDaysCollection;
@@ -134,7 +135,11 @@ final class RssCore implements RssExtension
         );
         $resolver->setAllowedTypes("author", "string");
         $resolver->setAllowedTypes("comments", "string");
-        $resolver->setAllowedTypes("guid", "string");
+        $resolver->setAllowedTypes("guid", ["string", Guid::class,]);
+        $resolver->addNormalizer(
+            "guid",
+            static fn(Options $options, string|Guid $value) => $value instanceof Guid ? $value : new Guid($value)
+        );
         $resolver->setAllowedTypes("source", Source::class);
         $resolver->setAllowedTypes("categories", CategoriesCollection::class);
         $resolver->setAllowedTypes("enclosures", EnclosuresCollection::class);

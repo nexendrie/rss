@@ -1,5 +1,5 @@
 A new version of Rss is out. It adds RSS extension CreativeCommons.
 
-pubDate in items now has to be a DateTime, it is for consistency with (return value of callbacks for) lastBuildDate and pubDate in channel.
+pubDate in items now has to be a DateTime, it is for consistency with (return value of callbacks for) lastBuildDate and pubDate in channel. It is now possible to set isPermaLink for item's guid.
 
 For complete list of changes since previous version, see CHANGELOG.md.
