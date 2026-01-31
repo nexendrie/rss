@@ -1,7 +1,7 @@
-/tests			export-ignore
-.git*			export-ignore
-composer.lock		export-ignore
-phpstan.neon    	export-ignore
+/tests              export-ignore
+.git*               export-ignore
+composer.lock       export-ignore
+phpstan.neon        export-ignore
 build.xml           export-ignore
 phpstan.neon        export-ignore
 /RELEASE_NOTES      export-ignore
