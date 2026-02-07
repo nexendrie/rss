@@ -1,51 +1,51 @@
 stages:
-  - test
-  - deploy
+    - test
+    - deploy
 
 .job_template: &test_job
-  stage: test
-  script:
-    - phing test
-  cache:
-    paths:
-      - vendor/
-  before_script:
-    - composer update --prefer-dist --no-progress --no-interaction
-  rules:
-    - if: $CI_COMMIT_BRANCH
+    stage: test
+    script:
+        - phing test
+    cache:
+        paths:
+            - vendor/
+    before_script:
+        - composer update --prefer-dist --no-progress --no-interaction
+    rules:
+        -   if: $CI_COMMIT_BRANCH
 
 test:php8.3:
-  <<: *test_job
-  image: nexendrie/php:8.3
+    <<: *test_job
+    image: nexendrie/php:8.3
 
 test:cc:
-  <<: *test_job
-  image: nexendrie/php:8.3
-  coverage: '/(\d+\%) covered/'
+    <<: *test_job
+    image: nexendrie/php:8.3
+    coverage: '/(\d+\%) covered/'
 
 pages:
-  stage: deploy
-  environment:
-    name: documentation
-    url: https://nexendrie.gitlab.io/rss
-  image: nexendrie/php:8.3
-  script:
-  - composer create-project --no-dev nexendrie/site-generator
-  - site-generator/bin/generate-site --source=docs --output=public
-  artifacts:
-      paths:
-      - public
-  only:
-  - tags@nexendrie/rss
+    stage: deploy
+    environment:
+        name: documentation
+        url: https://nexendrie.gitlab.io/rss
+    image: nexendrie/php:8.3
+    script:
+        - composer create-project --no-dev nexendrie/site-generator
+        - site-generator/bin/generate-site --source=docs --output=public
+    artifacts:
+        paths:
+            - public
+    only:
+        - tags@nexendrie/rss
 
 release:
-  stage: deploy
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
-  rules:
-    - if: $CI_COMMIT_TAG
-  script:
-    - echo "Creating GitLab release"
-  release:
-    tag_name: $CI_COMMIT_TAG
-    name: "Version $CI_COMMIT_TAG"
-    description: "./RELEASE_NOTES"
+    stage: deploy
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    rules:
+        -   if: $CI_COMMIT_TAG
+    script:
+        - echo "Creating GitLab release"
+    release:
+        tag_name: $CI_COMMIT_TAG
+        name: "Version $CI_COMMIT_TAG"
+        description: "./RELEASE_NOTES"
