@@ -56,7 +56,7 @@ final class Cloud implements XmlConvertible
         $this->path = $path;
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("cloud");
         $element->addAttribute("domain", $this->domain);

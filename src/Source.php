@@ -14,7 +14,7 @@ final class Source extends \stdClass implements XmlConvertible
     {
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         if ($this->url !== "") {
             $element = $parent->addChild("source", $this->title);

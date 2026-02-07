@@ -10,5 +10,5 @@ namespace Nexendrie\Rss;
  */
 interface XmlConvertible
 {
-    public function appendToXml(\SimpleXMLElement &$parent): void;
+    public function appendToXml(\SimpleXMLElement $parent): void;
 }

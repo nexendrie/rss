@@ -18,7 +18,7 @@ final class TextInput implements XmlConvertible
     ) {
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("textInput");
         $element->addChild("title", $this->title);

@@ -25,7 +25,7 @@ final class SkipHoursCollection implements XmlConvertible
         $this->hours = $hours;
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("skipHours");
         array_walk($this->hours, static function (string $value) use ($element): void {

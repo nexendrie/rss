@@ -14,7 +14,7 @@ final class Category implements XmlConvertible
     {
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $categoryElement = $parent->addChild("category", $this->identifier);
         if ($this->domain !== "") {

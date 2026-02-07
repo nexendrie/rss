@@ -14,7 +14,7 @@ final class Enclosure implements XmlConvertible
     {
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $enclosureElement = $parent->addChild("enclosure");
         $enclosureElement->addAttribute("url", $this->url);

@@ -22,7 +22,7 @@ final class SkipDaysCollection implements XmlConvertible
         $this->days = array_unique($days);
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("skipDays");
         array_walk($this->days, static function (string $value) use ($element): void {

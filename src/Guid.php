@@ -9,7 +9,7 @@ final class Guid implements XmlConvertible
     {
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("guid", $this->value);
         if ($this->permalink !== null) {

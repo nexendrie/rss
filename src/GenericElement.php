@@ -14,7 +14,7 @@ final class GenericElement implements XmlConvertible
     {
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         if (is_array($this->value)) {
             foreach ($this->value as $item) {

@@ -47,7 +47,7 @@ final class Image implements XmlConvertible
         $this->height = Numbers::clamp($height, 0, 400);
     }
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("image");
         $element->addChild("url", $this->url);

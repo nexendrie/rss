@@ -14,7 +14,7 @@ final class EnclosuresCollection extends BaseCollection implements XmlConvertibl
 {
     protected string $class = Enclosure::class;
 
-    public function appendToXml(\SimpleXMLElement &$parent): void
+    public function appendToXml(\SimpleXMLElement $parent): void
     {
         // @phpstan-ignore argument.type
         array_walk($this->items, static function (Enclosure $value) use ($parent): void {
