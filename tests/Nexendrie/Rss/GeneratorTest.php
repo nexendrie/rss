@@ -10,6 +10,8 @@ use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
 use Nexendrie\Rss\Events\ChannelAfterGenerate;
 use Nexendrie\Rss\Events\ChannelBeforeGenerate;
 use Nexendrie\Rss\Events\ItemAdded;
+use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
+use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Psr\Log\NullLogger;
 use Tester\Assert;
@@ -186,9 +188,9 @@ final class GeneratorTest extends \Tester\TestCase
     public function testOptionalThings(): void
     {
         $info = [
-            "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/", "language" => "en",
-            "description" => "News for package nexendrie/rss", "copyright" => "Copyright 2019, Abc",
-            "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
+            "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
+            "language" => RssLanguage::English, "description" => "News for package nexendrie/rss",
+            "copyright" => "Copyright 2019, Abc", "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
             "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
             "skipDays" => [SkipDay::Monday, SkipDay::Monday, SkipDay::Sunday,], "skipHours" => [1, 1, 10],
             "image" => new Image("url", "title", "description"),
@@ -202,7 +204,7 @@ final class GeneratorTest extends \Tester\TestCase
         Assert::same($docs, $this->generator->docs);
 
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same($info["language"], (string) $result->channel->language);
+        Assert::same($info["language"]->value, (string) $result->channel->language);
         Assert::same($info["copyright"], (string) $result->channel->copyright);
         Assert::same($info["managingEditor"], (string) $result->channel->managingEditor);
         Assert::same($info["webMaster"], (string) $result->channel->webMaster);
@@ -231,9 +233,11 @@ final class GeneratorTest extends \Tester\TestCase
 
         $this->generator->generator = "";
         $this->generator->docs = "";
+        $info["language"] = Iso639Language::English;
         $result = new \SimpleXMLElement($this->generator->generate($info));
         Assert::same("", (string) $result->channel->generator);
         Assert::same("", (string) $result->channel->docs);
+        Assert::same($info["language"]->value, (string) $result->channel->language);
     }
 
     public function testCategories(): void

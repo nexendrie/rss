@@ -3,6 +3,7 @@ Version 0.14.0-dev
 - BC break: pubDate in items now has to be a DateTime
 - added support for isPermaLink for item's guid
 - BC break: parameter $parent of method XmlConvertible::appendToXml is no longer taken by reference
+- BC break: language now has to be an enum Nexendrie\Rss\Extensions\RssCore\Iso639Language or Nexendrie\Rss\Extensions\RssCore\RssLanguage
 
 Version 0.13.0
 - raised minimal version of PHP to 8.3

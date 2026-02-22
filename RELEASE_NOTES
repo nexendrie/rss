@@ -2,6 +2,8 @@ A new version of Rss is out. It adds RSS extension CreativeCommons.
 
 pubDate in items now has to be a DateTime, it is for consistency with (return value of callbacks for) lastBuildDate and pubDate in channel. It is now possible to set isPermaLink for item's guid.
 
+language now has to be an enum Nexendrie\Rss\Extensions\RssCore\Iso639Language or Nexendrie\Rss\Extensions\RssCore\RssLanguage.
+
 Parameter $parent of method XmlConvertible::appendToXml is no longer taken by reference, it was not necessary.
 
 For complete list of changes since previous version, see CHANGELOG.md.

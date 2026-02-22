@@ -8,6 +8,8 @@ use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\EnclosuresCollection;
+use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
+use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\GenericElement;
@@ -64,7 +66,11 @@ final class RssCore implements RssExtension
             "language", "copyright", "managingEditor", "webMaster", "ttl", "pubDate", "rating", "categories",
             "skipDays", "skipHours", "image", "cloud", "textInput",
         ]);
-        $resolver->setAllowedTypes("language", "string");
+        $resolver->setAllowedTypes("language", [Iso639Language::class, RssLanguage::class,]);
+        $resolver->setNormalizer(
+            "language",
+            static fn(Options $options, Iso639Language|RssLanguage $value) => $value->value
+        );
         $resolver->setAllowedTypes("copyright", "string");
         $resolver->setAllowedTypes("managingEditor", "string");
         $resolver->setAllowedTypes("webMaster", "string");
