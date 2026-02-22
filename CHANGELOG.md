@@ -1,4 +1,4 @@
-Version 0.14.0-dev
+Version 0.14.0
 - added RSS extension CreativeCommons
 - BC break: pubDate in items now has to be a DateTime
 - added support for isPermaLink for item's guid
