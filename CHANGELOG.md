@@ -1,5 +1,5 @@
 Version 0.15.0-dev
-- added RSS extension Comment API
+- added RSS extensions Comment API and blogChannel
 - only first letter is now changed to lower case in BaseExtension::getName()
 
 Version 0.14.0
