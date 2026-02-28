@@ -40,12 +40,25 @@ abstract class BaseExtension implements RssExtension
         return [];
     }
 
+    /**
+     * @return list<string>
+     */
+    protected function getRequiredElements(): array
+    {
+        return [];
+    }
+
     protected function registerElements(OptionsResolver $resolver): void
     {
         $elements = Constants::getConstantsValues(static::class, "ELEMENT_");
+        $requiredElements = $this->getRequiredElements();
         $elementTypes = $this->getElementTypes();
-        array_walk($elements, function (string $value) use ($resolver, $elementTypes): void {
-            $resolver->setDefined($this->getElementName($value));
+        array_walk($elements, function (string $value) use ($resolver, $elementTypes, $requiredElements): void {
+            if (in_array($value, $requiredElements, true)) {
+                $resolver->setRequired($this->getElementName($value));
+            } else {
+                $resolver->setDefined($this->getElementName($value));
+            }
             if (array_key_exists($value, $elementTypes)) {
                 $elementType = $elementTypes[$value];
                 $resolver->setAllowedTypes($this->getElementName($value), $elementType);

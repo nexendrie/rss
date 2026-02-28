@@ -11,6 +11,7 @@ use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
 use ReflectionMethod;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tester\Assert;
 
@@ -201,6 +202,78 @@ final class BaseExtensionTest extends \Tester\TestCase
         $namespaces = $result->getNamespaces(true);
         Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
         Assert::same("en", (string) $result->channel->item->children($extension->getNamespace())->abc);
+    }
+
+    public function testRequiredElement(): void
+    {
+        $extension = new class extends BaseExtension {
+            public const string ELEMENT_ABC = "abc";
+
+            public function getName(): string
+            {
+                return "test";
+            }
+
+            public function getNamespace(): string
+            {
+                return "https://example.com/rss/test/";
+            }
+
+            protected function getElementTypes(): array
+            {
+                return [
+                    self::ELEMENT_ABC => "string",
+                ];
+            }
+
+            protected function getRequiredElements(): array
+            {
+                return [
+                    self::ELEMENT_ABC,
+                ];
+            }
+
+            public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
+            {
+                $this->registerElements($resolver);
+            }
+        };
+        $generator = new Generator();
+        $generator->extensions[] = $extension;
+        $info = [
+            "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
+            "description" => "News for package nexendrie/rss",
+        ];
+        $generator->dataSource = static function () {
+            $collection = new Collection();
+            $collection[] = new RssChannelItem([
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "test:abc" => "def",
+            ]);
+            return $collection;
+        };
+        $result = $generator->generate($info);
+        Assert::type("string", $result);
+        $result = new \SimpleXMLElement($result);
+        $namespaces = $result->getNamespaces(true);
+        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
+        Assert::same("def", (string) $result->channel->item->children($extension->getNamespace())->abc);
+
+        Assert::exception(
+            static function () use ($generator, $info) {
+                $generator->dataSource = static function () {
+                    $collection = new Collection();
+                    $collection[] = new RssChannelItem([
+                        "title" => "Item 1", "description" => "Item 1 description", "link" => "",
+                        "pubDate" => new DateTime(),
+                    ]);
+                    return $collection;
+                };
+                $generator->generate($info);
+            },
+            MissingOptionsException::class,
+            'The required option "test:abc" is missing.'
+        );
     }
 }
 
