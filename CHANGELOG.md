@@ -1,5 +1,6 @@
 Version 0.15.0-dev
 - added RSS extensions Comment API and blogChannel
+- BaseElement::registerElements() can now set elements' types, normalize enum values and mark elements as required
 - only first letter is now changed to lower case in BaseExtension::getName()
 
 Version 0.14.0
