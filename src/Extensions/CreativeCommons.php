@@ -13,11 +13,6 @@ class CreativeCommons extends BaseExtension
 {
     public const string ELEMENT_LICENSE = "license";
 
-    public function getName(): string
-    {
-        return "creativeCommons";
-    }
-
     public function getNamespace(): string
     {
         return "http://backend.userland.com/creativeCommonsRssModule";

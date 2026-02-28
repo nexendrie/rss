@@ -1,5 +1,6 @@
 Version 0.15.0-dev
 - added RSS extension Comment API
+- only first letter is now changed to lower case in BaseExtension::getName()
 
 Version 0.14.0
 - added RSS extension CreativeCommons

@@ -13,7 +13,7 @@ abstract class BaseExtension implements RssExtension
 {
     public function getName(): string
     {
-        return strtolower((new ReflectionClass($this))->getShortName());
+        return lcfirst((new ReflectionClass($this))->getShortName());
     }
 
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
