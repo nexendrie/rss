@@ -27,19 +27,25 @@ final class Syndication extends BaseExtension
         return "http://purl.org/rss/1.0/modules/syndication/";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_UPDATE_PERIOD => UpdatePeriod::class,
+            self::ELEMENT_UPDATE_FREQUENCY => "int",
+            self::ELEMENT_UPDATE_BASE => "string",
+        ];
+    }
+
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_PERIOD), UpdatePeriod::class);
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_UPDATE_PERIOD),
             static fn(Options $options, UpdatePeriod $value): string => $value->value
         );
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_FREQUENCY), "int");
         $resolver->setAllowedValues(
             $this->getElementName(self::ELEMENT_UPDATE_FREQUENCY),
             static fn(int $value): bool => ($value >= 1)
         );
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_UPDATE_BASE), "string");
     }
 }

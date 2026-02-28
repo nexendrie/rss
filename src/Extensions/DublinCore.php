@@ -37,43 +37,34 @@ class DublinCore extends BaseExtension
         return "http://purl.org/dc/elements/1.1/";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_TITLE => "string",
+            self::ELEMENT_CREATOR => "string",
+            self::ELEMENT_SUBJECT => "string",
+            self::ELEMENT_DESCRIPTION => "string",
+            self::ELEMENT_PUBLISHER => "string",
+            self::ELEMENT_CONTRIBUTOR => "string",
+            self::ELEMENT_DATE => "string",
+            self::ELEMENT_TYPE => "string",
+            self::ELEMENT_FORMAT => "string",
+            self::ELEMENT_IDENTIFIER => "string",
+            self::ELEMENT_SOURCE => "string",
+            self::ELEMENT_LANGUAGE => "string",
+            self::ELEMENT_RELATION => "string",
+            self::ELEMENT_COVERAGE => "string",
+            self::ELEMENT_RIGHTS => "string",
+        ];
+    }
+
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_TITLE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CREATOR), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_SUBJECT), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_DESCRIPTION), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_PUBLISHER), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CONTRIBUTOR), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_DATE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_TYPE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_FORMAT), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_IDENTIFIER), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_SOURCE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_LANGUAGE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_RELATION), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_COVERAGE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_RIGHTS), "string");
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_TITLE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CREATOR), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_SUBJECT), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_DESCRIPTION), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_PUBLISHER), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CONTRIBUTOR), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_DATE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_TYPE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_FORMAT), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_IDENTIFIER), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_SOURCE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_LANGUAGE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_RELATION), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_COVERAGE), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_RIGHTS), "string");
     }
 }

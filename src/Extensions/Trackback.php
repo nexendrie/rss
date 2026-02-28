@@ -22,10 +22,16 @@ final class Trackback extends BaseExtension
         return "http://madskills.com/public/xml/rss/module/trackback/";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_ABOUT => "string",
+            self::ELEMENT_PING => "string",
+        ];
+    }
+
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_ABOUT), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_PING), "string");
     }
 }

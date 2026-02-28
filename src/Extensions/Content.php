@@ -18,9 +18,15 @@ final class Content extends BaseExtension
         return "http://purl.org/rss/1.0/modules/content/";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_ENCODED => "string",
+        ];
+    }
+
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_ENCODED), "string");
     }
 }

@@ -23,15 +23,20 @@ class CreativeCommons extends BaseExtension
         return "http://backend.userland.com/creativeCommonsRssModule";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_LICENSE => "string[]",
+        ];
+    }
+
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_LICENSE), "string[]");
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_LICENSE), "string[]");
     }
 }

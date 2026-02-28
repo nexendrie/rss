@@ -29,11 +29,23 @@ abstract class BaseExtension implements RssExtension
         return $this->getName() . ":" . $baseName;
     }
 
+    /**
+     * @return array<string, string|string[]>
+     */
+    protected function getElementTypes(): array
+    {
+        return [];
+    }
+
     protected function registerElements(OptionsResolver $resolver): void
     {
         $elements = Constants::getConstantsValues(static::class, "ELEMENT_");
-        array_walk($elements, function (string $value) use ($resolver): void {
+        $elementTypes = $this->getElementTypes();
+        array_walk($elements, function (string $value) use ($resolver, $elementTypes): void {
             $resolver->setDefined($this->getElementName($value));
+            if (array_key_exists($value, $elementTypes)) {
+                $resolver->setAllowedTypes($this->getElementName($value), $elementTypes[$value]);
+            }
         });
     }
 }

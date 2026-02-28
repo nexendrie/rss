@@ -24,13 +24,19 @@ final class Slash extends BaseExtension
         return "http://purl.org/rss/1.0/modules/slash/";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_SECTION => "string",
+            self::ELEMENT_DEPARTMENT => "string",
+            self::ELEMENT_COMMENTS => "int",
+            self::ELEMENT_HIT_PARADE => "string",
+        ];
+    }
+
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_SECTION), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_DEPARTMENT), "string");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_COMMENTS), "int");
-        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_HIT_PARADE), "string");
         $resolver->setAllowedValues(
             $this->getElementName(self::ELEMENT_HIT_PARADE),
             static fn(string $value): bool => (preg_match('#^\d(,\d)*$#', $value) === 1)
