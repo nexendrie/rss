@@ -1,3 +1,6 @@
+Version 0.15.0-dev
+- added RSS extension Comment API
+
 Version 0.14.0
 - added RSS extension CreativeCommons
 - BC break: pubDate in items now has to be a DateTime
