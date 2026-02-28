@@ -23,7 +23,8 @@ final class RssExtension extends CompilerExtension
     private function setProperty(ServiceDefinition &$generator, Config $config, string $property): void
     {
         if ($config->$property !== "") { // @phpstan-ignore property.dynamicName
-            $generator->addSetup('$service->' . $property . " = ?", [$config->$property]); // @phpstan-ignore property.dynamicName
+            // @phpstan-ignore property.dynamicName
+            $generator->addSetup('$service->' . $property . " = ?", [$config->$property]);
         }
     }
 
