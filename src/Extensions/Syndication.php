@@ -39,10 +39,6 @@ final class Syndication extends BaseExtension
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setNormalizer(
-            $this->getElementName(self::ELEMENT_UPDATE_PERIOD),
-            static fn(Options $options, UpdatePeriod $value): string => $value->value
-        );
         $resolver->setAllowedValues(
             $this->getElementName(self::ELEMENT_UPDATE_FREQUENCY),
             static fn(int $value): bool => ($value >= 1)

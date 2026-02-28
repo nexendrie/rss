@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use BackedEnum;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssExtension;
 use Nexendrie\Utils\Constants;
 use ReflectionClass;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use UnitEnum;
 
 abstract class BaseExtension implements RssExtension
 {
@@ -44,8 +47,23 @@ abstract class BaseExtension implements RssExtension
         array_walk($elements, function (string $value) use ($resolver, $elementTypes): void {
             $resolver->setDefined($this->getElementName($value));
             if (array_key_exists($value, $elementTypes)) {
-                $resolver->setAllowedTypes($this->getElementName($value), $elementTypes[$value]);
+                $elementType = $elementTypes[$value];
+                $resolver->setAllowedTypes($this->getElementName($value), $elementType);
+                if (is_string($elementType) && $this->isEnumType($elementType)) {
+                    $resolver->setNormalizer(
+                        $this->getElementName($value),
+                        static function (Options $options, UnitEnum $value): string {
+                            return $value instanceof BackedEnum ? (string) $value->value : $value->name;
+                        }
+                    );
+                }
             }
         });
+    }
+
+    private function isEnumType(string $type): bool
+    {
+        $builtInTypes = ["string", "int", "float", "array", "bool", "array", "null", "callable",];
+        return !in_array($type, $builtInTypes, true) && !str_ends_with($type, "[]") && enum_exists($type);
     }
 }
