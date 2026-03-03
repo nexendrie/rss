@@ -16,12 +16,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * RSS Channel Generator
  *
  * @author Jakub Konečný
- * @property string $template
  */
 final class Generator
 {
-    use \Nette\SmartObject;
-
     private const string NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
 
     public string $dateTimeFormat = "r";
@@ -29,29 +26,13 @@ final class Generator
     public int $shortenDescription = 150;
     public string $generator = "Nexendrie RSS";
     public string $docs = "https://www.rssboard.org/rss-specification";
-    private string $template = __DIR__ . "/template.xml";
+    public string $template = __DIR__ . "/template.xml";
     /** @var RssExtensionsCollection|RssExtension[] */
     public RssExtensionsCollection $extensions;
 
     public function __construct(private readonly ?EventDispatcherInterface $eventDispatcher = null)
     {
         $this->extensions = RssExtensionsCollection::fromArray([new RssCore()]);
-    }
-
-    protected function getTemplate(): string
-    {
-        return $this->template;
-    }
-
-    /**
-     * @throws \RuntimeException
-     */
-    protected function setTemplate(string $template): void
-    {
-        if (!is_file($template) || !is_readable($template)) {
-            throw new \RuntimeException("File $template does not exist or is not readable.");
-        }
-        $this->template = $template;
     }
 
     /**
