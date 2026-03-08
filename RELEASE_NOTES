@@ -1,3 +1,3 @@
-A new version of Rss is out.
+A new version of Rss is out. lastBuildDate and pubDate for channel now have be to Closure (use anonymous function, arrow function or first class callable syntax).
 
 For complete list of changes since previous version, see CHANGELOG.md.

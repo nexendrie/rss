@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use Closure;
 use DateTime;
 use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
@@ -47,12 +48,12 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("title", "string");
         $resolver->setAllowedTypes("description", "string");
         $resolver->setAllowedTypes("link", "string");
-        $resolver->setAllowedTypes("lastBuildDate", "callable");
+        $resolver->setAllowedTypes("lastBuildDate", Closure::class);
         $resolver->setDefault("lastBuildDate", date_create(...));
         $resolver->setNormalizer(
             "lastBuildDate",
-            static function (Options $options, callable $value) use ($generator): GenericElement {
-                $value = call_user_func($value);
+            static function (Options $options, Closure $value) use ($generator): GenericElement {
+                $value = $value();
                 if (!$value instanceof DateTime) {
                     throw new \InvalidArgumentException(
                         "Callback for last build date for RSS generator has to return " . DateTime::class . "."
@@ -76,11 +77,11 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("webMaster", "string");
         $resolver->setAllowedTypes("ttl", "int");
         $resolver->setAllowedValues("ttl", static fn(int $value): bool => ($value >= 0));
-        $resolver->setAllowedTypes("pubDate", "callable");
+        $resolver->setAllowedTypes("pubDate", Closure::class);
         $resolver->setNormalizer(
             "pubDate",
-            static function (Options $options, callable $value) use ($generator): GenericElement {
-                $value = call_user_func($value);
+            static function (Options $options, Closure $value) use ($generator): GenericElement {
+                $value = $value();
                 if (!$value instanceof DateTime) {
                     throw new \InvalidArgumentException(
                         "Callback for pub date for RSS generator has to return " . DateTime::class . "."
