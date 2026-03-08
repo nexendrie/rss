@@ -69,7 +69,7 @@ final class RssCore implements RssExtension
         );
         $resolver->setDefined([
             "language", "copyright", "managingEditor", "webMaster", "ttl", "pubDate", "rating", "categories",
-            "skipDays", "skipHours", "image", "cloud", "textInput",
+            "skipDays", "skipHours", "image", "cloud", "textInput", "docs", "generator",
         ]);
         $resolver->setAllowedTypes("language", [Iso639Language::class, RssLanguage::class,]);
         $resolver->setNormalizer(
@@ -124,6 +124,9 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("image", Image::class);
         $resolver->setAllowedTypes("cloud", Cloud::class);
         $resolver->setAllowedTypes("textInput", TextInput::class);
+        $resolver->setAllowedTypes("docs", "string");
+        $resolver->setAllowedValues("docs", (new Url())->getValidator());
+        $resolver->setAllowedTypes("generator", "string");
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void

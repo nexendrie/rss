@@ -93,6 +93,12 @@ final class Generator
         foreach ($this->extensions as $extension) {
             $extension->configureChannelOptions($resolver, $this);
         }
+        if ($this->docs !== "") {
+            $info["docs"] = $this->docs;
+        }
+        if ($this->generator !== "") {
+            $info["generator"] = $this->generator;
+        }
         $info = $resolver->resolve($info);
         /** @var \SimpleXMLElement $channel */
         $channel = simplexml_load_file($this->template);
@@ -107,12 +113,6 @@ final class Generator
         $properties = $resolver->getDefinedOptions();
         foreach ($properties as $property) {
             $this->writeProperty($channel, $info, $property);
-        }
-        if ($this->generator !== "") {
-            $channel->channel->generator = $this->generator;
-        }
-        if ($this->docs !== "") {
-            $channel->channel->docs = $this->docs;
         }
         /** @var RssChannelItem $item */
         foreach ($items as $item) {

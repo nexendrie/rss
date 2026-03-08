@@ -55,6 +55,8 @@ final class GeneratorTest extends \Tester\TestCase
         $result = new \SimpleXMLElement($result);
         Assert::same("Test", (string) $result->channel->title);
         Assert::same("Test RSS Channel", (string) $result->channel->description);
+        Assert::same($this->generator->docs, (string) $result->channel->docs);
+        Assert::same($this->generator->generator, (string) $result->channel->generator);
         Assert::same("", (string) $result->channel->pubDate);
         Assert::same(0, $this->countItems($result));
     }
@@ -79,6 +81,8 @@ final class GeneratorTest extends \Tester\TestCase
         Assert::same($info["title"], (string) $result->channel->title);
         Assert::same($info["description"], (string) $result->channel->description);
         Assert::same($info["link"], (string) $result->channel->link);
+        Assert::same($this->generator->docs, (string) $result->channel->docs);
+        Assert::same($this->generator->generator, (string) $result->channel->generator);
         Assert::same(1, $this->countItems($result));
         Assert::type("string", (string) $result->channel->lastBuidDate);
         Assert::same("", (string) $result->channel->pubDate);
