@@ -48,7 +48,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("description", "string");
         $resolver->setAllowedTypes("link", "string");
         $resolver->setAllowedTypes("lastBuildDate", "callable");
-        $resolver->setDefault("lastBuildDate", "date_create");
+        $resolver->setDefault("lastBuildDate", date_create(...));
         $resolver->setNormalizer(
             "lastBuildDate",
             static function (Options $options, callable $value) use ($generator): GenericElement {
