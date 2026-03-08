@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @see https://www.rssboard.org/creative-commons
+ * @see http://backend.userland.com/creativeCommonsRssModule
  */
 class CreativeCommons extends BaseExtension
 {
