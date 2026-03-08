@@ -11,6 +11,7 @@ enum SimpleElementType: string
     case Boolean = "bool";
     case Callable = "callable";
     case Null = "null";
+    case Object = "object";
     case Mixed = "mixed";
     case Array = "array";
     case ArrayOfStrings = "string[]";
@@ -19,5 +20,6 @@ enum SimpleElementType: string
     case ArrayOfBooleans = "bool[]";
     case ArrayOfCallables = "callable[]";
     case ArrayOfNulls = "null[]";
+    case ArrayOfObjects = "object[]";
     case ArrayOfArrays = "array[]";
 }

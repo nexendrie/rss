@@ -120,7 +120,7 @@ abstract class BaseExtension implements RssExtension
 
     private function isEnumType(string $type): bool
     {
-        $builtInTypes = ["string", "int", "float", "array", "bool", "null", "callable",];
+        $builtInTypes = ["string", "int", "float", "array", "bool", "null", "callable", "object", "mixed",];
         return !in_array($type, $builtInTypes, true) && !str_ends_with($type, "[]") && enum_exists($type);
     }
 }
