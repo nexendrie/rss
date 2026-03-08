@@ -11,6 +11,7 @@ use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\EnclosuresCollection;
 use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
+use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
@@ -50,6 +51,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("title", "string");
         $resolver->setAllowedTypes("description", "string");
         $resolver->setAllowedTypes("link", "string");
+        $resolver->setAllowedValues("link", (new Url())->getValidator());
         $resolver->setAllowedTypes("lastBuildDate", Closure::class);
         $resolver->setDefault("lastBuildDate", date_create(...));
         $resolver->setNormalizer(
@@ -133,6 +135,7 @@ final class RssCore implements RssExtension
             return $this->shortenDescription($value, $generator->shortenDescription);
         });
         $resolver->setAllowedTypes("link", "string");
+        $resolver->setAllowedValues("link", (new Url())->getValidator());
         $resolver->setDefined([
             "pubDate", "author", "comments", "guid", "source", "categories", "enclosures",
         ]);
@@ -147,6 +150,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("author", "string");
         $resolver->setAllowedValues("author", (new EmailAddress())->getValidator());
         $resolver->setAllowedTypes("comments", "string");
+        $resolver->setAllowedValues("comments", (new Url())->getValidator());
         $resolver->setAllowedTypes("guid", ["string", Guid::class,]);
         $resolver->addNormalizer(
             "guid",

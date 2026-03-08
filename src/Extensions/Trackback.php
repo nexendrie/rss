@@ -25,8 +25,8 @@ final class Trackback extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_ABOUT => "string",
-            self::ELEMENT_PING => "string",
+            self::ELEMENT_ABOUT => "url",
+            self::ELEMENT_PING => "url",
         ];
     }
 

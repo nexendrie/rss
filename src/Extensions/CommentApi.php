@@ -27,8 +27,8 @@ final class CommentApi extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_COMMENT => "string",
-            self::ELEMENT_COMMENT_RSS => "string",
+            self::ELEMENT_COMMENT => "url",
+            self::ELEMENT_COMMENT_RSS => "url",
         ];
     }
 

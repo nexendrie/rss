@@ -3,6 +3,7 @@ Version 0.16.0-dev
 - BaseElement::registerElements() can now special (including user defined) types
 - possible BC break: Source no longer extends stdClass
 - added validation for e-mail address for channel's managingEditor and webMaster and item's author
+- added validation for url
 
 Version 0.15.1
 - fixed isPermaLink attribute name for element guid

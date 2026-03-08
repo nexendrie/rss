@@ -9,6 +9,7 @@ use Nexendrie\Rss\Extensions\ElementTypes\NegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonPositiveInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\PositiveInteger;
+use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssExtension;
 use Nexendrie\Utils\Constants;
@@ -115,6 +116,7 @@ abstract class BaseExtension implements RssExtension
             new NonNegativeInteger(),
             new NonPositiveInteger(),
             new EmailAddress(),
+            new Url(),
         ];
     }
 

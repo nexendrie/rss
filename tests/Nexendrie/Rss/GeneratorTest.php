@@ -68,7 +68,8 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -101,7 +102,8 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -114,7 +116,8 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -139,7 +142,8 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -173,7 +177,8 @@ final class GeneratorTest extends \Tester\TestCase
         $this->generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $items;
         };
@@ -309,10 +314,12 @@ final class GeneratorTest extends \Tester\TestCase
         $generator->dataSource = static function () {
             $items = new Collection();
             $items[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             $items[] = new RssChannelItem([
-                "title" => "Item 2", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 2", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $items;
         };

@@ -38,8 +38,9 @@ final class DublinCoreTest extends \Tester\TestCase
         $generator->dataSource = static function () use ($extensionName, $elementName1, $elementName2) {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
-                "$extensionName:$elementName1" => "abc", "$extensionName:$elementName2" => "def",
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(), "$extensionName:$elementName1" => "abc",
+                "$extensionName:$elementName2" => "def",
             ]);
             return $collection;
         };

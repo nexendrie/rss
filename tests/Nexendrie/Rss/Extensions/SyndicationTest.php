@@ -41,7 +41,8 @@ final class SyndicationTest extends \Tester\TestCase
         $generator->dataSource = static function () {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(),
             ]);
             return $collection;
         };

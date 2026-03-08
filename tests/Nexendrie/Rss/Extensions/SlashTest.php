@@ -40,9 +40,10 @@ final class SlashTest extends \Tester\TestCase
         $generator->dataSource = static function () use ($extensionName, $elementName1, $elementName2, $elementName3, $elementName4) {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
-                "$extensionName:$elementName1" => "abc", "$extensionName:$elementName2" => "def",
-                "$extensionName:$elementName3" => 1, "$extensionName:$elementName4" => "1,2,3",
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(), "$extensionName:$elementName1" => "abc",
+                "$extensionName:$elementName2" => "def", "$extensionName:$elementName3" => 1,
+                "$extensionName:$elementName4" => "1,2,3",
             ]);
             return $collection;
         };

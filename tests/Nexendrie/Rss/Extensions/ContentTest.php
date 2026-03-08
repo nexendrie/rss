@@ -37,8 +37,8 @@ final class ContentTest extends \Tester\TestCase
         $generator->dataSource = static function () use ($extensionName, $elementName) {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
-                "$extensionName:$elementName" => "def",
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(), "$extensionName:$elementName" => "def",
             ]);
             return $collection;
         };

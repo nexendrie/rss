@@ -38,8 +38,9 @@ final class BlogChannelTest extends \Tester\TestCase
         $generator->dataSource = static function () use ($extensionName, $elementName1, $elementName2) {
             $collection = new Collection();
             $collection[] = new RssChannelItem([
-                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
-                "$extensionName:$elementName1" => "abc", "$extensionName:$elementName2" => "def",
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
+                "pubDate" => new DateTime(), "$extensionName:$elementName1" => "https://example.com/blogRoll.opml",
+                "$extensionName:$elementName2" => "https://example.com/user/1/subscriptions.opml",
             ]);
             return $collection;
         };
@@ -48,8 +49,14 @@ final class BlogChannelTest extends \Tester\TestCase
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
         Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same("abc", (string) $result->channel->item->children($extensionNamespace, false)->$elementName1);
-        Assert::same("def", (string) $result->channel->item->children($extensionNamespace, false)->$elementName2);
+        Assert::same(
+            "https://example.com/blogRoll.opml",
+            (string) $result->channel->item->children($extensionNamespace)->$elementName1
+        );
+        Assert::same(
+            "https://example.com/user/1/subscriptions.opml",
+            (string) $result->channel->item->children($extensionNamespace)->$elementName2
+        );
     }
 }
 

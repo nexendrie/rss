@@ -24,10 +24,10 @@ final class BlogChannel extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_BLOG_ROLL => "string",
-            self::ELEMENT_MY_SUBSCRIPTIONS => "string",
-            self::ELEMENT_BLINK => "string",
-            self::ELEMENT_CHANGES => "string",
+            self::ELEMENT_BLOG_ROLL => "url",
+            self::ELEMENT_MY_SUBSCRIPTIONS => "url",
+            self::ELEMENT_BLINK => "url",
+            self::ELEMENT_CHANGES => "url",
         ];
     }
 
