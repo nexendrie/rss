@@ -1,4 +1,4 @@
-Version 0.15.0+dev
+Version 0.15.1
 - fixed isPermaLink attribute name for element guid
 
 Version 0.15.0
