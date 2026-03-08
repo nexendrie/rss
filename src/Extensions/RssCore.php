@@ -9,6 +9,7 @@ use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\EnclosuresCollection;
+use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
 use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
@@ -76,7 +77,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("managingEditor", "string");
         $resolver->setAllowedTypes("webMaster", "string");
         $resolver->setAllowedTypes("ttl", "int");
-        $resolver->setAllowedValues("ttl", static fn(int $value): bool => ($value >= 0));
+        $resolver->setAllowedValues("ttl", (new NonNegativeInteger())->getValidator());
         $resolver->setAllowedTypes("pubDate", Closure::class);
         $resolver->setNormalizer(
             "pubDate",
