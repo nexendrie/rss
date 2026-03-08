@@ -13,7 +13,7 @@ final class Guid implements XmlConvertible
     {
         $element = $parent->addChild("guid", $this->value);
         if ($this->permalink !== null) {
-            $element->addAttribute("isPermalink", $this->permalink ? "true" : "false");
+            $element->addAttribute("isPermaLink", $this->permalink ? "true" : "false");
         }
     }
 }

@@ -1,3 +1,3 @@
-A new version of Rss is out.
+A new version of Rss is out. It fixes incorrect case in name of attribute isPermaLink for items' guid element.
 
 For complete list of changes since previous version, see CHANGELOG.md.

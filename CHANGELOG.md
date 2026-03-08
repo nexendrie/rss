@@ -1,3 +1,6 @@
+Version 0.15.0+dev
+- fixed isPermaLink attribute name for element guid
+
 Version 0.15.0
 - added RSS extensions Comment API and blogChannel
 - BaseElement::registerElements() can now set elements' types, normalize enum values and mark elements as required
