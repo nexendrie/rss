@@ -203,7 +203,7 @@ final class GeneratorTest extends \Tester\TestCase
             "webMaster" => "def@test.localhost", "ttl" => 60,
             "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
             "skipDays" => [SkipDay::Monday, SkipDay::Monday, SkipDay::Sunday,], "skipHours" => [1, 1, 10],
-            "image" => new Image("url", "title", "description"),
+            "image" => new Image("https://example.com/rss/image.jpeg", "title", "https://example.com"),
             "cloud" => new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost),
             "textInput" => new TextInput("title", "description", "name", "link"),
         ];

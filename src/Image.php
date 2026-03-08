@@ -3,12 +3,16 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Utils\Numbers;
+use ValueError;
 
 /**
  * Image
  *
  * @author Jakub Konečný
+ * @property string $url
+ * @property string $link
  * @property int $width
  * @property int $height
  */
@@ -16,15 +20,45 @@ final class Image implements XmlConvertible
 {
     use \Nette\SmartObject;
 
+    private string $url;
+    private string $link;
     private int $width;
     private int $height;
 
     public function __construct(
-        public string $url,
+        string $url,
         public string $title,
-        public string $link,
+        string $link,
         public string $description = ""
     ) {
+        $this->setUrl($url);
+        $this->setLink($link);
+    }
+
+    protected function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    protected function setUrl(string $url): void
+    {
+        if (!((new Url())->getValidator()($url))) {
+            throw new ValueError("\"$url\" is not a valid URL.");
+        }
+        $this->url = $url;
+    }
+
+    protected function getLink(): string
+    {
+        return $this->link;
+    }
+
+    protected function setLink(string $link): void
+    {
+        if (!((new Url())->getValidator()($link))) {
+            throw new ValueError("\"$link\" is not a valid URL.");
+        }
+        $this->link = $link;
     }
 
     protected function getWidth(): int
