@@ -38,7 +38,11 @@ final class CreativeCommonsTest extends \Tester\TestCase
             $collection = new Collection();
             $collection[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
-                "pubDate" => new DateTime(), "$extensionName:$elementName" => ["abc", "", "def",],
+                "pubDate" => new DateTime(),
+                "$extensionName:$elementName" => [
+                    "https://creativecommons.org/licenses/by-nc-sa/2.5/",
+                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                ],
             ]);
             return $collection;
         };
@@ -48,8 +52,14 @@ final class CreativeCommonsTest extends \Tester\TestCase
         $namespaces = $result->getNamespaces(true);
         Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
         Assert::count(2, $result->channel->item->children($extensionNamespace)->$elementName);
-        Assert::same("abc", (string) $result->channel->item->children($extensionNamespace)->$elementName[0]);
-        Assert::same("def", (string) $result->channel->item->children($extensionNamespace)->$elementName[1]);
+        Assert::same(
+            "https://creativecommons.org/licenses/by-nc-sa/2.5/",
+            (string) $result->channel->item->children($extensionNamespace)->$elementName[0]
+        );
+        Assert::same(
+            "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            (string) $result->channel->item->children($extensionNamespace)->$elementName[1]
+        );
     }
 }
 

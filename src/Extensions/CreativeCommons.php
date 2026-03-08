@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
+use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Rss\Generator;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,10 +30,20 @@ class CreativeCommons extends BaseExtension
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
+        $resolver->setAllowedValues($this->getElementName(self::ELEMENT_LICENSE), $this->isArrayOfUrls(...));
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
+        $resolver->setAllowedValues($this->getElementName(self::ELEMENT_LICENSE), $this->isArrayOfUrls(...));
+    }
+
+    /**
+     * @param list<string> $value
+     */
+    private function isArrayOfUrls(array $value): bool
+    {
+        return array_all($value, static fn (string $value): bool => (new Url())->getValidator()($value));
     }
 }
