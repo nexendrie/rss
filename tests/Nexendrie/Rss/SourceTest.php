@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Tester\Assert;
+use ValueError;
 
 require __DIR__ . "/../../bootstrap.php";
 
@@ -20,16 +21,19 @@ final class SourceTest extends \Tester\TestCase
         $source->appendToXml($xml);
         Assert::same("", (string) $xml->source);
         Assert::same("", (string) $xml->source["url"]);
-        $source = new Source("url", "");
+        $source = new Source("https://test.example.com/item/1", "");
         $xml = new \SimpleXMLElement("<test></test>");
         $source->appendToXml($xml);
         Assert::same("", (string) $xml->source);
         Assert::same($source->url, (string) $xml->source["url"]);
-        $source = new Source("url", "title");
+        $source = new Source("https://test.example.com/item/1", "title");
         $xml = new \SimpleXMLElement("<test></test>");
         $source->appendToXml($xml);
         Assert::same($source->title, (string) $xml->source);
         Assert::same($source->url, (string) $xml->source["url"]);
+        Assert::exception(static function () {
+            new Source("test");
+        }, ValueError::class);
     }
 }
 

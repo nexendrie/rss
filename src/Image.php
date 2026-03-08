@@ -42,7 +42,7 @@ final class Image implements XmlConvertible
 
     protected function setUrl(string $url): void
     {
-        if (!((new Url())->getValidator()($url))) {
+        if (!(new Url())->getValidator()($url)) {
             throw new ValueError("\"$url\" is not a valid URL.");
         }
         $this->url = $url;
@@ -55,7 +55,7 @@ final class Image implements XmlConvertible
 
     protected function setLink(string $link): void
     {
-        if (!((new Url())->getValidator()($link))) {
+        if (!(new Url())->getValidator()($link)) {
             throw new ValueError("\"$link\" is not a valid URL.");
         }
         $this->link = $link;

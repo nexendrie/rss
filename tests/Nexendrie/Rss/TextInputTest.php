@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use Tester\Assert;
+use ValueError;
 
 require __DIR__ . "/../../bootstrap.php";
 
@@ -15,13 +16,16 @@ final class TextInputTest extends \Tester\TestCase
 {
     public function testAppendToXml(): void
     {
-        $textInput = new TextInput("title", "description", "name", "link");
+        $textInput = new TextInput("title", "description", "name", "https://example.com/textInput");
         $xml = new \SimpleXMLElement("<test></test>");
         $textInput->appendToXml($xml);
         Assert::same($textInput->title, (string) $xml->textInput->title);
         Assert::same($textInput->name, (string) $xml->textInput->name);
         Assert::same($textInput->description, (string) $xml->textInput->description);
         Assert::same($textInput->link, (string) $xml->textInput->link);
+        Assert::exception(static function () {
+            new TextInput("title", "description", "name", "test");
+        }, ValueError::class);
     }
 }
 

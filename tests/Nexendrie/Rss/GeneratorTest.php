@@ -205,7 +205,7 @@ final class GeneratorTest extends \Tester\TestCase
             "skipDays" => [SkipDay::Monday, SkipDay::Monday, SkipDay::Sunday,], "skipHours" => [1, 1, 10],
             "image" => new Image("https://example.com/rss/image.jpeg", "title", "https://example.com"),
             "cloud" => new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost),
-            "textInput" => new TextInput("title", "description", "name", "link"),
+            "textInput" => new TextInput("title", "description", "name", "https://example.com/textInput"),
         ];
         $this->generator->dataSource = static fn() => new Collection();
         $this->generator->generator = $generator = "Custom generator";
