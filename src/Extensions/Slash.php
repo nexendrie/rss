@@ -29,7 +29,7 @@ final class Slash extends BaseExtension
         return [
             self::ELEMENT_SECTION => "string",
             self::ELEMENT_DEPARTMENT => "string",
-            self::ELEMENT_COMMENTS => "int",
+            self::ELEMENT_COMMENTS => "positive-int",
             self::ELEMENT_HIT_PARADE => "string",
         ];
     }
