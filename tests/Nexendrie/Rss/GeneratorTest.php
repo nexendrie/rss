@@ -258,6 +258,9 @@ final class GeneratorTest extends \Tester\TestCase
 
     public function testCustomTemplate(): void
     {
+        Assert::exception(function () {
+            $this->generator->template = "abc.xml";
+        }, \RuntimeException::class);
         $templateFilename = __DIR__ . "/template.xml";
         $this->generator->template = $templateFilename;
         Assert::same($templateFilename, $this->generator->template);

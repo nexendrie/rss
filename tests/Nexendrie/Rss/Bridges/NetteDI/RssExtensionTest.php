@@ -49,6 +49,14 @@ final class RssExtensionTest extends \Tester\TestCase
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
         Assert::notSame("", $generator->template);
+        Assert::exception(function () {
+            $this->refreshContainer(["rss" => [
+                "template" => "abc",
+            ]]);
+            /** @var Generator $generator */
+            $generator = $this->getService(Generator::class);
+            Assert::same("abc", $generator->template);
+        }, \RuntimeException::class);
         $filename = __DIR__ . "/../../template.xml";
         $this->refreshContainer(["rss" => [
             "template" => $filename,
