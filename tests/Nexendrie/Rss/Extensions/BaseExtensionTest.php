@@ -204,6 +204,89 @@ final class BaseExtensionTest extends \Tester\TestCase
         Assert::same("en", (string) $result->channel->item->children($extension->getNamespace())->abc);
     }
 
+    public function testSpecialTypeElement(): void
+    {
+        $extension = new class extends BaseExtension {
+            public const string ELEMENT_ABC = "abc";
+
+            public function getName(): string
+            {
+                return "test";
+            }
+
+            public function getNamespace(): string
+            {
+                return "https://example.com/rss/test/";
+            }
+
+            protected function getElementTypes(): array
+            {
+                return [
+                    self::ELEMENT_ABC => "positive-int",
+                ];
+            }
+
+            public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
+            {
+                $this->registerElements($resolver);
+            }
+        };
+        $generator = new Generator();
+        $generator->extensions[] = $extension;
+        $info = [
+            "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
+            "description" => "News for package nexendrie/rss",
+        ];
+        $generator->dataSource = static function () {
+            $collection = new Collection();
+            $collection[] = new RssChannelItem([
+                "title" => "Item 1", "description" => "Item 1 description", "link" => "", "pubDate" => new DateTime(),
+                "test:abc" => 1,
+            ]);
+            return $collection;
+        };
+        $result = $generator->generate($info);
+        Assert::type("string", $result);
+        $result = new \SimpleXMLElement($result);
+        $namespaces = $result->getNamespaces(true);
+        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
+        Assert::same("1", (string) $result->channel->item->children($extension->getNamespace())->abc);
+
+        Assert::exception(
+            static function () use ($generator, $info) {
+                $generator->dataSource = static function () {
+                    $collection = new Collection();
+                    $collection[] = new RssChannelItem([
+                        "title" => "Item 1", "description" => "Item 1 description", "link" => "",
+                        "pubDate" => new DateTime(),
+                        "test:abc" => "abc",
+                    ]);
+                    return $collection;
+                };
+                $generator->generate($info);
+            },
+            InvalidOptionsException::class,
+            'The option "test:abc" with value "abc" is expected to be of type "int", but is of type "string".'
+        );
+
+        Assert::exception(
+            static function () use ($generator, $info) {
+                $generator->dataSource = static function () {
+                    $collection = new Collection();
+                    $collection[] = new RssChannelItem([
+                        "title" => "Item 1", "description" => "Item 1 description", "link" => "",
+                        "pubDate" => new DateTime(),
+                        "test:abc" => -1,
+                    ]);
+                    return $collection;
+                };
+                $generator->generate($info);
+            },
+            InvalidOptionsException::class,
+            'The option "test:abc" with value -1 is invalid.'
+        );
+    }
+
     public function testRequiredElement(): void
     {
         $extension = new class extends BaseExtension {

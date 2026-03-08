@@ -1,3 +1,5 @@
 A new version of Rss is out. lastBuildDate and pubDate for channel now have be to Closure (use anonymous function, arrow function or first class callable syntax).
 
+It is now possible to use special types for elements in BaseElement::registerElements().
+
 For complete list of changes since previous version, see CHANGELOG.md.

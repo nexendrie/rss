@@ -1,5 +1,6 @@
 Version 0.16.0-dev
 - BC break: lastBuildDate and pubDate for channel now have to be Closure (that returns a DateTime object)
+- BaseElement::registerElements() can now special (including user defined) types
 
 Version 0.15.1
 - fixed isPermaLink attribute name for element guid
