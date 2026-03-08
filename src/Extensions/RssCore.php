@@ -9,6 +9,7 @@ use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\EnclosuresCollection;
+use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
 use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
@@ -75,7 +76,9 @@ final class RssCore implements RssExtension
         );
         $resolver->setAllowedTypes("copyright", "string");
         $resolver->setAllowedTypes("managingEditor", "string");
+        $resolver->setAllowedValues("managingEditor", (new EmailAddress())->getValidator());
         $resolver->setAllowedTypes("webMaster", "string");
+        $resolver->setAllowedValues("webMaster", (new EmailAddress())->getValidator());
         $resolver->setAllowedTypes("ttl", "int");
         $resolver->setAllowedValues("ttl", (new NonNegativeInteger())->getValidator());
         $resolver->setAllowedTypes("pubDate", Closure::class);
@@ -142,6 +145,7 @@ final class RssCore implements RssExtension
             }
         );
         $resolver->setAllowedTypes("author", "string");
+        $resolver->setAllowedValues("author", (new EmailAddress())->getValidator());
         $resolver->setAllowedTypes("comments", "string");
         $resolver->setAllowedTypes("guid", ["string", Guid::class,]);
         $resolver->addNormalizer(

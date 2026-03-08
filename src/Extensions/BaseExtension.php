@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use BackedEnum;
+use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
 use Nexendrie\Rss\Extensions\ElementTypes\NegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonPositiveInteger;
@@ -113,6 +114,7 @@ abstract class BaseExtension implements RssExtension
             new NegativeInteger(),
             new NonNegativeInteger(),
             new NonPositiveInteger(),
+            new EmailAddress(),
         ];
     }
 

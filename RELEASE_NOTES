@@ -1,4 +1,4 @@
-A new version of Rss is out. lastBuildDate and pubDate for channel now have be to Closure (use anonymous function, arrow function or first class callable syntax).
+A new version of Rss is out. lastBuildDate and pubDate for channel now have be to Closure (use anonymous function, arrow function or first class callable syntax). Channel's managingEditor and webMaster and item's author now has to be e-mail addresses; the validation is not perfect but should work in most cases, please report any false positives and negatives that you find.
 
 It is now possible to use special types for elements in BaseElement::registerElements().
 

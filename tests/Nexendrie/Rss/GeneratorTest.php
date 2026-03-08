@@ -190,7 +190,8 @@ final class GeneratorTest extends \Tester\TestCase
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "language" => RssLanguage::English, "description" => "News for package nexendrie/rss",
-            "copyright" => "Copyright 2019, Abc", "managingEditor" => "Abc", "webMaster" => "Def", "ttl" => 60,
+            "copyright" => "Copyright 2019, Abc", "managingEditor" => "abc@test.localhost (Abc)",
+            "webMaster" => "def@test.localhost", "ttl" => 60,
             "rating" => "(PICS-1.1 \"http://www.classify.org/safesurf/\" 1 r (SS~~000 1))",
             "skipDays" => [SkipDay::Monday, SkipDay::Monday, SkipDay::Sunday,], "skipHours" => [1, 1, 10],
             "image" => new Image("url", "title", "description"),
