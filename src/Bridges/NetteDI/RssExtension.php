@@ -20,7 +20,7 @@ final class RssExtension extends CompilerExtension
     /** @internal */
     public const string SERVICE_GENERATOR = "generator";
 
-    private function setProperty(ServiceDefinition &$generator, Config $config, string $property): void
+    private function setProperty(ServiceDefinition $generator, Config $config, string $property): void
     {
         if ($config->$property !== "") { // @phpstan-ignore property.dynamicName
             // @phpstan-ignore property.dynamicName

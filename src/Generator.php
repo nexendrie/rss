@@ -72,7 +72,7 @@ final class Generator
         return $items;
     }
 
-    private function writeProperty(\SimpleXMLElement &$channel, array $info, string $property): void
+    private function writeProperty(\SimpleXMLElement $channel, array $info, string $property): void
     {
         $value = $info[$property] ?? "";
         if (!$value instanceof XmlConvertible) {

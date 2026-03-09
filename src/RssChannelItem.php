@@ -23,7 +23,7 @@ final readonly class RssChannelItem
         }
     }
 
-    public function toXml(\SimpleXMLElement &$element, Generator $generator): void
+    public function toXml(\SimpleXMLElement $element, Generator $generator): void
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver, $generator);
