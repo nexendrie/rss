@@ -26,7 +26,7 @@ final class Trackback extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_ABOUT => "string[]",
+            self::ELEMENT_ABOUT => "url[]",
             self::ELEMENT_PING => "url",
         ];
     }
@@ -34,9 +34,5 @@ final class Trackback extends BaseExtension
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedValues(
-            $this->getElementName(self::ELEMENT_ABOUT),
-            static fn(array $value): bool => array_all($value, static fn (string $value): bool => (new Url())->getValidator()($value))
-        );
     }
 }

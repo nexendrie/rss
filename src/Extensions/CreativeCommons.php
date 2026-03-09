@@ -23,27 +23,17 @@ class CreativeCommons extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_LICENSE => "string[]",
+            self::ELEMENT_LICENSE => "url[]",
         ];
     }
 
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedValues($this->getElementName(self::ELEMENT_LICENSE), $this->isArrayOfUrls(...));
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setAllowedValues($this->getElementName(self::ELEMENT_LICENSE), $this->isArrayOfUrls(...));
-    }
-
-    /**
-     * @param list<string> $value
-     */
-    private function isArrayOfUrls(array $value): bool
-    {
-        return array_all($value, static fn (string $value): bool => (new Url())->getValidator()($value));
     }
 }
