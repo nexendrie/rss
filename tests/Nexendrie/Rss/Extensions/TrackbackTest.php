@@ -40,7 +40,7 @@ final class TrackbackTest extends \Tester\TestCase
             $collection[] = new RssChannelItem([
                 "title" => "Item 1", "description" => "Item 1 description", "link" => "https://example.com/item/1",
                 "pubDate" => new DateTime(),
-                "$extensionName:$elementName1" => "https://test.example.com/trackback?item=ex1",
+                "$extensionName:$elementName1" => ["https://test.example.com/trackback?item=ex1",],
                 "$extensionName:$elementName2" => "https://example.com/trackback?item=1",
             ]);
             return $collection;
