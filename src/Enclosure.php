@@ -23,12 +23,12 @@ final class Enclosure implements XmlConvertible
         $this->setUrl($url);
     }
 
-    public function getUrl(): string
+    protected function getUrl(): string
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): void
+    protected function setUrl(string $url): void
     {
         if (!(new Url())->getValidator()($url)) {
             throw new ValueError("\"$url\" is not a valid URL.");

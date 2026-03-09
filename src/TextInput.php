@@ -27,12 +27,12 @@ final class TextInput implements XmlConvertible
         $this->setLink($link);
     }
 
-    public function getLink(): string
+    protected function getLink(): string
     {
         return $this->link;
     }
 
-    public function setLink(string $link): void
+    protected function setLink(string $link): void
     {
         if (!(new Url())->getValidator()($link)) {
             throw new ValueError("\"$link\" is not a valid URL.");
