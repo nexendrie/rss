@@ -4,6 +4,7 @@ Version 0.16.0-dev
 - possible BC break: Source no longer extends stdClass
 - added validation for e-mail address for channel's managingEditor and webMaster and item's author
 - added validation for url
+- BC break: item can now have only 1 enclosure now
 
 Version 0.15.1
 - fixed isPermaLink attribute name for element guid

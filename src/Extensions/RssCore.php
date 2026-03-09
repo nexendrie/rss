@@ -8,7 +8,7 @@ use DateTime;
 use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
 use Nexendrie\Rss\Cloud;
-use Nexendrie\Rss\EnclosuresCollection;
+use Nexendrie\Rss\Enclosure;
 use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\Url;
@@ -140,7 +140,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("link", "string");
         $resolver->setAllowedValues("link", (new Url())->getValidator());
         $resolver->setDefined([
-            "pubDate", "author", "comments", "guid", "source", "categories", "enclosures",
+            "pubDate", "author", "comments", "guid", "source", "categories", "enclosure",
         ]);
         $resolver->setAllowedTypes("pubDate", DateTime::class);
         $resolver->setNormalizer(
@@ -161,7 +161,7 @@ final class RssCore implements RssExtension
         );
         $resolver->setAllowedTypes("source", Source::class);
         $resolver->setAllowedTypes("categories", CategoriesCollection::class);
-        $resolver->setAllowedTypes("enclosures", EnclosuresCollection::class);
+        $resolver->setAllowedTypes("enclosure", Enclosure::class);
     }
 
     protected function shortenDescription(string $description, int $maxLength): string

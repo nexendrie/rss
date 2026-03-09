@@ -24,7 +24,7 @@ final class RssChannelItemTest extends \Tester\TestCase
         $category = new Category("abc");
         $data["categories"] = CategoriesCollection::fromArray([$category,]);
         $enclosure = new Enclosure("https://example.com/music/test.mp3", 15, "audio/mpeg");
-        $data["enclosures"] = EnclosuresCollection::fromArray([$enclosure,]);
+        $data["enclosure"] = $enclosure;
         $item = new RssChannelItem($data);
         $xml = new \SimpleXMLElement("<test></test>");
         $item->toXml($xml, new Generator());
