@@ -131,17 +131,17 @@ final class RssCore implements RssExtension
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
-        $resolver->setRequired(["title", "description", "link",]);
+        $resolver->setRequired(["title", "description",]);
         $resolver->setAllowedTypes("title", "string");
         $resolver->setAllowedTypes("description", "string");
         $resolver->setNormalizer("description", function (Options $options, string $value) use ($generator): string {
             return $this->shortenDescription($value, $generator->shortenDescription);
         });
+        $resolver->setDefined([
+            "link", "pubDate", "author", "comments", "guid", "source", "categories", "enclosure",
+        ]);
         $resolver->setAllowedTypes("link", "string");
         $resolver->setAllowedValues("link", (new Url())->getValidator());
-        $resolver->setDefined([
-            "pubDate", "author", "comments", "guid", "source", "categories", "enclosure",
-        ]);
         $resolver->setAllowedTypes("pubDate", DateTime::class);
         $resolver->setNormalizer(
             "pubDate",

@@ -6,6 +6,7 @@ Version 0.16.0-dev
 - added validation for url
 - BC break: item can now have only 1 enclosure now
 - BC break: trackback:about now has to be an array of urls
+- made item's link optional
 
 Version 0.15.1
 - fixed isPermaLink attribute name for element guid
