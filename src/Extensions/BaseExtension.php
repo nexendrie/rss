@@ -58,7 +58,7 @@ abstract class BaseExtension implements RssExtension
 
     protected function registerElements(OptionsResolver $resolver, string $elementConstantsPrefix = "ELEMENT_"): void
     {
-        $elements = Constants::getConstantsValues(static::class, $elementConstantsPrefix);
+        $elements = Constants::getValues(static::class, $elementConstantsPrefix);
         $requiredElements = $this->getRequiredElements();
         $elementTypes = $this->getElementTypes();
         $specialTypes = $this->getSpecialTypes();
