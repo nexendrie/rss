@@ -35,7 +35,7 @@ final class SyndicationTest extends \Tester\TestCase
         $elementName3 = Syndication::ELEMENT_UPDATE_BASE;
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
-            "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => UpdatePeriod::HOURLY,
+            "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => UpdatePeriod::Hourly,
             "$extensionName:$elementName2" => 1, "$extensionName:$elementName3" => "abc",
         ];
         $generator->dataSource = static function () {
@@ -52,7 +52,7 @@ final class SyndicationTest extends \Tester\TestCase
         $namespaces = $result->getNamespaces(true);
         Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
         Assert::same(
-            UpdatePeriod::HOURLY->value,
+            UpdatePeriod::Hourly->value,
             (string) $result->channel->children($extensionNamespace)->$elementName1
         );
         Assert::same("1", (string) $result->channel->children($extensionNamespace)->$elementName2);

@@ -5,9 +5,9 @@ namespace Nexendrie\Rss\Extensions\Syndication;
 
 enum UpdatePeriod: string
 {
-    case HOURLY = "hourly";
-    case DAILY = "daily";
-    case WEAKLY = "weakly";
-    case MONTHLY = "monthly";
-    case YEARLY = "yearly";
+    case Hourly = "hourly";
+    case Daily = "daily";
+    case Weakly = "weakly";
+    case Monthly = "monthly";
+    case Yearly = "yearly";
 }
