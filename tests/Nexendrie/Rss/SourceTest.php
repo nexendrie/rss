@@ -3,39 +3,33 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Tester\Assert;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use ValueError;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class SourceTest extends \Tester\TestCase
+#[TestSuite("Source")]
+#[Group("elements")]
+final class SourceTest extends \MyTester\TestCase
 {
     public function testAppendToXml(): void
     {
         $source = new Source("", "title");
         $xml = new \SimpleXMLElement("<test></test>");
         $source->appendToXml($xml);
-        Assert::same("", (string) $xml->source);
-        Assert::same("", (string) $xml->source["url"]);
+        $this->assertSame("", (string) $xml->source);
+        $this->assertSame("", (string) $xml->source["url"]);
         $source = new Source("https://test.example.com/item/1", "");
         $xml = new \SimpleXMLElement("<test></test>");
         $source->appendToXml($xml);
-        Assert::same("", (string) $xml->source);
-        Assert::same($source->url, (string) $xml->source["url"]);
+        $this->assertSame("", (string) $xml->source);
+        $this->assertSame($source->url, (string) $xml->source["url"]);
         $source = new Source("https://test.example.com/item/1", "title");
         $xml = new \SimpleXMLElement("<test></test>");
         $source->appendToXml($xml);
-        Assert::same($source->title, (string) $xml->source);
-        Assert::same($source->url, (string) $xml->source["url"]);
-        Assert::exception(static function () {
+        $this->assertSame($source->title, (string) $xml->source);
+        $this->assertSame($source->url, (string) $xml->source["url"]);
+        $this->assertThrowsException(static function () {
             new Source("test");
         }, ValueError::class);
     }
 }
-
-$test = new SourceTest();
-$test->run();

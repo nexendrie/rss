@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class CreativeCommonsTest extends \Tester\TestCase
+#[TestSuite("CreativeCommons")]
+#[Group("extensions")]
+final class CreativeCommonsTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new CreativeCommons();
-        Assert::same("creativeCommons", $extension->getName());
+        $this->assertSame("creativeCommons", $extension->getName());
     }
 
     public function testExtension(): void
@@ -47,21 +44,18 @@ final class CreativeCommonsTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::count(2, $result->channel->item->children($extensionNamespace)->$elementName);
-        Assert::same(
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertCount(2, $result->channel->item->children($extensionNamespace)->$elementName);
+        $this->assertSame(
             "https://creativecommons.org/licenses/by-nc-sa/2.5/",
             (string) $result->channel->item->children($extensionNamespace)->$elementName[0]
         );
-        Assert::same(
+        $this->assertSame(
             "https://creativecommons.org/licenses/by-nc-sa/4.0/",
             (string) $result->channel->item->children($extensionNamespace)->$elementName[1]
         );
     }
 }
-
-$test = new CreativeCommonsTest();
-$test->run();

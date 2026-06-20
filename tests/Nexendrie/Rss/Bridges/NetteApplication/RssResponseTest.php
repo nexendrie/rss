@@ -3,23 +3,20 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Bridges\NetteApplication;
 
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\Skip;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 
-require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- * @skip
- */
-final class RssResponseTest extends \Tester\TestCase
+#[TestSuite("RssResponse")]
+final class RssResponseTest extends \MyTester\TestCase
 {
-    use \Testbench\TCompiledContainer;
-    use \Testbench\TPresenter;
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
 
     private Generator $generator;
 
+    #[BeforeTest]
     public function setUp(): void
     {
         /** @var Generator $generator */
@@ -28,11 +25,9 @@ final class RssResponseTest extends \Tester\TestCase
         $this->generator->dataSource = static fn() => new Collection();
     }
 
+    #[Skip]
     public function testSend(): void
     {
-        $this->checkRss("Rss:default");
+        //$this->checkRss("Rss:default");
     }
 }
-
-$test = new RssResponseTest();
-$test->run();

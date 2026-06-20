@@ -3,22 +3,19 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions\ElementTypes;
 
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tester\Assert;
 
-require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class NonNegativeIntegerTest extends \Tester\TestCase
+#[TestSuite("NonNegativeInteger")]
+#[Group("elementTypes")]
+final class NonNegativeIntegerTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $elementType = new NonNegativeInteger();
-        Assert::same("non-negative-int", $elementType->getName());
+        $this->assertSame("non-negative-int", $elementType->getName());
     }
 
     public function testValidation(): void
@@ -31,14 +28,14 @@ final class NonNegativeIntegerTest extends \Tester\TestCase
 
         $resolver->resolve(["abc" => 1,]);
         $resolver->resolve(["abc" => 0,]);
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($resolver) {
                 $resolver->resolve(["abc" => "def",]);
             },
             InvalidOptionsException::class,
             'The option "abc" with value "def" is expected to be of type "int", but is of type "string".'
         );
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($resolver) {
                 $resolver->resolve(["abc" => -1,]);
             },
@@ -47,6 +44,3 @@ final class NonNegativeIntegerTest extends \Tester\TestCase
         );
     }
 }
-
-$test = new NonNegativeIntegerTest();
-$test->run();

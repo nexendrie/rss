@@ -3,29 +3,26 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Tester\Assert;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class CloudTest extends \Tester\TestCase
+#[TestSuite("Cloud")]
+#[Group("elements")]
+final class CloudTest extends \MyTester\TestCase
 {
     public function testPort(): void
     {
         $cloud = new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost);
         $cloud->port = 1;
-        Assert::same(1, $cloud->port);
+        $this->assertSame(1, $cloud->port);
     }
 
     public function testPath(): void
     {
         $cloud = new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost);
         $cloud->path = "/abc";
-        Assert::same("/abc", $cloud->path);
-        Assert::exception(static function () use ($cloud) {
+        $this->assertSame("/abc", $cloud->path);
+        $this->assertThrowsException(static function () use ($cloud) {
             $cloud->path = "abc";
         }, \InvalidArgumentException::class);
     }
@@ -35,13 +32,10 @@ final class CloudTest extends \Tester\TestCase
         $cloud = new Cloud("test.com", 80, "/test", "test.a", CloudProtocol::HttpPost);
         $xml = new \SimpleXMLElement("<test></test>");
         $cloud->appendToXml($xml);
-        Assert::same($cloud->domain, (string) $xml->cloud["domain"]);
-        Assert::same((string) $cloud->port, (string) $xml->cloud["port"]);
-        Assert::same($cloud->path, (string) $xml->cloud["path"]);
-        Assert::same($cloud->registerProcedure, (string) $xml->cloud["registerProcedure"]);
-        Assert::same($cloud->protocol->value, (string) $xml->cloud["protocol"]);
+        $this->assertSame($cloud->domain, (string) $xml->cloud["domain"]);
+        $this->assertSame((string) $cloud->port, (string) $xml->cloud["port"]);
+        $this->assertSame($cloud->path, (string) $xml->cloud["path"]);
+        $this->assertSame($cloud->registerProcedure, (string) $xml->cloud["registerProcedure"]);
+        $this->assertSame($cloud->protocol->value, (string) $xml->cloud["protocol"]);
     }
 }
-
-$test = new CloudTest();
-$test->run();

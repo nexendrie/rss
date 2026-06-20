@@ -3,22 +3,19 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions\ElementTypes;
 
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tester\Assert;
 
-require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class EmailAddressTest extends \Tester\TestCase
+#[TestSuite("EmailAddress")]
+#[Group("elementTypes")]
+final class EmailAddressTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $elementType = new EmailAddress();
-        Assert::same("email", $elementType->getName());
+        $this->assertSame("email", $elementType->getName());
     }
 
     public function testValidation(): void
@@ -35,14 +32,14 @@ final class EmailAddressTest extends \Tester\TestCase
         $resolver->resolve(["abc" => "abc-def@test.localhost",]);
         $resolver->resolve(["abc" => "abc@test.localhost (Test Tester)",]);
         $resolver->resolve(["abc" => "abc@test.localhost (Test Testovič)",]);
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($resolver) {
                 $resolver->resolve(["abc" => 123,]);
             },
             InvalidOptionsException::class,
             'The option "abc" with value 123 is expected to be of type "string", but is of type "int".'
         );
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($resolver) {
                 $resolver->resolve(["abc" => "test",]);
             },
@@ -51,6 +48,3 @@ final class EmailAddressTest extends \Tester\TestCase
         );
     }
 }
-
-$test = new EmailAddressTest();
-$test->run();

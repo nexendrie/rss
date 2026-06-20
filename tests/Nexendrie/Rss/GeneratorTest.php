@@ -6,6 +6,8 @@ namespace Nexendrie\Rss;
 use DateTime;
 use Konecnyjakub\EventDispatcher\DebugEventDispatcher;
 use Konecnyjakub\EventDispatcher\DummyEventDispatcher;
+use MyTester\Attributes\BeforeTest;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Bridges\NetteApplication\RssResponse;
 use Nexendrie\Rss\Events\ChannelAfterGenerate;
 use Nexendrie\Rss\Events\ChannelBeforeGenerate;
@@ -14,19 +16,14 @@ use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Psr\Log\NullLogger;
-use Tester\Assert;
 use Nexendrie\Rss\Extensions\TestExtension;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class GeneratorTest extends \Tester\TestCase
+#[TestSuite("Generator")]
+final class GeneratorTest extends \MyTester\TestCase
 {
     private Generator $generator;
 
+    #[BeforeTest]
     public function setUp(): void
     {
         $this->generator = new Generator();
@@ -51,14 +48,14 @@ final class GeneratorTest extends \Tester\TestCase
         ];
         $this->generator->dataSource = static fn() => new Collection();
         $result = $this->generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
-        Assert::same("Test", (string) $result->channel->title);
-        Assert::same("Test RSS Channel", (string) $result->channel->description);
-        Assert::same($this->generator->docs, (string) $result->channel->docs);
-        Assert::same($this->generator->generator, (string) $result->channel->generator);
-        Assert::same("", (string) $result->channel->pubDate);
-        Assert::same(0, $this->countItems($result));
+        $this->assertSame("Test", (string) $result->channel->title);
+        $this->assertSame("Test RSS Channel", (string) $result->channel->description);
+        $this->assertSame($this->generator->docs, (string) $result->channel->docs);
+        $this->assertSame($this->generator->generator, (string) $result->channel->generator);
+        $this->assertSame("", (string) $result->channel->pubDate);
+        $this->assertSame(0, $this->countItems($result));
     }
 
     public function testGenerate(): void
@@ -76,22 +73,22 @@ final class GeneratorTest extends \Tester\TestCase
             return $items;
         };
         $result = $this->generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
-        Assert::same($info["title"], (string) $result->channel->title);
-        Assert::same($info["description"], (string) $result->channel->description);
-        Assert::same($info["link"], (string) $result->channel->link);
-        Assert::same($this->generator->docs, (string) $result->channel->docs);
-        Assert::same($this->generator->generator, (string) $result->channel->generator);
-        Assert::same(1, $this->countItems($result));
-        Assert::type("string", (string) $result->channel->lastBuidDate);
-        Assert::same("", (string) $result->channel->pubDate);
+        $this->assertSame($info["title"], (string) $result->channel->title);
+        $this->assertSame($info["description"], (string) $result->channel->description);
+        $this->assertSame($info["link"], (string) $result->channel->link);
+        $this->assertSame($this->generator->docs, (string) $result->channel->docs);
+        $this->assertSame($this->generator->generator, (string) $result->channel->generator);
+        $this->assertSame(1, $this->countItems($result));
+        $this->assertType("string", (string) $result->channel->lastBuidDate);
+        $this->assertSame("", (string) $result->channel->pubDate);
     }
 
     public function testInvalidDataSource(): void
     {
         $this->generator->dataSource = static fn() => [];
-        Assert::exception(function () {
+        $this->assertThrowsException(function () {
             $this->generator->generate(["title" => "", "link" => "", "description" => "",]);
         }, \InvalidArgumentException::class);
     }
@@ -112,7 +109,7 @@ final class GeneratorTest extends \Tester\TestCase
             return $items;
         };
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::type("string", (string) $result->channel->lastBuidDate);
+        $this->assertType("string", (string) $result->channel->lastBuidDate);
     }
 
     public function testInvalidLastBuildDate(): void
@@ -125,7 +122,7 @@ final class GeneratorTest extends \Tester\TestCase
             ]);
             return $items;
         };
-        Assert::exception(function () {
+        $this->assertThrowsException(function () {
             $info = [
                 "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
                 "description" => "News for package nexendrie/rss", "lastBuildDate" => static fn() => "abc",
@@ -140,7 +137,7 @@ final class GeneratorTest extends \Tester\TestCase
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss",
         ];
-        Assert::exception(function () use ($info) {
+        $this->assertThrowsException(function () use ($info) {
             $this->generator->response($info);
         }, InvalidStateException::class);
         $this->generator->dataSource = static function () {
@@ -152,8 +149,8 @@ final class GeneratorTest extends \Tester\TestCase
             return $items;
         };
         $result = $this->generator->response($info);
-        Assert::type(RssResponse::class, $result);
-        Assert::type("string", $result->source);
+        $this->assertType(RssResponse::class, $result);
+        $this->assertType("string", $result->source);
     }
 
     public function testDateTimeFormat(): void
@@ -164,10 +161,10 @@ final class GeneratorTest extends \Tester\TestCase
         ];
         $dateTimeFormat = "Y/m/d";
         $this->generator->dateTimeFormat = $dateTimeFormat;
-        Assert::same($dateTimeFormat, $this->generator->dateTimeFormat);
+        $this->assertSame($dateTimeFormat, $this->generator->dateTimeFormat);
         $this->generator->dataSource = static fn() => new Collection();
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
+        $this->assertSame(date($dateTimeFormat), (string) $result->channel->lastBuildDate);
     }
 
     public function testPubDate(): void
@@ -186,12 +183,12 @@ final class GeneratorTest extends \Tester\TestCase
             ]);
             return $items;
         };
-        Assert::exception(function () use ($info) {
+        $this->assertThrowsException(function () use ($info) {
             $this->generator->generate($info);
         }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return DateTime.");
         $info["pubDate"] = static fn() => new DateTime("2024-12-31");
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same("2024/12/31", (string) $result->channel->pubDate);
+        $this->assertSame("2024/12/31", (string) $result->channel->pubDate);
     }
 
     public function testOptionalThings(): void
@@ -209,45 +206,45 @@ final class GeneratorTest extends \Tester\TestCase
         ];
         $this->generator->dataSource = static fn() => new Collection();
         $this->generator->generator = $generator = "Custom generator";
-        Assert::same($generator, $this->generator->generator);
+        $this->assertSame($generator, $this->generator->generator);
         $this->generator->docs = $docs = "https://nexendrie.gitlab.io/rss";
-        Assert::same($docs, $this->generator->docs);
+        $this->assertSame($docs, $this->generator->docs);
 
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same($info["language"]->value, (string) $result->channel->language);
-        Assert::same($info["copyright"], (string) $result->channel->copyright);
-        Assert::same($info["managingEditor"], (string) $result->channel->managingEditor);
-        Assert::same($info["webMaster"], (string) $result->channel->webMaster);
-        Assert::same($generator, (string) $result->channel->generator);
-        Assert::same($docs, (string) $result->channel->docs);
-        Assert::same((string) $info["ttl"], (string) $result->channel->ttl);
-        Assert::same($info["rating"], (string) $result->channel->rating);
-        Assert::same(SkipDay::Monday->name, (string) $result->channel->skipDays->day[0]);
-        Assert::same(SkipDay::Sunday->name, (string) $result->channel->skipDays->day[1]);
-        Assert::same("", (string) $result->channel->skipDays->day[2]);
-        Assert::same((string) $info["skipHours"][0], (string) $result->channel->skipHours->hour[0]);
-        Assert::same((string) $info["skipHours"][2], (string) $result->channel->skipHours->hour[1]);
-        Assert::same("", (string) $result->channel->skipHours->hour[2]);
-        Assert::same($info["image"]->url, (string) $result->channel->image->url);
-        Assert::same($info["image"]->title, (string) $result->channel->image->title);
-        Assert::same($info["image"]->description, (string) $result->channel->image->description);
-        Assert::same($info["cloud"]->domain, (string) $result->channel->cloud["domain"]);
-        Assert::same((string) $info["cloud"]->port, (string) $result->channel->cloud["port"]);
-        Assert::same($info["cloud"]->path, (string) $result->channel->cloud["path"]);
-        Assert::same($info["cloud"]->registerProcedure, (string) $result->channel->cloud["registerProcedure"]);
-        Assert::same($info["cloud"]->protocol->value, (string) $result->channel->cloud["protocol"]);
-        Assert::same($info["textInput"]->title, (string) $result->channel->textInput->title);
-        Assert::same($info["textInput"]->name, (string) $result->channel->textInput->name);
-        Assert::same($info["textInput"]->description, (string) $result->channel->textInput->description);
-        Assert::same($info["textInput"]->link, (string) $result->channel->textInput->link);
+        $this->assertSame($info["language"]->value, (string) $result->channel->language);
+        $this->assertSame($info["copyright"], (string) $result->channel->copyright);
+        $this->assertSame($info["managingEditor"], (string) $result->channel->managingEditor);
+        $this->assertSame($info["webMaster"], (string) $result->channel->webMaster);
+        $this->assertSame($generator, (string) $result->channel->generator);
+        $this->assertSame($docs, (string) $result->channel->docs);
+        $this->assertSame((string) $info["ttl"], (string) $result->channel->ttl);
+        $this->assertSame($info["rating"], (string) $result->channel->rating);
+        $this->assertSame(SkipDay::Monday->name, (string) $result->channel->skipDays->day[0]);
+        $this->assertSame(SkipDay::Sunday->name, (string) $result->channel->skipDays->day[1]);
+        $this->assertSame("", (string) $result->channel->skipDays->day[2]);
+        $this->assertSame((string) $info["skipHours"][0], (string) $result->channel->skipHours->hour[0]);
+        $this->assertSame((string) $info["skipHours"][2], (string) $result->channel->skipHours->hour[1]);
+        $this->assertSame("", (string) $result->channel->skipHours->hour[2]);
+        $this->assertSame($info["image"]->url, (string) $result->channel->image->url);
+        $this->assertSame($info["image"]->title, (string) $result->channel->image->title);
+        $this->assertSame($info["image"]->description, (string) $result->channel->image->description);
+        $this->assertSame($info["cloud"]->domain, (string) $result->channel->cloud["domain"]);
+        $this->assertSame((string) $info["cloud"]->port, (string) $result->channel->cloud["port"]);
+        $this->assertSame($info["cloud"]->path, (string) $result->channel->cloud["path"]);
+        $this->assertSame($info["cloud"]->registerProcedure, (string) $result->channel->cloud["registerProcedure"]);
+        $this->assertSame($info["cloud"]->protocol->value, (string) $result->channel->cloud["protocol"]);
+        $this->assertSame($info["textInput"]->title, (string) $result->channel->textInput->title);
+        $this->assertSame($info["textInput"]->name, (string) $result->channel->textInput->name);
+        $this->assertSame($info["textInput"]->description, (string) $result->channel->textInput->description);
+        $this->assertSame($info["textInput"]->link, (string) $result->channel->textInput->link);
 
         $this->generator->generator = "";
         $this->generator->docs = "";
         $info["language"] = Iso639Language::English;
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same("", (string) $result->channel->generator);
-        Assert::same("", (string) $result->channel->docs);
-        Assert::same($info["language"]->value, (string) $result->channel->language);
+        $this->assertSame("", (string) $result->channel->generator);
+        $this->assertSame("", (string) $result->channel->docs);
+        $this->assertSame($info["language"]->value, (string) $result->channel->language);
     }
 
     public function testCategories(): void
@@ -260,29 +257,29 @@ final class GeneratorTest extends \Tester\TestCase
         $info["categories"][] = new Category("abc");
         $info["categories"][] = new Category("def", "domain");
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same("abc", (string) $result->channel->category[0]);
-        Assert::same("", (string) $result->channel->category[0]["domain"]);
-        Assert::same("def", (string) $result->channel->category[1]);
-        Assert::same("domain", (string) $result->channel->category[1]["domain"]);
+        $this->assertSame("abc", (string) $result->channel->category[0]);
+        $this->assertSame("", (string) $result->channel->category[0]["domain"]);
+        $this->assertSame("def", (string) $result->channel->category[1]);
+        $this->assertSame("domain", (string) $result->channel->category[1]["domain"]);
     }
 
     public function testCustomTemplate(): void
     {
-        Assert::exception(function () {
+        $this->assertThrowsException(function () {
             $this->generator->template = "abc.xml";
         }, \RuntimeException::class);
         $templateFilename = __DIR__ . "/template.xml";
         $this->generator->template = $templateFilename;
-        Assert::same($templateFilename, $this->generator->template);
+        $this->assertSame($templateFilename, $this->generator->template);
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss",
         ];
         $this->generator->dataSource = static fn() => new Collection();
         $result = $this->generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($this->generator->generate($info));
-        Assert::same("en", (string) $result->channel->language);
+        $this->assertSame("en", (string) $result->channel->language);
     }
 
     public function testExtension(): void
@@ -297,11 +294,11 @@ final class GeneratorTest extends \Tester\TestCase
         ];
         $this->generator->dataSource = static fn() => new Collection();
         $result = $this->generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same(
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame(
             $info["$extensionName:$elementName"],
             (string) $result->channel->children($extensionNamespace, false)->$elementName
         );
@@ -328,14 +325,11 @@ final class GeneratorTest extends \Tester\TestCase
             return $items;
         };
         $generator->generate($info);
-        Assert::true($eventDispatcher->dispatched(ChannelBeforeGenerate::class));
-        Assert::false($eventDispatcher->dispatched(ChannelBeforeGenerate::class, 2));
-        Assert::true($eventDispatcher->dispatched(ChannelAfterGenerate::class));
-        Assert::false($eventDispatcher->dispatched(ChannelAfterGenerate::class, 2));
-        Assert::true($eventDispatcher->dispatched(ItemAdded::class, 2));
-        Assert::false($eventDispatcher->dispatched(ItemAdded::class, 3));
+        $this->assertTrue($eventDispatcher->dispatched(ChannelBeforeGenerate::class));
+        $this->assertFalse($eventDispatcher->dispatched(ChannelBeforeGenerate::class, 2));
+        $this->assertTrue($eventDispatcher->dispatched(ChannelAfterGenerate::class));
+        $this->assertFalse($eventDispatcher->dispatched(ChannelAfterGenerate::class, 2));
+        $this->assertTrue($eventDispatcher->dispatched(ItemAdded::class, 2));
+        $this->assertFalse($eventDispatcher->dispatched(ItemAdded::class, 3));
     }
 }
-
-$test = new GeneratorTest();
-$test->run();

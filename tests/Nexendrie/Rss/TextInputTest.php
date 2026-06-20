@@ -3,31 +3,25 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Tester\Assert;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use ValueError;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class TextInputTest extends \Tester\TestCase
+#[TestSuite("TextInput")]
+#[Group("elements")]
+final class TextInputTest extends \MyTester\TestCase
 {
     public function testAppendToXml(): void
     {
         $textInput = new TextInput("title", "description", "name", "https://example.com/textInput");
         $xml = new \SimpleXMLElement("<test></test>");
         $textInput->appendToXml($xml);
-        Assert::same($textInput->title, (string) $xml->textInput->title);
-        Assert::same($textInput->name, (string) $xml->textInput->name);
-        Assert::same($textInput->description, (string) $xml->textInput->description);
-        Assert::same($textInput->link, (string) $xml->textInput->link);
-        Assert::exception(static function () {
+        $this->assertSame($textInput->title, (string) $xml->textInput->title);
+        $this->assertSame($textInput->name, (string) $xml->textInput->name);
+        $this->assertSame($textInput->description, (string) $xml->textInput->description);
+        $this->assertSame($textInput->link, (string) $xml->textInput->link);
+        $this->assertThrowsException(static function () {
             new TextInput("title", "description", "name", "test");
         }, ValueError::class);
     }
 }
-
-$test = new TextInputTest();
-$test->run();

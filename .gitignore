@@ -1,7 +1,14 @@
 /vendor/
-/tests/_temp/
+/tests/temp/
 output/
 /public/
 *.actual
 coverage.*
 /composer.lock
+
+# Errors in tests
+*.errors
+
+# Generated reports
+/coverage.*
+/junit.xml

@@ -7,3 +7,6 @@ routing:
         "<presenter>[/<action>][/<id>]": "Test:default"
 extensions:
     rss: Nexendrie\Rss\Bridges\NetteDI\RssExtension
+mytester:
+    colors: true
+    coverageFormat: cobertura

@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class CommentApiTest extends \Tester\TestCase
+#[TestSuite("CommentApi")]
+#[Group("extensions")]
+final class CommentApiTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new CommentApi();
-        Assert::same("wfw", $extension->getName());
+        $this->assertSame("wfw", $extension->getName());
     }
 
     public function testExtension(): void
@@ -45,20 +42,17 @@ final class CommentApiTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same(
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame(
             "https://example.com/comment?item=1",
             (string) $result->channel->item->children($extensionNamespace)->$elementName1
         );
-        Assert::same(
+        $this->assertSame(
             "https://example.com/rss/item/1",
             (string) $result->channel->item->children($extensionNamespace)->$elementName2
         );
     }
 }
-
-$test = new CommentApiTest();
-$test->run();

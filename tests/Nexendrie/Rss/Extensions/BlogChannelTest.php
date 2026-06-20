@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class BlogChannelTest extends \Tester\TestCase
+#[TestSuite("BlogChannel")]
+#[Group("extensions")]
+final class BlogChannelTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new BlogChannel();
-        Assert::same("blogChannel", $extension->getName());
+        $this->assertSame("blogChannel", $extension->getName());
     }
 
     public function testExtension(): void
@@ -45,20 +42,17 @@ final class BlogChannelTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same(
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame(
             "https://example.com/blogRoll.opml",
             (string) $result->channel->item->children($extensionNamespace)->$elementName1
         );
-        Assert::same(
+        $this->assertSame(
             "https://example.com/user/1/subscriptions.opml",
             (string) $result->channel->item->children($extensionNamespace)->$elementName2
         );
     }
 }
-
-$test = new BlogChannelTest();
-$test->run();

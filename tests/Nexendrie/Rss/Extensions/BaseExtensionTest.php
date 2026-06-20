@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
@@ -13,20 +15,15 @@ use ReflectionMethod;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class BaseExtensionTest extends \Tester\TestCase
+#[TestSuite("BaseExtension")]
+#[Group("extensions")]
+final class BaseExtensionTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
-        Assert::same("content", (new Content())->getName());
-        Assert::same("creativeCommons", (new CreativeCommons())->getName());
+        $this->assertSame("content", (new Content())->getName());
+        $this->assertSame("creativeCommons", (new CreativeCommons())->getName());
     }
 
     public function testGetElementName(): void
@@ -44,7 +41,7 @@ final class BaseExtensionTest extends \Tester\TestCase
         };
         $rm = new ReflectionMethod(BaseExtension::class, "getElementName");
         $result = $rm->invoke($extension, "abc");
-        Assert::same("test:abc", $result);
+        $this->assertSame("test:abc", $result);
     }
 
     public function testSimpleTypeElement(): void
@@ -89,13 +86,13 @@ final class BaseExtensionTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
-        Assert::same("def", (string) $result->channel->item->children($extension->getNamespace())->abc);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extension->getName()]);
+        $this->assertSame("def", (string) $result->channel->item->children($extension->getNamespace())->abc);
 
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($generator, $info) {
                 $generator->dataSource = static function () {
                     $collection = new Collection();
@@ -154,11 +151,11 @@ final class BaseExtensionTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
-        Assert::same("Friday", (string) $result->channel->item->children($extension->getNamespace())->abc);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extension->getName()]);
+        $this->assertSame("Friday", (string) $result->channel->item->children($extension->getNamespace())->abc);
 
         $extension = new class extends BaseExtension {
             public const string ELEMENT_ABC = "abc";
@@ -196,11 +193,11 @@ final class BaseExtensionTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
-        Assert::same("en", (string) $result->channel->item->children($extension->getNamespace())->abc);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extension->getName()]);
+        $this->assertSame("en", (string) $result->channel->item->children($extension->getNamespace())->abc);
     }
 
     public function testSpecialTypeElement(): void
@@ -245,13 +242,13 @@ final class BaseExtensionTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
-        Assert::same("1", (string) $result->channel->item->children($extension->getNamespace())->abc);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extension->getName()]);
+        $this->assertSame("1", (string) $result->channel->item->children($extension->getNamespace())->abc);
 
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($generator, $info) {
                 $generator->dataSource = static function () {
                     $collection = new Collection();
@@ -267,7 +264,7 @@ final class BaseExtensionTest extends \Tester\TestCase
             'The option "test:abc" with value "abc" is expected to be of type "int", but is of type "string".'
         );
 
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($generator, $info) {
                 $generator->dataSource = static function () {
                     $collection = new Collection();
@@ -333,13 +330,13 @@ final class BaseExtensionTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extension->getName()]);
-        Assert::same("def", (string) $result->channel->item->children($extension->getNamespace())->abc);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extension->getName()]);
+        $this->assertSame("def", (string) $result->channel->item->children($extension->getNamespace())->abc);
 
-        Assert::exception(
+        $this->assertThrowsException(
             static function () use ($generator, $info) {
                 $generator->dataSource = static function () {
                     $collection = new Collection();
@@ -356,6 +353,3 @@ final class BaseExtensionTest extends \Tester\TestCase
         );
     }
 }
-
-$test = new BaseExtensionTest();
-$test->run();

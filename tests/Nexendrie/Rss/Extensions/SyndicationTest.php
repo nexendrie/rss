@@ -4,24 +4,21 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Extensions\Syndication\UpdatePeriod;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class SyndicationTest extends \Tester\TestCase
+#[TestSuite("Syndication")]
+#[Group("extensions")]
+final class SyndicationTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new Syndication();
-        Assert::same("sy", $extension->getName());
+        $this->assertSame("sy", $extension->getName());
     }
 
     public function testExtension(): void
@@ -47,18 +44,15 @@ final class SyndicationTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same(
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame(
             UpdatePeriod::Hourly->value,
             (string) $result->channel->children($extensionNamespace)->$elementName1
         );
-        Assert::same("1", (string) $result->channel->children($extensionNamespace)->$elementName2);
-        Assert::same("abc", (string) $result->channel->children($extensionNamespace)->$elementName3);
+        $this->assertSame("1", (string) $result->channel->children($extensionNamespace)->$elementName2);
+        $this->assertSame("abc", (string) $result->channel->children($extensionNamespace)->$elementName3);
     }
 }
-
-$test = new SyndicationTest();
-$test->run();

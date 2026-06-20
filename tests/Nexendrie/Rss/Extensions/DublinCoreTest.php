@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class DublinCoreTest extends \Tester\TestCase
+#[TestSuite("DublinCore")]
+#[Group("extensions")]
+final class DublinCoreTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new DublinCore();
-        Assert::same("dc", $extension->getName());
+        $this->assertSame("dc", $extension->getName());
     }
 
     public function testExtension(): void
@@ -45,14 +42,11 @@ final class DublinCoreTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same("abc", (string) $result->channel->item->children($extensionNamespace)->$elementName1);
-        Assert::same("def", (string) $result->channel->item->children($extensionNamespace)->$elementName2);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame("abc", (string) $result->channel->item->children($extensionNamespace)->$elementName1);
+        $this->assertSame("def", (string) $result->channel->item->children($extensionNamespace)->$elementName2);
     }
 }
-
-$test = new DublinCoreTest();
-$test->run();

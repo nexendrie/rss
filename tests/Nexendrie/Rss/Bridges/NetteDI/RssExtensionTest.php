@@ -3,59 +3,65 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Bridges\NetteDI;
 
+use MyTester\Attributes\AfterTest;
+use MyTester\Attributes\BeforeTestSuite;
+use MyTester\Attributes\Skip;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Extensions\TestExtension;
 use Nexendrie\Rss\InvalidRssExtensionException;
-use Tester\Assert;
 use Nexendrie\Rss\Generator;
 
-require __DIR__ . "/../../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class RssExtensionTest extends \Tester\TestCase
+#[TestSuite("RssExtension")]
+#[Skip]
+final class RssExtensionTest extends \MyTester\TestCase
 {
-    use \Testbench\TCompiledContainer;
+    use \MyTester\Bridges\NetteDI\TCompiledContainer;
+
+    #[AfterTest]
+    #[BeforeTestSuite]
+    public function rebuildContainer(): void
+    {
+        $this->refreshContainer();
+    }
 
     public function testShortenDescription(): void
     {
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::notSame("", $generator->shortenDescription);
+        $this->assertNotSame("", $generator->shortenDescription);
         $this->refreshContainer(["rss" => [
             "shortenDescription" => 15,
         ]]);
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::same(15, $generator->shortenDescription);
+        $this->assertSame(15, $generator->shortenDescription);
     }
 
     public function testDateTimeFormat(): void
     {
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::notSame("", $generator->dateTimeFormat);
+        $this->assertNotSame("", $generator->dateTimeFormat);
         $this->refreshContainer(["rss" => [
             "dateTimeFormat" => "Y/m/d",
         ]]);
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::same("Y/m/d", $generator->dateTimeFormat);
+        $this->assertSame("Y/m/d", $generator->dateTimeFormat);
     }
 
     public function testTemplate(): void
     {
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::notSame("", $generator->template);
-        Assert::exception(function () {
+        $this->assertNotSame("", $generator->template);
+        $this->assertThrowsException(function () {
             $this->refreshContainer(["rss" => [
                 "template" => "abc",
             ]]);
             /** @var Generator $generator */
             $generator = $this->getService(Generator::class);
-            Assert::same("abc", $generator->template);
+            $this->assertSame("abc", $generator->template);
         }, \RuntimeException::class);
         $filename = __DIR__ . "/../../template.xml";
         $this->refreshContainer(["rss" => [
@@ -63,12 +69,12 @@ final class RssExtensionTest extends \Tester\TestCase
         ]]);
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::same($filename, $generator->template);
+        $this->assertSame($filename, $generator->template);
     }
 
     public function testExtensions(): void
     {
-        Assert::exception(function () {
+        $this->assertThrowsException(function () {
             $this->refreshContainer(["rss" => [
                 "extensions" => [
                     \stdClass::class,
@@ -80,9 +86,6 @@ final class RssExtensionTest extends \Tester\TestCase
         ]]);
         /** @var Generator $generator */
         $generator = $this->getService(Generator::class);
-        Assert::count(1, $generator->extensions->getItems(["%class%" => TestExtension::class]));
+        $this->assertCount(1, $generator->extensions->getItems(["%class%" => TestExtension::class]));
     }
 }
-
-$test = new RssExtensionTest();
-$test->run();

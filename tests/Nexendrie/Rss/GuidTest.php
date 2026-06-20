@@ -3,38 +3,32 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use SimpleXMLElement;
-use Tester\Assert;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class GuidTest extends \Tester\TestCase
+#[TestSuite("Guid")]
+#[Group("elements")]
+final class GuidTest extends \MyTester\TestCase
 {
     public function testAppendToXml(): void
     {
         $guid = new Guid("abc");
         $xml = new SimpleXMLElement("<test></test>");
         $guid->appendToXml($xml);
-        Assert::same($guid->value, (string) $xml->guid);
-        Assert::same("", (string) $xml->guid["isPermaLink"]);
+        $this->assertSame($guid->value, (string) $xml->guid);
+        $this->assertSame("", (string) $xml->guid["isPermaLink"]);
 
         $guid = new Guid("abc", true);
         $xml = new SimpleXMLElement("<test></test>");
         $guid->appendToXml($xml);
-        Assert::same($guid->value, (string) $xml->guid);
-        Assert::same("true", (string) $xml->guid["isPermaLink"]);
+        $this->assertSame($guid->value, (string) $xml->guid);
+        $this->assertSame("true", (string) $xml->guid["isPermaLink"]);
 
         $guid = new Guid("abc", false);
         $xml = new SimpleXMLElement("<test></test>");
         $guid->appendToXml($xml);
-        Assert::same($guid->value, (string) $xml->guid);
-        Assert::same("false", (string) $xml->guid["isPermaLink"]);
+        $this->assertSame($guid->value, (string) $xml->guid);
+        $this->assertSame("false", (string) $xml->guid["isPermaLink"]);
     }
 }
-
-$test = new GuidTest();
-$test->run();

@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class ContentTest extends \Tester\TestCase
+#[TestSuite("Content")]
+#[Group("extensions")]
+final class ContentTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new Content();
-        Assert::same("content", $extension->getName());
+        $this->assertSame("content", $extension->getName());
     }
 
     public function testExtension(): void
@@ -43,13 +40,10 @@ final class ContentTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same("def", (string) $result->channel->item->children($extensionNamespace, false)->$elementName);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame("def", (string) $result->channel->item->children($extensionNamespace, false)->$elementName);
     }
 }
-
-$test = new ContentTest();
-$test->run();

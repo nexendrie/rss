@@ -3,28 +3,22 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
-use Tester\Assert;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class RssCoreTest extends \Tester\TestCase
+#[TestSuite("RssCore")]
+#[Group("extensions")]
+final class RssCoreTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new RssCore();
-        Assert::same("", $extension->getName());
+        $this->assertSame("", $extension->getName());
     }
 
     public function testGetNamespace(): void
     {
         $extension = new RssCore();
-        Assert::same("", $extension->getNamespace());
+        $this->assertSame("", $extension->getNamespace());
     }
 }
-
-$test = new RssCoreTest();
-$test->run();

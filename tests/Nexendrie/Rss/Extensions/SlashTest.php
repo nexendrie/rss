@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions;
 
 use DateTime;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Collection;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssChannelItem;
-use Tester\Assert;
 
-require __DIR__ . "/../../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class SlashTest extends \Tester\TestCase
+#[TestSuite("Slash")]
+#[Group("extensions")]
+final class SlashTest extends \MyTester\TestCase
 {
     public function testGetName(): void
     {
         $extension = new Slash();
-        Assert::same("slash", $extension->getName());
+        $this->assertSame("slash", $extension->getName());
     }
 
     public function testExtension(): void
@@ -48,16 +45,13 @@ final class SlashTest extends \Tester\TestCase
             return $collection;
         };
         $result = $generator->generate($info);
-        Assert::type("string", $result);
+        $this->assertType("string", $result);
         $result = new \SimpleXMLElement($result);
         $namespaces = $result->getNamespaces(true);
-        Assert::same($extension->getNamespace(), $namespaces[$extensionName]);
-        Assert::same("abc", (string) $result->channel->item->children($extensionNamespace, false)->$elementName1);
-        Assert::same("def", (string) $result->channel->item->children($extensionNamespace, false)->$elementName2);
-        Assert::same("1", (string) $result->channel->item->children($extensionNamespace, false)->$elementName3);
-        Assert::same("1,2,3", (string) $result->channel->item->children($extensionNamespace, false)->$elementName4);
+        $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
+        $this->assertSame("abc", (string) $result->channel->item->children($extensionNamespace, false)->$elementName1);
+        $this->assertSame("def", (string) $result->channel->item->children($extensionNamespace, false)->$elementName2);
+        $this->assertSame("1", (string) $result->channel->item->children($extensionNamespace, false)->$elementName3);
+        $this->assertSame("1,2,3", (string) $result->channel->item->children($extensionNamespace, false)->$elementName4);
     }
 }
-
-$test = new SlashTest();
-$test->run();

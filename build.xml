@@ -2,4 +2,9 @@
 <project name="Nexendrie Rss" basedir="." default="test">
   <import file="vendor/nexendrie/code-quality/build.xml"/>
   <target name="test" depends="lint,cs,phpstan,tests"/>
+  <target name="tests" description="Unit tests">
+    <exec executable="php" logoutput="true" passthru="true" checkreturn="true">
+      <arg value="tests/run-tests.php"/>
+    </exec>
+  </target>
 </project>

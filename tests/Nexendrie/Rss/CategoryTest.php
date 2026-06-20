@@ -3,30 +3,24 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss;
 
-use Tester\Assert;
+use MyTester\Attributes\Group;
+use MyTester\Attributes\TestSuite;
 
-require __DIR__ . "/../../bootstrap.php";
-
-/**
- * @author Jakub Konečný
- * @testCase
- */
-final class CategoryTest extends \Tester\TestCase
+#[TestSuite("Category")]
+#[Group("elements")]
+final class CategoryTest extends \MyTester\TestCase
 {
     public function testAppendToXml(): void
     {
         $category = new Category("abc");
         $xml = new \SimpleXMLElement("<test></test>");
         $category->appendToXml($xml);
-        Assert::same($category->identifier, (string) $xml->category);
-        Assert::same("", (string) $xml->category["domain"]);
+        $this->assertSame($category->identifier, (string) $xml->category);
+        $this->assertSame("", (string) $xml->category["domain"]);
         $category = new Category("def", "domain");
         $xml = new \SimpleXMLElement("<test></test>");
         $category->appendToXml($xml);
-        Assert::same($category->identifier, (string) $xml->category);
-        Assert::same($category->domain, (string) $xml->category["domain"]);
+        $this->assertSame($category->identifier, (string) $xml->category);
+        $this->assertSame($category->domain, (string) $xml->category["domain"]);
     }
 }
-
-$test = new CategoryTest();
-$test->run();
