@@ -28,7 +28,7 @@ test:php8.5:
 
 test:cc:
     <<: *test_job
-    image: nexendrie/php:8.3
+    image: nexendrie/php:8.5
     coverage: '/(\d+\%) covered/'
     artifacts:
         paths:
