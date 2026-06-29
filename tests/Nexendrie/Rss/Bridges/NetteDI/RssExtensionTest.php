@@ -5,14 +5,14 @@ namespace Nexendrie\Rss\Bridges\NetteDI;
 
 use MyTester\Attributes\AfterTest;
 use MyTester\Attributes\BeforeTestSuite;
-use MyTester\Attributes\Skip;
+use MyTester\Attributes\RequiresPhpVersion;
 use MyTester\Attributes\TestSuite;
 use Nexendrie\Rss\Extensions\TestExtension;
 use Nexendrie\Rss\InvalidRssExtensionException;
 use Nexendrie\Rss\Generator;
 
 #[TestSuite("RssExtension")]
-#[Skip]
+#[RequiresPhpVersion("8.4.0")]
 final class RssExtensionTest extends \MyTester\TestCase
 {
     use \MyTester\Bridges\NetteDI\TCompiledContainer;
