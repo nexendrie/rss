@@ -5,6 +5,7 @@ namespace Nexendrie\Rss\Extensions;
 
 use BackedEnum;
 use Nexendrie\Rss\Extensions\ElementTypes\ArrayOfUrls;
+use Nexendrie\Rss\Extensions\ElementTypes\DateTimeString;
 use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
 use Nexendrie\Rss\Extensions\ElementTypes\NegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
@@ -119,6 +120,7 @@ abstract class BaseExtension implements RssExtension
             new EmailAddress(),
             new Url(),
             new ArrayOfUrls(),
+            new DateTimeString(),
         ];
     }
 

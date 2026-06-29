@@ -32,7 +32,7 @@ final class Syndication extends BaseExtension
         return [
             self::ELEMENT_UPDATE_PERIOD => UpdatePeriod::class,
             self::ELEMENT_UPDATE_FREQUENCY => "positive-int",
-            self::ELEMENT_UPDATE_BASE => "string",
+            self::ELEMENT_UPDATE_BASE => "datetime-string",
         ];
     }
 

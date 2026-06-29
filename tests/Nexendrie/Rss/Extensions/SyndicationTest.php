@@ -33,7 +33,7 @@ final class SyndicationTest extends \MyTester\TestCase
         $info = [
             "title" => "Nexendrie RSS", "link" => "https://gitlab.com/nexendrie/rss/",
             "description" => "News for package nexendrie/rss", "$extensionName:$elementName1" => UpdatePeriod::Hourly,
-            "$extensionName:$elementName2" => 1, "$extensionName:$elementName3" => "abc",
+            "$extensionName:$elementName2" => 1, "$extensionName:$elementName3" => "2026-06-30",
         ];
         $generator->dataSource = static function () {
             $collection = new Collection();
@@ -53,6 +53,6 @@ final class SyndicationTest extends \MyTester\TestCase
             (string) $result->channel->children($extensionNamespace)->$elementName1
         );
         $this->assertSame("1", (string) $result->channel->children($extensionNamespace)->$elementName2);
-        $this->assertSame("abc", (string) $result->channel->children($extensionNamespace)->$elementName3);
+        $this->assertSame("2026-06-30", (string) $result->channel->children($extensionNamespace)->$elementName3);
     }
 }

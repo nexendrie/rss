@@ -1,3 +1,5 @@
 A new version of Rss is out. Names of cases of UpdatePeriod were changed to only start with capital letter, for consistency with other enums.
 
+Dublin Core's date and Syndication's updateBase are now validated.
+
 For complete list of changes since previous version, see CHANGELOG.md.

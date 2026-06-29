@@ -46,7 +46,7 @@ class DublinCore extends BaseExtension
             self::ELEMENT_DESCRIPTION => "string",
             self::ELEMENT_PUBLISHER => "string",
             self::ELEMENT_CONTRIBUTOR => "string",
-            self::ELEMENT_DATE => "string",
+            self::ELEMENT_DATE => "datetime-string",
             self::ELEMENT_TYPE => "string",
             self::ELEMENT_FORMAT => "string",
             self::ELEMENT_IDENTIFIER => "string",

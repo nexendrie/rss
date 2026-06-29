@@ -1,5 +1,6 @@
 Version 0.17.0-dev
 - BC break: changed names of cases in UpdatePeriod to only start with capital letter
+- added validation for dc:date and sy:updateBase
 
 Version 0.16.0
 - BC break: lastBuildDate and pubDate for channel now have to be Closure (that returns a DateTime object)
