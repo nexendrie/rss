@@ -17,7 +17,7 @@ The best way to install it is via Composer. Just add **nexendrie/rss** to your d
 Usage
 -----
 
-Create new instance of \Nexendrie\Rss\Generator and add data source for channel's items. It has to return \Nexendrie\Rss\Collection which is a collection of \Nexendrie\Rss\RssChannelItem. Then you can call method generate with array that contains info about the channel. The basic minimum is title, description and link.
+Create new instance of \Nexendrie\Rss\Generator and add data source for channel's items. It has to return \Nexendrie\Rss\Collection which is a collection of \Nexendrie\Rss\RssChannelItem. Then you can call method generate with array that contains info about the channel. The basic minimum is title and description.
 
 Example:
 
@@ -45,7 +45,7 @@ $result = $generator->generate($info);
 ?>
 ```
 
-Method generate returns plain text that can shown with echo.
+Method generate returns plain text that can be shown with echo.
 
 Advanced usage
 --------------
@@ -74,7 +74,7 @@ $generator->shortenDescription = 500;
 
 or completely disable it by setting the property to 0.
 
-You can also change lastBuildDate for channel by setting property lastBuildDate of the Generator. It accepts callback that returns a DateTime object. Default value is current time. The same applies to pubDate but that has no default value.
+You can also change lastBuildDate for channel by adding key lastBuildDate to the info parameter. It accepts callback that returns a DateTime object. Default value is current time. The same applies to pubDate but that has no default value.
 
 It is also possible to use custom template for RSS Channel. Just use:
 
@@ -87,15 +87,15 @@ $generator->template = "/path/to/your/template.xml";
 ?>
 ```
 
-You can also set language, copyright, managingEditor, webMaster, ttl, rating, skipDays, skipHours, image, cloud and textInput for channel by adding those keys to the info parameter. skipHours has to be an array of integers between 0 and 23, skipDays has to be an array of enum Nexendrie\Rss\Extensions\RssCore\SkipDay. Image, cloud and textInput are entered as an instance of Nexendrie\Rss\Image, Nexendrie\Rss\Cloud or Nexendrie\Rss\TextInput respectively. Language now has to be an enum Nexendrie\Rss\Extensions\RssCore\Iso639Language or Nexendrie\Rss\Extensions\RssCore\RssLanguage.
+You can also set language, copyright, managingEditor, webMaster, ttl, rating, skipDays, skipHours, image, cloud and textInput for channel by adding those keys to the info parameter. skipHours has to be an array of integers between 0 and 23, skipDays has to be an array of enum Nexendrie\Rss\Extensions\RssCore\SkipDay. Image, cloud and textInput are entered as an instance of Nexendrie\Rss\Image, Nexendrie\Rss\Cloud or Nexendrie\Rss\TextInput respectively. Language has to be an enum Nexendrie\Rss\Extensions\RssCore\Iso639Language or Nexendrie\Rss\Extensions\RssCore\RssLanguage.
 
-We add generator and docs to channel but you can change their values by setting property of the same name Generator. If you do not want to have them in your channel at all, set their values to an empty string.
+We add generator and docs to channel but you can change their values by setting property of the same name on Generator. If you do not want to have them in your channel at all, set their values to an empty string.
 
-The item contains (besides those passed to constructor) properties author, comments and guid which when set will be added to the generated xml. You can also add source to items, just assign some values to properties sourceUrl and sourceTitle (url is mandatory, without it source is not added to xml).
+It is possible to set keys author, comments and guid of parameter data passed to Item's constructor which will be added to the generated xml. You can also add source to items, just add key source with an instance of Nexendrie\Rss\Source (url is mandatory, without it source is not added to xml).
 
-Both channel and individual items can have any number of categories. Category is represented by class Nexendrie\Rss\Category and has an identifier and domain (the latter is optional). You can add categories to channel via key categories in info parameter in form of array. Item class has property categories which behaves like an array (you can add new elements and remove/modify them).
+Both channel and individual items can have any number of categories. Category is represented by class Nexendrie\Rss\Category and has an identifier and domain (the latter is optional). You can add categories to channel or item via key categories in info/data parameter as and object of type Nexendrie\Rss\CategoriesCollection which behaves like an array (you can add new elements and remove/modify them).
 
-It is possible to add multiple enclosures into an item, just add an instance of Nexendrie\Rss\Enclosure as new element of array to property enclosures on the item.
+It is possible to add multiple enclosures into an item, just add an instance of Nexendrie\Rss\Enclosure as value for key enclosure to data parameter.
 
 Custom elements and attributes
 ------------------------------
