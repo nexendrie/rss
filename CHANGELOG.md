@@ -1,4 +1,4 @@
-Version 0.17.0-dev
+Version 1.0.0
 - BC break: changed names of cases in UpdatePeriod to only start with capital letter
 - added validation for dc:date and sy:updateBase
 
