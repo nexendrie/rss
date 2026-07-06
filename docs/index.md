@@ -117,6 +117,8 @@ $generator->extensions[] = new classname();
 
 A few extensions are a part of this package (in namespace Nexendrie\Rss\Extension) and also all core elements and attributes are defined in an extension.
 
+For details about creating extensions, read [this](extensions.md).
+
 Nette applications
 ------------------
 
