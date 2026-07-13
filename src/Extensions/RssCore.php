@@ -101,6 +101,7 @@ final class RssCore implements RssExtension
         $resolver->setAllowedTypes("categories", Category::class . "[]");
         $resolver->setNormalizer(
             "categories",
+            // @phpstan-ignore argument.type
             static fn(Options $options, array $value): CategoriesCollection => CategoriesCollection::fromArray($value)
         );
         $resolver->setAllowedTypes("skipDays", SkipDay::class . "[]");

@@ -6,8 +6,13 @@ namespace Nexendrie\Rss;
 /**
  * @author Jakub Konečný
  * @internal
+ * @extends \Nexendrie\Utils\Collection<RssExtension>
  */
 final class RssExtensionsCollection extends \Nexendrie\Utils\Collection
 {
-    protected string $class = RssExtension::class;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->class = RssExtension::class;
+    }
 }

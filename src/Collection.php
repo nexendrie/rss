@@ -9,8 +9,13 @@ use Nexendrie\Utils\Collection as BaseCollection;
  * Collection
  *
  * @author Jakub Konečný
+ * @extends BaseCollection<RssChannelItem>
  */
 final class Collection extends BaseCollection
 {
-    protected string $class = RssChannelItem::class;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->class = RssChannelItem::class;
+    }
 }

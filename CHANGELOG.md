@@ -1,5 +1,6 @@
 Version 1.0.0+dev
 - allowed symfony/options-resolver 8
+- allowed nexendrie/utils 2
 
 Version 1.0.0
 - BC break: changed names of cases in UpdatePeriod to only start with capital letter
