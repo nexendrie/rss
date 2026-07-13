@@ -7,6 +7,9 @@ use Nexendrie\Rss\Generator;
 
 final readonly class ChannelBeforeGenerate
 {
+    /**
+     * @param array<string, mixed> $info
+     */
     public function __construct(public Generator $generator, public array $info)
     {
     }

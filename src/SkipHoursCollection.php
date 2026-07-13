@@ -11,10 +11,13 @@ namespace Nexendrie\Rss;
  */
 final class SkipHoursCollection implements XmlConvertible
 {
+    /**
+     * @var list<int>
+     */
     private array $hours;
 
     /**
-     * @param int[] $hours
+     * @param list<int> $hours
      */
     public function __construct(array $hours)
     {
@@ -22,12 +25,13 @@ final class SkipHoursCollection implements XmlConvertible
             $value = (string) $value;
         });
         $hours = array_unique($hours);
-        $this->hours = $hours;
+        $this->hours = $hours; // @phpstan-ignore assign.propertyType
     }
 
     public function appendToXml(\SimpleXMLElement $parent): void
     {
         $element = $parent->addChild("skipHours");
+        // @phpstan-ignore argument.type
         array_walk($this->hours, static function (string $value) use ($element): void {
             $element->addChild("hour", $value);
         });

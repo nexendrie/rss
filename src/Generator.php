@@ -72,6 +72,9 @@ final class Generator
         return $items;
     }
 
+    /**
+     * @param array<string, mixed> $info
+     */
     private function writeProperty(\SimpleXMLElement $channel, array $info, string $property): void
     {
         $value = $info[$property] ?? "";
@@ -82,6 +85,7 @@ final class Generator
     }
 
     /**
+     * @param array<string, mixed> $info
      * @throws InvalidStateException
      * @throws \InvalidArgumentException
      */
@@ -132,6 +136,7 @@ final class Generator
     }
 
     /**
+     * @param array<string, mixed> $info
      * @throws InvalidStateException
      * @throws \InvalidArgumentException
      */

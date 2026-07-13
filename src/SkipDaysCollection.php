@@ -11,15 +11,15 @@ namespace Nexendrie\Rss;
  */
 final class SkipDaysCollection implements XmlConvertible
 {
-    /** @var string[] */
+    /** @var list<string> */
     private array $days;
 
     /**
-     * @param string[] $days
+     * @param list<string> $days
      */
     public function __construct(array $days)
     {
-        $this->days = array_unique($days);
+        $this->days = array_unique($days); // @phpstan-ignore assign.propertyType
     }
 
     public function appendToXml(\SimpleXMLElement $parent): void

@@ -12,6 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final readonly class RssChannelItem
 {
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __construct(private array $data)
     {
     }

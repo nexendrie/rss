@@ -109,6 +109,7 @@ final class RssCore implements RssExtension
             foreach ($value as &$item) {
                 $item = $item->name;
             }
+            /** @var list<string> $value */
             return new SkipDaysCollection($value);
         });
         $resolver->setAllowedTypes("skipHours", "int[]");
@@ -119,6 +120,7 @@ final class RssCore implements RssExtension
         });
         $resolver->setNormalizer(
             "skipHours",
+            // @phpstan-ignore argument.type
             static fn (Options $options, array $value): SkipHoursCollection => new SkipHoursCollection($value)
         );
         $resolver->setAllowedTypes("image", Image::class);
