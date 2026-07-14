@@ -1,3 +1,3 @@
-A new version of Rss is out.
+A new version of Rss is out. It adds support for symfony/options-resolver 8 and nexendrie/utils 2.
 
 For complete list of changes since previous version, see CHANGELOG.md.

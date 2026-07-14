@@ -1,4 +1,4 @@
-Version 1.0.0+dev
+Version 1.0.1
 - allowed symfony/options-resolver 8
 - allowed nexendrie/utils 2
 
