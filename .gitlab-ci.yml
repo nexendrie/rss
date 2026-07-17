@@ -43,7 +43,7 @@ pages:
     environment:
         name: documentation
         url: https://nexendrie.gitlab.io/rss
-    image: nexendrie/php:8.3
+    image: nexendrie/php:8.5
     script:
         - composer create-project --no-dev nexendrie/site-generator
         - site-generator/bin/generate-site --source=docs --output=public
