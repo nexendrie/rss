@@ -1,5 +1,6 @@
-Version 1.0.1+dev
+Version 1.1.0-dev
 - lastBuildDate and pubDate now accept DateTimeInterface instead of just DateTime
+- added RSS extension W3C Basic Geo
 
 Version 1.0.1
 - allowed symfony/options-resolver 8
