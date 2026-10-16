@@ -1,3 +1,6 @@
+Version 1.0.1+dev
+- lastBuildDate and pubDate now accept DateTimeInterface instead of just DateTime
+
 Version 1.0.1
 - allowed symfony/options-resolver 8
 - allowed nexendrie/utils 2

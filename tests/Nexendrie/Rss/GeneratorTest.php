@@ -128,7 +128,9 @@ final class GeneratorTest extends \MyTester\TestCase
                 "description" => "News for package nexendrie/rss", "lastBuildDate" => static fn() => "abc",
             ];
             $this->generator->generate($info);
-        }, \InvalidArgumentException::class, "Callback for last build date for RSS generator has to return DateTime.");
+        },
+            \InvalidArgumentException::class,
+            "Callback for last build date for RSS generator has to return DateTimeInterface.");
     }
 
     public function testResponse(): void
@@ -185,7 +187,7 @@ final class GeneratorTest extends \MyTester\TestCase
         };
         $this->assertThrowsException(function () use ($info) {
             $this->generator->generate($info);
-        }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return DateTime.");
+        }, \InvalidArgumentException::class, "Callback for pub date for RSS generator has to return DateTimeInterface.");
         $info["pubDate"] = static fn() => new DateTime("2024-12-31");
         $result = new \SimpleXMLElement($this->generator->generate($info));
         $this->assertSame("2024/12/31", (string) $result->channel->pubDate);
