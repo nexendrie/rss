@@ -1,4 +1,4 @@
-A new version of Rss is out. It adds RSS extension W3C Basic Geo.
+A new version of Rss is out. It adds RSS extensions W3C Basic Geo and Podlove Simple Chapters.
 
 lastBuildDate and pubDate now also accept DateTimeImmutable (instead of just DateTime).
 
