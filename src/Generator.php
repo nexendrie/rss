@@ -22,8 +22,6 @@ final class Generator
 {
     use \Nette\SmartObject;
 
-    private const string NAMESPACE_ATTRIBUTE_HACK = "__extension_namespace__";
-
     public string $dateTimeFormat = "r";
     public ?Closure $dataSource = null;
     public int $shortenDescription = 150;
@@ -104,16 +102,16 @@ final class Generator
             $info["generator"] = $this->generator;
         }
         $info = $resolver->resolve($info);
-        /** @var \SimpleXMLElement $channel */
-        $channel = simplexml_load_file($this->template);
+        $template = (string) file_get_contents($this->template);
+        $nsDefinitions = "";
         foreach ($this->extensions as $extension) {
             if ($extension->getName() !== "" && $extension->getNamespace() !== "") {
-                $channel->addAttribute(
-                    self::NAMESPACE_ATTRIBUTE_HACK . $extension->getName(),
-                    $extension->getNamespace()
-                );
+                $nsDefinitions .= sprintf(" xmlns:%s=\"%s\"", $extension->getName(), $extension->getNamespace());
             }
         }
+        $template = (string) preg_replace("/<rss\\b/", "<rss$nsDefinitions", $template);
+        /** @var \SimpleXMLElement $channel */
+        $channel = simplexml_load_string($template);
         $properties = $resolver->getDefinedOptions();
         foreach ($properties as $property) {
             $this->writeProperty($channel, $info, $property);
@@ -129,9 +127,7 @@ final class Generator
         $dom = new \DOMDocument();
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
-        $xml = (string) $channel->asXML();
-        $xml = str_replace(self::NAMESPACE_ATTRIBUTE_HACK, "xmlns:", $xml);
-        $dom->loadXML($xml);
+        $dom->loadXML((string) $channel->asXML());
         return (string) $dom->saveXML();
     }
 
