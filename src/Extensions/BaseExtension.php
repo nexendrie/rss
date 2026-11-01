@@ -38,7 +38,11 @@ abstract class BaseExtension implements RssExtension
 
     protected function getElementName(string $baseName): string
     {
-        return $this->getName() . ":" . $baseName;
+        $name = $this->getName();
+        if ($name === "") {
+            return $baseName;
+        }
+        return $name . ":" . $baseName;
     }
 
     /**
@@ -94,7 +98,10 @@ abstract class BaseExtension implements RssExtension
 
                     $resolver->setAllowedTypes($this->getElementName($value), $elementType);
 
-                    if (is_string($elementType) && $this->isEnumType($elementType)) {
+                    if (
+                        (is_string($elementType) && $this->isEnumType($elementType)) ||
+                        (is_array($elementType) && array_all($elementType, $this->isEnumType(...)))
+                    ) {
                         $resolver->setNormalizer(
                             $this->getElementName($value),
                             static function (Options $options, UnitEnum $value): string {

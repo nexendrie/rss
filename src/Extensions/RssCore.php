@@ -10,9 +10,6 @@ use Nexendrie\Rss\Category;
 use Nexendrie\Rss\CDataElement;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\Enclosure;
-use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
-use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
-use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
@@ -20,7 +17,6 @@ use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\GenericElement;
 use Nexendrie\Rss\Guid;
 use Nexendrie\Rss\Image;
-use Nexendrie\Rss\RssExtension;
 use Nexendrie\Rss\SkipDaysCollection;
 use Nexendrie\Rss\SkipHoursCollection;
 use Nexendrie\Rss\Source;
@@ -34,8 +30,39 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Jakub Konečný
  */
-final class RssCore implements RssExtension
+final class RssCore extends BaseExtension
 {
+    public const string ELEMENT_CHANNEL_TITLE = "title";
+    public const string ELEMENT_CHANNEL_DESCRIPTION = "description";
+    public const string ELEMENT_CHANNEL_LINK = "link";
+    public const string ELEMENT_CHANNEL_LAST_BUILD_DATE = "lastBuildDate";
+    public const string ELEMENT_CHANNEL_LANGUAGE = "language";
+    public const string ELEMENT_CHANNEL_COPYRIGHT = "copyright";
+    public const string ELEMENT_CHANNEL_MANAGING_EDITOR = "managingEditor";
+    public const string ELEMENT_CHANNEL_WEBMASTER = "webMaster";
+    public const string ELEMENT_CHANNEL_TTL = "ttl";
+    public const string ELEMENT_CHANNEL_PUB_DATE = "pubDate";
+    public const string ELEMENT_CHANNEL_RATING = "rating";
+    public const string ELEMENT_CHANNEL_CATEGORIES = "categories";
+    public const string ELEMENT_CHANNEL_SKIP_DAYS = "skipDays";
+    public const string ELEMENT_CHANNEL_SKIP_HOURS = "skipHours";
+    public const string ELEMENT_CHANNEL_IMAGE = "image";
+    public const string ELEMENT_CHANNEL_CLOUD = "cloud";
+    public const string ELEMENT_CHANNEL_TEXT_INPUT = "textInput";
+    public const string ELEMENT_CHANNEL_DOCS = "docs";
+    public const string ELEMENT_CHANNEL_GENERATOR = "generator";
+
+    public const string ELEMENT_ITEM_TITLE = "title";
+    public const string ELEMENT_ITEM_DESCRIPTION = "description";
+    public const string ELEMENT_ITEM_LINK = "link";
+    public const string ELEMENT_ITEM_PUB_DATE = "pubDate";
+    public const string ELEMENT_ITEM_AUTHOR = "author";
+    public const string ELEMENT_ITEM_COMMENTS = "comments";
+    public const string ELEMENT_ITEM_GUID = "guid";
+    public const string ELEMENT_ITEM_SOURCE = "source";
+    public const string ELEMENT_ITEM_CATEGORIES = "categories";
+    public const string ELEMENT_ITEM_ENCLOSURE = "enclosure";
+
     public function getName(): string
     {
         return "";
@@ -46,22 +73,54 @@ final class RssCore implements RssExtension
         return "";
     }
 
+    protected function getElementTypes(): array
+    {
+        return [
+            self::ELEMENT_CHANNEL_TITLE => "string",
+            self::ELEMENT_CHANNEL_DESCRIPTION => "string",
+            self::ELEMENT_CHANNEL_LINK => "url",
+            self::ELEMENT_CHANNEL_LAST_BUILD_DATE => Closure::class,
+            self::ELEMENT_CHANNEL_LANGUAGE => [Iso639Language::class, RssLanguage::class,],
+            self::ELEMENT_CHANNEL_COPYRIGHT => "string",
+            self::ELEMENT_CHANNEL_MANAGING_EDITOR => "email",
+            self::ELEMENT_CHANNEL_WEBMASTER => "email",
+            self::ELEMENT_CHANNEL_TTL => "non-negative-int",
+            self::ELEMENT_CHANNEL_PUB_DATE => Closure::class,
+            self::ELEMENT_CHANNEL_RATING => "string",
+            self::ELEMENT_CHANNEL_IMAGE => Image::class,
+            self::ELEMENT_CHANNEL_CLOUD => Cloud::class,
+            self::ELEMENT_CHANNEL_TEXT_INPUT => TextInput::class,
+            self::ELEMENT_CHANNEL_DOCS => "url",
+            self::ELEMENT_CHANNEL_GENERATOR => "string",
+            self::ELEMENT_ITEM_AUTHOR => "email",
+            self::ELEMENT_ITEM_COMMENTS => "url",
+            self::ELEMENT_ITEM_GUID => ["string", Guid::class,],
+            self::ELEMENT_ITEM_SOURCE => Source::class,
+            self::ELEMENT_ITEM_ENCLOSURE => Enclosure::class,
+        ];
+    }
+
+    protected function getRequiredElements(): array
+    {
+        return [
+            self::ELEMENT_CHANNEL_TITLE,
+            self::ELEMENT_CHANNEL_DESCRIPTION,
+            self::ELEMENT_CHANNEL_LAST_BUILD_DATE,
+        ];
+    }
+
     public function configureChannelOptions(OptionsResolver $resolver, Generator $generator): void
     {
-        $resolver->setRequired(["title", "description", "link", "lastBuildDate",]);
-        $resolver->setAllowedTypes("title", "string");
-        $resolver->setAllowedTypes("description", "string");
+        $this->registerElements($resolver, "ELEMENT_CHANNEL_");
+        $resolver->setRequired([self::ELEMENT_CHANNEL_LINK,]);
         $resolver->setNormalizer(
-            "description",
-            fn (Options $options, string $value) => new CDataElement("description", $value)
+            $this->getElementName(self::ELEMENT_CHANNEL_DESCRIPTION),
+            fn (Options $options, string $value) => new CDataElement($this->getElementName(self::ELEMENT_CHANNEL_DESCRIPTION), $value)
         );
-        $resolver->setAllowedTypes("link", "string");
-        $resolver->setAllowedValues("link", (new Url())->getValidator());
-        $resolver->setAllowedTypes("lastBuildDate", Closure::class);
-        $resolver->setDefault("lastBuildDate", date_create(...));
+        $resolver->setDefault($this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE), date_create(...));
         $resolver->setNormalizer(
-            "lastBuildDate",
-            static function (Options $options, Closure $value) use ($generator): GenericElement {
+            $this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE),
+            function (Options $options, Closure $value) use ($generator): GenericElement {
                 $value = $value();
                 if (!$value instanceof DateTimeInterface) {
                     throw new \InvalidArgumentException(
@@ -69,29 +128,12 @@ final class RssCore implements RssExtension
                     );
                 }
                 $value = $value->format($generator->dateTimeFormat);
-                return new GenericElement("lastBuildDate", $value);
+                return new GenericElement($this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE), $value);
             }
         );
-        $resolver->setDefined([
-            "language", "copyright", "managingEditor", "webMaster", "ttl", "pubDate", "rating", "categories",
-            "skipDays", "skipHours", "image", "cloud", "textInput", "docs", "generator",
-        ]);
-        $resolver->setAllowedTypes("language", [Iso639Language::class, RssLanguage::class,]);
         $resolver->setNormalizer(
-            "language",
-            static fn(Options $options, Iso639Language|RssLanguage $value) => $value->value
-        );
-        $resolver->setAllowedTypes("copyright", "string");
-        $resolver->setAllowedTypes("managingEditor", "string");
-        $resolver->setAllowedValues("managingEditor", (new EmailAddress())->getValidator());
-        $resolver->setAllowedTypes("webMaster", "string");
-        $resolver->setAllowedValues("webMaster", (new EmailAddress())->getValidator());
-        $resolver->setAllowedTypes("ttl", "int");
-        $resolver->setAllowedValues("ttl", (new NonNegativeInteger())->getValidator());
-        $resolver->setAllowedTypes("pubDate", Closure::class);
-        $resolver->setNormalizer(
-            "pubDate",
-            static function (Options $options, Closure $value) use ($generator): GenericElement {
+            $this->getElementName(self::ELEMENT_CHANNEL_PUB_DATE),
+            function (Options $options, Closure $value) use ($generator): GenericElement {
                 $value = $value();
                 if (!$value instanceof DateTimeInterface) {
                     throw new \InvalidArgumentException(
@@ -99,18 +141,17 @@ final class RssCore implements RssExtension
                     );
                 }
                 $value = $value->format($generator->dateTimeFormat);
-                return new GenericElement("pubDate", $value);
+                return new GenericElement($this->getElementName(self::ELEMENT_CHANNEL_PUB_DATE), $value);
             }
         );
-        $resolver->setAllowedTypes("rating", "string");
-        $resolver->setAllowedTypes("categories", Category::class . "[]");
+        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CHANNEL_CATEGORIES), Category::class . "[]");
         $resolver->setNormalizer(
-            "categories",
+            $this->getElementName(self::ELEMENT_CHANNEL_CATEGORIES),
             // @phpstan-ignore argument.type
             static fn(Options $options, array $value): CategoriesCollection => CategoriesCollection::fromArray($value)
         );
-        $resolver->setAllowedTypes("skipDays", SkipDay::class . "[]");
-        $resolver->setNormalizer("skipDays", static function (Options $options, array $value): SkipDaysCollection {
+        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CHANNEL_SKIP_DAYS), SkipDay::class . "[]");
+        $resolver->setNormalizer($this->getElementName(self::ELEMENT_CHANNEL_SKIP_DAYS), static function (Options $options, array $value): SkipDaysCollection {
             /** @var SkipDay $item */
             foreach ($value as &$item) {
                 $item = $item->name;
@@ -118,58 +159,41 @@ final class RssCore implements RssExtension
             /** @var list<string> $value */
             return new SkipDaysCollection($value);
         });
-        $resolver->setAllowedTypes("skipHours", "int[]");
-        $resolver->setAllowedValues("skipHours", static function (array $value): bool {
+        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CHANNEL_SKIP_HOURS), "int[]");
+        $resolver->setAllowedValues($this->getElementName(self::ELEMENT_CHANNEL_SKIP_HOURS), static function (array $value): bool {
             return array_all($value, static function (int $value): bool {
                 return Numbers::isInRange($value, 0, 23);
             });
         });
         $resolver->setNormalizer(
-            "skipHours",
+            $this->getElementName(self::ELEMENT_CHANNEL_SKIP_HOURS),
             // @phpstan-ignore argument.type
             static fn (Options $options, array $value): SkipHoursCollection => new SkipHoursCollection($value)
         );
-        $resolver->setAllowedTypes("image", Image::class);
-        $resolver->setAllowedTypes("cloud", Cloud::class);
-        $resolver->setAllowedTypes("textInput", TextInput::class);
-        $resolver->setAllowedTypes("docs", "string");
-        $resolver->setAllowedValues("docs", (new Url())->getValidator());
-        $resolver->setAllowedTypes("generator", "string");
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
-        $resolver->setRequired(["title", "description",]);
-        $resolver->setAllowedTypes("title", "string");
-        $resolver->setAllowedTypes("description", "string");
-        $resolver->setNormalizer("description", function (Options $options, string $value) use ($generator) {
-            return new CDataElement("description", $this->shortenDescription($value, $generator->shortenDescription));
+        $this->registerElements($resolver, "ELEMENT_ITEM_");
+        $resolver->setNormalizer($this->getElementName(self::ELEMENT_ITEM_DESCRIPTION), function (Options $options, string $value) use ($generator) {
+            return new CDataElement(
+                $this->getElementName(self::ELEMENT_ITEM_DESCRIPTION),
+                $this->shortenDescription($value, $generator->shortenDescription)
+            );
         });
-        $resolver->setDefined([
-            "link", "pubDate", "author", "comments", "guid", "source", "categories", "enclosure",
-        ]);
-        $resolver->setAllowedTypes("link", "string");
-        $resolver->setAllowedValues("link", (new Url())->getValidator());
-        $resolver->setAllowedTypes("pubDate", DateTimeInterface::class);
+        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_ITEM_PUB_DATE), DateTimeInterface::class);
         $resolver->setNormalizer(
-            "pubDate",
-            static function (Options $options, DateTimeInterface $value) use ($generator): GenericElement {
+            $this->getElementName(self::ELEMENT_ITEM_PUB_DATE),
+            function (Options $options, DateTimeInterface $value) use ($generator): GenericElement {
                 $value = $value->format($generator->dateTimeFormat);
-                return new GenericElement("pubDate", $value);
+                return new GenericElement($this->getElementName(self::ELEMENT_ITEM_PUB_DATE), $value);
             }
         );
-        $resolver->setAllowedTypes("author", "string");
-        $resolver->setAllowedValues("author", (new EmailAddress())->getValidator());
-        $resolver->setAllowedTypes("comments", "string");
-        $resolver->setAllowedValues("comments", (new Url())->getValidator());
-        $resolver->setAllowedTypes("guid", ["string", Guid::class,]);
         $resolver->addNormalizer(
-            "guid",
+            $this->getElementName(self::ELEMENT_ITEM_GUID),
             static fn(Options $options, string|Guid $value) => $value instanceof Guid ? $value : new Guid($value)
         );
-        $resolver->setAllowedTypes("source", Source::class);
-        $resolver->setAllowedTypes("categories", CategoriesCollection::class);
-        $resolver->setAllowedTypes("enclosure", Enclosure::class);
+        $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_ITEM_CATEGORIES), CategoriesCollection::class);
     }
 
     protected function shortenDescription(string $description, int $maxLength): string
