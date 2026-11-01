@@ -45,5 +45,9 @@ final class ContentTest extends \MyTester\TestCase
         $namespaces = $result->getNamespaces(true);
         $this->assertSame($extension->getNamespace(), $namespaces[$extensionName]);
         $this->assertSame("def", (string) $result->channel->item->children($extensionNamespace, false)->$elementName);
+        $this->assertContains(
+            "<$extensionName:$elementName><![CDATA[def]]></$extensionName:$elementName>",
+            (string) $result->asXML()
+        );
     }
 }

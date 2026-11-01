@@ -77,6 +77,10 @@ final class GeneratorTest extends \MyTester\TestCase
         $result = new \SimpleXMLElement($result);
         $this->assertSame($info["title"], (string) $result->channel->title);
         $this->assertSame($info["description"], (string) $result->channel->description);
+        $this->assertContains(
+            "<description><![CDATA[{$info["description"]}]]></description>",
+            (string) $result->asXML()
+        );
         $this->assertSame($info["link"], (string) $result->channel->link);
         $this->assertSame($this->generator->docs, (string) $result->channel->docs);
         $this->assertSame($this->generator->generator, (string) $result->channel->generator);

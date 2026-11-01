@@ -7,6 +7,7 @@ use Closure;
 use DateTimeInterface;
 use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
+use Nexendrie\Rss\CDataElement;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\Enclosure;
 use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
@@ -50,6 +51,10 @@ final class RssCore implements RssExtension
         $resolver->setRequired(["title", "description", "link", "lastBuildDate",]);
         $resolver->setAllowedTypes("title", "string");
         $resolver->setAllowedTypes("description", "string");
+        $resolver->setNormalizer(
+            "description",
+            fn (Options $options, string $value) => new CDataElement("description", $value)
+        );
         $resolver->setAllowedTypes("link", "string");
         $resolver->setAllowedValues("link", (new Url())->getValidator());
         $resolver->setAllowedTypes("lastBuildDate", Closure::class);
@@ -137,8 +142,8 @@ final class RssCore implements RssExtension
         $resolver->setRequired(["title", "description",]);
         $resolver->setAllowedTypes("title", "string");
         $resolver->setAllowedTypes("description", "string");
-        $resolver->setNormalizer("description", function (Options $options, string $value) use ($generator): string {
-            return $this->shortenDescription($value, $generator->shortenDescription);
+        $resolver->setNormalizer("description", function (Options $options, string $value) use ($generator) {
+            return new CDataElement("description", $this->shortenDescription($value, $generator->shortenDescription));
         });
         $resolver->setDefined([
             "link", "pubDate", "author", "comments", "guid", "source", "categories", "enclosure",
