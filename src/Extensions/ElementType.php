@@ -9,5 +9,9 @@ interface ElementType
 {
     public function getName(): string;
     public function getSimpleType(): SimpleElementType;
+
+    /**
+     * @return Closure(mixed $value): bool
+     */
     public function getValidator(): Closure;
 }
