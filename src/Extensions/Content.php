@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Nexendrie\Rss\Extensions;
 
-use Nexendrie\Rss\CDataElement;
 use Nexendrie\Rss\Generator;
+use Nexendrie\Rss\XmlElement;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -31,7 +31,7 @@ final class Content extends BaseExtension
         $this->registerElements($resolver);
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_ENCODED),
-            fn (OptionsResolver $resolver, string $value) => new CDataElement(self::ELEMENT_ENCODED, $value, $this->getNamespace())
+            fn (OptionsResolver $resolver, string $value) => new XmlElement(self::ELEMENT_ENCODED, $value, $this->getNamespace(), [], true)
         );
     }
 }

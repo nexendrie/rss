@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Nexendrie\Rss;
 
 use BackedEnum;
+use DOMDocument;
 use SimpleXMLElement;
 use UnitEnum;
 
@@ -23,6 +24,7 @@ final class XmlElement implements XmlConvertible
         public string|int|float|array|null $value = null,
         public ?string $namespaceUri = null,
         public array $attributes = [],
+        public bool $escapeAsCdata = false
     ) {
     }
 
@@ -33,7 +35,11 @@ final class XmlElement implements XmlConvertible
                 if ($item === null || $item === "") {
                     continue;
                 }
-                $element = $parent->addChild($this->name, $this->getValue($item), $this->namespaceUri);
+                $value = $this->getValue($item);
+                $element = $parent->addChild($this->name, $this->escapeAsCdata ? "" : $value, $this->namespaceUri);
+                if ($this->escapeAsCdata) {
+                    $this->escapeValueAsCdata($element, (string) $value);
+                }
                 $this->addAttributes($element);
             }
             return;
@@ -43,7 +49,11 @@ final class XmlElement implements XmlConvertible
             return;
         }
 
-        $element = $parent->addChild($this->name, $this->getValue($this->value), $this->namespaceUri);
+        $value = $this->getValue($this->value);
+        $element = $parent->addChild($this->name, $this->escapeAsCdata ? "" : $value, $this->namespaceUri);
+        if ($this->escapeAsCdata) {
+            $this->escapeValueAsCdata($element, (string) $value);
+        }
         $this->addAttributes($element);
     }
 
@@ -71,5 +81,14 @@ final class XmlElement implements XmlConvertible
             $returnValue = $value ? "true" : "false";
         }
         return $returnValue;
+    }
+
+    private function escapeValueAsCdata(SimpleXMLElement $element, string $value): void
+    {
+        $dom = dom_import_simplexml($element);
+        /** @var DOMDocument $domDoc */
+        $domDoc = $dom->ownerDocument;
+        $cdata = $domDoc->createCDATASection($value);
+        $dom->appendChild($cdata);
     }
 }

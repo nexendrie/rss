@@ -7,7 +7,6 @@ use Closure;
 use DateTimeInterface;
 use Nexendrie\Rss\CategoriesCollection;
 use Nexendrie\Rss\Category;
-use Nexendrie\Rss\CDataElement;
 use Nexendrie\Rss\Cloud;
 use Nexendrie\Rss\Enclosure;
 use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
@@ -115,7 +114,7 @@ final class RssCore extends BaseExtension
         $resolver->setRequired([self::ELEMENT_CHANNEL_LINK,]);
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_CHANNEL_DESCRIPTION),
-            fn (Options $options, string $value) => new CDataElement($this->getElementName(self::ELEMENT_CHANNEL_DESCRIPTION), $value)
+            fn (Options $options, string $value) => new XmlElement($this->getElementName(self::ELEMENT_CHANNEL_DESCRIPTION), $value, null, [], true)
         );
         $resolver->setDefault($this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE), date_create(...));
         $resolver->setNormalizer(
@@ -176,9 +175,12 @@ final class RssCore extends BaseExtension
     {
         $this->registerElements($resolver, "ELEMENT_ITEM_");
         $resolver->setNormalizer($this->getElementName(self::ELEMENT_ITEM_DESCRIPTION), function (Options $options, string $value) use ($generator) {
-            return new CDataElement(
+            return new XmlElement(
                 $this->getElementName(self::ELEMENT_ITEM_DESCRIPTION),
-                $this->shortenDescription($value, $generator->shortenDescription)
+                $this->shortenDescription($value, $generator->shortenDescription),
+                null,
+                [],
+                true
             );
         });
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_ITEM_PUB_DATE), DateTimeInterface::class);
