@@ -15,6 +15,7 @@ use Nexendrie\Rss\Extensions\ElementTypes\PositiveInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\RssExtension;
+use Nexendrie\Rss\XmlElement;
 use Nexendrie\Utils\Constants;
 use Nexendrie\Utils\Enums;
 use ReflectionClass;
@@ -113,9 +114,8 @@ abstract class BaseExtension implements RssExtension
                     ) {
                         $resolver->setNormalizer(
                             $this->getElementName($value),
-                            static function (Options $options, UnitEnum $value): string {
-                                return $value instanceof BackedEnum ? (string) $value->value : $value->name;
-                            }
+                            fn (Options $options, UnitEnum $elementValue): XmlElement =>
+                            new XmlElement($value, $elementValue, $this->getNamespace())
                         );
                     }
                 }

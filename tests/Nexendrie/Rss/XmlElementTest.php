@@ -39,6 +39,14 @@ final class XmlElementTest extends TestCase
         $element->appendToXml($xml);
         $this->assertSame("<?xml version=\"1.0\"?>\n<test><abc>def</abc></test>\n", $xml->asXML());
 
+        $element = new XmlElement("abc", CloudProtocol::HttpPost);
+        $xml = new \SimpleXMLElement("<test></test>");
+        $element->appendToXml($xml);
+        $this->assertSame(
+            "<?xml version=\"1.0\"?>\n<test><abc>http-post</abc></test>\n",
+            $xml->asXML()
+        );
+
         $element = new XmlElement("abc", "def", null, [], true);
         $xml = new \SimpleXMLElement("<test></test>");
         $element->appendToXml($xml);
@@ -99,6 +107,16 @@ final class XmlElementTest extends TestCase
         $this->assertSame(
             "<?xml version=\"1.0\"?>
 <test xmlns:test=\"https://example.com/rss/test/\"><test:abc>def</test:abc></test>
+",
+            $xml->asXML()
+        );
+
+        $element = new XmlElement("abc", CloudProtocol::HttpPost, "https://example.com/rss/test/");
+        $xml = new \SimpleXMLElement("<test xmlns:test=\"https://example.com/rss/test/\"></test>");
+        $element->appendToXml($xml);
+        $this->assertSame(
+            "<?xml version=\"1.0\"?>
+<test xmlns:test=\"https://example.com/rss/test/\"><test:abc>http-post</test:abc></test>
 ",
             $xml->asXML()
         );

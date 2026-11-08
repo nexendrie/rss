@@ -21,7 +21,7 @@ final class XmlElement implements XmlConvertible
      */
     public function __construct(
         public string $name,
-        public string|int|float|array|null $value = null,
+        public string|int|float|UnitEnum|array|null $value = null,
         public ?string $namespaceUri = null,
         public array $attributes = [],
         public bool $escapeAsCdata = false
