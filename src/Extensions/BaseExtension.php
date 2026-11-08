@@ -7,6 +7,7 @@ use BackedEnum;
 use Nexendrie\Rss\Extensions\ElementTypes\ArrayOfUrls;
 use Nexendrie\Rss\Extensions\ElementTypes\DateTimeString;
 use Nexendrie\Rss\Extensions\ElementTypes\EmailAddress;
+use Nexendrie\Rss\Extensions\ElementTypes\EscapedString;
 use Nexendrie\Rss\Extensions\ElementTypes\NegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonNegativeInteger;
 use Nexendrie\Rss\Extensions\ElementTypes\NonPositiveInteger;
@@ -98,6 +99,14 @@ abstract class BaseExtension implements RssExtension
 
                     $resolver->setAllowedTypes($this->getElementName($value), $elementType);
 
+                    if ($specialType instanceof NormalizedElementType) {
+                        $resolver->setNormalizer(
+                            $this->getElementName($value),
+                            fn (Options $options, $elementValue) =>
+                            $specialType->getNormalizer()($value, $elementValue, $this->getNamespace())
+                        );
+                    }
+
                     if (
                         (is_string($elementType) && $this->isEnumType($elementType)) ||
                         (is_array($elementType) && array_all($elementType, $this->isEnumType(...)))
@@ -128,6 +137,7 @@ abstract class BaseExtension implements RssExtension
             new Url(),
             new ArrayOfUrls(),
             new DateTimeString(),
+            new EscapedString(),
         ];
     }
 

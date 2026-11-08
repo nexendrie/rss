@@ -22,16 +22,12 @@ final class Content extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_ENCODED => "string",
+            self::ELEMENT_ENCODED => "escaped-string",
         ];
     }
 
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
-        $resolver->setNormalizer(
-            $this->getElementName(self::ELEMENT_ENCODED),
-            fn (OptionsResolver $resolver, string $value) => new XmlElement(self::ELEMENT_ENCODED, $value, $this->getNamespace(), [], true)
-        );
     }
 }
