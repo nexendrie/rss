@@ -58,11 +58,13 @@ final class Cloud implements XmlConvertible
 
     public function appendToXml(\SimpleXMLElement $parent): void
     {
-        $element = $parent->addChild("cloud");
-        $element->addAttribute("domain", $this->domain);
-        $element->addAttribute("port", (string) $this->port);
-        $element->addAttribute("path", $this->path);
-        $element->addAttribute("registerProcedure", $this->registerProcedure);
-        $element->addAttribute("protocol", $this->protocol->value);
+        $element = new XmlElement(
+            "cloud",
+            attributes: [
+                "domain" => $this->domain, "port" => $this->port, "path" => $this->path,
+                "registerProcedure" => $this->registerProcedure, "protocol" => $this->protocol,
+            ]
+        );
+        $element->appendToXml($parent);
     }
 }

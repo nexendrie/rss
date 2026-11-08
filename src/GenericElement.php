@@ -7,6 +7,7 @@ namespace Nexendrie\Rss;
  * GenericElement
  *
  * @author Jakub Konečný
+ * @deprecated Use {@see XmlElement} instead
  */
 final class GenericElement implements XmlConvertible
 {

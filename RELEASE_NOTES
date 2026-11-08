@@ -2,4 +2,6 @@ A new version of Rss is out. It adds RSS extensions W3C Basic Geo and Podlove Si
 
 lastBuildDate and pubDate now also accept DateTimeImmutable (instead of just DateTime).
 
+GenericElement is now deprecated, use new XmlElement instead. It supports attributes and works better with namespaces (it uses namespace URI).
+
 For complete list of changes since previous version, see CHANGELOG.md.

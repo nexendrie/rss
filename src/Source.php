@@ -39,8 +39,8 @@ final class Source implements XmlConvertible
     public function appendToXml(\SimpleXMLElement $parent): void
     {
         if ($this->url !== "") {
-            $element = $parent->addChild("source", $this->title);
-            $element->addAttribute("url", $this->url);
+            $element = new XmlElement("source", $this->title, null, ["url" => $this->url,]);
+            $element->appendToXml($parent);
         }
     }
 }

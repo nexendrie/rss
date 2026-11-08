@@ -6,6 +6,7 @@ namespace Nexendrie\Rss\Extensions\PodloveSimpleChapters;
 use Nexendrie\Rss\Extensions\ElementTypes\Url;
 use Nexendrie\Rss\Extensions\PodloveSimpleChapters;
 use Nexendrie\Rss\XmlConvertible;
+use Nexendrie\Rss\XmlElement;
 use ValueError;
 
 /**
@@ -74,14 +75,12 @@ final class Chapter implements XmlConvertible
 
     public function appendToXml(\SimpleXMLElement $parent): void
     {
-        $chapterElement = $parent->addChild("chapter", namespace: PodloveSimpleChapters::NAMESPACE);
-        $chapterElement->addAttribute("start", (string) $this->start);
-        $chapterElement->addAttribute("title", $this->title);
-        if ($this->href !== "") {
-            $chapterElement->addAttribute("href", $this->href);
-        }
-        if ($this->image !== "") {
-            $chapterElement->addAttribute("image", $this->image);
-        }
+        $element = new XmlElement(
+            "chapter",
+            null,
+            PodloveSimpleChapters::NAMESPACE,
+            ["start" => $this->start, "title" => $this->title, "href" => $this->href, "image" => $this->image,]
+        );
+        $element->appendToXml($parent);
     }
 }

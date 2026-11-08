@@ -11,9 +11,7 @@ final class Guid implements XmlConvertible
 
     public function appendToXml(\SimpleXMLElement $parent): void
     {
-        $element = $parent->addChild("guid", $this->value);
-        if ($this->permalink !== null) {
-            $element->addAttribute("isPermaLink", $this->permalink ? "true" : "false");
-        }
+        $element = new XmlElement("guid", $this->value, null, ["isPermaLink" => $this->permalink,]);
+        $element->appendToXml($parent);
     }
 }

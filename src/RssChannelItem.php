@@ -26,7 +26,10 @@ final readonly class RssChannelItem
         }
     }
 
-    public function toXml(\SimpleXMLElement $element, Generator $generator): void
+    /**
+     * @param array<string, string> $namespaces
+     */
+    public function toXml(\SimpleXMLElement $element, Generator $generator, array $namespaces = []): void
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver, $generator);
@@ -36,7 +39,11 @@ final readonly class RssChannelItem
                 continue;
             }
             if (!$value instanceof XmlConvertible) {
-                $value = new GenericElement($key, $value);
+                $namespaceUri = "";
+                if (str_contains($key, ":")) {
+                    $namespaceUri = $namespaces[explode(":", $key, 2)[0]];
+                }
+                $value = new XmlElement($key, $value, $namespaceUri);
             }
             $value->appendToXml($element);
         }

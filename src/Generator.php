@@ -73,11 +73,15 @@ final class Generator
     /**
      * @param array<string, mixed> $info
      */
-    private function writeProperty(\SimpleXMLElement $channel, array $info, string $property): void
-    {
+    private function writeProperty(
+        \SimpleXMLElement $channel,
+        array $info,
+        string $property,
+        string $namespaceUri = ""
+    ): void {
         $value = $info[$property] ?? "";
         if (!$value instanceof XmlConvertible) {
-            $value = new GenericElement($property, $value);
+            $value = new XmlElement($property, $value, $namespaceUri);
         }
         $value->appendToXml($channel->channel);
     }
@@ -103,10 +107,13 @@ final class Generator
         }
         $info = $resolver->resolve($info);
         $template = (string) file_get_contents($this->template);
+        /** @var array<string, string> $namespaces */
+        $namespaces = [];
         $nsDefinitions = "";
         foreach ($this->extensions as $extension) {
             if ($extension->getName() !== "" && $extension->getNamespace() !== "") {
                 $nsDefinitions .= sprintf(" xmlns:%s=\"%s\"", $extension->getName(), $extension->getNamespace());
+                $namespaces[$extension->getName()] = $extension->getNamespace();
             }
         }
         $template = (string) preg_replace("/<rss\\b/", "<rss$nsDefinitions", $template);
@@ -114,13 +121,17 @@ final class Generator
         $channel = simplexml_load_string($template);
         $properties = $resolver->getDefinedOptions();
         foreach ($properties as $property) {
-            $this->writeProperty($channel, $info, $property);
+            $namespaceUri = "";
+            if (str_contains($property, ":")) {
+                $namespaceUri = $namespaces[explode(":", $property, 2)[0]];
+            }
+            $this->writeProperty($channel, $info, $property, $namespaceUri);
         }
         /** @var RssChannelItem $item */
         foreach ($items as $item) {
             /** @var \SimpleXMLElement $i */
             $i = $channel->channel->addChild("item");
-            $item->toXml($i, $this);
+            $item->toXml($i, $this, $namespaces);
             $this->eventDispatcher?->dispatch(new ItemAdded($this, $channel, $item, $i));
         }
         $this->eventDispatcher?->dispatch(new ChannelAfterGenerate($this, $info));

@@ -14,7 +14,7 @@ use Nexendrie\Rss\Extensions\RssCore\Iso639Language;
 use Nexendrie\Rss\Extensions\RssCore\RssLanguage;
 use Nexendrie\Rss\Extensions\RssCore\SkipDay;
 use Nexendrie\Rss\Generator;
-use Nexendrie\Rss\GenericElement;
+use Nexendrie\Rss\XmlElement;
 use Nexendrie\Rss\Guid;
 use Nexendrie\Rss\Image;
 use Nexendrie\Rss\SkipDaysCollection;
@@ -120,7 +120,7 @@ final class RssCore extends BaseExtension
         $resolver->setDefault($this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE), date_create(...));
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE),
-            function (Options $options, Closure $value) use ($generator): GenericElement {
+            function (Options $options, Closure $value) use ($generator): XmlElement {
                 $value = $value();
                 if (!$value instanceof DateTimeInterface) {
                     throw new \InvalidArgumentException(
@@ -128,12 +128,12 @@ final class RssCore extends BaseExtension
                     );
                 }
                 $value = $value->format($generator->dateTimeFormat);
-                return new GenericElement($this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE), $value);
+                return new XmlElement($this->getElementName(self::ELEMENT_CHANNEL_LAST_BUILD_DATE), $value);
             }
         );
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_CHANNEL_PUB_DATE),
-            function (Options $options, Closure $value) use ($generator): GenericElement {
+            function (Options $options, Closure $value) use ($generator): XmlElement {
                 $value = $value();
                 if (!$value instanceof DateTimeInterface) {
                     throw new \InvalidArgumentException(
@@ -141,7 +141,7 @@ final class RssCore extends BaseExtension
                     );
                 }
                 $value = $value->format($generator->dateTimeFormat);
-                return new GenericElement($this->getElementName(self::ELEMENT_CHANNEL_PUB_DATE), $value);
+                return new XmlElement($this->getElementName(self::ELEMENT_CHANNEL_PUB_DATE), $value);
             }
         );
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CHANNEL_CATEGORIES), Category::class . "[]");
@@ -184,9 +184,9 @@ final class RssCore extends BaseExtension
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_ITEM_PUB_DATE), DateTimeInterface::class);
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_ITEM_PUB_DATE),
-            function (Options $options, DateTimeInterface $value) use ($generator): GenericElement {
+            function (Options $options, DateTimeInterface $value) use ($generator): XmlElement {
                 $value = $value->format($generator->dateTimeFormat);
-                return new GenericElement($this->getElementName(self::ELEMENT_ITEM_PUB_DATE), $value);
+                return new XmlElement($this->getElementName(self::ELEMENT_ITEM_PUB_DATE), $value);
             }
         );
         $resolver->addNormalizer(
