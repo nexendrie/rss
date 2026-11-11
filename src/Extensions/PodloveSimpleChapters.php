@@ -5,6 +5,8 @@ namespace Nexendrie\Rss\Extensions;
 
 use Nexendrie\Rss\Extensions\PodloveSimpleChapters\ChaptersCollection;
 use Nexendrie\Rss\Generator;
+use Nexendrie\Rss\XmlElement;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PodloveSimpleChapters extends BaseExtension
@@ -36,5 +38,20 @@ final class PodloveSimpleChapters extends BaseExtension
     public function configureItemOptions(OptionsResolver $resolver, Generator $generator): void
     {
         $this->registerElements($resolver);
+        $resolver->setNormalizer(
+            $this->getElementName(self::ELEMENT_CHAPTERS),
+            static function (Options $options, ChaptersCollection $value): XmlElement {
+                $children = [];
+                foreach ($value as $item) {
+                    $children[] = new XmlElement(
+                        "chapter",
+                        null,
+                        PodloveSimpleChapters::NAMESPACE,
+                        ["start" => $item->start, "title" => $item->title, "href" => $item->href, "image" => $item->image,]
+                    );
+                }
+                return new XmlElement("chapters", namespaceUri: self::NAMESPACE, children: $children);
+            }
+        );
     }
 }

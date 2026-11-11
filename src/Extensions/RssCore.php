@@ -16,8 +16,6 @@ use Nexendrie\Rss\Generator;
 use Nexendrie\Rss\XmlElement;
 use Nexendrie\Rss\Guid;
 use Nexendrie\Rss\Image;
-use Nexendrie\Rss\SkipDaysCollection;
-use Nexendrie\Rss\SkipHoursCollection;
 use Nexendrie\Rss\Source;
 use Nexendrie\Rss\TextInput;
 use Nexendrie\Utils\Numbers;
@@ -150,13 +148,13 @@ final class RssCore extends BaseExtension
             static fn(Options $options, array $value): CategoriesCollection => CategoriesCollection::fromArray($value)
         );
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CHANNEL_SKIP_DAYS), SkipDay::class . "[]");
-        $resolver->setNormalizer($this->getElementName(self::ELEMENT_CHANNEL_SKIP_DAYS), static function (Options $options, array $value): SkipDaysCollection {
-            /** @var SkipDay $item */
-            foreach ($value as &$item) {
-                $item = $item->name;
+        $resolver->setNormalizer($this->getElementName(self::ELEMENT_CHANNEL_SKIP_DAYS), static function (Options $options, array $value): XmlElement {
+            /** @var SkipDay[] $value */
+            $children = [];
+            foreach ($value as $item) {
+                $children[$item->name] = new XmlElement("day", $item);
             }
-            /** @var list<string> $value */
-            return new SkipDaysCollection($value);
+            return new XmlElement("skipDays", children: array_values($children));
         });
         $resolver->setAllowedTypes($this->getElementName(self::ELEMENT_CHANNEL_SKIP_HOURS), "int[]");
         $resolver->setAllowedValues($this->getElementName(self::ELEMENT_CHANNEL_SKIP_HOURS), static function (array $value): bool {
@@ -166,8 +164,14 @@ final class RssCore extends BaseExtension
         });
         $resolver->setNormalizer(
             $this->getElementName(self::ELEMENT_CHANNEL_SKIP_HOURS),
-            // @phpstan-ignore argument.type
-            static fn (Options $options, array $value): SkipHoursCollection => new SkipHoursCollection($value)
+            static function (Options $options, array $value): XmlElement {
+                /** @var int[] $value */
+                $children = [];
+                foreach ($value as $item) {
+                    $children[$item] = new XmlElement("hour", $item);
+                }
+                return new XmlElement("skipHours", children: array_values($children));
+            }
         );
     }
 

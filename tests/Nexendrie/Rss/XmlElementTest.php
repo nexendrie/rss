@@ -81,6 +81,21 @@ final class XmlElementTest extends TestCase
             $xml->asXML()
         );
 
+        $element = new XmlElement(
+            "abc",
+            null,
+            null,
+            [],
+            false,
+            [new XmlElement("def", "value1"), new XmlElement("def", "value2"),]
+        );
+        $xml = new \SimpleXMLElement("<test></test>");
+        $element->appendToXml($xml);
+        $this->assertSame(
+            "<?xml version=\"1.0\"?>\n<test><abc><def>value1</def><def>value2</def></abc></test>\n",
+            $xml->asXML()
+        );
+
         $element = new XmlElement("abc", "", "https://example.com/rss/test/");
         $xml = new \SimpleXMLElement("<test></test>");
         $element->appendToXml($xml);
@@ -178,6 +193,23 @@ final class XmlElementTest extends TestCase
         $this->assertSame(
             "<?xml version=\"1.0\"?>
 <test xmlns:test=\"https://example.com/rss/test/\"><test:abc><![CDATA[abc]]></test:abc><test:abc><![CDATA[def]]></test:abc></test>
+",
+            $xml->asXML()
+        );
+
+        $element = new XmlElement(
+            "abc",
+            null,
+            "https://example.com/rss/test/",
+            [],
+            false,
+            [new XmlElement("def", "value1"), new XmlElement("def", "value2"),]
+        );
+        $xml = new \SimpleXMLElement("<test xmlns:test=\"https://example.com/rss/test/\"></test>");
+        $element->appendToXml($xml);
+        $this->assertSame(
+            "<?xml version=\"1.0\"?>
+<test xmlns:test=\"https://example.com/rss/test/\"><test:abc><test:def>value1</test:def><test:def>value2</test:def></test:abc></test>
 ",
             $xml->asXML()
         );

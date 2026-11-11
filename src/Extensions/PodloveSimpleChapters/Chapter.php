@@ -4,9 +4,6 @@ declare(strict_types=1);
 namespace Nexendrie\Rss\Extensions\PodloveSimpleChapters;
 
 use Nexendrie\Rss\Extensions\ElementTypes\Url;
-use Nexendrie\Rss\Extensions\PodloveSimpleChapters;
-use Nexendrie\Rss\XmlConvertible;
-use Nexendrie\Rss\XmlElement;
 use ValueError;
 
 /**
@@ -14,7 +11,7 @@ use ValueError;
  * @property string $href
  * @property string $image
  */
-final class Chapter implements XmlConvertible
+final class Chapter
 {
     use \Nette\SmartObject;
 
@@ -71,16 +68,5 @@ final class Chapter implements XmlConvertible
             throw new ValueError("\"$image\" is not a valid URL.");
         }
         $this->image = $image;
-    }
-
-    public function appendToXml(\SimpleXMLElement $parent): void
-    {
-        $element = new XmlElement(
-            "chapter",
-            null,
-            PodloveSimpleChapters::NAMESPACE,
-            ["start" => $this->start, "title" => $this->title, "href" => $this->href, "image" => $this->image,]
-        );
-        $element->appendToXml($parent);
     }
 }

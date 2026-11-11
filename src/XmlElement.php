@@ -18,13 +18,15 @@ final class XmlElement implements XmlConvertible
     /**
      * @param string|list<scalar|null>|null $value
      * @param array<string, scalar|UnitEnum|null> $attributes
+     * @param XmlElement[] $children
      */
     public function __construct(
         public string $name,
         public string|int|float|UnitEnum|array|null $value = null,
         public ?string $namespaceUri = null,
         public array $attributes = [],
-        public bool $escapeAsCdata = false
+        public bool $escapeAsCdata = false,
+        public array $children = []
     ) {
     }
 
@@ -45,7 +47,7 @@ final class XmlElement implements XmlConvertible
             return;
         }
 
-        if (($this->value === null || $this->value === "") && count($this->attributes) === 0) {
+        if (($this->value === null || $this->value === "") && count($this->attributes) === 0 && count($this->children) === 0) {
             return;
         }
 
@@ -55,6 +57,12 @@ final class XmlElement implements XmlConvertible
             $this->escapeValueAsCdata($element, (string) $value);
         }
         $this->addAttributes($element);
+
+        foreach ($this->children as $child) {
+            if ($child instanceof XmlElement) {
+                $child->appendToXml($element);
+            }
+        }
     }
 
     private function addAttributes(SimpleXMLElement $element): void
