@@ -73,7 +73,7 @@ final class RssCore extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_CHANNEL_TITLE => "string",
+            self::ELEMENT_CHANNEL_TITLE => "escaped-string",
             self::ELEMENT_CHANNEL_DESCRIPTION => "string",
             self::ELEMENT_CHANNEL_LINK => "url",
             self::ELEMENT_CHANNEL_LAST_BUILD_DATE => Closure::class,

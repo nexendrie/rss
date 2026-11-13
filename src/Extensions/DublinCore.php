@@ -40,10 +40,10 @@ class DublinCore extends BaseExtension
     protected function getElementTypes(): array
     {
         return [
-            self::ELEMENT_TITLE => "string",
-            self::ELEMENT_CREATOR => "string",
+            self::ELEMENT_TITLE => "escaped-string",
+            self::ELEMENT_CREATOR => "escaped-string",
             self::ELEMENT_SUBJECT => "string",
-            self::ELEMENT_DESCRIPTION => "string",
+            self::ELEMENT_DESCRIPTION => "escaped-string",
             self::ELEMENT_PUBLISHER => "string",
             self::ELEMENT_CONTRIBUTOR => "string",
             self::ELEMENT_DATE => "datetime-string",
@@ -54,7 +54,7 @@ class DublinCore extends BaseExtension
             self::ELEMENT_LANGUAGE => "string",
             self::ELEMENT_RELATION => "string",
             self::ELEMENT_COVERAGE => "string",
-            self::ELEMENT_RIGHTS => "string",
+            self::ELEMENT_RIGHTS => "escaped-string",
         ];
     }
 
